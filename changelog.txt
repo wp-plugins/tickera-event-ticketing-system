@@ -1,0 +1,102 @@
+Plugin Name: Tickera - WordPress Event Ticketing
+Author: Tickera.com
+
+3.1.2.5 - 21/NOV/2014
+- Added White Payments gateway (beta)
+- Fixed issue with Ticket Types pagination in the admin
+
+3.1.2.4 - 20/NOV/2014
+- IMPORTANT: after installing this version of Tickera, you must save plugin General Settings once again
+- Reworked all payment gateways code
+- Resolved issues with emails not being sent after payment confirmation (on some servers)
+
+3.1.2.3 - 14/NOV/2014
+- Fixed issues with discount code being applied even if it's deleted
+
+3.1.2.2 - 12/NOV/2014
+- Added option to hide owner info fields from the cart page
+
+3.1.2.1 - 08/NOV/2014
+- Resolved issue with incorrectly date and time on tickets
+- Fixed bug with not setting QR code size
+
+3.1.2.0 - 05/NOV/2014
+- Resolved issues with "Checked-in Tickets" count shown in mobile apps
+
+3.1.1.9 - 31/OCT/2014
+- Resolved issues with plugin updater
+
+3.1.1.8 - 30/OCT/2014
+- Resolved output buffering issues with ticket PDF preview (occurred only on some servers)
+
+3.1.1.7 - 28/OCT/2014
+- Removed deprecated jQuery function 'live' and changed to 'on'
+- Added additional hooks for owner fields
+
+3.1.1.6 - 28/OCT/2014
+- Fixed bug with all ticket types deletion when a event is deleted
+- Added plugin update option from within the WordPress administration panel
+
+3.1.1.5 - 27/OCT/2014
+- Fixed bug with clearfix
+
+3.1.1.4 - 27/OCT/2014
+- Fixed text domain issues and generated default language files
+
+3.1.1.3 - 26/OCT/2014
+- Added output buffering error description and instructions for fixing it (shown only on some servers when trying to generate a ticket)
+- Resolved issues with confirmation screen (only on some servers) after payment via PayPal Standard payment gateway
+
+3.1.1.2 - 20/OCT/2014
+- Fixed unclosed div on front-end forms
+- Added tc_event shortcode in order to avoid clash with other themes and plugins
+
+3.1.1.1 - 19/OCT/2014
+- Fixed PHP notices on the cart page
+
+3.1.1.0 - 18/OCT/2014
+- Resolved issues with non-selectable select boxes on ticket templates page in Firefox 
+
+3.1.0.9 - 18/OCT/2014
+- Resolved issues with e-mails (incorrect email headers, client e-mails not being sent)
+- Added option to send completed order e-mail confirmation to clients upon changing order status to order paid
+
+3.1.0.8 - 17/OCT/2014
+- Added Braintree payment gateway
+
+3.1.0.7 - 16/OCT/2014
+- Added VoguePay payment gateway
+
+3.1.0.6 - 16/OCT/2014
+- Resolved issue with Cart page
+
+3.1.0.5 - 15/OCT/2014
+- Fixed issue with incorrectly closed html tags on the cart page
+
+3.1.0.4 - 15/OCT/2014
+- Removed reset CSS from front.css
+
+3.1.0.3 - 14/OCT/2014
+- Fixed issue with proceed button on the cart page
+
+3.1.0.2 - 08/OCT/2014
+- Fixed issue with anonymous functions which caused fatal PHP errors (before PHP 5.3.0) upon installation
+- Added option for custom cart URL
+- Various code improvements
+
+3.1.0.1 - 06/OCT/2014
+- Fixed issue with PayPal Standard payment gateway and its selected mode (sandbox / live)
+- Fixed issue with wp_mail email content type (set to 'text/html')
+- Fixed issue with incorrect link to order page in the notification emails
+- Added classes for input fields and wrapping divs on front-end
+
+3.1.0 - 04/OCT/2014
+- Added PayPal PRO payment gateway
+
+3.0.1 - 01/OCT/2014
+- Fixed issue with PDF preview
+- Resolved bug (PHP fatal error) with FREE Orders gateway
+
+3.0 - 29/SEP/2014
+----------------------------------------------------------------------
+- Plugin re-built from the ground up

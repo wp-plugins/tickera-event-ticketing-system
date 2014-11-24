@@ -1,0 +1,44 @@
+@font-face {
+    font-family: 'tck';
+    src:url('fonts/icomoon.eot?fircym');
+    src:url('fonts/icomoon.eot?#iefixfircym') format('embedded-opentype'),
+        url('fonts/icomoon.woff?fircym') format('woff'),
+        url('fonts/icomoon.ttf?fircym') format('truetype'),
+        url('fonts/icomoon.svg?fircym#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    font-family: 'tck';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-ticket:before {
+    content: "\e600";
+}
+
+
+#adminmenu #toplevel_page_tc_events div.wp-menu-image:before{
+    font-family: 'tck' !important;
+    content: "\e600";
+}
+
+i.mce-ico.mce-i-tc_shortcodes_button:before{
+    font-family: 'tck' !important;
+    content: "\e600";
+    font-size: 18px;
+}
+
+#adminmenu .toplevel_page_tc_events div.wp-menu-image img {
+    display: none;
+}
