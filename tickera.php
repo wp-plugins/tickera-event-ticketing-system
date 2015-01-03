@@ -22,7 +22,7 @@ if ( !class_exists( 'TC' ) ) {
 		var $version			 = '3.1.3.5';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
-		var $dir_name		 = 'tickera';
+		var $dir_name		 = 'tickera-event-ticketing-system';
 		var $location		 = 'plugins';
 		var $plugin_dir		 = '';
 		var $plugin_url		 = '';
