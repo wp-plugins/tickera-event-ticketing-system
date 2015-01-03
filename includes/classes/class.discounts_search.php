@@ -13,9 +13,10 @@ if ( !class_exists( 'TC_Discounts_Search' ) ) {
 		var $page_name	 = 'tc_discounts';
 		var $items_title	 = 'Discounts';
 
-		function __construct( $search_term = '', $page_num = '' ) {
+		function __construct( $search_term = '', $page_num = '', $per_page = 10 ) {
 			global $tc;
 
+                        $this->per_page		 = $per_page == '' ? $this->per_page : $per_page;
 			$this->page_name	 = $tc->name . '_discounts';
 			$this->search_term	 = $search_term;
 			$this->raw_page		 = ( '' == $page_num ) ? false : (int) $page_num;

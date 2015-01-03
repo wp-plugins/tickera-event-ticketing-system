@@ -27,6 +27,7 @@ jQuery( document ).ready( function( $ ) {
 
     jQuery( '.add_to_cart' ).on( 'click', function( event ) {
         event.preventDefault();
+        var button_type = $( this ).attr( 'data-button-type' );
 
         $( this ).fadeTo( "fast", 0.1 );
 
@@ -43,6 +44,10 @@ jQuery( document ).ready( function( $ ) {
                         $( '.tc_cart_contents' ).html( widget_data );
                         //$('#tc_cart_widget').fadeTo("fast", 1);
                     } );
+                }
+
+                if ( button_type == 'buynow' ) {
+                    window.location = tc_ajax.cart_url;
                 }
 
             } else {
@@ -138,21 +143,21 @@ jQuery( document ).ready( function( $ ) {
         $( 'div.tc_gateway_form' ).hide();
         $( 'div#' + gid ).show();
     } );
-    
-    
-    jQuery(".tc_choose_gateway").each(function(){
-     
-        jQuery(this).change(function() {
-            if(this.checked) {
-                jQuery('.payment-option-wrap').removeClass('active-gateway');
-                jQuery(this).closest('.payment-option-wrap').addClass('active-gateway');
+
+
+    jQuery( ".tc_choose_gateway" ).each( function() {
+
+        jQuery( this ).change( function() {
+            if ( this.checked ) {
+                jQuery( '.payment-option-wrap' ).removeClass( 'active-gateway' );
+                jQuery( this ).closest( '.payment-option-wrap' ).addClass( 'active-gateway' );
             } else {
-                jQuery(this).closest('.payment-option-wrap').toggleClass('active-gateway');
+                jQuery( this ).closest( '.payment-option-wrap' ).toggleClass( 'active-gateway' );
             }
-        });
-    })
-    
-    
-    
+        } );
+    } )
+
+
+
 
 } );

@@ -1,5 +1,6 @@
 <?php
 global $tc;
+
 $cart_contents = $tc->get_cart_cookie();
 
 $tc_general_settings = get_option( 'tc_general_setting', false );

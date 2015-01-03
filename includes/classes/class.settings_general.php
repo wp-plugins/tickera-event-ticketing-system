@@ -35,13 +35,13 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 				),
 			);
 			
-			/*if ( !defined( 'TC_LCK' ) && !defined( 'TC_NU' ) ) {
+			if ( !defined( 'TC_LCK' ) && !defined( 'TC_NU' ) ) {
 				$sections[] = array(
 					'name'			 => 'license',
 					'title'			 => __( 'License Key' ),
 					'description'	 => '',
 				);
-			}*/
+			}
 
 			apply_filters( 'tc_settings_general_sections', $sections );
 

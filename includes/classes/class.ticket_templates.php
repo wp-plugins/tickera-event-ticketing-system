@@ -17,8 +17,10 @@ if (!class_exists('TC_Ticket_Templates')) {
         function generate_preview($ticket_instance_id = false, $force_download = false, $template_id = false, $ticket_type_id = false) {
             global $tc, $pdf;
             error_reporting(0);
-            include_once( $tc->plugin_dir . 'includes/tcpdf/config/lang/eng.php' );
-            require_once( $tc->plugin_dir . 'includes/tcpdf/tcpdf.php' );
+			require_once($tc->plugin_dir . 'includes/tcpdf/examples/tcpdf_include.php');
+			
+            //include_once( $tc->plugin_dir . 'includes/tcpdf/config/lang/eng.php' );
+            //require_once( $tc->plugin_dir . 'includes/tcpdf/tcpdf.php' );
             ob_end_clean();
             ob_start();
             //use $template_id only if you preview the ticket
@@ -31,6 +33,8 @@ if (!class_exists('TC_Ticket_Templates')) {
               <strong>php_value output_buffering 1</strong><br /><br />';
                 exit;
             }*/
+			
+			//use $template_id only if you preview the ticket
             
             if ($ticket_instance_id) {
                 $ticket_instance = new TC_Ticket($ticket_instance_id);
@@ -121,7 +125,7 @@ if (!class_exists('TC_Ticket_Templates')) {
             }
             $rows .= '</table>';
             //echo $rows;
-
+			
             $page1 = preg_replace("/\s\s+/", '', $rows); //Strip excess whitespace 
             ob_get_clean();
             $pdf->writeHTML($page1, true, 0, true, 0); //Write page 1 

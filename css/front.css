@@ -351,7 +351,36 @@ html[xmlns] .tc-clearfix {
     display: none;
 }
 
+
+.payment-option-wrap label img{
+    /* fix */
+    pointer-events: none;
+    position: relative;
+    max-width: none;
+}
+
+/* fix */
+.payment-option-wrap label{
+    display: inline-block;
+    position: relative;
+}
+.payment-option-wrap label::before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+.tc_redirect_message{
+    display: none;
+}
+
 /* RESPONSIVE */
+
 @media only screen and (max-width: 1270px){
     .tc-container {
         width: 100%;

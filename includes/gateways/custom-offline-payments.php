@@ -13,6 +13,7 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 	var $force_ssl				 = false;
 	var $ipn_url;
 	var $automatically_activated	 = false;
+	var $skip_payment_screen = false;
 
 	function on_creation() {
 		global $tc;
@@ -53,7 +54,7 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 		if ( isset( $discounted_total ) && is_numeric( $discounted_total ) ) {
 			$total = round( $discounted_total, 2 );
 		} else {
-			$total = $cart_total;
+			$total = round( $cart_total, 2 );
 		}
 
 		$order_id	 = $tc->generate_order_id();

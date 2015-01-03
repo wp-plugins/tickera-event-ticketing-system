@@ -66,7 +66,6 @@ jQuery( document ).ready( function( $ ) {
         },
         stop: function( template, ui ) {
             update_li();
-            $( ".rows ul li" ).last().addClass( "last_child" );
         }
     } )/*.disableSelection()*/;
 
@@ -93,7 +92,16 @@ jQuery( document ).ready( function( $ ) {
             } );
             $( this ).find( '.rows_classes' ).val( ticket_classes.join() );
         } );
-        tc_fix_template_elements_sizes()
+        tc_fix_template_elements_sizes();
+
+        $( ".rows ul li" ).last().addClass( "last_child" );
+        $( ".tc_wrap select" ).css( 'width', '25em' );
+        $( ".tc_wrap select" ).css( 'display', 'block' );
+        $( ".tc_wrap select" ).chosen( { disable_search_threshold: 5 } );
+        $( ".tc_wrap select" ).css( 'display', 'none' );
+        $( ".tc_wrap .chosen-container" ).css( 'width', '100%' );
+        $( ".tc_wrap .chosen-container" ).css( 'max-width', '25em' );
+        $( ".tc_wrap .chosen-container" ).css( 'min-width', '1em' );
     }
 
     function tc_fix_template_elements_sizes() {
@@ -111,9 +119,21 @@ jQuery( document ).ready( function( $ ) {
         } );
     }
 
-    update_li();
 
-    tc_fix_template_elements_sizes();
+    if ( $( '#ticket_elements' ).length ) {
+        update_li();
+        tc_fix_template_elements_sizes();
+    }
+
+    function fix_chosen() {
+        $( ".tc_wrap select" ).css( 'width', '25em' );
+        $( ".tc_wrap select" ).css( 'display', 'block' );
+        $( ".tc_wrap select" ).chosen( { disable_search_threshold: 5 } );
+        $( ".tc_wrap select" ).css( 'display', 'none' );
+        $( ".tc_wrap .chosen-container" ).css( 'width', '100%' );
+        $( ".tc_wrap .chosen-container" ).css( 'max-width', '25em' );
+        $( ".tc_wrap .chosen-container" ).css( 'min-width', '1em' );
+    }
 
     $( '.order_status_change' ).on( 'change', function() {
         var new_status = $( this ).val();
@@ -143,6 +163,8 @@ jQuery( document ).ready( function( $ ) {
         }
 
         jQuery( this ).change( function() {
+            fix_chosen();
+            
             if ( this.checked ) {
                 jQuery( this ).closest( '.image-check-wrap' ).toggleClass( 'active-gateway' );
             } else {
@@ -165,4 +187,6 @@ jQuery( document ).ready( function( $ ) {
         }
     } );
 
+
+    $( ".tc_wrap select" ).chosen( { disable_search_threshold: 5 } );
 } );

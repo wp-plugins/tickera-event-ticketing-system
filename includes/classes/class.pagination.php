@@ -168,20 +168,22 @@ class TC_Pagination {
 		if ( $lastpage > 1 ) {
 			if ( $this->page ) {
 				//anterior button
-				if ( $this->page > 1 )
+				if ( $this->page > 1 ) {
 					$this->pagination .= "<a href=\"" . $this->get_pagenum_link( 1 ) . "\" class=\"first-page\">&laquo;</a>&nbsp;<a href=\"" . $this->get_pagenum_link( $prev ) . "\" class=\"prev-page\">&lsaquo;</a>&nbsp;";
-				else
+				} else {
 					$this->pagination .= "<a class=\"first-page disabled\">&laquo;</a>&nbsp;<a class=\"prev-page disabled\">&lsaquo;</a>&nbsp;"; //<span class=\"disabled\">&lsaquo;</span>";
+				}
 			}
 			//pages	
-			if ( $lastpage < 7 + ($this->adjacents * 2) ) {//not enough pages to bother breaking it up
+
+			//if ( $lastpage < 7 + ($this->adjacents * 2) ) {//not enough pages to bother breaking it up
 				for ( $counter = 1; $counter <= $lastpage; $counter++ ) {
 					/* if ($counter == $this->page)
 					  $this->pagination .= "<span class=\"current-page\">$counter</span>";
 					  else
 					  $this->pagination .= "<a href=\"" . $this->get_pagenum_link($counter) . "\">$counter</a>"; */
 				}
-			}
+			//}
 
 			$this->pagination .= '&nbsp;<span class="paging-input">' . $this->page . ' of <span class="total-pages">' . $lastpage . '</span></span>&nbsp;';
 

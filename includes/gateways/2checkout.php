@@ -15,6 +15,7 @@ class TC_Gateway_2Checkout extends TC_Gateway_API {
 	var $API_Username, $API_Password, $SandboxFlag, $returnURL, $cancelURL, $API_Endpoint, $version, $currencyCode, $locale;
 	var $currencies				 = array();
 	var $automatically_activated	 = false;
+	var $skip_payment_screen		 = true;
 
 	function on_creation() {
 		global $tc;
@@ -112,7 +113,7 @@ class TC_Gateway_2Checkout extends TC_Gateway_API {
 		if ( isset( $discounted_total ) && is_numeric( $discounted_total ) ) {
 			$total = round( $discounted_total, 2 );
 		} else {
-			$total = $cart_total;
+			$total = round( $cart_total, 2 );
 		}
 
 		$order_id = $tc->generate_order_id();
@@ -229,13 +230,13 @@ class TC_Gateway_2Checkout extends TC_Gateway_API {
 		$hashSid		 = $settings[ 'gateways' ][ '2checkout' ][ 'sid' ]; //2Checkout account number
 		$hashTotal		 = $total; //Sale total to validate against
 		$hashOrder		 = $_REQUEST[ 'order_number' ]; //2Checkout Order Number
-		
+
 		if ( $this->SandboxFlag == 'sandbox' ) {
 			$StringToHash = strtoupper( md5( $hashSecretWord . $hashSid . 1 . $hashTotal ) );
 		} else {
 			$StringToHash = strtoupper( md5( $hashSecretWord . $hashSid . $hashOrder . $hashTotal ) );
 		}
-		
+
 		if ( $StringToHash != $_REQUEST[ 'key' ] ) {
 			$tc->update_order_status( $order->ID, 'order_fraud' );
 		} else {
@@ -353,7 +354,7 @@ class TC_Gateway_2Checkout extends TC_Gateway_API {
 				exit;
 			}
 
-			if ( intval( $total ) >= $order->details->tc_payment_info[ 'total' ] ) {
+			if ( intval( round( $total, 2 ) ) >= round( $order->details->tc_payment_info[ 'total' ], 2 ) ) {
 				$tc->update_order_payment_status( $order_id, true );
 				header( 'HTTP/1.0 200 OK' );
 				header( 'Content-type: text/plain; charset=UTF-8' );

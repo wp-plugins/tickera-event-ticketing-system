@@ -33,7 +33,8 @@ If you need more payment options, you can download [Tickera Premium](http://tick
 * PIN Payments
 * Vogue Pay
 * Braintree
-* White Payments (beta)
+* PayUMoney
+* PayTabs
 * Custom Offline Payments
 * Free Orders.
 
@@ -92,6 +93,27 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 == Screenshots ==
 
 == Changelog ==
+
+Plugin Name: Tickera
+Author: Tickera.com
+
+= 3.1.3.5 =
+- Improvements in the check-in API
+- Added: automatic redirect to the gateway's payment page for 2Checkout
+- Added: additional ticket shortcode argument (type="buynow") for automatic redirection to the cart page
+- Changed: show payment gateway even in case that only one is active
+- Fixed: small rounding issues with comparing payment amounts
+- Fixed Internet Explorer issues with payment gateway selection
+- Code improvements with the ticket download section
+- Fixed small JS issues on the payment gateways screen in the admin
+- Admin UX improvements
+
+= 3.1.2.8 = 
+- Added attendee list PDF export feature
+
+= 3.1.2.7 =
+- Resolved issue with all select boxed in the admin (display more than 10 records)
+- Resolved issue with pagination class (not displaying more than 10 pages)
 
 = 3.1.2.5 =
 * Added White Payments gateway (beta)

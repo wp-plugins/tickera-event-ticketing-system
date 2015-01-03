@@ -14,7 +14,7 @@ if ( !class_exists( 'TC_Tickets_Instances_Search' ) ) {
 		var $items_title	 = 'Attendees';
 
 		function __construct( $search_term = '', $page_num = '', $per_page = 10, $post_parent = false, $offset = true,
-						$meta_key = '', $meta_value = '' ) {
+						$meta_key = '', $meta_value = '', $post_status = 'publish' ) {
 			global $tc;
 
 			$this->per_page		 = $per_page;
@@ -37,7 +37,7 @@ if ( !class_exists( 'TC_Tickets_Instances_Search' ) ) {
 				'post_type'		 => $this->post_type,
 				'post_mime_type' => '',
 				'post_parent'	 => ($post_parent ? $post_parent : ''),
-				'post_status'	 => 'any'
+				'post_status'	 => $post_status
 			);
 
 			$this->args = $args;

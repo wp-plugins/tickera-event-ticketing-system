@@ -76,6 +76,7 @@ class TC_Shortcodes extends TC {
 			'price_wrapper'			 => 'span',
 			'price_wrapper_class'	 => 'price',
 			'soldout_message'		 => __( 'Tickets are sold out.' ),
+			'type'					 => 'cart',
 			'wrapper'				 => '' ), $atts ) );
 
 		$show_price = (bool) $show_price;
@@ -103,7 +104,7 @@ class TC_Shortcodes extends TC {
 						. '</form>';
 					} else {
 						$button = '<form class="cart_form">'
-						. ($price_position == 'before' ? $with_price_content : '') . '<a href="#" class="add_to_cart" id="ticket_' . $id . '"><span class="title">' . $title . '</span></a>' . ($price_position == 'after' ? $with_price_content : '')
+						. ($price_position == 'before' ? $with_price_content : '') . '<a href="#" class="add_to_cart" data-button-type="' . $type . '" id="ticket_' . $id . '"><span class="title">' . $title . '</span></a>' . ($price_position == 'after' ? $with_price_content : '')
 						. '<input type="hidden" name="ticket_id" class="ticket_id" value="' . $id . '"/>'
 						. '</form>';
 					}

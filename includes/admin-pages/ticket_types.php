@@ -3,7 +3,7 @@ $tickets = new TC_Tickets();
 
 $page = $_GET[ 'page' ];
 
-if(isset($_GET['restore_ticket_types'])){
+if ( isset( $_GET[ 'restore_ticket_types' ] ) ) {
 	$ticket_types = new TC_Tickets();
 	$ticket_types->restore_all_ticket_types();
 }
@@ -90,7 +90,9 @@ $columns			 = $tickets->get_columns();
 									<span class="description"><?php echo $field[ 'field_description' ]; ?></span>
 								<?php } ?>
 								<?php if ( $field[ 'field_type' ] == 'text' ) { ?>
-									<input type="text" class="regular-<?php echo $field[ 'field_type' ]; ?>" value="<?php
+									<input type="text" <?php if ( isset( $field[ 'placeholder' ] ) ) {
+							echo 'placeholder="' . esc_attr( $field[ 'placeholder' ] ) . '"';
+						} ?> class="regular-<?php echo $field[ 'field_type' ]; ?>" value="<?php
 									if ( isset( $ticket ) ) {
 										if ( $field[ 'post_field_type' ] == 'post_meta' ) {
 											echo esc_attr( isset( $ticket->details->{$field[ 'field_name' ]} ) ? $ticket->details->{$field[ 'field_name' ]} : ''  );
@@ -102,8 +104,8 @@ $columns			 = $tickets->get_columns();
 										   }
 										   ?>" name="<?php echo $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>">
 									<span class="description"><?php echo $field[ 'field_description' ]; ?></span>
-								<?php } ?>
-								<?php if ( $field[ 'field_type' ] == 'textarea' ) { ?>
+									<?php } ?>
+									<?php if ( $field[ 'field_type' ] == 'textarea' ) { ?>
 									<textarea class="regular-<?php echo $field[ 'field_type' ]; ?>" id="<?php echo $field[ 'field_name' ]; ?>" name="<?php echo $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>"><?php
 										if ( isset( $ticket ) ) {
 											if ( $field[ 'post_field_type' ] == 'post_meta' ) {
@@ -115,8 +117,8 @@ $columns			 = $tickets->get_columns();
 										?></textarea>
 									<br /><span class="description"><?php echo $field[ 'field_description' ]; ?></span>
 								<?php } ?>
-								<?php if ( $field[ 'field_type' ] == 'image' ) {
-									?>
+		<?php if ( $field[ 'field_type' ] == 'image' ) {
+			?>
 									<div class="file_url_holder">
 										<label>
 											<input class="file_url" type="text" size="36" name="<?php echo $field[ 'field_name' ] . '_file_url_' . $field[ 'post_field_type' ]; ?>" value="<?php
@@ -125,11 +127,11 @@ $columns			 = $tickets->get_columns();
 											}
 											?>" />
 											<input class="file_url_button button-secondary" type="button" value="<?php _e( 'Browse', 'tc' ); ?>" />
-											<?php echo $field[ 'field_description' ]; ?>
+									<?php echo $field[ 'field_description' ]; ?>
 										</label>
 									</div>
-								<?php } ?>
-								<?php do_action( 'tc_after_tickets_field_type_check' ); ?>
+		<?php } ?>
+						<?php do_action( 'tc_after_tickets_field_type_check' ); ?>
 							</td>
 						</tr>
 						<?php
@@ -139,7 +141,7 @@ $columns			 = $tickets->get_columns();
             </tbody>
         </table>
 
-		<?php submit_button( (isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'edit' ? __( 'Update', 'tc' ) : __( 'Add New', 'tc' ) ), 'primary', 'add_new_ticket', true ); ?>
+<?php submit_button( (isset( $_REQUEST[ 'action' ] ) && $_REQUEST[ 'action' ] == 'edit' ? __( 'Update', 'tc' ) : __( 'Add New', 'tc' ) ), 'primary', 'add_new_ticket', true ); ?>
 
     </form>
 
@@ -199,8 +201,8 @@ $columns			 = $tickets->get_columns();
 							<td>                    
 								<a class="tickets_edit_link" href="<?php echo admin_url( 'admin.php?page=' . $page . '&action=' . $key . '&ID=' . $ticket_object->ID ); ?>"><?php _e( 'Edit', 'tc' ); ?></a>
 							</td>
-						<?php } elseif ( $key == 'delete' ) {
-							?>
+		<?php } elseif ( $key == 'delete' ) {
+			?>
 							<td>
 								<a class="ticket_edit_link tc_delete_link" href="<?php echo wp_nonce_url( 'admin.php?page=' . $page . '&action=' . $key . '&ID=' . $ticket_object->ID, 'delete_' . $ticket_object->ID ); ?>"><?php _e( 'Delete', 'tc' ); ?></a>
 							</td>

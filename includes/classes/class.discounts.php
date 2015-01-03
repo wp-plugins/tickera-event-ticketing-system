@@ -149,7 +149,7 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 
 			$discount_object = get_page_by_title( $discount_code, OBJECT, 'tc_discounts' );
 
-			if ( !empty( $discount_object ) && $discount_object->post_status == 'publish') {
+			if ( !empty( $discount_object ) && $discount_object->post_status == 'publish' ) {
 				$discount_object = new TC_Discount( $discount_object->ID );
 
 				/*
@@ -260,7 +260,7 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 
 			}
 
-			$new_total = (isset($_SESSION[ 'tc_cart_subtotal' ]) ? $_SESSION[ 'tc_cart_subtotal' ] : 0) - $discount_value;
+			$new_total = (isset( $_SESSION[ 'tc_cart_subtotal' ] ) ? $_SESSION[ 'tc_cart_subtotal' ] : 0) - $discount_value;
 
 			add_filter( 'tc_cart_total', 'tc_cart_total_minimum_total' );
 
@@ -339,6 +339,7 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 				array(
 					'field_name'		 => 'usage_limit',
 					'field_title'		 => __( 'Usage Limit', 'tc' ),
+					'placeholder'		 => __( 'Unlimited', 'tc' ),
 					'field_type'		 => 'text',
 					'field_description'	 => __( '(optional) How many times this discount code can be used before it is void, e.g. 100', 'tc' ),
 					'table_visibility'	 => true,

@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.1.2.5';
+		var $version			 = '3.1.3.5';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -239,6 +239,16 @@ if ( !class_exists( 'TC' ) ) {
 			require_once( $this->plugin_dir . 'includes/widgets/cart-widget.php' );
 
 			add_action( 'admin_init', array( &$this, 'generate_pdf_ticket' ), 0 );
+
+			add_action( 'init', array( &$this, 'generate_pdf_ticket_front' ), 0 );
+		}
+
+		function generate_pdf_ticket_front() {
+			$order_key = isset( $_GET[ 'order_key' ] ) ? $_GET[ 'order_key' ] : '';
+			if ( isset( $_GET[ 'download_ticket_nonce' ] ) && wp_verify_nonce( $_GET[ 'download_ticket_nonce' ], 'download_ticket_' . (int) $_GET[ 'download_ticket' ] . '_' . $order_key ) ) {
+				$templates = new TC_Ticket_Templates();
+				$templates->generate_preview( (int) $_GET[ 'download_ticket' ], true );
+			}
 		}
 
 		function generate_pdf_ticket() {
@@ -535,6 +545,11 @@ if ( !class_exists( 'TC' ) ) {
 		}
 
 		function checkin_api() {
+			if ( get_option( 'tc_version', false ) == false ) {
+				global $wp_rewrite;
+				$wp_rewrite->flush_rules();
+				update_option('tc_version', $this->version);
+			}
 			if ( isset( $_REQUEST[ 'tickera' ] ) && trim( $_REQUEST[ 'tickera' ] ) != '' && isset( $_REQUEST[ 'api_key' ] ) ) {//api is called
 				$api_call = new TC_Checkin_API( $_REQUEST[ 'api_key' ], $_REQUEST[ 'tickera' ] );
 				exit;
@@ -675,6 +690,10 @@ if ( !class_exists( 'TC' ) ) {
 			}
 
 			if ( count( (array) $tc_gateway_active_plugins ) == 1 ) {
+				$plugin = $tc_gateway_active_plugins[ 0 ];
+				if ( $plugin->method_img_url && $plugin->plugin_name !== 'free_orders' ) {
+					$content .= '<div class="payment-image-check"><img src="' . $plugin->method_img_url . '" alt="' . $plugin->public_name . '" /></div>';
+				}
 				$content .= '<input type="hidden" name="tc_choose_gateway" value="' . $tc_gateway_active_plugins[ 0 ]->plugin_name . '" />';
 			} else if ( count( (array) $tc_gateway_active_plugins ) > 1 ) {
 				$content .= '<table class="tc_cart_payment_methods">';
@@ -721,6 +740,9 @@ if ( !class_exists( 'TC' ) ) {
 				$tc_gateway_plugins[ 0 ] = $free_orders;
 			}
 
+			$active_gateways_num = 0;
+			$skip_payment_screen = false;
+
 			foreach ( (array) $tc_gateway_plugins as $code => $plugin ) {
 				if ( $cart_total == 0 ) {
 					$gateway = new $plugin;
@@ -731,27 +753,60 @@ if ( !class_exists( 'TC' ) ) {
 				if ( isset( $settings[ 'gateways' ][ 'active' ] ) ) {
 					if ( in_array( $code, $settings[ 'gateways' ][ 'active' ] ) ) {
 						$visible = true;
+						$active_gateways_num++;
 					} else {
 						$visible = false;
 					}
 				} elseif ( $gateway->automatically_activated ) {
 					$visible = true;
+					$active_gateways_num++;
 				} else {
 					$visible = false;
 				}
 
 				if ( $visible ) {
+					$skip_payment_screen = $gateway->skip_payment_screen;
 					$content .= '<div class"tickera"><div class="tc_gateway_form" id="' . $gateway->plugin_name . '">';
 					$content .= $gateway->payment_form( $cart );
 					$content .= '<p class="tc_cart_direct_checkout">';
-					$content .= '<input type="submit" name="tc_payment_submit" id="tc_payment_confirm" class="tickera-button" value="' . __( 'Continue Checkout &raquo;', 'tc' ) . '" />';
+
+					$content .= '<div class="tc_redirect_message">' . sprintf( __( 'Redirecting to %s payment page...', 'tc' ), $gateway->public_name ) . '</div>';
+					if ( $gateway->plugin_name == 'free_orders' ) {
+						$content .= '<input type="submit" name="tc_payment_submit" id="tc_payment_confirm" class="tickera-button" value="' . __( 'Continue &raquo;', 'tc' ) . '" />';
+					} else {
+						$content .= '<input type="submit" name="tc_payment_submit" id="tc_payment_confirm" class="tickera-button" value="' . __( 'Continue Checkout &raquo;', 'tc' ) . '" />';
+					}
 					$content .= '</p></div></div>';
 				}
 			}
+
+			if ( $active_gateways_num == 1 ) {
+				if ( $skip_payment_screen ) {
+					?>
+					<script>
+						jQuery( document ).ready( function( $ ) {
+							$( "#tc_payment_form" ).submit();
+							$( '#tc_payment_confirm' ).css( 'display', 'none' );
+							$( '.tc_redirect_message' ).css( 'display', 'block' );
+						} );
+					</script>
+					<?php
+				}
+			}
+
 			return $content;
 		}
 
 		function action_parse_request( &$wp ) {
+
+			/* Check for new TC Checkin API calls */
+			if ( array_key_exists( 'tickera', $wp->query_vars ) ) {
+				if ( isset( $wp->query_vars[ 'tickera' ] ) && $wp->query_vars[ 'api_key' ] ) {
+					$api_call = new TC_Checkin_API( $wp->query_vars[ 'api_key' ], $wp->query_vars[ 'tickera' ] );
+					exit;
+				}
+			}
+
 
 			/* Show Cart page */
 			if ( array_key_exists( 'page_cart', $wp->query_vars ) ) {
@@ -926,6 +981,15 @@ if ( !class_exists( 'TC' ) ) {
 			$query_vars[]	 = 'tc_order';
 			$query_vars[]	 = 'tc_order_return';
 			$query_vars[]	 = 'tc_order_key';
+
+			$query_vars[]	 = 'tickera';
+			$query_vars[]	 = 'api_key';
+			$query_vars[]	 = 'checksum';
+			$query_vars[]	 = 'check_in';
+			$query_vars[]	 = 'results_per_page';
+			$query_vars[]	 = 'page_number';
+			$query_vars[]	 = 'keyword';
+
 			return $query_vars;
 		}
 
@@ -938,6 +1002,14 @@ if ( !class_exists( 'TC' ) ) {
 			$new_rules[ '^' . $this->get_process_payment_slug() ]		 = 'index.php?page_id=-1&page_process_payment';
 			$new_rules[ '^' . $this->get_confirmation_slug() . '/(.+)' ] = 'index.php?page_id=-1&page_confirmation&tc_order_return=$matches[1]';
 			$new_rules[ '^' . $this->get_order_slug() . '/(.+)/(.+)' ]	 = 'index.php?page_id=-1&page_order&tc_order=$matches[1]&tc_order_key=$matches[2]';
+
+			$new_rules[ '^tc-api/(.+)/check_credentials' ]			 = 'index.php?tickera=tickera_check_credentials&api_key=$matches[1]';
+			$new_rules[ '^tc-api/(.+)/event_essentials' ]			 = 'index.php?tickera=tickera_event_essentials&api_key=$matches[1]';
+			$new_rules[ '^tc-api/(.+)/ticket_checkins/(.+)' ]		 = 'index.php?tickera=tickera_checkins&api_key=$matches[1]&checksum=$matches[2]';
+			$new_rules[ '^tc-api/(.+)/check_in/(.+)' ]				 = 'index.php?tickera=tickera_scan&api_key=$matches[1]&checksum=$matches[2]';
+			$new_rules[ '^tc-api/(.+)/tickets_info/(.+)/(.+)' ]		 = 'index.php?tickera=tickera_tickets_info&api_key=$matches[1]&results_per_page=$matches[2]&results_per_page=$matches[2]&page_number=$matches[3]';
+			$new_rules[ '^tc-api/(.+)/tickets_info/(.+)/(.+)/(.+)' ] = 'index.php?tickera=tickera_tickets_info&api_key=$matches[1]&results_per_page=$matches[2]&results_per_page=$matches[2]&page_number=$matches[3]&keyword=$matches[4]';
+
 			return array_merge( $new_rules, $rules );
 		}
 
@@ -991,7 +1063,9 @@ if ( !class_exists( 'TC' ) ) {
 				}
 
 				$this->set_cart_cookie( $cart );
-				ob_end_clean();
+				if ( ob_get_length() > 0 ) {
+					ob_end_clean();
+				}
 				ob_start();
 				echo sprintf( '<span class="tc_in_cart">%s <a href="%s">%s</a></span>', apply_filters( 'tc_ticket_added_to_message', __( 'Ticket added to', 'tc' ) ), $this->get_cart_slug( true ), apply_filters( 'tc_ticket_added_to_cart_message', __( 'Cart', 'tc' ) ) );
 				ob_end_flush();
@@ -1258,12 +1332,16 @@ if ( !class_exists( 'TC' ) ) {
 				'success_message'	 => __( 'Ticket Added!', 'tc' ),
 				'imgUrl'			 => $this->plugin_url . 'images/ajax-loader.gif',
 				'addingMsg'			 => __( 'Adding ticket to cart...', 'tc' ),
-				'outMsg'			 => __( 'In Your Cart', 'tc' ) ) );
+				'outMsg'			 => __( 'In Your Cart', 'tc' ),
+				'cart_url'			 => $this->get_cart_slug( true )
+			)
+			);
 		}
 
 		function init_vars() {
 			global $tc_plugin_dir, $tc_plugin_url;
 //setup proper directories
+
 			if ( defined( 'WP_PLUGIN_URL' ) && defined( 'WP_PLUGIN_DIR' ) && file_exists( WP_PLUGIN_DIR . '/' . $this->dir_name . '/' . basename( __FILE__ ) ) ) {
 				$this->location		 = 'subfolder-plugins';
 				$this->plugin_dir	 = WP_PLUGIN_DIR . '/' . $this->dir_name . '/';
@@ -1378,6 +1456,7 @@ if ( !class_exists( 'TC' ) ) {
 			require_once($this->plugin_dir . 'includes/classes/class.ticket_template_elements.php');
 			$this->load_ticket_template_elements();
 
+			$this->load_tc_addons();
 			do_action( 'tc_load_addons' );
 
 			if ( !function_exists( 'activate_plugin' ) )
@@ -1405,6 +1484,19 @@ if ( !class_exists( 'TC' ) ) {
 				include( $file );
 
 			do_action( 'tc_load_ticket_template_elements' );
+		}
+
+		function load_tc_addons() {
+			$dir		 = $this->plugin_dir . 'includes/addons/';
+			if ( !is_dir( $dir ) )
+				return;
+			if ( !$dh			 = opendir( $dir ) )
+				return;
+			while ( ( $plugin_dir	 = readdir( $dh ) ) !== false ) {
+				if ( $plugin_dir !== '.' && $plugin_dir !== '..' ) {
+					include($dir . $plugin_dir . '/index.php');
+				}
+			}
 		}
 
 		function load_payment_gateway_addons() {
@@ -1539,6 +1631,10 @@ if ( !class_exists( 'TC' ) ) {
 			if ( $paid ) {
 				$this->update_order_status( $order->ID, 'order_paid' );
 				if ( $current_payment_status !== 'order_paid' ) {
+					$cart_contents	 = get_post_meta( $order->ID, 'tc_cart_contents', false );
+					$cart_info		 = get_post_meta( $order->ID, 'tc_cart_info', false );
+					$payment_info	 = get_post_meta( $order->ID, 'tc_payment_info', false );
+					do_action( 'tc_order_updated_status_to_paid', $order->ID, 'order_paid', $cart_contents, $cart_info, $payment_info );
 					tc_order_created_email( $order->post_name, 'order_paid', false, false, false, true );
 				}
 			}
@@ -2117,8 +2213,9 @@ if ( !class_exists( 'TC' ) ) {
 				'delete_confirmation_message'	 => __( 'Please confirm that you want to delete it permanently?', 'tc' ),
 				'order_status_changed_message'	 => __( 'Order status changed successfully.', 'tc' )
 			) );
-
+			wp_enqueue_script( $this->name . '-chosen', $this->plugin_url . 'js/chosen.jquery.min.js', array( $this->name . '-admin' ), false, false );
 			wp_enqueue_style( $this->name . '-admin', $this->plugin_url . 'css/admin.css', array(), $this->version );
+			wp_enqueue_style( $this->name . '-chosen', $this->plugin_url . 'css/chosen.min.css', array(), $this->version );
 			wp_enqueue_script( $this->name . '-simple-dtpicker', $this->plugin_url . 'js/jquery.simple-dtpicker.js', array( 'jquery' ), $this->version );
 			wp_enqueue_style( $this->name . '-simple-dtpicker', $this->plugin_url . 'css/jquery.simple-dtpicker.css', array(), $this->version );
 		}

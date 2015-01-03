@@ -14,12 +14,19 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 		var $keyword			 = '';
 
 		function __construct( $api_key, $request, $return_method = 'echo', $ticket_code = '', $execute_request = true ) {
+			global $wp;
+
 			$this->api_key = $api_key;
 
-			$this->ticket_code		 = apply_filters( 'tc_ticket_code_var_name', (isset( $_REQUEST[ 'checksum' ] ) ? $_REQUEST[ 'checksum' ] : '' ) );
-			$this->page_number		 = apply_filters( 'tc_tickets_info_page_number_var_name', (isset( $_REQUEST[ 'page_number' ] ) ? $_REQUEST[ 'page_number' ] : apply_filters( 'tc_ticket_info_default_page_number', 1 ) ) );
-			$this->results_per_page	 = apply_filters( 'tc_tickets_info_results_per_page_var_name', (isset( $_REQUEST[ 'results_per_page' ] ) ? $_REQUEST[ 'results_per_page' ] : apply_filters( 'tc_ticket_info_default_results_per_page', 50 ) ) );
-			$this->keyword			 = apply_filters( 'tc_tickets_info_keyword_var_name', (isset( $_REQUEST[ 'keyword' ] ) ? $_REQUEST[ 'keyword' ] : apply_filters( 'tc_ticket_info_default_keyword', '' ) ) );
+			$checksum			 = isset( $wp->query_vars[ 'checksum' ] ) ? $wp->query_vars[ 'checksum' ] : (isset( $_REQUEST[ 'checksum' ] ) ? $_REQUEST[ 'checksum' ] : '');
+			$page_number		 = isset( $wp->query_vars[ 'page_number' ] ) ? $wp->query_vars[ 'page_number' ] : (isset( $_REQUEST[ 'page_number' ] ) ? $_REQUEST[ 'page_number' ] : apply_filters( 'tc_ticket_info_default_page_number', 1 ));
+			$results_per_page	 = isset( $wp->query_vars[ 'results_per_page' ] ) ? $wp->query_vars[ 'results_per_page' ] : (isset( $_REQUEST[ 'results_per_page' ] ) ? $_REQUEST[ 'results_per_page' ] : apply_filters( 'tc_ticket_info_default_results_per_page', 50 ));
+			$keyword			 = isset( $wp->query_vars[ 'keyword' ] ) ? $wp->query_vars[ 'keyword' ] : (isset( $_REQUEST[ 'keyword' ] ) ? $_REQUEST[ 'keyword' ] : '');
+
+			$this->ticket_code		 = apply_filters( 'tc_ticket_code_var_name', $checksum );
+			$this->page_number		 = apply_filters( 'tc_tickets_info_page_number_var_name', $page_number );
+			$this->results_per_page	 = apply_filters( 'tc_tickets_info_results_per_page_var_name', $results_per_page );
+			$this->keyword			 = apply_filters( 'tc_tickets_info_keyword_var_name', $keyword );
 
 			if ( $ticket_code !== '' ) {
 				$this->ticket_code = $ticket_code;
@@ -97,8 +104,9 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 
 				$event_id = $this->get_api_event();
 
-				$event					 = new TC_Event( $event_id );
-				$event_ticket_types		 = $event->get_event_ticket_types();
+				$event				 = new TC_Event( $event_id );
+				$event_ticket_types	 = $event->get_event_ticket_types();
+
 				$event_tickets_total	 = 0;
 				$event_checkedin_tickets = 0;
 
@@ -118,17 +126,20 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 					'meta_query'	 => $meta_query
 				);
 
-				$ticket_instances	 = get_posts( $args );
-				$tickets_sold		 = 0;
+				$ticket_instances = get_posts( $args );
+
+				$tickets_sold = 0;
 
 				foreach ( $ticket_instances as $ticket_instance ) {
 					$order = new TC_Order( $ticket_instance->post_parent );
+
 					if ( $order->details->post_status == 'order_paid' ) {
 						$tickets_sold++;
 					}
-					$checkins = get_post_meta($ticket_instance->ID, 'tc_checkins', true);
 
-					if(isset($checkins) && is_array( $checkins )){
+					$checkins = get_post_meta( $ticket_instance->ID, 'tc_checkins', true );
+
+					if ( isset( $checkins ) && is_array( $checkins ) ) {
 						$event_checkedin_tickets++;
 					}
 				}
@@ -165,11 +176,11 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 				$rows			 = array();
 				$check_ins		 = apply_filters( 'tc_ticket_checkins_array', $check_ins );
 
-				foreach ( $check_ins as $check_in ) {
-					$r[ 'date_checked' ] = date( 'Y-m-d H:i:s', $check_in[ 'date_checked' ] );
-					$r[ 'status' ]		 = $check_in[ 'status' ] ;
-					$rows[]				 = array( 'data' => $r );
-				}
+					foreach ( $check_ins as $check_in ) {
+						$r[ 'date_checked' ] = date( 'Y-m-d H:i:s', $check_in[ 'date_checked' ] );
+						$r[ 'status' ]		 = $check_in[ 'status' ];
+						$rows[]				 = array( 'data' => $r );
+					}
 
 				echo json_encode( $rows );
 				exit;
@@ -177,14 +188,14 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 		}
 
 		function ticket_checkin( $echo = true ) {
-			
+
 			if ( $this->get_api_key_id() ) {
-			
+
 				$api_key_id	 = $this->get_api_key_id();
 				$ticket_id	 = ticket_code_to_id( $this->ticket_code );
-				
+
 				if ( $ticket_id ) {
-				
+
 					$ticket_instance = new TC_Ticket_Instance( $ticket_id );
 					$ticket_type_id	 = $ticket_instance->details->ticket_type_id;
 					$ticket_type	 = new TC_Ticket( $ticket_type_id );
@@ -202,7 +213,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 					_e( 'Ticket does not exist', 'tc' );
 					exit;
 				}
-				
+
 				if ( $this->get_api_event() != $ticket_event_id ) {//Only API key for the parent event can check-in this ticket
 					if ( $echo ) {
 						_e( 'Insufficient permissions. This API key cannot check-in this ticket.', 'tc' );
@@ -211,13 +222,13 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 					}
 					exit;
 				}
-				
-				$check_ins			 = $ticket_instance->get_ticket_checkins();
-	
-				$num_of_check_ins	 = apply_filters( 'tc_num_of_checkins', (is_array( $check_ins ) ? count( $check_ins ) : 0 ) );
+
+				$check_ins = $ticket_instance->get_ticket_checkins();
+
+				$num_of_check_ins = apply_filters( 'tc_num_of_checkins', (is_array( $check_ins ) ? count( $check_ins ) : 0 ) );
 
 				$available_checkins = (is_numeric( $ticket_type->details->available_checkins_per_ticket ) ? $ticket_type->details->available_checkins_per_ticket : 9999); //9999 means unlimited check-ins but it's set for easier comparation
-				
+
 				if ( $available_checkins > $num_of_check_ins ) {
 					$check_in_status		 = apply_filters( 'tc_checkin_status_name', true );
 					$check_in_status_bool	 = true;
@@ -315,8 +326,9 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 
 				$ticket_search = new TC_Tickets_Instances_Search( $this->keyword, $this->page_number, $this->results_per_page, false, true, 'event_id', $event_id );
 
-				$results		 = $ticket_search->get_results();
-				$results_count	 = 0;
+				$results = $ticket_search->get_results();
+
+				$results_count = 0;
 
 				foreach ( $results as $result ) {
 					$ticket_instance = new TC_Ticket_Instance( $result->ID );

@@ -175,106 +175,106 @@ $columns			 = $templates->get_columns();
 			<p>
 				<a class="tc_link" target="_blank" href="http://tickera.com/?wp"><?php _e( 'Create unlimited number of ticket templates, get premium support and unlock additional features.' ); ?></a>
 			</p>
-		<?php }else{ ?>
+		<?php } else { ?>
 
-		<form action="" method="post" enctype = "multipart/form-data">
-			<div class="left-holder">
-				<?php wp_nonce_field( 'save_template' ); ?>
-				<?php
-				if ( isset( $post_id ) ) {
-					?>
-					<input type="hidden" name="post_id" value="<?php echo $post_id; ?>" />
+			<form action="" method="post" enctype = "multipart/form-data">
+				<div class="left-holder">
+					<?php wp_nonce_field( 'save_template' ); ?>
 					<?php
-				}
-				?>
-
-				<h4><?php _e( 'Template Title', 'tc' ); ?></h4>
-				<input type="text" name="template_title" value="<?php echo esc_attr( isset( $template->details->post_title ) ? $template->details->post_title : ''  ); ?>">
-
-				<h4><?php _e( 'Ticket Elements', 'tc' ); ?></h4>
-
-				<input type="hidden" name="template_id" value="<?php echo esc_attr( isset( $_GET[ 'ID' ] ) ? (int) $_GET[ 'ID' ] : ''  ); ?>" />
-
-				<ul class="sortables droptrue" id="ticket_elements">
-					<?php
-					foreach ( $tc_template_elements as $element ) {
-						$element_class = new $element[ 0 ];
-
-						if ( !in_array( $element[ 0 ], $template_elements_set ) ) {
-							?>
-							<li class="ui-state-default" data-class="<?php echo $element[ 0 ]; ?>">
-								<div class="element_title"><?php echo $element[ 1 ]; ?></div>
-								<div class="element_content">
-									<?php echo $element_class->admin_content(); ?>
-								</div>
-							</li>
-							<?php
-						}
+					if ( isset( $post_id ) ) {
+						?>
+						<input type="hidden" name="post_id" value="<?php echo $post_id; ?>" />
+						<?php
 					}
 					?>
-				</ul>
 
-				<br clear="all" />
-				<h4><?php _e( 'Ticket', 'tc' ); ?></h4>
-				<div class="rows">
-					<?php for ( $i = 1; $i <= apply_filters( 'tc_ticket_template_row_number', 10 ); $i++ ) { ?>
-						<ul id="row_<?php echo $i; ?>" class="sortables droptrue"><span class="row_num_info"><?php _e( 'Row', 'tc' ); ?> <?php echo $i; ?></span><input type="hidden" class="rows_classes" name="rows_<?php echo $i; ?>_post_meta" value="" />
-							<?php
-							if ( isset( $post_id ) ) {
-								$rows_elements = get_post_meta( $post_id, 'rows_' . $i, true );
-								if ( isset( $rows_elements ) && $rows_elements !== '' ) {
-									$element_class_names = explode( ',', $rows_elements );
-									foreach ( $element_class_names as $element_class_name ) {
-										if ( class_exists( $element_class_name ) ) {
-											if ( isset( $post_id ) ) {
-												$element = new $element_class_name( $post_id );
-											} else {
-												$element = new $element_class_name;
+					<h4><?php _e( 'Template Title', 'tc' ); ?></h4>
+					<input type="text" name="template_title" value="<?php echo esc_attr( isset( $template->details->post_title ) ? $template->details->post_title : ''  ); ?>">
+
+					<h4><?php _e( 'Ticket Elements', 'tc' ); ?></h4>
+
+					<input type="hidden" name="template_id" value="<?php echo esc_attr( isset( $_GET[ 'ID' ] ) ? (int) $_GET[ 'ID' ] : ''  ); ?>" />
+
+					<ul class="sortables droptrue" id="ticket_elements">
+						<?php
+						foreach ( $tc_template_elements as $element ) {
+							$element_class = new $element[ 0 ];
+
+							if ( !in_array( $element[ 0 ], $template_elements_set ) ) {
+								?>
+								<li class="ui-state-default" data-class="<?php echo $element[ 0 ]; ?>">
+									<div class="element_title"><?php echo $element[ 1 ]; ?></div>
+									<div class="element_content">
+										<?php echo $element_class->admin_content(); ?>
+									</div>
+								</li>
+								<?php
+							}
+						}
+						?>
+					</ul>
+
+					<br clear="all" />
+					<h4><?php _e( 'Ticket', 'tc' ); ?></h4>
+					<div class="rows">
+						<?php for ( $i = 1; $i <= apply_filters( 'tc_ticket_template_row_number', 10 ); $i++ ) { ?>
+							<ul id="row_<?php echo $i; ?>" class="sortables droptrue"><span class="row_num_info"><?php _e( 'Row', 'tc' ); ?> <?php echo $i; ?></span><input type="hidden" class="rows_classes" name="rows_<?php echo $i; ?>_post_meta" value="" />
+								<?php
+								if ( isset( $post_id ) ) {
+									$rows_elements = get_post_meta( $post_id, 'rows_' . $i, true );
+									if ( isset( $rows_elements ) && $rows_elements !== '' ) {
+										$element_class_names = explode( ',', $rows_elements );
+										foreach ( $element_class_names as $element_class_name ) {
+											if ( class_exists( $element_class_name ) ) {
+												if ( isset( $post_id ) ) {
+													$element = new $element_class_name( $post_id );
+												} else {
+													$element = new $element_class_name;
+												}
+												?>
+												<li class="ui-state-default cols" data-class="<?php echo $element_class_name; ?>">
+													<div class="element_title"><?php echo $element->element_title; ?></div>
+													<div class="element_content"><?php $element->admin_content(); ?></div>
+												</li>
+												<?php
 											}
-											?>
-											<li class="ui-state-default cols" data-class="<?php echo $element_class_name; ?>">
-												<div class="element_title"><?php echo $element->element_title; ?></div>
-												<div class="element_content"><?php $element->admin_content(); ?></div>
-											</li>
-											<?php
 										}
 									}
 								}
-							}
-							?>
-						</ul>
-					<?php } ?>
+								?>
+							</ul>
+						<?php } ?>
 
-					<br style="clear:both">
+						<br style="clear:both">
+					</div>
+					<input type="hidden" name="rows_number_post_meta" value="<?php echo apply_filters( 'tc_ticket_template_row_number', 10 ); ?>" />
+					<br clear="all" /> 
+					<?php submit_button( __( 'Save', 'tc' ), 'primary', 'add_new_template', true ); ?>
 				</div>
-				<input type="hidden" name="rows_number_post_meta" value="<?php echo apply_filters( 'tc_ticket_template_row_number', 10 ); ?>" />
-				<br clear="all" /> 
-				<?php submit_button( __( 'Save', 'tc' ), 'primary', 'add_new_template', true ); ?>
-			</div>
-			<div class="right-holder">
-				<h4><?php _e( 'Ticket PDF Settings', 'tc' ); ?></h4>
-				<div id="template_document_settings">
-					<?php
-					$template_elements->tcpdf_get_fonts();
-					$template_elements->get_document_sizes();
-					$template_elements->get_document_orientation();
-					$template_elements->get_document_margins();
-					$template_elements->get_full_background_image();
-					do_action( 'tc_template_document_settings' );
-					?>
-					<br /><br />
-					<?php submit_button( __( 'Save', 'tc' ), 'primary', 'add_new_template', false ); ?>
+				<div class="right-holder">
+					<h4><?php _e( 'Ticket PDF Settings', 'tc' ); ?></h4>
+					<div id="template_document_settings">
+						<?php
+						$template_elements->tcpdf_get_fonts();
+						$template_elements->get_document_sizes();
+						$template_elements->get_document_orientation();
+						$template_elements->get_document_margins();
+						$template_elements->get_full_background_image();
+						do_action( 'tc_template_document_settings' );
+						?>
+						<br /><br />
+						<?php submit_button( __( 'Save', 'tc' ), 'primary', 'add_new_template', false ); ?>
+					</div>
 				</div>
-			</div>
-			<div class="right-holder right-holder-second">
-				<?php if ( !isset( $_GET[ 'ID' ] ) ) { ?>
-					<p><?php _e( 'NOTE: After saving, you will have an option to see a preview of the ticket.', 'tc' ); ?></p>
-				<?php } else { ?>
-					<p><?php _e( 'NOTE: Save changes first, then check the preview.', 'tc' ); ?></p>
-					<a href="<?php echo admin_url( 'admin.php?page=' . $_GET[ 'page' ] . '&action=preview&ID=' . (int) $_GET[ 'ID' ] ); ?>" class="button button-secondary" target="_blank"><?php _e( 'Preview', 'tc' ); ?></a>
-				<?php } ?>
-			</div>
-		</form>
+				<div class="right-holder right-holder-second">
+					<?php if ( !isset( $_GET[ 'ID' ] ) ) { ?>
+						<p><?php _e( 'NOTE: After saving, you will have an option to see a preview of the ticket.', 'tc' ); ?></p>
+					<?php } else { ?>
+						<p><?php _e( 'NOTE: Save changes first, then check the preview.', 'tc' ); ?></p>
+						<a href="<?php echo admin_url( 'admin.php?page=' . $_GET[ 'page' ] . '&action=preview&ID=' . (int) $_GET[ 'ID' ] ); ?>" class="button button-secondary" target="_blank"><?php _e( 'Preview', 'tc' ); ?></a>
+					<?php } ?>
+				</div>
+			</form>
 		<?php } ?>
 	</div>
 <?php } ?>

@@ -1,8 +1,25 @@
-Plugin Name: Tickera - WordPress Event Ticketing
+Plugin Name: Tickera
 Author: Tickera.com
 
-3.1.2.5 - 21/NOV/2014
-- Added White Payments gateway (beta)
+3.1.3.5 - 30/DEC/2014
+- Improvements in the check-in API
+- Added: automatic redirect to the gateway's payment page for 2Checkout
+- Added: additional ticket shortcode argument (type="buynow") for automatic redirection to the cart page
+- Changed: show payment gateway even in case that only one is active
+- Fixed: small rounding issues with comparing payment amounts
+- Fixed Internet Explorer issues with payment gateway selection
+- Code improvements with the ticket download section
+- Fixed small JS issues on the payment gateways screen in the admin
+- Admin UX improvements
+
+3.1.2.8 - 03/DEC/2014
+- Added attendee list PDF export feature
+
+3.1.2.7 - 29/NOV/2014
+- Resolved issue with all select boxed in the admin (display more than 10 records)
+- Resolved issue with pagination class (not displaying more than 10 pages)
+
+3.1.2.5 - 25/NOV/2014
 - Fixed issue with Ticket Types pagination in the admin
 
 3.1.2.4 - 20/NOV/2014
@@ -99,4 +116,4 @@ Author: Tickera.com
 
 3.0 - 29/SEP/2014
 ----------------------------------------------------------------------
-- Plugin re-built from the ground up
+- Plugin built from the ground up

@@ -33,6 +33,7 @@ if ( !class_exists( 'TC_Tickets' ) ) {
 				array(
 					'field_name'		 => 'event_name',
 					'field_title'		 => __( 'Event Name', 'tc' ),
+					'placeholder'	     => '',
 					'field_type'		 => 'function',
 					'function'			 => 'tc_get_events',
 					'field_description'	 => '',
@@ -42,6 +43,7 @@ if ( !class_exists( 'TC_Tickets' ) ) {
 				array(
 					'field_name'		 => 'ticket_type_name',
 					'field_title'		 => __( 'Ticket Type / Name', 'tc' ),
+					'placeholder'	     => '',
 					'field_type'		 => 'text',
 					'field_description'	 => __( 'Example: Standard ticket, VIP, Early Bird, Student, Regular Admission, etc.', 'tc' ),
 					'table_visibility'	 => true,
@@ -50,6 +52,7 @@ if ( !class_exists( 'TC_Tickets' ) ) {
 				array(
 					'field_name'		 => 'ticket_description',
 					'field_title'		 => __( 'Ticket Description', 'tc' ),
+					'placeholder'	     => '',
 					'field_type'		 => 'textarea',
 					'field_description'	 => __( 'Example: Access to the whole Congress, all business networking lounges excluding the Platinum Lounge and the Official Dinner.', 'tc' ),
 					'table_visibility'	 => false,
@@ -58,6 +61,7 @@ if ( !class_exists( 'TC_Tickets' ) ) {
 				array(
 					'field_name'		 => 'price_per_ticket',
 					'field_title'		 => __( 'Price Per Ticket', 'tc' ),
+					'placeholder'	     => '',
 					'field_type'		 => 'text',
 					'field_description'	 => __( 'Example: 29.90 (without currency symbol)', 'tc' ),
 					'table_visibility'	 => true,
@@ -66,6 +70,7 @@ if ( !class_exists( 'TC_Tickets' ) ) {
 				array(
 					'field_name'		 => 'quantity_available',
 					'field_title'		 => __( 'Quantity Available', 'tc' ),
+					'placeholder'	     => __('Unlimited', 'tc'),
 					'field_type'		 => 'text',
 					'field_description'	 => __( 'Whole number like 100, empty field or 0 for unlimited', 'tc' ),
 					'table_visibility'	 => true,
@@ -74,6 +79,7 @@ if ( !class_exists( 'TC_Tickets' ) ) {
 				array(
 					'field_name'		 => 'min_tickets_per_order',
 					'field_title'		 => __( 'Min. tickets per order', 'tc' ),
+					'placeholder'	     => __('No Minimum', 'tc'),
 					'field_type'		 => 'text',
 					'field_description'	 => __( 'Whole number e.g. 5, empty field or 0 for no minimum', 'tc' ),
 					'table_visibility'	 => true,
@@ -82,6 +88,7 @@ if ( !class_exists( 'TC_Tickets' ) ) {
 				array(
 					'field_name'		 => 'max_tickets_per_order',
 					'field_title'		 => __( 'Max. tickets per order', 'tc' ),
+					'placeholder'	     => __('No Maximum', 'tc'),
 					'field_type'		 => 'text',
 					'field_description'	 => __( 'Whole number e.g. 5, empty field or 0 for no maximum', 'tc' ),
 					'table_visibility'	 => true,
@@ -90,6 +97,7 @@ if ( !class_exists( 'TC_Tickets' ) ) {
 				array(
 					'field_name'		 => 'available_checkins_per_ticket',
 					'field_title'		 => __( 'Available check-ins per ticket', 'tc' ),
+					'placeholder'	     => __('Unlimited', 'tc'),
 					'field_type'		 => 'text',
 					'field_description'	 => __( 'It is useful if the event last more than one day. For instance, if duration of your event is 5 day, you should choose 5 or more for Available Check-ins', 'tc' ),
 					'table_visibility'	 => true,
@@ -98,6 +106,7 @@ if ( !class_exists( 'TC_Tickets' ) ) {
 				array(
 					'field_name'		 => 'ticket_fee',
 					'field_title'		 => __( 'Ticket Fee', 'tc' ),
+					'placeholder'	     => __('No Fees', 'tc'),
 					'field_type'		 => 'text',
 					'field_description'	 => __( 'Ticket / Service Fee (you can add additional fee per ticket in order to cover payment gateway, service or any other type of cost) - 0 or empty for no service fee.', 'tc' ),
 					'table_visibility'	 => true,

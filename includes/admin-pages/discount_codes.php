@@ -85,7 +85,9 @@ $columns			 = $discounts->get_columns();
 									<span class="description"><?php echo $field[ 'field_description' ]; ?></span>
 								<?php } ?>
 								<?php if ( $field[ 'field_type' ] == 'text' ) { ?>
-									<input type="text" class="regular-<?php echo $field[ 'field_type' ]; ?>" value="<?php
+									<input type="text" <?php if ( isset( $field[ 'placeholder' ] ) ) {
+							echo 'placeholder="' . esc_attr( $field[ 'placeholder' ] ) . '"';
+						} ?> class="regular-<?php echo $field[ 'field_type' ]; ?>" value="<?php
 									if ( isset( $discount ) ) {
 										if ( $field[ 'post_field_type' ] == 'post_meta' ) {
 											echo esc_attr( isset( $discount->details->{$field[ 'field_name' ]} ) ? $discount->details->{$field[ 'field_name' ]} : ''  );

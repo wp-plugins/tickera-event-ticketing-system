@@ -775,7 +775,7 @@ function tc_get_ticket_download_link( $field_name, $field_id, $ticket_id ) {
 	$ticket		 = new TC_Ticket( $ticket_id );
 	$order		 = new TC_Order( $ticket->details->post_parent );
 	$order_key	 = $wp->query_vars[ 'tc_order_key' ];
-	echo '<a href="' . wp_nonce_url( trailingslashit( $tc->get_order_slug( true ) ) . $order->details->post_title . '/' . $order_key . '/?download_ticket=' . $ticket_id, 'download_ticket_' . $ticket_id . '_' . $order_key, 'download_ticket_nonce' ) . '">' . __( 'Download', 'tc' ) . '</a>';
+	echo '<a href="' . wp_nonce_url( trailingslashit( $tc->get_order_slug( true ) ) . $order->details->post_title . '/' . $order_key . '/?download_ticket=' . $ticket_id . '&order_key=' . $order_key, 'download_ticket_' . $ticket_id . '_' . $order_key, 'download_ticket_nonce' ) . '">' . __( 'Download', 'tc' ) . '</a>';
 }
 
 function tc_get_order_details_front( $order_id = '', $order_key = '' ) {
@@ -785,12 +785,12 @@ function tc_get_order_details_front( $order_id = '', $order_key = '' ) {
 
 	$order = new TC_Order( $order_id );
 
-	if ( isset( $_GET[ 'download_ticket' ] ) && $order->details->post_status == 'order_paid' ) {
-		if ( isset( $_GET[ 'download_ticket_nonce' ] ) && wp_verify_nonce( $_GET[ 'download_ticket_nonce' ], 'download_ticket_' . (int) $_GET[ 'download_ticket' ] . '_' . $order_key ) ) {
-			$templates = new TC_Ticket_Templates();
-			$templates->generate_preview( (int) $_GET[ 'download_ticket' ], true );
-		}
-	}
+	/* if ( isset( $_GET[ 'download_ticket' ] ) && $order->details->post_status == 'order_paid' ) {
+	  if ( isset( $_GET[ 'download_ticket_nonce' ] ) && wp_verify_nonce( $_GET[ 'download_ticket_nonce' ], 'download_ticket_' . (int) $_GET[ 'download_ticket' ] . '_' . $order_key ) ) {
+	  $templates = new TC_Ticket_Templates();
+	  $templates->generate_preview( (int) $_GET[ 'download_ticket' ], true );
+	  }
+	  } */
 
 	if ( $order->details->tc_order_date == $order_key ) {//key must match order creation date for security reasons
 		if ( $order->details->post_status == 'order_received' ) {
@@ -1037,7 +1037,7 @@ function tc_get_ticket_fee_type( $field_name = '', $post_id = '' ) {
 /* Get ticket templates drop down */
 
 function tc_get_ticket_templates( $field_name = '', $post_id = '' ) {
-	$wp_templates_search = new TC_Templates_Search();
+	$wp_templates_search = new TC_Templates_Search( '', '', -1 );
 	if ( $post_id !== '' ) {
 		$currently_selected = get_post_meta( $post_id, $field_name, true );
 	} else {
@@ -1069,7 +1069,7 @@ function tc_get_ticket_templates( $field_name = '', $post_id = '' ) {
 /* Get events drop down */
 
 function tc_get_api_keys_events( $field_name = '', $post_id = '' ) {
-	$wp_events_search = new TC_Events_Search();
+	$wp_events_search = new TC_Events_Search( '', '', -1 );
 	if ( $post_id !== '' ) {
 		$currently_selected = get_post_meta( $post_id, $field_name, true );
 	} else {
@@ -1110,7 +1110,7 @@ function tc_ticket_limit_types( $field_name = '', $post_id = '' ) {
 /* Get events drop down */
 
 function tc_get_events( $field_name = '', $post_id = '' ) {
-	$wp_events_search = new TC_Events_Search();
+	$wp_events_search = new TC_Events_Search( '', '', '-1' );
 	if ( $post_id !== '' ) {
 		$currently_selected = get_post_meta( $post_id, $field_name, true );
 	} else {
@@ -1135,7 +1135,7 @@ function tc_get_events( $field_name = '', $post_id = '' ) {
 /* Get tickets drop down */
 
 function tc_get_ticket_types( $field_name = '', $post_id = '' ) {
-	$wp_tickets_search = new TC_Tickets_Search();
+	$wp_tickets_search = new TC_Tickets_Search( '', '', -1 );
 	if ( $post_id !== '' ) {
 		$currently_selected = get_post_meta( $post_id, $field_name, true );
 	} else {
