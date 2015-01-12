@@ -135,13 +135,14 @@ jQuery( document ).ready( function( $ ) {
     var gateways_count = $( '.tc_gateway_form' ).length;
 
     if ( gateways_count > 1 ) {
-        $( 'div.tc_gateway_form' ).hide();
+        $( 'div.tc_gateway_form' ).css('max-height', 'auto');
     }
     //payment method choice
-    $( 'input.tc_choose_gateway' ).change( function() {
+    $( '.tickera-payment-gateways input.tc_choose_gateway' ).change( function() {
         var gid = $( 'input.tc_choose_gateway:checked' ).val();
-        $( 'div.tc_gateway_form' ).hide();
-        $( 'div#' + gid ).show();
+                
+        $( 'div.tc_gateway_form' ).removeClass('tickera-height');
+        $( 'div#' + gid ).addClass('tickera-height');
     } );
 
 

@@ -17,15 +17,19 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 
 		function get_settings_general_sections() {
 			$sections = array(
-				
 				array(
 					'name'			 => 'store_settings',
 					'title'			 => __( 'Store Settings' ),
 					'description'	 => '',
 				),
+				/* array(
+				  'name'			 => 'slug_settings',
+				  'title'			 => __( 'Slugs' ),
+				  'description'	 => '',
+				  ), */
 				array(
-					'name'			 => 'slug_settings',
-					'title'			 => __( 'Slugs' ),
+					'name'			 => 'page_settings',
+					'title'			 => __( 'Pages' ),
 					'description'	 => '',
 				),
 				array(
@@ -34,7 +38,7 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 					'description'	 => '',
 				),
 			);
-			
+
 			if ( !defined( 'TC_LCK' ) && !defined( 'TC_NU' ) ) {
 				$sections[] = array(
 					'name'			 => 'license',
@@ -161,64 +165,116 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 				),
 			);
 
-			$slugs_settings_default_fields = array(
+			$pages_settings_default_fields = array(
 				array(
-					'field_name'		 => 'ticket_cart_slug',
-					'field_title'		 => __( 'Cart Slug', 'tc' ),
-					'field_type'		 => 'option',
-					'default_value'		 => 'cart',
-					'field_description'	 => sprintf( __( 'Users will be able to see their cart contents, insert buyer and ticket owner(s) info on this URL %s', 'tc' ), trailingslashit( home_url( isset( $tc_general_settings[ 'ticket_cart_slug' ] ) ? $tc_general_settings[ 'ticket_cart_slug' ] : 'cart'  ) ) ),
-					'section'			 => 'slug_settings'
+					'field_name'		 => 'tc_cart_page_id',
+					'field_title'		 => __( 'Cart Page', 'tc' ),
+					'field_type'		 => 'function',
+					'function'			 => 'tc_get_cart_page_settings',
+					'default_value'		 => get_option( 'tc_cart_page_id', -1 ),
+					'field_description'	 => __( 'Users will be able to see their cart contents, insert buyer and ticket owner(s) info on this page. <strong>You can add this page to the site menu for easy accessibility.</strong>', 'tc' ),
+					'section'			 => 'page_settings'
 				),
 				array(
-					'field_name'		 => 'ticket_custom_cart_url',
-					'field_title'		 => __( 'Custom Cart URL', 'tc' ),
-					'field_type'		 => 'option',
+					'field_name'		 => 'tc_payment_page_id',
+					'field_title'		 => __( 'Payment Page', 'tc' ),
+					'field_type'		 => 'function',
+					'function'			 => 'tc_get_payment_page_settings',
+					'default_value'		 => get_option( 'tc_payment_page_id', -1 ),
+					'field_description'	 => __( 'Users will choose payment method on this page. <br /><strong>Do NOT add this page directly to the site menu since it will be automatically used by the plugin.</strong>', 'tc' ),
+					'section'			 => 'page_settings'
+				),
+				array(
+					'field_name'		 => 'tc_confirmation_page_id',
+					'field_title'		 => __( 'Payment Confirmation Page', 'tc' ),
+					'field_type'		 => 'function',
+					'function'			 => 'tc_get_confirmation_page_settings',
+					'default_value'		 => get_option( 'tc_confirmation_page_id', -1 ),
+					'field_description'	 => __( 'This page will be shown after completed payment. Information about payment status and link to order page will be visible on confimation page. <br /><strong>Do NOT add this page directly to the site menu since it will be automatically used by the plugin.</strong>', 'tc' ),
+					'section'			 => 'page_settings'
+				),
+				array(
+					'field_name'		 => 'tc_order_page_id',
+					'field_title'		 => __( 'Order Details Page', 'tc' ),
+					'field_type'		 => 'function',
+					'function'			 => 'tc_get_order_page_settings',
+					'default_value'		 => get_option( 'tc_order_page_id', -1 ),
+					'field_description'	 => __( 'The page where buyers will be able to check order status and / or download their ticket(s). <br /><strong>Do NOT add this page directly to the site menu since it will be automatically used by the plugin.</strong>', 'tc' ),
+					'section'			 => 'page_settings'
+				),
+				array(
+					'field_name'		 => 'tc_pages_id',
+					'field_title'		 => __( 'Pages', 'tc' ),
+					'field_type'		 => 'function',
+					'function'			 => 'tc_get_pages_settings',
 					'default_value'		 => '',
-					'field_description'	 => __( 'Put here full URL if you want to create custom cart page where you should put shortcode [tc_cart]. It is useful if you set "Show Cart Menu" option to "No". Leave empty if you want to use virtual page already set.' ),
-					'section'			 => 'slug_settings'
+					'field_description'	 => __( 'Create pages required by the plugin', 'tc' ),
+					'section'			 => 'page_settings'
 				),
+				//
 				array(
-					'field_name'		 => 'ticket_payment_slug',
-					'field_title'		 => __( 'Payment Slug', 'tc' ),
-					'field_type'		 => 'option',
-					'default_value'		 => 'payment',
-					'field_description'	 => sprintf( __( 'Users will choose payment method on this URL %s', 'tc' ), trailingslashit( home_url( isset( $tc_general_settings[ 'ticket_payment_slug' ] ) ? $tc_general_settings[ 'ticket_payment_slug' ] : 'payment'  ) ) ),
-					'section'			 => 'slug_settings'
-				),
-				array(
-					'field_name'		 => 'ticket_payment_process_slug',
-					'field_title'		 => __( 'Process Payment Slug', 'tc' ),
-					'field_type'		 => 'option',
-					'default_value'		 => 'process-payment',
-					'field_description'	 => sprintf( __( 'Gateways will process payments via this URL %s. This url is not visible to users, it is used internally.', 'tc' ), trailingslashit( home_url( isset( $tc_general_settings[ 'ticket_payment_process_slug' ] ) ? $tc_general_settings[ 'ticket_payment_process_slug' ] : 'process-payment'  ) ) ),
-					'section'			 => 'slug_settings'
-				),
-				array(
-					'field_name'		 => 'ticket_confirmation_slug',
-					'field_title'		 => __( 'Payment Confirmation Slug', 'tc' ),
-					'field_type'		 => 'option',
-					'default_value'		 => 'confirmation',
-					'field_description'	 => sprintf( __( 'Users will see this URL %s after completed payment. Information about payment status and link to order page will be visible on confimation page.', 'tc' ), trailingslashit( home_url( isset( $tc_general_settings[ 'ticket_confirmation_slug' ] ) ? $tc_general_settings[ 'ticket_confirmation_slug' ] : 'confirmation'  ) ) ),
-					'section'			 => 'slug_settings'
-				),
-				array(
-					'field_name'		 => 'ticket_payment_gateway_return_slug',
-					'field_title'		 => __( 'Payment Gateway IPN slug', 'tc' ),
-					'field_type'		 => 'option',
-					'default_value'		 => 'payment-gateway-ipn',
-					'field_description'	 => sprintf( __( 'Payment gateways will use this slug and URL %s to post instant payment notification messages. Slug is used internally.', 'tc' ), trailingslashit( home_url( isset( $tc_general_settings[ 'ticket_payment_gateway_return_slug' ] ) ? $tc_general_settings[ 'ticket_payment_gateway_return_slug' ] : 'payment-gateway-ipn'  ) ) ),
-					'section'			 => 'slug_settings'
-				),
-				array(
-					'field_name'		 => 'ticket_order_slug',
-					'field_title'		 => __( 'Order Slug', 'tc' ),
-					'field_type'		 => 'option',
-					'default_value'		 => 'order',
-					'field_description'	 => sprintf( __( 'Users will be able to check order status and / or download their ticket(s) on this URL %s', 'tc' ), trailingslashit( home_url( isset( $tc_general_settings[ 'ticket_order_slug' ] ) ? $tc_general_settings[ 'ticket_order_slug' ] : 'order'  ) ) . 'order_timestamp/order_id/' ),
-					'section'			 => 'slug_settings'
-				),
+					
+				)
 			);
+
+			/* $slugs_settings_default_fields = array(
+			  array(
+			  'field_name'		 => 'ticket_cart_slug',
+			  'field_title'		 => __( 'Cart Slug', 'tc' ),
+			  'field_type'		 => 'option',
+			  'default_value'		 => 'cart',
+			  'field_description'	 => sprintf( __( 'Users will be able to see their cart contents, insert buyer and ticket owner(s) info on this URL %s', 'tc' ), trailingslashit( home_url( isset( $tc_general_settings[ 'ticket_cart_slug' ] ) ? $tc_general_settings[ 'ticket_cart_slug' ] : 'cart'  ) ) ),
+			  'section'			 => 'slug_settings'
+			  ),
+			  array(
+			  'field_name'		 => 'ticket_custom_cart_url',
+			  'field_title'		 => __( 'Custom Cart URL', 'tc' ),
+			  'field_type'		 => 'option',
+			  'default_value'		 => '',
+			  'field_description'	 => __( 'Put here full URL if you want to create custom cart page where you should put shortcode [tc_cart]. It is useful if you set "Show Cart Menu" option to "No". Leave empty if you want to use virtual page already set.' ),
+			  'section'			 => 'slug_settings'
+			  ),
+			  array(
+			  'field_name'		 => 'ticket_payment_slug',
+			  'field_title'		 => __( 'Payment Slug', 'tc' ),
+			  'field_type'		 => 'option',
+			  'default_value'		 => 'payment',
+			  'field_description'	 => sprintf( __( 'Users will choose payment method on this URL %s', 'tc' ), trailingslashit( home_url( isset( $tc_general_settings[ 'ticket_payment_slug' ] ) ? $tc_general_settings[ 'ticket_payment_slug' ] : 'payment'  ) ) ),
+			  'section'			 => 'slug_settings'
+			  ),
+			  array(
+			  'field_name'		 => 'ticket_payment_process_slug',
+			  'field_title'		 => __( 'Process Payment Slug', 'tc' ),
+			  'field_type'		 => 'option',
+			  'default_value'		 => 'process-payment',
+			  'field_description'	 => sprintf( __( 'Gateways will process payments via this URL %s. This url is not visible to users, it is used internally.', 'tc' ), trailingslashit( home_url( isset( $tc_general_settings[ 'ticket_payment_process_slug' ] ) ? $tc_general_settings[ 'ticket_payment_process_slug' ] : 'process-payment'  ) ) ),
+			  'section'			 => 'slug_settings'
+			  ),
+			  array(
+			  'field_name'		 => 'ticket_confirmation_slug',
+			  'field_title'		 => __( 'Payment Confirmation Slug', 'tc' ),
+			  'field_type'		 => 'option',
+			  'default_value'		 => 'confirmation',
+			  'field_description'	 => sprintf( __( 'Users will see this URL %s after completed payment. Information about payment status and link to order page will be visible on confimation page.', 'tc' ), trailingslashit( home_url( isset( $tc_general_settings[ 'ticket_confirmation_slug' ] ) ? $tc_general_settings[ 'ticket_confirmation_slug' ] : 'confirmation'  ) ) ),
+			  'section'			 => 'slug_settings'
+			  ),
+			  array(
+			  'field_name'		 => 'ticket_payment_gateway_return_slug',
+			  'field_title'		 => __( 'Payment Gateway IPN slug', 'tc' ),
+			  'field_type'		 => 'option',
+			  'default_value'		 => 'payment-gateway-ipn',
+			  'field_description'	 => sprintf( __( 'Payment gateways will use this slug and URL %s to post instant payment notification messages. Slug is used internally.', 'tc' ), trailingslashit( home_url( isset( $tc_general_settings[ 'ticket_payment_gateway_return_slug' ] ) ? $tc_general_settings[ 'ticket_payment_gateway_return_slug' ] : 'payment-gateway-ipn'  ) ) ),
+			  'section'			 => 'slug_settings'
+			  ),
+			  array(
+			  'field_name'		 => 'ticket_order_slug',
+			  'field_title'		 => __( 'Order Slug', 'tc' ),
+			  'field_type'		 => 'option',
+			  'default_value'		 => 'order',
+			  'field_description'	 => sprintf( __( 'Users will be able to check order status and / or download their ticket(s) on this URL %s', 'tc' ), trailingslashit( home_url( isset( $tc_general_settings[ 'ticket_order_slug' ] ) ? $tc_general_settings[ 'ticket_order_slug' ] : 'order'  ) ) . 'order_timestamp/order_id/' ),
+			  'section'			 => 'slug_settings'
+			  ),
+			  ); */
 
 			$menu_settings_default_fields = array(
 				array(
@@ -232,9 +288,9 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 				),
 			);
 
-			$default_fields	 = array_merge( $store_settings_default_fields, $slugs_settings_default_fields );
+			$default_fields	 = array_merge( $store_settings_default_fields, $pages_settings_default_fields );
 			$default_fields	 = array_merge( $menu_settings_default_fields, $default_fields );
-			
+
 			if ( !defined( 'TC_LCK' ) && !defined( 'TC_NU' ) ) {
 				$default_fields = array_merge( $license_settings_default_fields, $default_fields );
 			}

@@ -5,7 +5,7 @@
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.1.3.5
+  Version: 3.1.3.7
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.1.3.5';
+		var $version			 = '3.1.3.7';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -241,6 +241,86 @@ if ( !class_exists( 'TC' ) ) {
 			add_action( 'admin_init', array( &$this, 'generate_pdf_ticket' ), 0 );
 
 			add_action( 'init', array( &$this, 'generate_pdf_ticket_front' ), 0 );
+
+			add_action( 'admin_print_styles', array( &$this, 'add_notices' ) );
+
+			add_action( 'admin_init', array( &$this, 'install_actions' ) );
+
+		}
+
+
+		/**
+		 * Install actions such as installing pages when a button is clicked.
+		 */
+		function install_actions() {
+			// Install - Add pages button
+			if ( !empty( $_GET[ 'install_tickera_pages' ] ) ) {
+
+				self::create_pages();
+
+				// We no longer need to install pages
+				update_option( 'tc_needs_pages', 0 );
+
+				// Settings redirect
+				wp_redirect( admin_url( 'admin.php?page=tc_settings' ) );
+				exit;
+
+				// Skip button
+			}
+			/*if ( !empty( $_GET[ 'skip_install_tickera_pages' ] ) ) {
+
+				// We no longer need to install pages
+				update_option( 'tc_needs_pages', 0 );
+
+				// Settings redirect
+				wp_redirect( admin_url( 'admin.php?page=tc_settings' ) );
+				exit;
+			}*/
+		}
+
+		function create_pages() {
+			$pages = apply_filters( 'tickera_create_pages', array(
+				'cart'			 => array(
+					'name'		 => _x( 'tickets-cart', 'Page slug', 'tc' ),
+					'title'		 => _x( 'Cart', 'Page title', 'tc' ),
+					'content'	 => '[' . apply_filters( 'tc_cart_shortcode_tag', 'tc_cart' ) . ']'
+				),
+				'payment'		 => array(
+					'name'		 => _x( 'tickets-payment', 'Page slug', 'tc' ),
+					'title'		 => _x( 'Payment', 'Page title', 'tc' ),
+					'content'	 => '[' . apply_filters( 'tc_payment_shortcode_tag', 'tc_payment' ) . ']'
+				),
+				'confirmation'	 => array(
+					'name'		 => _x( 'tickets-order-confirmation', 'Page slug', 'tc' ),
+					'title'		 => _x( 'Payment Confirmation', 'Page title', 'tc' ),
+					'content'	 => '[' . apply_filters( 'tc_order_confirmation_shortcode_tag', 'tc_order_confirmation' ) . ']'
+				),
+				'order'			 => array(
+					'name'		 => _x( 'tickets-order-details', 'Page slug', 'tc' ),
+					'title'		 => _x( 'Order Details', 'Page title', 'tc' ),
+					'content'	 => '[' . apply_filters( 'tc_order_details_shortcode_tag', 'tc_order_details' ) . ']'
+				),
+			) );
+
+			foreach ( $pages as $key => $page ) {
+				tc_create_page( esc_sql( $page[ 'name' ] ), 'tc_' . $key . '_page_id', $page[ 'title' ], $page[ 'content' ], !empty( $page[ 'parent' ] ) ? wc_get_page_id( $page[ 'parent' ] ) : ''  );
+			}
+			
+			flush_rewrite_rules();
+		}
+
+		function add_notices() {
+			if ( get_option( 'tc_needs_pages', 1 ) == 1 ) {
+				add_action( 'admin_notices', array( $this, 'install_notice' ) );
+			}
+		}
+
+		function install_notice() {
+			global $tc;
+			// If we have just installed, show a message with the install pages button
+			if ( get_option( 'tc_needs_pages', 1 ) == 1 ) {
+				include( 'includes/install-notice.php' );
+			}
 		}
 
 		function generate_pdf_ticket_front() {
@@ -548,7 +628,7 @@ if ( !class_exists( 'TC' ) ) {
 			if ( get_option( 'tc_version', false ) == false ) {
 				global $wp_rewrite;
 				$wp_rewrite->flush_rules();
-				update_option('tc_version', $this->version);
+				update_option( 'tc_version', $this->version );
 			}
 			if ( isset( $_REQUEST[ 'tickera' ] ) && trim( $_REQUEST[ 'tickera' ] ) != '' && isset( $_REQUEST[ 'api_key' ] ) ) {//api is called
 				$api_call = new TC_Checkin_API( $_REQUEST[ 'api_key' ], $_REQUEST[ 'tickera' ] );
@@ -689,35 +769,6 @@ if ( !class_exists( 'TC' ) ) {
 				$content .= '<div class="tc_cart_errors"><ul><li>' . $_SESSION[ 'tc_gateway_error' ] . '</li></ul></div>';
 			}
 
-			if ( count( (array) $tc_gateway_active_plugins ) == 1 ) {
-				$plugin = $tc_gateway_active_plugins[ 0 ];
-				if ( $plugin->method_img_url && $plugin->plugin_name !== 'free_orders' ) {
-					$content .= '<div class="payment-image-check"><img src="' . $plugin->method_img_url . '" alt="' . $plugin->public_name . '" /></div>';
-				}
-				$content .= '<input type="hidden" name="tc_choose_gateway" value="' . $tc_gateway_active_plugins[ 0 ]->plugin_name . '" />';
-			} else if ( count( (array) $tc_gateway_active_plugins ) > 1 ) {
-				$content .= '<table class="tc_cart_payment_methods">';
-				$content .= '<thead><tr>';
-				$content .= '<th>' . __( 'Payment Method:', 'tc' ) . '</th>';
-				$content .= '</tr></thead>';
-				$content .= '<tbody><tr><td>';
-				foreach ( (array) $tc_gateway_active_plugins as $plugin ) {
-					$content .= '<div class="payment-option-wrap"><label for="' . $plugin->plugin_name . '">';
-					$content .= '<input type="radio" class="tc_choose_gateway" id="' . $plugin->plugin_name . '" name="tc_choose_gateway" value="' . $plugin->plugin_name . '" ' . checked( isset( $_SESSION[ 'tc_payment_method' ] ) ? $_SESSION[ 'tc_payment_method' ] : '', $plugin->plugin_name, false ) . '/>';
-					if ( $plugin->method_img_url ) {
-						$content .= '<div class="payment-image-check"><img src="' . $plugin->method_img_url . '" alt="' . $plugin->public_name . '" /></div>';
-					}
-					$content .= $plugin->public_name;
-					$content .= '</label></div>';
-				}
-				$content .= '</td>';
-				$content .= '</tr>';
-				$content .= '</tbody>';
-				$content .= '</table>';
-			} else {
-				$content .= '<input type="hidden" name="tc_choose_gateway" value="free_orders" />';
-			}
-
 			$content .= $this->tc_checkout_payment_form( '', $cart );
 
 			$content .= '</form></div>';
@@ -765,8 +816,30 @@ if ( !class_exists( 'TC' ) ) {
 				}
 
 				if ( $visible ) {
+                                    
+                                        if ( count( (array) $tc_gateway_active_plugins ) == 1 ) {
+                                            $tickera_max_height = 'tickera-height';
+                                        } else {
+                                            $tickera_max_height = '';
+                                        }
+
+                                    
 					$skip_payment_screen = $gateway->skip_payment_screen;
-					$content .= '<div class"tickera"><div class="tc_gateway_form" id="' . $gateway->plugin_name . '">';
+					$content .= '<div class="tickera tickera-payment-gateways">'
+                                                  . '<div class="' . $gateway->plugin_name . ' plugin-title">'
+                                                  . '<label>';
+                                        
+                                        if ( count( (array) $tc_gateway_active_plugins ) == 1 ) {
+                                            $content .= '<input type="radio" class="tc_choose_gateway tickera-hide-button" id="' . $gateway->plugin_name . '" name="tc_choose_gateway" value="' . $gateway->plugin_name . '" checked ' . checked( isset( $_SESSION[ 'tc_payment_method' ] ) ? $_SESSION[ 'tc_payment_method' ] : '', $gateway->plugin_name, false ) . '/>';
+                                        } else {
+                                            $content .= '<input type="radio" class="tc_choose_gateway" id="' . $gateway->plugin_name . '" name="tc_choose_gateway" value="' . $gateway->plugin_name . '" ' . checked( isset( $_SESSION[ 'tc_payment_method' ] ) ? $_SESSION[ 'tc_payment_method' ] : '', $gateway->plugin_name, false ) . '/>';
+                                        }
+                                        
+                                        $content .= $gateway->admin_name  
+                                                  . '<img src="'.$gateway->method_img_url.'" class="tickera-payment-options" alt="'.$gateway->plugin_name.'" /></label>'
+                                                  . '</label>'
+                                                  . '</div>'
+                                                  . '<div class="tc_gateway_form '.$tickera_max_height.'" id="' . $gateway->plugin_name . '">';
 					$content .= $gateway->payment_form( $cart );
 					$content .= '<p class="tc_cart_direct_checkout">';
 
@@ -995,13 +1068,34 @@ if ( !class_exists( 'TC' ) ) {
 
 		function add_rewrite_rules( $rules ) {
 			$new_rules[ '^' . $this->get_payment_gateway_return_slug() . '/(.+)' ] = 'index.php?page_id=-1&payment_gateway_return=$matches[1]';
+
 			if ( !$this->cart_has_custom_url() ) {
 				$new_rules[ '^' . $this->get_cart_slug() ] = 'index.php?page_id=-1&page_cart';
 			}
-			$new_rules[ '^' . $this->get_payment_slug() ]				 = 'index.php?page_id=-1&page_payment';
-			$new_rules[ '^' . $this->get_process_payment_slug() ]		 = 'index.php?page_id=-1&page_process_payment';
-			$new_rules[ '^' . $this->get_confirmation_slug() . '/(.+)' ] = 'index.php?page_id=-1&page_confirmation&tc_order_return=$matches[1]';
-			$new_rules[ '^' . $this->get_order_slug() . '/(.+)/(.+)' ]	 = 'index.php?page_id=-1&page_order&tc_order=$matches[1]&tc_order_key=$matches[2]';
+
+			if ( !$this->get_payment_page() ) {
+				$new_rules[ '^' . $this->get_payment_slug() ] = 'index.php?page_id=-1&page_payment';
+			}
+
+			if ( !$this->get_confirmation_page() ) {
+				$new_rules[ '^' . $this->get_confirmation_slug() . '/(.+)' ] = 'index.php?page_id=-1&page_confirmation&tc_order_return=$matches[1]';
+			} else {
+				$page_id										 = get_option( 'tc_confirmation_page_id', false );
+				$page											 = get_post( $page_id, OBJECT );
+				$new_rules[ '^' . $page->post_name . '/(.+)' ]	 = 'index.php?pagename=' . $page->post_name . '&tc_order_return=$matches[1]';
+			}
+
+			if ( !$this->get_order_page() ) {
+				$new_rules[ '^' . $this->get_order_slug() . '/(.+)/(.+)' ] = 'index.php?page_id=-1&page_order&tc_order=$matches[1]&tc_order_key=$matches[2]';
+			} else {
+				$page_id											 = get_option( 'tc_order_page_id', false );
+				$page												 = get_post( $page_id, OBJECT );
+				$new_rules[ '^' . $page->post_name . '/(.+)/(.+)' ]	 = 'index.php?pagename=' . $page->post_name . '&tc_order=$matches[1]&tc_order_key=$matches[2]';
+			}
+
+			$new_rules[ '^' . $this->get_process_payment_slug() ] = 'index.php?page_id=-1&page_process_payment';
+
+
 
 			$new_rules[ '^tc-api/(.+)/check_credentials' ]			 = 'index.php?tickera=tickera_check_credentials&api_key=$matches[1]';
 			$new_rules[ '^tc-api/(.+)/event_essentials' ]			 = 'index.php?tickera=tickera_event_essentials&api_key=$matches[1]';
@@ -1223,7 +1317,7 @@ if ( !class_exists( 'TC' ) ) {
 
 						if ( $cart_error_number == 0 && $required_fields_error_count == 0 ) {
 							$this->save_cart_post_data();
-							wp_redirect( home_url( trailingslashit( $this->get_payment_slug() ) ) );
+							wp_redirect( $this->get_payment_slug( true ) );
 							exit;
 						}
 					}
@@ -1983,8 +2077,13 @@ if ( !class_exists( 'TC' ) ) {
 			}
 
 			if ( $url ) {
-				return trailingslashit( home_url() ) . get_option( 'ticket_order_slug', $default_slug_value );
+				if ( $this->get_order_page() ) {
+					return trailingslashit( $this->get_order_page( true ) );
+				} else {
+					return trailingslashit( home_url() ) . get_option( 'ticket_order_slug', $default_slug_value );
+				}
 			}
+
 			return $default_slug_value;
 		}
 
@@ -1992,6 +2091,58 @@ if ( !class_exists( 'TC' ) ) {
 			$tc_general_settings = get_option( 'tc_general_setting', false );
 			if ( isset( $tc_general_settings[ 'ticket_custom_cart_url' ] ) && $tc_general_settings[ 'ticket_custom_cart_url' ] !== '' ) {
 				return true;
+			} else {
+				return false;
+			}
+		}
+
+		function get_cart_page( $url = false ) {
+			$page = get_option( 'tc_cart_page_id', false );
+			if ( $page ) {
+				if ( $url ) {
+					return get_permalink( $page );
+				} else {
+					return $page;
+				}
+			} else {
+				return false;
+			}
+		}
+
+		function get_payment_page( $url = false ) {
+			$page = get_option( 'tc_payment_page_id', false );
+			if ( $page ) {
+				if ( $url ) {
+					return get_permalink( $page );
+				} else {
+					return $page;
+				}
+			} else {
+				return false;
+			}
+		}
+
+		function get_confirmation_page( $url = false ) {
+			$page = get_option( 'tc_confirmation_page_id', false );
+			if ( $page ) {
+				if ( $url ) {
+					return get_permalink( $page );
+				} else {
+					return $page;
+				}
+			} else {
+				return false;
+			}
+		}
+
+		function get_order_page( $url = false ) {
+			$page = get_option( 'tc_order_page_id', false );
+			if ( $page ) {
+				if ( $url ) {
+					return get_permalink( $page );
+				} else {
+					return $page;
+				}
 			} else {
 				return false;
 			}
@@ -2005,22 +2156,36 @@ if ( !class_exists( 'TC' ) ) {
 				$default_slug_value = 'cart';
 			}
 			if ( $url ) {
-				if ( isset( $tc_general_settings[ 'ticket_custom_cart_url' ] ) && $tc_general_settings[ 'ticket_custom_cart_url' ] !== '' ) {
-					return $tc_general_settings[ 'ticket_custom_cart_url' ];
+				if ( $this->get_cart_page() ) {
+					return $this->get_cart_page( true );
 				} else {
-					return trailingslashit( home_url() ) . get_option( 'ticket_cart_slug', $default_slug_value );
+					if ( isset( $tc_general_settings[ 'ticket_custom_cart_url' ] ) && $tc_general_settings[ 'ticket_custom_cart_url' ] !== '' ) {
+						return $tc_general_settings[ 'ticket_custom_cart_url' ];
+					} else {
+						return trailingslashit( home_url() ) . get_option( 'ticket_cart_slug', $default_slug_value );
+					}
 				}
 			}
 			return $default_slug_value;
 		}
 
-		function get_payment_slug() {
+		function get_payment_slug( $url = false ) {
 			$tc_general_settings = get_option( 'tc_general_setting', false );
+
 			if ( isset( $tc_general_settings[ 'ticket_payment_slug' ] ) ) {
 				$default_slug_value = $tc_general_settings[ 'ticket_payment_slug' ];
 			} else {
 				$default_slug_value = 'payment';
 			}
+
+			if ( $url ) {
+				if ( $this->get_payment_page() ) {
+					return $this->get_payment_page( true );
+				} else {
+					return trailingslashit( home_url() ) . get_option( 'ticket_payment_slug', $default_slug_value );
+				}
+			}
+
 			return $default_slug_value;
 		}
 
@@ -2034,13 +2199,22 @@ if ( !class_exists( 'TC' ) ) {
 			return $default_slug_value;
 		}
 
-		function get_confirmation_slug() {
+		function get_confirmation_slug( $url = false, $order_id = false ) {
 			$tc_general_settings = get_option( 'tc_general_setting', false );
 			if ( isset( $tc_general_settings[ 'ticket_confirmation_slug' ] ) ) {
 				$default_slug_value = $tc_general_settings[ 'ticket_confirmation_slug' ];
 			} else {
 				$default_slug_value = 'confirmation';
 			}
+
+			if ( $url ) {
+				if ( $this->get_confirmation_page() ) {
+					return trailingslashit( $this->get_confirmation_page( true ) ) . trailingslashit( $order_id );
+				} else {
+					return trailingslashit( home_url() ) . trailingslashit( get_option( 'ticket_confirmation_slug', $default_slug_value ) ) . trailingslashit( $order_id );
+				}
+			}
+
 			return $default_slug_value;
 		}
 
@@ -2226,5 +2400,4 @@ if ( !class_exists( 'TC' ) ) {
 
 global $tc, $license_key;
 $tc = new TC();
-$tc_general_settings = get_option( 'tc_general_setting', false );
 ?>

@@ -11,6 +11,9 @@ class TC_Shortcodes extends TC {
 	function __construct() {
 		//register shortcodes
 		add_shortcode( 'tc_cart', array( &$this, 'tc_cart_page' ) );
+		add_shortcode( 'tc_payment', array( &$this, 'tc_payment_page' ) );
+		add_shortcode( 'tc_order_confirmation', array( &$this, 'tc_order_confirmation_page' ) );
+		add_shortcode( 'tc_order_details', array( &$this, 'tc_order_details_page' ) );
 
 		add_shortcode( 'ticket', array( &$this, 'ticket_cart_button' ) );
 		add_shortcode( 'tc_ticket', array( &$this, 'ticket_cart_button' ) );
@@ -137,6 +140,30 @@ class TC_Shortcodes extends TC {
 		global $tc;
 		ob_start();
 		include_once( $tc->plugin_dir . 'includes/templates/shortcode-cart-contents.php' );
+		$content = wpautop( ob_get_clean(), true );
+		return $content;
+	}
+
+	function tc_payment_page( $atts ) {
+		global $tc;
+		ob_start();
+		include_once( $tc->plugin_dir . 'includes/templates/page-payment.php' );
+		$content = wpautop( ob_get_clean(), true );
+		return $content;
+	}
+
+	function tc_order_confirmation_page( $atts ) {
+		global $tc;
+		ob_start();
+		include_once( $tc->plugin_dir . 'includes/templates/page-confirmation.php' );
+		$content = wpautop( ob_get_clean(), true );
+		return $content;
+	}
+
+	function tc_order_details_page( $atts ) {
+		global $tc, $wp;
+		ob_start();
+		include_once( $tc->plugin_dir . 'includes/templates/page-order.php' );
 		$content = wpautop( ob_get_clean(), true );
 		return $content;
 	}

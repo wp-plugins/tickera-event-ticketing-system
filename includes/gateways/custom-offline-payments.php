@@ -13,7 +13,7 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 	var $force_ssl				 = false;
 	var $ipn_url;
 	var $automatically_activated	 = false;
-	var $skip_payment_screen = false;
+	var $skip_payment_screen		 = false;
 
 	function on_creation() {
 		global $tc;
@@ -33,7 +33,7 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 		global $tc;
 		$settings = get_option( 'tc_settings' );
 
-		$cart_contents	 = $tc->get_cart_cookie();
+		$cart_contents = $tc->get_cart_cookie();
 
 		$cart_total = $_SESSION[ 'tc_cart_total' ];
 
@@ -49,7 +49,7 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 		$fees_total										 = $_SESSION[ 'tc_total_fees' ];
 		$tax_total										 = $_SESSION[ 'tc_tax_value' ];
 
-		$cart_info		 = $_SESSION[ 'cart_info' ];
+		$cart_info = $_SESSION[ 'cart_info' ];
 
 		if ( isset( $discounted_total ) && is_numeric( $discounted_total ) ) {
 			$total = round( $discounted_total, 2 );
@@ -74,11 +74,11 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 		if ( !isset( $_SESSION ) ) {
 			session_start();
 		}
-		
+
 		$_SESSION[ 'tc_payment_info' ]	 = $payment_info;
 		$order							 = $tc->create_order( $order_id, $cart_contents, $cart_info, $payment_info, false );
 
-		wp_redirect( trailingslashit( tc_checkout_step_url( $tc->get_confirmation_slug() ) ) . trailingslashit( $order_id ) );
+		wp_redirect( $tc->get_confirmation_slug( true, $order_id ) );
 		exit;
 	}
 

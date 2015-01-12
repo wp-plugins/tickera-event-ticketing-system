@@ -1,21 +1,52 @@
-.tc_gateway_form {
-    margin: 30px 0 0 0;
+.tickera-payment-gateways {
+    border: 1px solid #f1f1f1;
+    padding: 6px 10px;
+    float:left;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.tickera-hide-button {
+    display: none;
+}
+
+.tickera-payment-gateways .tc_gateway_form {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s linear;
+    -moz-transition: max-height 0.5s linear;
+    -webkit-transition: max-height 0.5s linear;
+}
+
+.tickera-payment-gateways .tickera-height {
+    max-height: 1000px;
+    transition: max-height 0.5s linear;
+    -moz-transition: max-height 0.5s linear;
+    -webkit-transition: max-height 0.5s linear;
+}
+
+.tickera-payment-gateways .tickera-height.tc_gateway_form {
+    margin: 30px 0;
+}
+
+.tickera-payment-gateways .plugin-title {
+    font-size: 0.9em;
+}
+
+.tickera-payment-options {
+    margin-left: 15px;
 }
 
 .tc_cart_payment_methods th {
-    padding: 20px 0;
+    padding: 20px 7px;
 }
 
 .tc_gateway_form thead  th {
-    padding: 20px 0;
+    padding: 20px 7px;
 }
 
 .tickera_table {
     width: 100%;
-}
-
-.tc_gateway_form tr:last-child td {
-    padding-bottom: 25px;
 }
 
 .cart_success{
@@ -24,7 +55,6 @@
 
 .tc_cart_billing {
     width: 100%;
-    padding: 10px;
     margin-bottom: 30px;
 }
 
@@ -109,7 +139,7 @@
 }
 
 .ticket-quantity .quantity {
-    width: 30px;
+    width: 35px;
     height: 30px;
     border: none;
     text-align: center;
@@ -220,6 +250,7 @@
 .coupon-code input {
     border: 1px solid #e7e7e7;
     height: 34px;
+    margin-bottom: 10px;
 }
 
 .tickera-checkout .ticket-total-all {
@@ -228,7 +259,7 @@
 }
 
 .ticket-total-all span {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
 }
 
 .tickera-checkout .last-table-row td {
@@ -348,7 +379,7 @@ html[xmlns] .tc-clearfix {
 }
 
 .tc_choose_gateway {
-    display: none;
+   margin-right: 7px;
 }
 
 

@@ -97,6 +97,14 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.3.7 =
+- Fixed issue with discount code limit with percentage discount code type (not being applying on more than one ticket)
+
+= 3.1.3.6 =
+- IMPORTANT: Added physical pages instead of virtual pages
+- PayTabs payment gateway update (to reflect new API changes)
+- Improvements in the checkout process on front (changed in the both design and code)
+
 = 3.1.3.5 =
 - Improvements in the check-in API
 - Added: automatic redirect to the gateway's payment page for 2Checkout

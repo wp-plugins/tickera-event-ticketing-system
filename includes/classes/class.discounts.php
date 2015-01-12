@@ -178,7 +178,7 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 									$discount_value				 = $discount_value + $discount_value_per_each;
 									$number_of_discount_uses++;
 									$discount_codes_available	 = $usage_limit - $number_of_discount_uses;
-									//$max_discount = ($ordered_count >= $discount_codes_available ? $discount_codes_available : $ordered_count);
+									$max_discount = ($ordered_count >= $discount_codes_available ? $discount_codes_available : $ordered_count);
 									//echo $i.'<br />';
 								}
 
@@ -206,11 +206,11 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 								$discount_value_per_each = ($discount_object->details->discount_type == 1 ? $discount_object->details->discount_value : (($ticket_price / 100) * $discount_object->details->discount_value));
 
 								$max_discount = ($ordered_count >= $discount_codes_available ? $discount_codes_available : $ordered_count);
-
+					
 								for ( $i = 1; $i <= $max_discount; $i++ ) {
 									$discount_value				 = $discount_value + $discount_value_per_each;
 									$number_of_discount_uses++;
-									$discount_codes_available	 = $discount_object->details->usage_limit - $number_of_discount_uses;
+									$discount_codes_available	 = ($discount_object->details->usage_limit == '' ? 99999 : $discount_object->details->usage_limit) - $number_of_discount_uses;
 									$max_discount				 = ($ordered_count >= $discount_codes_available ? $discount_codes_available : $ordered_count);
 								}
 							} else {

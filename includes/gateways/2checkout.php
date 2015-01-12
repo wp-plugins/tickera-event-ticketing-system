@@ -70,7 +70,7 @@ class TC_Gateway_2Checkout extends TC_Gateway_API {
 		global $tc;
 		if ( isset( $_GET[ '2checkout_cancel' ] ) ) {
 			$_SESSION[ 'tc_gateway_error' ] = __( 'Your transaction has been canceled.', 'tc' );
-			wp_redirect( tc_checkout_step_url( 'payment' ) );
+			wp_redirect( $tc->get_payment_slug( true ) );
 			exit;
 		}
 	}
@@ -123,8 +123,8 @@ class TC_Gateway_2Checkout extends TC_Gateway_API {
 		$params[ 'sid' ]				 = $this->API_Username;
 		$params[ 'cart_order_id' ]		 = $order_id;
 		$params[ 'merchant_order_id' ]	 = $order_id;
-		$params[ 'return_url' ]			 = trailingslashit( tc_checkout_step_url( $tc->get_confirmation_slug() ) ) . trailingslashit( $order_id );
-		$params[ 'x_receipt_link_url' ]	 = trailingslashit( tc_checkout_step_url( $tc->get_confirmation_slug() ) ) . trailingslashit( $order_id ); //trailingslashit( $this->ipn_url ) . trailingslashit( $order_id );
+		$params[ 'return_url' ]			 = $tc->get_confirmation_slug( true, $order_id );
+		$params[ 'x_receipt_link_url' ]	 = $tc->get_confirmation_slug( true, $order_id ); //trailingslashit( $this->ipn_url ) . trailingslashit( $order_id );
 		$params[ 'skip_landing' ]		 = '1';
 		$params[ 'fixed' ]				 = 'Y';
 		$params[ 'currency_code' ]		 = $this->currencyCode;
@@ -257,8 +257,7 @@ class TC_Gateway_2Checkout extends TC_Gateway_API {
 			<h3 class='handle'><span><?php _e( '2Checkout', 'tc' ); ?></span></h3>
 			<div class="inside">
 				<span class="description"><?php
-					_e( 'Sell your tickets via 2Checkout.com. This gateway requires that the setting in 2Checkout for "Return Method" inside Account -> Site Management be set to <strong>"Header Redirect"</strong> and "Approved URL set to "', 'tc' );
-					echo '<strong>' . trailingslashit( home_url() ) . trailingslashit( $tc->get_confirmation_slug() ) . '</strong>';
+					_e( 'Sell your tickets via 2Checkout.com.', 'tc' );
 					?></span>
 				<table class="form-table">
 					<tr>

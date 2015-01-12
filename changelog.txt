@@ -1,25 +1,52 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
+3.1.3.7 - 12/JAN/2015
+- Fixed issue with discount code limit with percentage discount code type (not being applying on more than one ticket)
+
+3.1.3.6 - 09/JAN/2015
+- IMPORTANT: Added physical pages instead of virtual pages
+- PayTabs payment gateway update (to reflect new API changes)
+- Improvements in the checkout process on front (changed in the both design and code)
+
 3.1.3.5 - 30/DEC/2014
 - Improvements in the check-in API
-- Added: automatic redirect to the gateway's payment page for 2Checkout
+
+3.1.3.4 - 29/DEC/2014
+- Added PayTabs payment gateway (Africa, Middle East and Asia)
+
+3.1.3.3 - 27/DEC/2014
+- Resolved notices and issues with the previous version
+
+3.1.3.2 - 26/DEC/2014
+- Added: PayUMoney payment gateway (India)
+- Added: automatic redirect to the gateway's payment page for 2Checkout, VoguePay and PayPal Standard
 - Added: additional ticket shortcode argument (type="buynow") for automatic redirection to the cart page
 - Changed: show payment gateway even in case that only one is active
 - Fixed: small rounding issues with comparing payment amounts
+
+3.1.3.1 - 18/DEC/2014
 - Fixed Internet Explorer issues with payment gateway selection
 - Code improvements with the ticket download section
+
+3.1.3 - 11/DEC/2014
 - Fixed small JS issues on the payment gateways screen in the admin
+
+3.1.2.9 - 11/DEC/2014
 - Admin UX improvements
 
 3.1.2.8 - 03/DEC/2014
 - Added attendee list PDF export feature
 
 3.1.2.7 - 29/NOV/2014
+- VoguePay payment gateway update (to reflect API changes)
 - Resolved issue with all select boxed in the admin (display more than 10 records)
+
+3.1.2.6 - 28/NOV/2014
 - Resolved issue with pagination class (not displaying more than 10 pages)
 
 3.1.2.5 - 25/NOV/2014
+- Added White Payments gateway (beta)
 - Fixed issue with Ticket Types pagination in the admin
 
 3.1.2.4 - 20/NOV/2014

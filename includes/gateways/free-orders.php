@@ -13,7 +13,7 @@ class TC_Gateway_Free_Orders extends TC_Gateway_API {
 	var $force_ssl				 = false;
 	var $ipn_url;
 	var $automatically_activated	 = true;
-	var $skip_payment_screen = false;
+	var $skip_payment_screen		 = false;
 
 	function on_creation() {
 		global $tc;
@@ -74,12 +74,12 @@ class TC_Gateway_Free_Orders extends TC_Gateway_API {
 		if ( !isset( $_SESSION ) ) {
 			session_start();
 		}
-		
+
 		$_SESSION[ 'tc_payment_info' ] = $payment_info;
 
 		$order = $tc->create_order( $order_id, $cart_contents, $cart_info, $payment_info, false );
 
-		wp_redirect( trailingslashit( tc_checkout_step_url( $tc->get_confirmation_slug() ) ) . trailingslashit( $order_id ) );
+		wp_redirect( $tc->get_confirmation_slug( true, $order_id ) );
 		exit;
 	}
 

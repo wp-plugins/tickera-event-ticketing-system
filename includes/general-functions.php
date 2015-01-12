@@ -1,5 +1,58 @@
 <?php
 
+function tc_get_payment_page_slug() {
+	$page_id = get_option( 'tc_payment_page_id', false );
+	$page	 = get_post( $page_id, OBJECT );
+	return $page->post_name;
+}
+
+function tc_create_page( $slug, $option = '', $page_title = '', $page_content = '', $post_parent = 0 ) {
+	global $wpdb;
+
+	$option_value = get_option( $option );
+
+	if ( $option_value > 0 && get_post( $option_value ) )
+		return -1;
+
+	$page_found = null;
+
+	if ( strlen( $page_content ) > 0 ) {
+		// Search for an existing page with the specified page content (typically a shortcode)
+		$page_found = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM " . $wpdb->posts . " WHERE post_type='page' AND post_content LIKE %s LIMIT 1;", "%{$page_content}%" ) );
+	} else {
+		// Search for an existing page with the specified page slug
+		$page_found = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM " . $wpdb->posts . " WHERE post_type='page' AND post_name = %s LIMIT 1;", $slug ) );
+	}
+
+	$page_found = apply_filters( 'woocommerce_create_page_id', $page_found, $slug, $page_content );
+
+	if ( $page_found ) {
+		if ( !$option_value ) {
+			update_option( $option, $page_found );
+		}
+
+		return $page_found;
+	}
+
+	$page_data	 = array(
+		'post_status'	 => 'publish',
+		'post_type'		 => 'page',
+		'post_author'	 => 1,
+		'post_name'		 => $slug,
+		'post_title'	 => $page_title,
+		'post_content'	 => $page_content,
+		'post_parent'	 => $post_parent,
+		'comment_status' => 'closed'
+	);
+	$page_id	 = wp_insert_post( $page_data );
+
+	if ( $option ) {
+		update_option( $option, $page_id );
+	}
+
+	return $page_id;
+}
+
 function tc_get_events_and_tickets_shortcode_select_box() {
 	?>
 	<select name="tc_events_tickets_shortcode_select" class="tc_events_tickets_shortcode_select">
@@ -392,6 +445,72 @@ function tc_get_global_currencies( $field_name, $default_value = '' ) {
 		}
 		?>
 	</select>
+	<?php
+}
+
+function tc_save_page_ids() {
+	if ( isset( $_POST[ 'tc_cart_page_id' ] ) ) {
+		update_option( 'tc_cart_page_id', $_POST[ 'tc_cart_page_id' ] );
+	}
+
+	if ( isset( $_POST[ 'tc_payment_page_id' ] ) ) {
+		update_option( 'tc_payment_page_id', $_POST[ 'tc_payment_page_id' ] );
+	}
+
+	if ( isset( $_POST[ 'tc_confirmation_page_id' ] ) ) {
+		update_option( 'tc_confirmation_page_id', $_POST[ 'tc_confirmation_page_id' ] );
+	}
+
+	if ( isset( $_POST[ 'tc_order_page_id' ] ) ) {
+		update_option( 'tc_order_page_id', $_POST[ 'tc_order_page_id' ] );
+	}
+}
+
+function tc_get_cart_page_settings( $field_name, $default_value = '' ) {
+	$args = array(
+		'selected'	 => get_option( 'tc_cart_page_id', -1 ),
+		'echo'		 => 1,
+		'name'		 => 'tc_cart_page_id',
+	);
+
+	wp_dropdown_pages( $args );
+}
+
+function tc_get_payment_page_settings( $field_name, $default_value = '' ) {
+
+	$args = array(
+		'selected'	 => get_option( 'tc_payment_page_id', -1 ),
+		'echo'		 => 1,
+		'name'		 => 'tc_payment_page_id',
+	);
+
+	wp_dropdown_pages( $args );
+}
+
+function tc_get_confirmation_page_settings( $field_name, $default_value = '' ) {
+	$args = array(
+		'selected'	 => get_option( 'tc_confirmation_page_id', -1 ),
+		'echo'		 => 1,
+		'name'		 => 'tc_confirmation_page_id',
+	);
+
+	wp_dropdown_pages( $args );
+}
+
+function tc_get_order_page_settings( $field_name, $default_value = '' ) {
+
+	$args = array(
+		'selected'	 => get_option( 'tc_order_page_id', -1 ),
+		'echo'		 => 1,
+		'name'		 => 'tc_order_page_id',
+	);
+
+	wp_dropdown_pages( $args );
+}
+
+function tc_get_pages_settings( $field_name, $default_value = '' ) {
+	?>
+	<p class="submit"><a href="<?php echo add_query_arg( 'install_tickera_pages', 'true', admin_url( 'admin.php?page=tc_settings' ) ); ?>" class="button-primary"><?php printf( __( 'Install %s Pages', 'tc' ), $tc->title ); ?></a></p>
 	<?php
 }
 
