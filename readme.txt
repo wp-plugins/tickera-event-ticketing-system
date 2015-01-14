@@ -97,6 +97,10 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+=3.1.3.8 =
+- Added new ticket template elements (ticket code and buyer name)
+- Added changes to the check-in API required for the upcoming iPhone app
+
 = 3.1.3.7 =
 - Fixed issue with discount code limit with percentage discount code type (not being applying on more than one ticket)
 

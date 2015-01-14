@@ -5,7 +5,7 @@
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.1.3.7
+  Version: 3.1.3.8
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.1.3.7';
+		var $version			 = '3.1.3.8';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -2400,4 +2400,4 @@ if ( !class_exists( 'TC' ) ) {
 
 global $tc, $license_key;
 $tc = new TC();
-?>
+

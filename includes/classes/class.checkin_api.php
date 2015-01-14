@@ -2,6 +2,9 @@
 
 if ( !defined( 'ABSPATH' ) )
 	exit; // Exit if accessed directly
+if ( isset( $_REQUEST[ 'ct_json' ] ) ) {
+	header( 'Content-Type: application/json' );
+}
 
 if ( !class_exists( 'TC_Checkin_API' ) ) {
 
@@ -176,11 +179,11 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 				$rows			 = array();
 				$check_ins		 = apply_filters( 'tc_ticket_checkins_array', $check_ins );
 
-					foreach ( $check_ins as $check_in ) {
-						$r[ 'date_checked' ] = date( 'Y-m-d H:i:s', $check_in[ 'date_checked' ] );
-						$r[ 'status' ]		 = $check_in[ 'status' ];
-						$rows[]				 = array( 'data' => $r );
-					}
+				foreach ( $check_ins as $check_in ) {
+					$r[ 'date_checked' ] = date( 'Y-m-d H:i:s', $check_in[ 'date_checked' ] );
+					$r[ 'status' ]		 = $check_in[ 'status' ];
+					$rows[]				 = array( 'data' => $r );
+				}
 
 				echo json_encode( $rows );
 				exit;
