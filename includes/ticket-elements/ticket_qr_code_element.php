@@ -31,10 +31,13 @@ class tc_ticket_qr_code_element extends TC_Ticket_Template_Elements {
 			$ticket_code	 = ($ticket_instance) ? $ticket_instance->details->ticket_code : $tc->create_unique_id();
 			$order			 = new TC_Order( $ticket_instance->details->post_parent );
 			$qrstring		 = 'id|' . $ticket_instance_id . '|name|' . $ticket_instance->details->first_name . ' ' . $ticket_instance->details->last_name . '|city|' . ($ticket_instance->details->city ? $ticket_instance->details->city : '') . '|address|' . ($ticket_instance->details->address ? $ticket_instance->details->address : '') . '|country|' . ($ticket_instance->details->country ? $ticket_instance->details->country : '') . '|state|' . ($ticket_instance->details->state ? $ticket_instance->details->state : '') . '|payment_date|' . $order->details->post_date . '|checksum|' . $ticket_instance->details->ticket_code;
+			if ( apply_filters( 'tc_qr_code_quick_scan_info', false ) ) {
+				$qrstring = $ticket_instance->details->ticket_code;
+			}
 		}
 
-		$cell_alignment = $this->template_metas[ $this->element_name . '_cell_alignment' ];
-		$code_size = $this->template_metas[ $this->element_name . '_qr_code_size' ];
+		$cell_alignment	 = $this->template_metas[ $this->element_name . '_cell_alignment' ];
+		$code_size		 = $this->template_metas[ $this->element_name . '_qr_code_size' ];
 
 		if ( isset( $cell_alignment ) && $cell_alignment == 'right' ) {
 			$cell_alignment = 'R';

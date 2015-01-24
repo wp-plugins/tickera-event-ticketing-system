@@ -2,65 +2,61 @@
 
 if ( !defined( 'ABSPATH' ) )
 	exit; // Exit if accessed directly
-//if ( isset( $_REQUEST[ 'ct_json' ] ) ) {
+if ( isset( $_REQUEST[ 'ct_json' ] ) ) {
 	header( 'Content-Type: application/json' );
-//}
+}
 
-if ( !class_exists( 'TC_Checkin_API' ) ) {
+if ( !class_exists( 'TC_Sales_API' ) ) {
 
-	class TC_Checkin_API {
+	class TC_Sales_API {
 
 		var $api_key			 = '';
-		var $ticket_code		 = '';
 		var $page_number		 = 1;
 		var $results_per_page = 10;
 		var $keyword			 = '';
 
-		function __construct( $api_key, $request, $return_method = 'echo', $ticket_code = '', $execute_request = true ) {
+		function __construct( $api_key, $request, $return_method = 'echo', $execute_request = true ) {
 			global $wp;
 
 			$this->api_key = $api_key;
 
-			$checksum			 = isset( $wp->query_vars[ 'checksum' ] ) ? $wp->query_vars[ 'checksum' ] : (isset( $_REQUEST[ 'checksum' ] ) ? $_REQUEST[ 'checksum' ] : '');
 			$page_number		 = isset( $wp->query_vars[ 'page_number' ] ) ? $wp->query_vars[ 'page_number' ] : (isset( $_REQUEST[ 'page_number' ] ) ? $_REQUEST[ 'page_number' ] : apply_filters( 'tc_ticket_info_default_page_number', 1 ));
 			$results_per_page	 = isset( $wp->query_vars[ 'results_per_page' ] ) ? $wp->query_vars[ 'results_per_page' ] : (isset( $_REQUEST[ 'results_per_page' ] ) ? $_REQUEST[ 'results_per_page' ] : apply_filters( 'tc_ticket_info_default_results_per_page', 50 ));
 			$keyword			 = isset( $wp->query_vars[ 'keyword' ] ) ? $wp->query_vars[ 'keyword' ] : (isset( $_REQUEST[ 'keyword' ] ) ? $_REQUEST[ 'keyword' ] : '');
+			$period				 = isset( $wp->query_vars[ 'period' ] ) ? $wp->query_vars[ 'period' ] : (isset( $_REQUEST[ 'period' ] ) ? $_REQUEST[ 'period' ] : -30);
+			$period_compare		 = isset( $wp->query_vars[ 'period_compare' ] ) ? $wp->query_vars[ 'period_compare' ] : (isset( $_REQUEST[ 'period_compare' ] ) ? $_REQUEST[ 'period_compare' ] : '>');
+			$order_id			 = isset( $wp->query_vars[ 'order_id' ] ) ? $wp->query_vars[ 'order_id' ] : (isset( $_REQUEST[ 'order_id' ] ) ? $_REQUEST[ 'order_id' ] : '');
+			$event_id			 = isset( $wp->query_vars[ 'event_id' ] ) ? $wp->query_vars[ 'event_id' ] : (isset( $_REQUEST[ 'event_id' ] ) ? $_REQUEST[ 'event_id' ] : '');
 
-			if ( $checksum !== '' ) {
-				$findme	 = 'checksum'; //old QR code character
-				$pos	 = strpos( $checksum, $findme );
-				if ( $pos === false ) {//new code
-					//$checksum
-				} else {//old code
-					$ticket_strings_array	 = explode( '%7C', $checksum ); //%7C = |
-					$checksum				 = end( $ticket_strings_array );
-				}
-			}
+			$this->page_number		 = apply_filters( 'tc_sales_stats_page_number_var_name', $page_number );
+			$this->results_per_page	 = apply_filters( 'tc_sales_stats_results_per_page_var_name', $results_per_page );
+			$this->keyword			 = apply_filters( 'tc_sales_stats_keyword_var_name', $keyword );
+			$this->period			 = apply_filters( 'tc_sales_stats_period_var_name', $period );
+			$this->period_compare	 = apply_filters( 'tc_sales_stats_period_compare_var_name', $period_compare );
+			$this->order_id			 = apply_filters( 'tc_sales_stats_order_id_var_name', $order_id );
+			$this->event_id			 = apply_filters( 'tc_sales_stats_event_id_var_name', $event_id );
 
-			$this->ticket_code		 = apply_filters( 'tc_ticket_code_var_name', $checksum );
-			$this->page_number		 = apply_filters( 'tc_tickets_info_page_number_var_name', $page_number );
-			$this->results_per_page	 = apply_filters( 'tc_tickets_info_results_per_page_var_name', $results_per_page );
-			$this->keyword			 = apply_filters( 'tc_tickets_info_keyword_var_name', $keyword );
-
+			/*
+			  $new_rules[ '^tc-api/(.+)/sales_check_credentials' ]			 = 'index.php?tickera_sales=sales_check_credentials&api_key=$matches[1]';
+			  $new_rules[ '^tc-api/(.+)/sales_stats_general/(.+)/(.+)/(.+)' ] = 'index.php?tickera_sales=sales_stats_general&api_key=$matches[1]&period=$matches[2]&results_per_page=$matches[3]&page_number=$matches[4]';
+			  $new_rules[ '^tc-api/(.+)/sales_stats_event/(.+)/(.+)/(.+)' ] = 'index.php?tickera_sales=sales_stats_event&api_key=$matches[1]&period=$matches[2]&results_per_page=$matches[3]&page_number=$matches[4]';
+			  $new_rules[ '^tc-api/(.+)/sales_stats_order/(.+)' ] = 'index.php?tickera_sales=sales_stats_order&api_key=$matches[1]&order_id=$matches[2]';
+			 * 			 */
 			if ( $execute_request ) {
-				if ( $request == apply_filters( 'tc_check_credentials_request_name', 'tickera_check_credentials' ) ) {
+				if ( $request == apply_filters( 'tc_sales_credentials_request_name', 'sales_check_credentials' ) ) {
 					$this->check_credentials();
 				}
 
-				if ( $request == apply_filters( 'tc_event_essentials_request_name', 'tickera_event_essentials' ) ) {
-					$this->get_event_essentials();
+				if ( $request == apply_filters( 'tc_sales_stats_general_request_name', 'sales_stats_general' ) ) {
+					$this->get_stats_general();
 				}
 
-				if ( $request == apply_filters( 'tc_checkins_request_name', 'tickera_checkins' ) ) {
-					$this->ticket_checkins();
+				if ( $request == apply_filters( 'tc_sales_stats_event_request_name', 'sales_stats_event' ) ) {
+					$this->get_stats_event();
 				}
 
-				if ( $request == apply_filters( 'tc_checkin_request_name', 'tickera_scan' ) ) {
-					$this->ticket_checkin( $return_method );
-				}
-
-				if ( $request == apply_filters( 'tc_checkin_request_name', 'tickera_tickets_info' ) ) {
-					$this->tickets_info();
+				if ( $request == apply_filters( 'tc_sales_stats_order_request_name', 'sales_stats_order' ) ) {
+					$this->get_stats_order();
 				}
 			}
 		}
@@ -99,7 +95,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 				);
 			}
 
-			$json = json_encode( apply_filters( 'tc_check_credentials_data_output', $data ) );
+			$json = json_encode( apply_filters( 'tc_sales_credentials_data_output', $data ) );
 
 			if ( $echo ) {
 				echo $json;
@@ -108,6 +104,81 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 				return $json;
 			}
 		}
+
+		function get_stats_general( $echo = true ) {
+			global $tc, $wpdb;
+			if ( $this->get_api_key_id() ) {
+				/* //FOR PERIOD
+				 * FOR EACH EVENT
+				 * - event id
+				 * - event name
+				 * - number of sales
+				 * - number of ticket types
+				 * 
+				 */
+
+				// Get revenue and number of orders for the selected period
+				
+				$cache_name_revenue			 = 'tc_stats_general_revenue_' . $this->period . '_' . $this->results_per_page . '_' . $this->page_number;
+				$cache_name_number_of_orders = 'tc_stats_general_number_of_orders_' . $this->period . '_' . $this->results_per_page . '_' . $this->page_number;
+
+				$revenue			 = wp_cache_get( $cache_name_revenue );
+				$number_of_orders	 = wp_cache_get( $cache_name_number_of_orders );
+
+				if ( false === $revenue || false === $number_of_orders ) {
+					$number_of_orders	 = 0;
+					$total_revenue		 = 0;
+					$wp_orders_search	 = new TC_Orders_Search( '', '', 0, array( 'order_paid', 'order_received' ), $this->period, $this->period_compare );
+
+					foreach ( $wp_orders_search->get_results() as $order ) {
+						$order_object	 = new TC_Order( $order->ID );
+						$total_revenue	 = $total_revenue + $order_object->details->tc_payment_info[ 'total' ];
+						$number_of_orders++;
+					}
+
+					$total_revenue	 = round( $total_revenue, 2 );
+					$revenue		 = $total_revenue;
+
+					wp_cache_set( $cache_name_revenue, $revenue );
+					wp_cache_set( $cache_name_number_of_orders, $number_of_orders );
+				}
+
+				$data = array(
+					'revenue'			 => stripslashes( $revenue ),
+					'currency'			 => stripslashes( $tc->get_cart_currency() ),
+					'number_of_orders'	 => $number_of_orders
+				);
+
+				$json = json_encode( apply_filters( 'tc_get_stats_general_data_output', $data ) );
+
+				if ( $echo ) {
+					echo $json;
+					exit;
+				} else {
+					return $json;
+				}
+			}
+		}
+
+		function get_stats_event( $echo = true ) {
+			if ( $this->get_api_key_id() ) {
+				
+			}
+		}
+
+		function get_stats_order( $echo = true ) {
+			if ( $this->get_api_key_id() ) {
+				
+			}
+		}
+
+		/*
+
+		 * 
+		 * 
+		 * Unneeded code bellow
+		 * 
+		 * 		 */
 
 		function get_event_essentials( $echo = true ) {
 			if ( $this->get_api_key_id() ) {
@@ -320,7 +391,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 
 				$data[ 'custom_fields' ] = array(
 					array( 'Ticket Type', $ticket_type->details->post_title ),
-					array( 'Buyer Name', $order->details->tc_cart_info[ 'buyer_data' ][ 'first_name_post_meta' ].' '.$order->details->tc_cart_info[ 'buyer_data' ][ 'last_name_post_meta' ] ),
+					array( 'Buyer Name', $order->details->tc_cart_info[ 'buyer_data' ][ 'first_name_post_meta' ] . ' ' . $order->details->tc_cart_info[ 'buyer_data' ][ 'last_name_post_meta' ] ),
 					array( 'Buyer E-mail', $order->details->tc_cart_info[ 'buyer_data' ][ 'email_post_meta' ] ),
 				//array( 'Buyer Name', $r[ 'buyer_first' ] . ' ' . $r[ 'buyer_last' ] ),
 				);
@@ -381,7 +452,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 
 						$r[ 'custom_fields' ] = array(
 							array( 'Ticket Type', $ticket_type->details->post_title ),
-							array( 'Buyer Name', $order->details->tc_cart_info[ 'buyer_data' ][ 'first_name_post_meta' ].' '.$order->details->tc_cart_info[ 'buyer_data' ][ 'last_name_post_meta' ] ),
+							array( 'Buyer Name', $order->details->tc_cart_info[ 'buyer_data' ][ 'first_name_post_meta' ] . ' ' . $order->details->tc_cart_info[ 'buyer_data' ][ 'last_name_post_meta' ] ),
 							array( 'Buyer E-mail', $order->details->tc_cart_info[ 'buyer_data' ][ 'email_post_meta' ] ),
 						//array( 'Buyer Name', $r[ 'buyer_first' ] . ' ' . $r[ 'buyer_last' ] ),
 						//array( 'Example Field 1', 'Val 1' ),

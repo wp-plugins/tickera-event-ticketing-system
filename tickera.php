@@ -5,7 +5,7 @@
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.1.3.8
+  Version: 3.1.4
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.1.3.8';
+		var $version			 = '3.1.4';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -38,6 +38,9 @@ if ( !class_exists( 'TC' ) ) {
 
 //load checkin api class
 			require_once( $this->plugin_dir . 'includes/classes/class.checkin_api.php' );
+
+			//load sales api class
+			require_once( $this->plugin_dir . 'includes/classes/class.sales_api.php' );
 
 //load event class
 			require_once( $this->plugin_dir . 'includes/classes/class.cart_form.php' );
@@ -174,6 +177,8 @@ if ( !class_exists( 'TC' ) ) {
 
 			add_action( 'init', array( &$this, 'checkin_api' ), 0 );
 
+			add_action( 'init', array( &$this, 'sales_api' ), 0 );
+
 			add_action( 'init', array( &$this, 'start_session' ), 0 );
 
 			add_action( 'template_redirect', array( &$this, 'load_cart_scripts' ) );
@@ -245,9 +250,7 @@ if ( !class_exists( 'TC' ) ) {
 			add_action( 'admin_print_styles', array( &$this, 'add_notices' ) );
 
 			add_action( 'admin_init', array( &$this, 'install_actions' ) );
-
 		}
-
 
 		/**
 		 * Install actions such as installing pages when a button is clicked.
@@ -267,15 +270,15 @@ if ( !class_exists( 'TC' ) ) {
 
 				// Skip button
 			}
-			/*if ( !empty( $_GET[ 'skip_install_tickera_pages' ] ) ) {
+			/* if ( !empty( $_GET[ 'skip_install_tickera_pages' ] ) ) {
 
-				// We no longer need to install pages
-				update_option( 'tc_needs_pages', 0 );
+			  // We no longer need to install pages
+			  update_option( 'tc_needs_pages', 0 );
 
-				// Settings redirect
-				wp_redirect( admin_url( 'admin.php?page=tc_settings' ) );
-				exit;
-			}*/
+			  // Settings redirect
+			  wp_redirect( admin_url( 'admin.php?page=tc_settings' ) );
+			  exit;
+			  } */
 		}
 
 		function create_pages() {
@@ -305,7 +308,7 @@ if ( !class_exists( 'TC' ) ) {
 			foreach ( $pages as $key => $page ) {
 				tc_create_page( esc_sql( $page[ 'name' ] ), 'tc_' . $key . '_page_id', $page[ 'title' ], $page[ 'content' ], !empty( $page[ 'parent' ] ) ? wc_get_page_id( $page[ 'parent' ] ) : ''  );
 			}
-			
+
 			flush_rewrite_rules();
 		}
 
@@ -636,6 +639,18 @@ if ( !class_exists( 'TC' ) ) {
 			}
 		}
 
+		function sales_api() {
+			if ( get_option( 'tc_version', false ) == false || get_option( 'tc_version', false ) !== '3.1.3.9' ) {
+				global $wp_rewrite;
+				$wp_rewrite->flush_rules();
+				update_option( 'tc_version', $this->version );
+			}
+			if ( isset( $_REQUEST[ 'tickera_sales' ] ) && trim( $_REQUEST[ 'tickera_sales' ] ) != '' && isset( $_REQUEST[ 'api_key' ] ) ) {//api is called
+				$api_call = new TC_Sales_API( $_REQUEST[ 'api_key' ], $_REQUEST[ 'tickera_sales' ] );
+				exit;
+			}
+		}
+
 		function generate_ticket_preview() {
 			if ( isset( $_GET[ 'tc_preview' ] ) || isset( $_GET[ 'tc_download' ] ) ) {
 				$templates = new TC_Ticket_Templates();
@@ -816,30 +831,30 @@ if ( !class_exists( 'TC' ) ) {
 				}
 
 				if ( $visible ) {
-                                    
-                                        if ( count( (array) $tc_gateway_active_plugins ) == 1 ) {
-                                            $tickera_max_height = 'tickera-height';
-                                        } else {
-                                            $tickera_max_height = '';
-                                        }
 
-                                    
+					if ( count( (array) $tc_gateway_active_plugins ) == 1 ) {
+						$tickera_max_height = 'tickera-height';
+					} else {
+						$tickera_max_height = '';
+					}
+
+
 					$skip_payment_screen = $gateway->skip_payment_screen;
 					$content .= '<div class="tickera tickera-payment-gateways">'
-                                                  . '<div class="' . $gateway->plugin_name . ' plugin-title">'
-                                                  . '<label>';
-                                        
-                                        if ( count( (array) $tc_gateway_active_plugins ) == 1 ) {
-                                            $content .= '<input type="radio" class="tc_choose_gateway tickera-hide-button" id="' . $gateway->plugin_name . '" name="tc_choose_gateway" value="' . $gateway->plugin_name . '" checked ' . checked( isset( $_SESSION[ 'tc_payment_method' ] ) ? $_SESSION[ 'tc_payment_method' ] : '', $gateway->plugin_name, false ) . '/>';
-                                        } else {
-                                            $content .= '<input type="radio" class="tc_choose_gateway" id="' . $gateway->plugin_name . '" name="tc_choose_gateway" value="' . $gateway->plugin_name . '" ' . checked( isset( $_SESSION[ 'tc_payment_method' ] ) ? $_SESSION[ 'tc_payment_method' ] : '', $gateway->plugin_name, false ) . '/>';
-                                        }
-                                        
-                                        $content .= $gateway->admin_name  
-                                                  . '<img src="'.$gateway->method_img_url.'" class="tickera-payment-options" alt="'.$gateway->plugin_name.'" /></label>'
-                                                  . '</label>'
-                                                  . '</div>'
-                                                  . '<div class="tc_gateway_form '.$tickera_max_height.'" id="' . $gateway->plugin_name . '">';
+					. '<div class="' . $gateway->plugin_name . ' plugin-title">'
+					. '<label>';
+
+					if ( count( (array) $tc_gateway_active_plugins ) == 1 ) {
+						$content .= '<input type="radio" class="tc_choose_gateway tickera-hide-button" id="' . $gateway->plugin_name . '" name="tc_choose_gateway" value="' . $gateway->plugin_name . '" checked ' . checked( isset( $_SESSION[ 'tc_payment_method' ] ) ? $_SESSION[ 'tc_payment_method' ] : '', $gateway->plugin_name, false ) . '/>';
+					} else {
+						$content .= '<input type="radio" class="tc_choose_gateway" id="' . $gateway->plugin_name . '" name="tc_choose_gateway" value="' . $gateway->plugin_name . '" ' . checked( isset( $_SESSION[ 'tc_payment_method' ] ) ? $_SESSION[ 'tc_payment_method' ] : '', $gateway->plugin_name, false ) . '/>';
+					}
+
+					$content .= $gateway->admin_name
+					. '<img src="' . $gateway->method_img_url . '" class="tickera-payment-options" alt="' . $gateway->plugin_name . '" /></label>'
+					. '</label>'
+					. '</div>'
+					. '<div class="tc_gateway_form ' . $tickera_max_height . '" id="' . $gateway->plugin_name . '">';
 					$content .= $gateway->payment_form( $cart );
 					$content .= '<p class="tc_cart_direct_checkout">';
 
@@ -1012,7 +1027,6 @@ if ( !class_exists( 'TC' ) ) {
 				}
 			}
 
-
 			/* Payment confirmation page */
 			if ( array_key_exists( 'page_confirmation', $wp->query_vars ) ) {
 				$vars		 = array();
@@ -1022,6 +1036,7 @@ if ( !class_exists( 'TC' ) ) {
 					require_once($theme_file);
 					exit;
 				} else {
+
 					$args = array(
 						'slug'			 => $wp->request,
 						'title'			 => __( 'Confirmation', 'tc' ),
@@ -1063,6 +1078,11 @@ if ( !class_exists( 'TC' ) ) {
 			$query_vars[]	 = 'page_number';
 			$query_vars[]	 = 'keyword';
 
+			$query_vars[]	 = 'tickera_tickera';
+			$query_vars[]	 = 'period';
+			$query_vars[]	 = 'order_id';
+			$query_vars[]	 = 'event_id';
+
 			return $query_vars;
 		}
 
@@ -1080,29 +1100,51 @@ if ( !class_exists( 'TC' ) ) {
 			if ( !$this->get_confirmation_page() ) {
 				$new_rules[ '^' . $this->get_confirmation_slug() . '/(.+)' ] = 'index.php?page_id=-1&page_confirmation&tc_order_return=$matches[1]';
 			} else {
-				$page_id										 = get_option( 'tc_confirmation_page_id', false );
-				$page											 = get_post( $page_id, OBJECT );
-				$new_rules[ '^' . $page->post_name . '/(.+)' ]	 = 'index.php?pagename=' . $page->post_name . '&tc_order_return=$matches[1]';
+				$page_id		 = get_option( 'tc_confirmation_page_id', false );
+				$page			 = get_post( $page_id, OBJECT );
+				$parent_page_id	 = wp_get_post_parent_id( $page_id );
+				$parent_page	 = get_post( $parent_page_id, OBJECT );
+
+				if ( $parent_page ) {
+					$page_slug = $parent_page->post_name . '/' . $page->post_name;
+				} else {
+					$page_slug = $page->post_name;
+				}
+				$new_rules[ '^' . $page_slug . '/(.+)' ] = 'index.php?pagename=' . $page_slug . '&tc_order_return=$matches[1]';
 			}
 
 			if ( !$this->get_order_page() ) {
 				$new_rules[ '^' . $this->get_order_slug() . '/(.+)/(.+)' ] = 'index.php?page_id=-1&page_order&tc_order=$matches[1]&tc_order_key=$matches[2]';
 			} else {
-				$page_id											 = get_option( 'tc_order_page_id', false );
-				$page												 = get_post( $page_id, OBJECT );
-				$new_rules[ '^' . $page->post_name . '/(.+)/(.+)' ]	 = 'index.php?pagename=' . $page->post_name . '&tc_order=$matches[1]&tc_order_key=$matches[2]';
+				$page_id		 = get_option( 'tc_order_page_id', false );
+				$page			 = get_post( $page_id, OBJECT );
+				$parent_page_id	 = wp_get_post_parent_id( $page_id );
+				$parent_page	 = get_post( $parent_page_id, OBJECT );
+
+				if ( $parent_page ) {
+					$page_slug = $parent_page->post_name . '/' . $page->post_name;
+				} else {
+					$page_slug = $page->post_name;
+				}
+
+				$new_rules[ '^' . $page_slug . '/(.+)/(.+)' ] = 'index.php?pagename=' . $page_slug . '&tc_order=$matches[1]&tc_order_key=$matches[2]';
 			}
 
 			$new_rules[ '^' . $this->get_process_payment_slug() ] = 'index.php?page_id=-1&page_process_payment';
 
 
-
+			/* Check-in API */
 			$new_rules[ '^tc-api/(.+)/check_credentials' ]			 = 'index.php?tickera=tickera_check_credentials&api_key=$matches[1]';
 			$new_rules[ '^tc-api/(.+)/event_essentials' ]			 = 'index.php?tickera=tickera_event_essentials&api_key=$matches[1]';
 			$new_rules[ '^tc-api/(.+)/ticket_checkins/(.+)' ]		 = 'index.php?tickera=tickera_checkins&api_key=$matches[1]&checksum=$matches[2]';
 			$new_rules[ '^tc-api/(.+)/check_in/(.+)' ]				 = 'index.php?tickera=tickera_scan&api_key=$matches[1]&checksum=$matches[2]';
-			$new_rules[ '^tc-api/(.+)/tickets_info/(.+)/(.+)' ]		 = 'index.php?tickera=tickera_tickets_info&api_key=$matches[1]&results_per_page=$matches[2]&results_per_page=$matches[2]&page_number=$matches[3]';
-			$new_rules[ '^tc-api/(.+)/tickets_info/(.+)/(.+)/(.+)' ] = 'index.php?tickera=tickera_tickets_info&api_key=$matches[1]&results_per_page=$matches[2]&results_per_page=$matches[2]&page_number=$matches[3]&keyword=$matches[4]';
+			$new_rules[ '^tc-api/(.+)/tickets_info/(.+)/(.+)' ]		 = 'index.php?tickera=tickera_tickets_info&api_key=$matches[1]&results_per_page=$matches[2]&page_number=$matches[3]';
+			$new_rules[ '^tc-api/(.+)/tickets_info/(.+)/(.+)/(.+)' ] = 'index.php?tickera=tickera_tickets_info&api_key=$matches[1]&results_per_page=$matches[2]&page_number=$matches[3]&keyword=$matches[4]';
+
+			$new_rules[ '^tc-api/(.+)/sales_check_credentials' ]				 = 'index.php?tickera_sales=sales_check_credentials&api_key=$matches[1]';
+			$new_rules[ '^tc-api/(.+)/sales_stats_general/(.+)/(.+)/(.+)' ]		 = 'index.php?tickera_sales=sales_stats_general&api_key=$matches[1]&period=$matches[2]&results_per_page=$matches[3]&page_number=$matches[4]';
+			$new_rules[ '^tc-api/(.+)/sales_stats_event/(.+)/(.+)/(.+)/(.+)' ]	 = 'index.php?tickera_sales=sales_stats_event&api_key=$matches[1]&event_id=$matches[2]&period=$matches[3]&results_per_page=$matches[4]&page_number=$matches[5]';
+			$new_rules[ '^tc-api/(.+)/sales_stats_order/(.+)' ]					 = 'index.php?tickera_sales=sales_stats_order&api_key=$matches[1]&order_id=$matches[2]';
 
 			return array_merge( $new_rules, $rules );
 		}
@@ -2401,3 +2443,4 @@ if ( !class_exists( 'TC' ) ) {
 global $tc, $license_key;
 $tc = new TC();
 
+?>

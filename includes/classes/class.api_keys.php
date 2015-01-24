@@ -61,7 +61,7 @@ if ( !class_exists( 'TC_API_Keys' ) ) {
 					'field_name'		 => 'api_key',
 					'field_title'		 => __( 'API Key', 'tc' ),
 					'field_type'		 => 'text',
-					'field_description'	 => sprintf( __( 'This is the API Key you will have to enter in your %3$s %1$s or %2$s mobile application', 'tc' ), '<a href="http://itunes.apple.com/us/app/tickera/id537166339?ls=1&mt=8" target="_blank">' . __( 'iPhone', 'tc' ) . '</a>', '<a href="https://play.google.com/store/apps/details?id=com.tickera.android" target="_blank">' . __( 'Android', 'tc' ) . '</a>', $tc->title ),
+					'field_description'	 => sprintf( __( 'This is the API Key you will have to enter in your %3$s %1$s or %2$s mobile application', 'tc' ), '<a href="https://itunes.apple.com/us/app/ticket-checkin/id958838933" target="_blank">' . __( 'iPhone', 'tc' ) . '</a>', '<a href="https://play.google.com/store/apps/details?id=com.tickera.android" target="_blank">' . __( 'Android', 'tc' ) . '</a>', $tc->title ),
 					'table_visibility'	 => true,
 					'post_field_type'	 => 'post_meta',
 					'default_value'		 => $this->get_rand_api_key(),
