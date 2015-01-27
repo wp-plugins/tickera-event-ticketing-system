@@ -1,9 +1,11 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
-3.1.4 - 24/JAN/2015
-- Updated check-in API and prepared for the new iOS app (https://itunes.apple.com/us/app/ticket-checkin/id958838933)
-- Fixed issue with orders page pagination in admin
+3.1.4.1 - 27/JAN/2015
+- Resolved issues with permalinks (with custom post types)
+
+3.1.4 - 20/JAN/2015
+- Fixed issue with Android app check in response error
 
 3.1.3.9 - 20/JAN/2015
 - Added Thai Baht currency in PayPal Standar gateway

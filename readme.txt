@@ -11,7 +11,7 @@ Transform your WordPress site into a full-featured event ticketing system
 
 == Description ==
 
-If you want to sell tickets on your site and deliver them to your buyers digitally, Tickera is exactly what you need. When you use the Tickera plugin to sell and send tickets, you are essentially setting up your own hosted solution wherein you control the profits with no requirement to send a cut to a third party. Tickera allows you to check in attendees easily by using a simple and free [iPhone](https://itunes.apple.com/us/app/ticket-checkin/id958838933 "Tickera iPhone check-in app") and [Android](https://play.google.com/store/apps/details?id=com.tickera.android&hl=en "Tickera Android check-in app") applications as well as [Barcode readers](http://tickera.com/addons/barcode-reader/ "Tickera Barcode Reader Add-on") to speed up the whole check-in process.
+If you want to sell tickets on your site and deliver them to your buyers digitally, Tickera is exactly what you need. When you use the Tickera plugin to sell and send tickets, you are essentially setting up your own hosted solution wherein you control the profits with no requirement to send a cut to a third party. Tickera allows you to check in attendees easily by using a simple and free [iPhone](https://itunes.apple.com/us/app/tickera/id537166339?mt=8 "Tickera iPhone check-in app") and [Android](https://play.google.com/store/apps/details?id=com.tickera.android&hl=en "Tickera Android check-in app") applications as well as [Barcode readers](http://tickera.com/addons/barcode-reader/ "Tickera Barcode Reader Add-on") to speed up the whole check-in process.
 
 = The easy way to sell, deliver and check in tickets in WordPress. =
 
@@ -97,9 +97,11 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.4.1 =
+- Resolved issues with permalinks (with custom post types)
+
 = 3.1.4 =
-- Updated check-in API and prepared for the new iOS app (https://itunes.apple.com/us/app/ticket-checkin/id958838933)
-- Fixed issue with orders page pagination in admin
+- Fixed issue with Android app check in response error
 
 = 3.1.3.8 =
 - Added new ticket template elements (ticket code and buyer name)
