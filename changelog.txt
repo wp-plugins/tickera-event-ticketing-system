@@ -1,6 +1,10 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
+3.1.4.2 - 30/JAN/2015
+- Fixed issues with ticket quantity limits
+- Fixed issue with post author upon creating default tickera pages
+
 3.1.4.1 - 27/JAN/2015
 - Resolved issues with permalinks (with custom post types)
 

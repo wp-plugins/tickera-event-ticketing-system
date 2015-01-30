@@ -1,11 +1,11 @@
 <?php
 /*
-  Plugin Name:  Tickera - WordPress Event Ticketing
+  Plugin Name: Tickera - WordPress Event Ticketing
   Plugin URI: http://tickera.com/
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.1.4.1
+  Version: 3.1.4.2
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.1.4.1';
+		var $version			 = '3.1.4.2';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -1268,7 +1268,7 @@ if ( !class_exists( 'TC' ) ) {
 						foreach ( $_POST[ 'ticket_cart_id' ] as $ticket_id ) {
 
 							$ticket = new TC_Ticket( $ticket_id );
-
+							
 							if ( $ticket_quantity[ $ticket_type_count ] <= 0 ) {
 								unset( $cart[ $ticket_id ] ); //remove from cart
 							} else {
@@ -1290,7 +1290,7 @@ if ( !class_exists( 'TC' ) ) {
 										$cart_error_number++;
 									}
 								}
-
+								
 								$quantity_left = $ticket->get_tickets_quantity_left();
 
 								if ( $quantity_left >= $ticket_quantity[ $ticket_type_count ] ) {

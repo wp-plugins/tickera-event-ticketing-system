@@ -35,6 +35,7 @@ function tc_create_page( $slug, $option = '', $page_title = '', $page_content = 
 	}
 
 	$page_data	 = array(
+		'post_author'	 => get_current_user_id(),
 		'post_status'	 => 'publish',
 		'post_type'		 => 'page',
 		'post_author'	 => 1,
@@ -44,6 +45,7 @@ function tc_create_page( $slug, $option = '', $page_title = '', $page_content = 
 		'post_parent'	 => $post_parent,
 		'comment_status' => 'closed'
 	);
+	
 	$page_id	 = wp_insert_post( $page_data );
 
 	if ( $option ) {

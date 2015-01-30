@@ -53,7 +53,7 @@ if ( !class_exists( 'TC_Ticket' ) ) {
 		}
 
 		function get_number_of_sold_tickets() {
-			$ticket_search = new TC_Tickets_Instances_Search( '', '', 10, false, false, 'ticket_type_id', $this->id );
+			$ticket_search = new TC_Tickets_Instances_Search( '', '', -1, false, false, 'ticket_type_id', $this->id );
 			if ( is_array( $ticket_search->get_results() ) ) {
 				return count( $ticket_search->get_results() );
 			} else {
@@ -64,6 +64,7 @@ if ( !class_exists( 'TC_Ticket' ) ) {
 		function get_tickets_quantity_left() {
 			$max_quantity	 = $this->details->quantity_available;
 			$sold_quantity	 = $this->get_number_of_sold_tickets();
+
 			if ( $max_quantity == 0 || $max_quantity == '' ) {
 				return 9999; //means no limit
 			} else {

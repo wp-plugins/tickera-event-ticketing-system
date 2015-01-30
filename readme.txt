@@ -97,6 +97,10 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.4.2 =
+- Fixed issues with ticket quantity limits
+- Fixed issue with post author upon creating default tickera pages
+
 = 3.1.4.1 =
 - Resolved issues with permalinks (with custom post types)
 
