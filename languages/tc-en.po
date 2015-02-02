@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Tickera\n"
-"POT-Creation-Date: 2015-01-28 10:41+0100\n"
-"PO-Revision-Date: 2015-01-28 10:41+0100\n"
+"POT-Creation-Date: 2015-02-02 13:09+0100\n"
+"PO-Revision-Date: 2015-02-02 13:09+0100\n"
 "Last-Translator: \n"
 "Language-Team: Tickera.com <info@tickera.com>\n"
 "Language: en\n"
@@ -25,7 +25,7 @@ msgstr ""
 #: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:12
 #: ../includes/classes/class.api_keys.php:45
 #: ../includes/classes/class.tickets_instances.php:64
-#: ../includes/general-functions.php:1223
+#: ../includes/general-functions.php:1230
 msgid "Event"
 msgstr ""
 
@@ -56,11 +56,11 @@ msgstr ""
 
 #: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:39
 #: ../includes/addons/export-attendee-list/index.php:83
-#: ../includes/classes/class.orders.php:179
-#: ../includes/classes/class.orders.php:237
+#: ../includes/classes/class.orders.php:189
+#: ../includes/classes/class.orders.php:247
 #: ../includes/classes/class.shortcodes.php:34
 #: ../includes/classes/class.tickets_instances.php:37
-#: ../includes/general-functions.php:1222
+#: ../includes/general-functions.php:1229
 #: ../includes/templates/shortcode-cart-contents.php:23
 #: ../includes/ticket-elements/ticket_type_element.php:9
 #: ../includes/ticket-elements/ticket_type_element.php:29
@@ -369,7 +369,7 @@ msgstr ""
 #: ../includes/classes/class.cart_form.php:99
 #: ../includes/classes/class.discounts.php:383
 #: ../includes/classes/class.events.php:108
-#: ../includes/classes/class.orders.php:313
+#: ../includes/classes/class.orders.php:323
 #: ../includes/classes/class.ticket_templates.php:212
 #: ../includes/classes/class.tickets.php:149
 #: ../includes/classes/class.tickets_instances.php:128
@@ -600,7 +600,7 @@ msgid "Ticket Elements"
 msgstr ""
 
 #: ../includes/admin-pages/ticket_templates.php:218
-#: ../includes/classes/class.orders.php:262
+#: ../includes/classes/class.orders.php:272
 #: ../includes/classes/class.tickets_instances.php:82 ../tickera.php:2324
 msgid "Ticket"
 msgstr ""
@@ -628,7 +628,7 @@ msgid "NOTE: Save changes first, then check the preview."
 msgstr ""
 
 #: ../includes/admin-pages/ticket_templates.php:274
-#: ../includes/general-functions.php:1183
+#: ../includes/general-functions.php:1190
 msgid "Preview"
 msgstr ""
 
@@ -695,7 +695,7 @@ msgstr ""
 #: ../includes/classes/class.cart_form.php:92
 #: ../includes/classes/class.discounts.php:376
 #: ../includes/classes/class.events.php:101
-#: ../includes/classes/class.orders.php:162
+#: ../includes/classes/class.orders.php:172
 #: ../includes/classes/class.ticket_templates.php:205
 #: ../includes/classes/class.tickets.php:27
 msgid "ID"
@@ -703,15 +703,15 @@ msgstr ""
 
 #: ../includes/classes/class.cart_form.php:26
 #: ../includes/classes/class.cart_form.php:67
-#: ../includes/classes/class.orders.php:188
-#: ../includes/classes/class.orders.php:246
+#: ../includes/classes/class.orders.php:198
+#: ../includes/classes/class.orders.php:256
 msgid "First Name"
 msgstr ""
 
 #: ../includes/classes/class.cart_form.php:34
 #: ../includes/classes/class.cart_form.php:75
-#: ../includes/classes/class.orders.php:196
-#: ../includes/classes/class.orders.php:254
+#: ../includes/classes/class.orders.php:206
+#: ../includes/classes/class.orders.php:264
 msgid "Last Name"
 msgstr ""
 
@@ -807,8 +807,8 @@ msgid "Events"
 msgstr ""
 
 #: ../includes/classes/class.events.php:27
-#: ../includes/classes/class.orders.php:170
-#: ../includes/classes/class.orders.php:228
+#: ../includes/classes/class.orders.php:180
+#: ../includes/classes/class.orders.php:238
 #: ../includes/classes/class.tickets.php:35
 #: ../includes/ticket-elements/event_name_element.php:9
 #: ../includes/ticket-elements/event_name_element.php:33
@@ -871,42 +871,46 @@ msgid "Customer"
 msgstr ""
 
 #: ../includes/classes/class.orders.php:65
-msgid "Ticket(s)"
+msgid "Customer E-mail"
 msgstr ""
 
 #: ../includes/classes/class.orders.php:75
+msgid "Ticket(s)"
+msgstr ""
+
+#: ../includes/classes/class.orders.php:85
 msgid "Gateway"
 msgstr ""
 
-#: ../includes/classes/class.orders.php:95
+#: ../includes/classes/class.orders.php:105
 msgid "Discount"
 msgstr ""
 
-#: ../includes/classes/class.orders.php:105
+#: ../includes/classes/class.orders.php:115
 #: ../includes/templates/shortcode-cart-contents.php:29
 msgid "Subtotal"
 msgstr ""
 
-#: ../includes/classes/class.orders.php:115
+#: ../includes/classes/class.orders.php:125
 msgid "Fees"
 msgstr ""
 
-#: ../includes/classes/class.orders.php:125
+#: ../includes/classes/class.orders.php:135
 msgid "Tax"
 msgstr ""
 
-#: ../includes/classes/class.orders.php:135
+#: ../includes/classes/class.orders.php:145
 msgid "Total"
 msgstr ""
 
-#: ../includes/classes/class.orders.php:204
+#: ../includes/classes/class.orders.php:214
 #: ../includes/classes/class.tickets_instances.php:46
 #: ../includes/ticket-elements/ticket_id.php:9
 #: ../includes/ticket-elements/ticket_id.php:24
 msgid "Ticket Code"
 msgstr ""
 
-#: ../includes/classes/class.orders.php:308
+#: ../includes/classes/class.orders.php:318
 msgid "Details"
 msgstr ""
 
@@ -924,7 +928,7 @@ msgid "Subject"
 msgstr ""
 
 #: ../includes/classes/class.settings_email.php:46
-#: ../includes/general-functions.php:138
+#: ../includes/general-functions.php:140
 msgid "Order Completed"
 msgstr ""
 
@@ -975,7 +979,7 @@ msgid "Whether to send or not e-mail uppon each completed order)"
 msgstr ""
 
 #: ../includes/classes/class.settings_email.php:91
-#: ../includes/general-functions.php:167
+#: ../includes/general-functions.php:169
 msgid "New Order Completed"
 msgstr ""
 
@@ -1593,7 +1597,7 @@ msgstr ""
 #: ../includes/gateways/2checkout.php:206
 #: ../includes/gateways/authorizenet-aim.php:217
 #: ../includes/gateways/braintree.php:328
-#: ../includes/gateways/custom-offline-payments.php:125
+#: ../includes/gateways/custom-offline-payments.php:146
 #: ../includes/gateways/free-orders.php:130
 #: ../includes/gateways/paymill.php:182
 #: ../includes/gateways/paypal-pro.php:193
@@ -1607,20 +1611,20 @@ msgstr ""
 #: ../includes/gateways/2checkout.php:206
 #: ../includes/gateways/authorizenet-aim.php:217
 #: ../includes/gateways/braintree.php:328
-#: ../includes/gateways/custom-offline-payments.php:125
+#: ../includes/gateways/custom-offline-payments.php:146
 #: ../includes/gateways/paymill.php:182
 #: ../includes/gateways/paypal-pro.php:193
 #: ../includes/gateways/paypal-standard.php:192
 #: ../includes/gateways/paytabs.php:272 ../includes/gateways/payumoney.php:326
 #: ../includes/gateways/pin.php:172 ../includes/gateways/stripe.php:282
-#: ../includes/gateways/voguepay.php:164 ../includes/general-functions.php:916
+#: ../includes/gateways/voguepay.php:164 ../includes/general-functions.php:923
 msgid "Pending Payment"
 msgstr ""
 
 #: ../includes/gateways/2checkout.php:208
 #: ../includes/gateways/authorizenet-aim.php:219
 #: ../includes/gateways/braintree.php:330
-#: ../includes/gateways/custom-offline-payments.php:127
+#: ../includes/gateways/custom-offline-payments.php:148
 #: ../includes/gateways/free-orders.php:132
 #: ../includes/gateways/paymill.php:184
 #: ../includes/gateways/paypal-pro.php:195
@@ -2511,97 +2515,141 @@ msgid "Validation errors: \"%s\"."
 msgstr ""
 
 #: ../includes/gateways/custom-offline-payments.php:21
-#: ../includes/gateways/custom-offline-payments.php:164
+#: ../includes/gateways/custom-offline-payments.php:185
 msgid "Offline Payment"
 msgstr ""
 
 #: ../includes/gateways/custom-offline-payments.php:22
-#: ../includes/gateways/custom-offline-payments.php:155
+#: ../includes/gateways/custom-offline-payments.php:176
 msgid "Cash on Delivery"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:124
-#: ../includes/gateways/custom-offline-payments.php:129
+#: ../includes/gateways/custom-offline-payments.php:145
 #: ../includes/gateways/free-orders.php:129
-#: ../includes/gateways/free-orders.php:134
-msgid "Your payment via "
+#, php-format
+msgid ""
+"Your payment via %s for this order totaling <strong>%s</strong> is not yet "
+"complete."
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:146
-#: ../includes/gateways/custom-offline-payments.php:234
+#: ../includes/gateways/custom-offline-payments.php:150
+#: ../includes/gateways/free-orders.php:134
+#, php-format
+msgid ""
+"Your payment via %s for this order totaling <strong>%s</strong> is complete."
+msgstr ""
+
+#: ../includes/gateways/custom-offline-payments.php:167
+#: ../includes/gateways/custom-offline-payments.php:288
 msgid "Offline Payments"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:148
+#: ../includes/gateways/custom-offline-payments.php:169
 msgid ""
 "Track offline / custom payments (Cash on Delivery, Money Orders, Bank "
 "Deposits, Cheques etc.) manually."
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:151
+#: ../includes/gateways/custom-offline-payments.php:172
 #: ../includes/gateways/free-orders.php:156
 msgid "Public Method Name"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:153
+#: ../includes/gateways/custom-offline-payments.php:174
 #: ../includes/gateways/free-orders.php:158
 msgid ""
 "Insert public name for this payment method which will be visible to buyers"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:160
+#: ../includes/gateways/custom-offline-payments.php:181
 #: ../includes/gateways/free-orders.php:165
 msgid "Admin Method Name"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:162
+#: ../includes/gateways/custom-offline-payments.php:183
 #: ../includes/gateways/free-orders.php:167
 msgid ""
 "Insert admin name for this payment method which will be visible within the "
 "administration panel (Orders screen etc.)"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:170
+#: ../includes/gateways/custom-offline-payments.php:191
 #: ../includes/gateways/free-orders.php:175
 msgid "Payment Method Info"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:172
+#: ../includes/gateways/custom-offline-payments.php:193
 msgid ""
 "Information about the payment method which will be visible to user upon "
 "choosing this payment method."
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:180
+#: ../includes/gateways/custom-offline-payments.php:201
+#: ../includes/gateways/custom-offline-payments.php:234
 msgid "Payment Instructions"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:182
+#: ../includes/gateways/custom-offline-payments.php:203
 msgid ""
 "Your customers who checkout using the custom offline payment method will be "
 "given a set of instructions (set by you) to complete the purchase process "
 "immediately after checkout completion."
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:190
+#: ../includes/gateways/custom-offline-payments.php:211
+msgid "E-mail Instructions"
+msgstr ""
+
+#: ../includes/gateways/custom-offline-payments.php:213
+msgid ""
+"Send an email with the payment instructions to a customer upon creating an "
+"order. The e-mail will be sent only if status of a order is \"Order Received"
+"\"."
+msgstr ""
+
+#: ../includes/gateways/custom-offline-payments.php:220
+#: ../includes/general-functions.php:219 ../includes/general-functions.php:268
+#: ../includes/general-functions.php:289 ../includes/general-functions.php:310
+#: ../includes/general-functions.php:331 ../includes/general-functions.php:352
+#: ../includes/general-functions.php:373
+msgid "No"
+msgstr ""
+
+#: ../includes/gateways/custom-offline-payments.php:221
+#: ../includes/general-functions.php:216 ../includes/general-functions.php:265
+#: ../includes/general-functions.php:286 ../includes/general-functions.php:307
+#: ../includes/general-functions.php:328 ../includes/general-functions.php:349
+#: ../includes/general-functions.php:370
+msgid "Yes"
+msgstr ""
+
+#: ../includes/gateways/custom-offline-payments.php:228
+msgid "Instructions E-mail Subject"
+msgstr ""
+
+#: ../includes/gateways/custom-offline-payments.php:230
+msgid "Subject of the payment instructions e-mail"
+msgstr ""
+
+#: ../includes/gateways/custom-offline-payments.php:244
 msgid "Automatic Payment Status"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:192
+#: ../includes/gateways/custom-offline-payments.php:246
 msgid ""
 "Automatic payment status which will be set for all custom offline payment "
 "orders."
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:196
+#: ../includes/gateways/custom-offline-payments.php:250
 #: ../includes/gateways/free-orders.php:202
-#: ../includes/general-functions.php:866
+#: ../includes/general-functions.php:868
 msgid "Order Received"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:197
+#: ../includes/gateways/custom-offline-payments.php:251
 #: ../includes/gateways/free-orders.php:201
-#: ../includes/general-functions.php:867
+#: ../includes/general-functions.php:869
 msgid "Order Paid"
 msgstr ""
 
@@ -2884,7 +2932,7 @@ msgid ""
 msgstr ""
 
 #: ../includes/gateways/paypal-pro.php:331
-#: ../includes/general-functions.php:932
+#: ../includes/general-functions.php:939
 msgid "Order: "
 msgstr ""
 
@@ -2934,97 +2982,97 @@ msgid "PayPal Locale"
 msgstr ""
 
 #: ../includes/gateways/paypal-standard.php:339
-#: ../includes/general-functions.php:555
+#: ../includes/general-functions.php:557
 msgid "Australia"
 msgstr ""
 
 #: ../includes/gateways/paypal-standard.php:340
-#: ../includes/general-functions.php:556
+#: ../includes/general-functions.php:558
 msgid "Austria"
 msgstr ""
 
 #: ../includes/gateways/paypal-standard.php:341
-#: ../includes/general-functions.php:563
+#: ../includes/general-functions.php:565
 msgid "Belgium"
 msgstr ""
 
 #: ../includes/gateways/paypal-standard.php:342
-#: ../includes/general-functions.php:581
+#: ../includes/general-functions.php:583
 msgid "Canada"
 msgstr ""
 
 #: ../includes/gateways/paypal-standard.php:343
-#: ../includes/general-functions.php:587
+#: ../includes/general-functions.php:589
 msgid "China"
 msgstr ""
 
 #: ../includes/gateways/paypal-standard.php:344
-#: ../includes/general-functions.php:617
+#: ../includes/general-functions.php:619
 msgid "France"
 msgstr ""
 
 #: ../includes/gateways/paypal-standard.php:345
-#: ../includes/general-functions.php:624
+#: ../includes/general-functions.php:626
 msgid "Germany"
 msgstr ""
 
 #: ../includes/gateways/paypal-standard.php:346
-#: ../includes/general-functions.php:641
+#: ../includes/general-functions.php:643
 msgid "Hong Kong"
 msgstr ""
 
 #: ../includes/gateways/paypal-standard.php:347
-#: ../includes/general-functions.php:651
+#: ../includes/general-functions.php:653
 msgid "Italy"
 msgstr ""
 
 #: ../includes/gateways/paypal-standard.php:348
-#: ../includes/general-functions.php:685
+#: ../includes/general-functions.php:687
 msgid "Mexico"
 msgstr ""
 
 #: ../includes/gateways/paypal-standard.php:349
-#: ../includes/general-functions.php:698
+#: ../includes/general-functions.php:700
 msgid "Netherlands"
 msgstr ""
 
 #: ../includes/gateways/paypal-standard.php:350
-#: ../includes/general-functions.php:700
+#: ../includes/general-functions.php:702
 msgid "New Zealand"
 msgstr ""
 
 #: ../includes/gateways/paypal-standard.php:351
-#: ../includes/general-functions.php:718
+#: ../includes/general-functions.php:720
 msgid "Poland"
 msgstr ""
 
 #: ../includes/gateways/paypal-standard.php:352
-#: ../includes/general-functions.php:741
+#: ../includes/general-functions.php:743
 msgid "Singapore"
 msgstr ""
 
 #: ../includes/gateways/paypal-standard.php:353
-#: ../includes/general-functions.php:750
+#: ../includes/general-functions.php:752
 msgid "Spain"
 msgstr ""
 
 #: ../includes/gateways/paypal-standard.php:354
-#: ../includes/general-functions.php:756
+#: ../includes/general-functions.php:758
 msgid "Sweden"
 msgstr ""
 
 #: ../includes/gateways/paypal-standard.php:355
-#: ../includes/general-functions.php:757
+#: ../includes/general-functions.php:759
 msgid "Switzerland"
 msgstr ""
 
 #: ../includes/gateways/paypal-standard.php:356
-#: ../includes/general-functions.php:776
+#: ../includes/general-functions.php:778
 msgid "United Kingdom"
 msgstr ""
 
 #: ../includes/gateways/paypal-standard.php:357
-#: ../includes/general-functions.php:777
+#: ../includes/general-functions.php:779
 msgid "United States"
 msgstr ""
 
@@ -3649,1071 +3697,1057 @@ msgid ""
 "Something went wrong. Price paid %s and original price of %s do not match."
 msgstr ""
 
-#: ../includes/general-functions.php:214 ../includes/general-functions.php:263
-#: ../includes/general-functions.php:284 ../includes/general-functions.php:305
-#: ../includes/general-functions.php:326 ../includes/general-functions.php:347
-#: ../includes/general-functions.php:368
-msgid "Yes"
-msgstr ""
-
-#: ../includes/general-functions.php:217 ../includes/general-functions.php:266
-#: ../includes/general-functions.php:287 ../includes/general-functions.php:308
-#: ../includes/general-functions.php:329 ../includes/general-functions.php:350
-#: ../includes/general-functions.php:371
-msgid "No"
-msgstr ""
-
-#: ../includes/general-functions.php:389
+#: ../includes/general-functions.php:391
 msgid "1,234.56"
 msgstr ""
 
-#: ../includes/general-functions.php:390
+#: ../includes/general-functions.php:392
 msgid "1.234,56"
 msgstr ""
 
-#: ../includes/general-functions.php:391
+#: ../includes/general-functions.php:393
 msgid "1 234,56"
 msgstr ""
 
-#: ../includes/general-functions.php:392
+#: ../includes/general-functions.php:394
 msgid "1 234.56"
 msgstr ""
 
-#: ../includes/general-functions.php:513 ../includes/install-notice.php:14
+#: ../includes/general-functions.php:515 ../includes/install-notice.php:14
 #, php-format
 msgid "Install %s Pages"
 msgstr ""
 
-#: ../includes/general-functions.php:542
+#: ../includes/general-functions.php:544
 msgid "Afghanistan"
 msgstr ""
 
-#: ../includes/general-functions.php:543
+#: ../includes/general-functions.php:545
 msgid "Åland Islands"
 msgstr ""
 
-#: ../includes/general-functions.php:544
+#: ../includes/general-functions.php:546
 msgid "Albania"
 msgstr ""
 
-#: ../includes/general-functions.php:545
+#: ../includes/general-functions.php:547
 msgid "Algeria"
 msgstr ""
 
-#: ../includes/general-functions.php:546
+#: ../includes/general-functions.php:548
 msgid "American Samoa"
 msgstr ""
 
-#: ../includes/general-functions.php:547
+#: ../includes/general-functions.php:549
 msgid "Andorra"
 msgstr ""
 
-#: ../includes/general-functions.php:548
+#: ../includes/general-functions.php:550
 msgid "Angola"
 msgstr ""
 
-#: ../includes/general-functions.php:549
+#: ../includes/general-functions.php:551
 msgid "Anguilla"
 msgstr ""
 
-#: ../includes/general-functions.php:550
+#: ../includes/general-functions.php:552
 msgid "Antarctica"
 msgstr ""
 
-#: ../includes/general-functions.php:551
+#: ../includes/general-functions.php:553
 msgid "Antigua and Barbuda"
 msgstr ""
 
-#: ../includes/general-functions.php:552
+#: ../includes/general-functions.php:554
 msgid "Argentina"
 msgstr ""
 
-#: ../includes/general-functions.php:553
+#: ../includes/general-functions.php:555
 msgid "Armenia"
 msgstr ""
 
-#: ../includes/general-functions.php:554
+#: ../includes/general-functions.php:556
 msgid "Aruba"
 msgstr ""
 
-#: ../includes/general-functions.php:557
+#: ../includes/general-functions.php:559
 msgid "Azerbaijan"
 msgstr ""
 
-#: ../includes/general-functions.php:558
+#: ../includes/general-functions.php:560
 msgid "Bahamas"
 msgstr ""
 
-#: ../includes/general-functions.php:559
+#: ../includes/general-functions.php:561
 msgid "Bahrain"
 msgstr ""
 
-#: ../includes/general-functions.php:560
+#: ../includes/general-functions.php:562
 msgid "Bangladesh"
 msgstr ""
 
-#: ../includes/general-functions.php:561
+#: ../includes/general-functions.php:563
 msgid "Barbados"
 msgstr ""
 
-#: ../includes/general-functions.php:562
+#: ../includes/general-functions.php:564
 msgid "Belarus"
 msgstr ""
 
-#: ../includes/general-functions.php:564
+#: ../includes/general-functions.php:566
 msgid "Belize"
 msgstr ""
 
-#: ../includes/general-functions.php:565
+#: ../includes/general-functions.php:567
 msgid "Benin"
 msgstr ""
 
-#: ../includes/general-functions.php:566
+#: ../includes/general-functions.php:568
 msgid "Bermuda"
 msgstr ""
 
-#: ../includes/general-functions.php:567
+#: ../includes/general-functions.php:569
 msgid "Bhutan"
 msgstr ""
 
-#: ../includes/general-functions.php:568
+#: ../includes/general-functions.php:570
 msgid "Bolivia, Plurinational State of"
 msgstr ""
 
-#: ../includes/general-functions.php:569
+#: ../includes/general-functions.php:571
 msgid "Bonaire, Sint Eustatius and Saba"
 msgstr ""
 
-#: ../includes/general-functions.php:570
+#: ../includes/general-functions.php:572
 msgid "Bosnia and Herzegovina"
 msgstr ""
 
-#: ../includes/general-functions.php:571
+#: ../includes/general-functions.php:573
 msgid "Botswana"
 msgstr ""
 
-#: ../includes/general-functions.php:572
+#: ../includes/general-functions.php:574
 msgid "Bouvet Island"
 msgstr ""
 
-#: ../includes/general-functions.php:573
+#: ../includes/general-functions.php:575
 msgid "Brazil"
 msgstr ""
 
-#: ../includes/general-functions.php:574
+#: ../includes/general-functions.php:576
 msgid "British Indian Ocean Territory"
 msgstr ""
 
-#: ../includes/general-functions.php:575
+#: ../includes/general-functions.php:577
 msgid "Brunei Darussalam"
 msgstr ""
 
-#: ../includes/general-functions.php:576
+#: ../includes/general-functions.php:578
 msgid "Bulgaria"
 msgstr ""
 
-#: ../includes/general-functions.php:577
+#: ../includes/general-functions.php:579
 msgid "Burkina Faso"
 msgstr ""
 
-#: ../includes/general-functions.php:578
+#: ../includes/general-functions.php:580
 msgid "Burundi"
 msgstr ""
 
-#: ../includes/general-functions.php:579
+#: ../includes/general-functions.php:581
 msgid "Cambodia"
 msgstr ""
 
-#: ../includes/general-functions.php:580
+#: ../includes/general-functions.php:582
 msgid "Cameroon"
 msgstr ""
 
-#: ../includes/general-functions.php:582
+#: ../includes/general-functions.php:584
 msgid "Cape Verde"
 msgstr ""
 
-#: ../includes/general-functions.php:583
+#: ../includes/general-functions.php:585
 msgid "Cayman Islands"
 msgstr ""
 
-#: ../includes/general-functions.php:584
+#: ../includes/general-functions.php:586
 msgid "Central African Republic"
 msgstr ""
 
-#: ../includes/general-functions.php:585
+#: ../includes/general-functions.php:587
 msgid "Chad"
 msgstr ""
 
-#: ../includes/general-functions.php:586
+#: ../includes/general-functions.php:588
 msgid "Chile"
 msgstr ""
 
-#: ../includes/general-functions.php:588
+#: ../includes/general-functions.php:590
 msgid "Christmas Island"
 msgstr ""
 
-#: ../includes/general-functions.php:589
+#: ../includes/general-functions.php:591
 msgid "Cocos (Keeling) Islands"
 msgstr ""
 
-#: ../includes/general-functions.php:590
+#: ../includes/general-functions.php:592
 msgid "Colombia"
 msgstr ""
 
-#: ../includes/general-functions.php:591
+#: ../includes/general-functions.php:593
 msgid "Comoros"
 msgstr ""
 
-#: ../includes/general-functions.php:592
+#: ../includes/general-functions.php:594
 msgid "Congo"
 msgstr ""
 
-#: ../includes/general-functions.php:593
+#: ../includes/general-functions.php:595
 msgid "Congo, the Democratic Republic of the"
 msgstr ""
 
-#: ../includes/general-functions.php:594
+#: ../includes/general-functions.php:596
 msgid "Cook Islands"
 msgstr ""
 
-#: ../includes/general-functions.php:595
+#: ../includes/general-functions.php:597
 msgid "Costa Rica"
 msgstr ""
 
-#: ../includes/general-functions.php:596
+#: ../includes/general-functions.php:598
 msgid "Côte d'Ivoire"
 msgstr ""
 
-#: ../includes/general-functions.php:597
+#: ../includes/general-functions.php:599
 msgid "Croatia"
 msgstr ""
 
-#: ../includes/general-functions.php:598
+#: ../includes/general-functions.php:600
 msgid "Cuba"
 msgstr ""
 
-#: ../includes/general-functions.php:599
+#: ../includes/general-functions.php:601
 msgid "Curaçao"
 msgstr ""
 
-#: ../includes/general-functions.php:600
+#: ../includes/general-functions.php:602
 msgid "Cyprus"
 msgstr ""
 
-#: ../includes/general-functions.php:601
+#: ../includes/general-functions.php:603
 msgid "Czech Republic"
 msgstr ""
 
-#: ../includes/general-functions.php:602
+#: ../includes/general-functions.php:604
 msgid "Denmark"
 msgstr ""
 
-#: ../includes/general-functions.php:603
+#: ../includes/general-functions.php:605
 msgid "Djibouti"
 msgstr ""
 
-#: ../includes/general-functions.php:604
+#: ../includes/general-functions.php:606
 msgid "Dominica"
 msgstr ""
 
-#: ../includes/general-functions.php:605
+#: ../includes/general-functions.php:607
 msgid "Dominican Republic"
 msgstr ""
 
-#: ../includes/general-functions.php:606
+#: ../includes/general-functions.php:608
 msgid "Ecuador"
 msgstr ""
 
-#: ../includes/general-functions.php:607
+#: ../includes/general-functions.php:609
 msgid "Egypt"
 msgstr ""
 
-#: ../includes/general-functions.php:608
+#: ../includes/general-functions.php:610
 msgid "El Salvador"
 msgstr ""
 
-#: ../includes/general-functions.php:609
+#: ../includes/general-functions.php:611
 msgid "Equatorial Guinea"
 msgstr ""
 
-#: ../includes/general-functions.php:610
+#: ../includes/general-functions.php:612
 msgid "Eritrea"
 msgstr ""
 
-#: ../includes/general-functions.php:611
+#: ../includes/general-functions.php:613
 msgid "Estonia"
 msgstr ""
 
-#: ../includes/general-functions.php:612
+#: ../includes/general-functions.php:614
 msgid "Ethiopia"
 msgstr ""
 
-#: ../includes/general-functions.php:613
+#: ../includes/general-functions.php:615
 msgid "Falkland Islands (Malvinas)"
 msgstr ""
 
-#: ../includes/general-functions.php:614
+#: ../includes/general-functions.php:616
 msgid "Faroe Islands"
 msgstr ""
 
-#: ../includes/general-functions.php:615
+#: ../includes/general-functions.php:617
 msgid "Fiji"
 msgstr ""
 
-#: ../includes/general-functions.php:616
+#: ../includes/general-functions.php:618
 msgid "Finland"
 msgstr ""
 
-#: ../includes/general-functions.php:618
+#: ../includes/general-functions.php:620
 msgid "French Guiana"
 msgstr ""
 
-#: ../includes/general-functions.php:619
+#: ../includes/general-functions.php:621
 msgid "French Polynesia"
 msgstr ""
 
-#: ../includes/general-functions.php:620
+#: ../includes/general-functions.php:622
 msgid "French Southern Territories"
 msgstr ""
 
-#: ../includes/general-functions.php:621
+#: ../includes/general-functions.php:623
 msgid "Gabon"
 msgstr ""
 
-#: ../includes/general-functions.php:622
+#: ../includes/general-functions.php:624
 msgid "Gambia"
 msgstr ""
 
-#: ../includes/general-functions.php:623
+#: ../includes/general-functions.php:625
 msgid "Georgia"
 msgstr ""
 
-#: ../includes/general-functions.php:625
+#: ../includes/general-functions.php:627
 msgid "Ghana"
 msgstr ""
 
-#: ../includes/general-functions.php:626
+#: ../includes/general-functions.php:628
 msgid "Gibraltar"
 msgstr ""
 
-#: ../includes/general-functions.php:627
+#: ../includes/general-functions.php:629
 msgid "Greece"
 msgstr ""
 
-#: ../includes/general-functions.php:628
+#: ../includes/general-functions.php:630
 msgid "Greenland"
 msgstr ""
 
-#: ../includes/general-functions.php:629
+#: ../includes/general-functions.php:631
 msgid "Grenada"
 msgstr ""
 
-#: ../includes/general-functions.php:630
+#: ../includes/general-functions.php:632
 msgid "Guadeloupe"
 msgstr ""
 
-#: ../includes/general-functions.php:631
+#: ../includes/general-functions.php:633
 msgid "Guam"
 msgstr ""
 
-#: ../includes/general-functions.php:632
+#: ../includes/general-functions.php:634
 msgid "Guatemala"
 msgstr ""
 
-#: ../includes/general-functions.php:633
+#: ../includes/general-functions.php:635
 msgid "Guernsey"
 msgstr ""
 
-#: ../includes/general-functions.php:634
+#: ../includes/general-functions.php:636
 msgid "Guinea"
 msgstr ""
 
-#: ../includes/general-functions.php:635
+#: ../includes/general-functions.php:637
 msgid "Guinea-Bissau"
 msgstr ""
 
-#: ../includes/general-functions.php:636
+#: ../includes/general-functions.php:638
 msgid "Guyana"
 msgstr ""
 
-#: ../includes/general-functions.php:637
+#: ../includes/general-functions.php:639
 msgid "Haiti"
 msgstr ""
 
-#: ../includes/general-functions.php:638
+#: ../includes/general-functions.php:640
 msgid "Heard Island and McDonald Islands"
 msgstr ""
 
-#: ../includes/general-functions.php:639
+#: ../includes/general-functions.php:641
 msgid "Holy See (Vatican City State)"
 msgstr ""
 
-#: ../includes/general-functions.php:640
+#: ../includes/general-functions.php:642
 msgid "Honduras"
 msgstr ""
 
-#: ../includes/general-functions.php:642
+#: ../includes/general-functions.php:644
 msgid "Hungary"
 msgstr ""
 
-#: ../includes/general-functions.php:643
+#: ../includes/general-functions.php:645
 msgid "Iceland"
 msgstr ""
 
-#: ../includes/general-functions.php:644
+#: ../includes/general-functions.php:646
 msgid "India"
 msgstr ""
 
-#: ../includes/general-functions.php:645
+#: ../includes/general-functions.php:647
 msgid "Indonesia"
 msgstr ""
 
-#: ../includes/general-functions.php:646
+#: ../includes/general-functions.php:648
 msgid "Iran, Islamic Republic of"
 msgstr ""
 
-#: ../includes/general-functions.php:647
+#: ../includes/general-functions.php:649
 msgid "Iraq"
 msgstr ""
 
-#: ../includes/general-functions.php:648
+#: ../includes/general-functions.php:650
 msgid "Ireland"
 msgstr ""
 
-#: ../includes/general-functions.php:649
+#: ../includes/general-functions.php:651
 msgid "Isle of Man"
 msgstr ""
 
-#: ../includes/general-functions.php:650
+#: ../includes/general-functions.php:652
 msgid "Israel"
 msgstr ""
 
-#: ../includes/general-functions.php:652
+#: ../includes/general-functions.php:654
 msgid "Jamaica"
 msgstr ""
 
-#: ../includes/general-functions.php:653
+#: ../includes/general-functions.php:655
 msgid "Japan"
 msgstr ""
 
-#: ../includes/general-functions.php:654
+#: ../includes/general-functions.php:656
 msgid "Jersey"
 msgstr ""
 
-#: ../includes/general-functions.php:655
+#: ../includes/general-functions.php:657
 msgid "Jordan"
 msgstr ""
 
-#: ../includes/general-functions.php:656
+#: ../includes/general-functions.php:658
 msgid "Kazakhstan"
 msgstr ""
 
-#: ../includes/general-functions.php:657
+#: ../includes/general-functions.php:659
 msgid "Kenya"
 msgstr ""
 
-#: ../includes/general-functions.php:658
+#: ../includes/general-functions.php:660
 msgid "Kiribati"
 msgstr ""
 
-#: ../includes/general-functions.php:659
+#: ../includes/general-functions.php:661
 msgid "Korea, Democratic People's Republic of"
 msgstr ""
 
-#: ../includes/general-functions.php:660
+#: ../includes/general-functions.php:662
 msgid "Korea, Republic of"
 msgstr ""
 
-#: ../includes/general-functions.php:661
+#: ../includes/general-functions.php:663
 msgid "Kuwait"
 msgstr ""
 
-#: ../includes/general-functions.php:662
+#: ../includes/general-functions.php:664
 msgid "Kyrgyzstan"
 msgstr ""
 
-#: ../includes/general-functions.php:663
+#: ../includes/general-functions.php:665
 msgid "Lao People's Democratic Republic"
 msgstr ""
 
-#: ../includes/general-functions.php:664
+#: ../includes/general-functions.php:666
 msgid "Latvia"
 msgstr ""
 
-#: ../includes/general-functions.php:665
+#: ../includes/general-functions.php:667
 msgid "Lebanon"
 msgstr ""
 
-#: ../includes/general-functions.php:666
+#: ../includes/general-functions.php:668
 msgid "Lesotho"
 msgstr ""
 
-#: ../includes/general-functions.php:667
+#: ../includes/general-functions.php:669
 msgid "Liberia"
 msgstr ""
 
-#: ../includes/general-functions.php:668
+#: ../includes/general-functions.php:670
 msgid "Libya"
 msgstr ""
 
-#: ../includes/general-functions.php:669
+#: ../includes/general-functions.php:671
 msgid "Liechtenstein"
 msgstr ""
 
-#: ../includes/general-functions.php:670
+#: ../includes/general-functions.php:672
 msgid "Lithuania"
 msgstr ""
 
-#: ../includes/general-functions.php:671
+#: ../includes/general-functions.php:673
 msgid "Luxembourg"
 msgstr ""
 
-#: ../includes/general-functions.php:672
+#: ../includes/general-functions.php:674
 msgid "Macao"
 msgstr ""
 
-#: ../includes/general-functions.php:673
+#: ../includes/general-functions.php:675
 msgid "Macedonia, the former Yugoslav Republic of"
 msgstr ""
 
-#: ../includes/general-functions.php:674
+#: ../includes/general-functions.php:676
 msgid "Madagascar"
 msgstr ""
 
-#: ../includes/general-functions.php:675
+#: ../includes/general-functions.php:677
 msgid "Malawi"
 msgstr ""
 
-#: ../includes/general-functions.php:676
+#: ../includes/general-functions.php:678
 msgid "Malaysia"
 msgstr ""
 
-#: ../includes/general-functions.php:677
+#: ../includes/general-functions.php:679
 msgid "Maldives"
 msgstr ""
 
-#: ../includes/general-functions.php:678
+#: ../includes/general-functions.php:680
 msgid "Mali"
 msgstr ""
 
-#: ../includes/general-functions.php:679
+#: ../includes/general-functions.php:681
 msgid "Malta"
 msgstr ""
 
-#: ../includes/general-functions.php:680
+#: ../includes/general-functions.php:682
 msgid "Marshall Islands"
 msgstr ""
 
-#: ../includes/general-functions.php:681
+#: ../includes/general-functions.php:683
 msgid "Martinique"
 msgstr ""
 
-#: ../includes/general-functions.php:682
+#: ../includes/general-functions.php:684
 msgid "Mauritania"
 msgstr ""
 
-#: ../includes/general-functions.php:683
+#: ../includes/general-functions.php:685
 msgid "Mauritius"
 msgstr ""
 
-#: ../includes/general-functions.php:684
+#: ../includes/general-functions.php:686
 msgid "Mayotte"
 msgstr ""
 
-#: ../includes/general-functions.php:686
+#: ../includes/general-functions.php:688
 msgid "Micronesia, Federated States of"
 msgstr ""
 
-#: ../includes/general-functions.php:687
+#: ../includes/general-functions.php:689
 msgid "Moldova, Republic of"
 msgstr ""
 
-#: ../includes/general-functions.php:688
+#: ../includes/general-functions.php:690
 msgid "Monaco"
 msgstr ""
 
-#: ../includes/general-functions.php:689
+#: ../includes/general-functions.php:691
 msgid "Mongolia"
 msgstr ""
 
-#: ../includes/general-functions.php:690
+#: ../includes/general-functions.php:692
 msgid "Montenegro"
 msgstr ""
 
-#: ../includes/general-functions.php:691
+#: ../includes/general-functions.php:693
 msgid "Montserrat"
 msgstr ""
 
-#: ../includes/general-functions.php:692
+#: ../includes/general-functions.php:694
 msgid "Morocco"
 msgstr ""
 
-#: ../includes/general-functions.php:693
+#: ../includes/general-functions.php:695
 msgid "Mozambique"
 msgstr ""
 
-#: ../includes/general-functions.php:694
+#: ../includes/general-functions.php:696
 msgid "Myanmar"
 msgstr ""
 
-#: ../includes/general-functions.php:695
+#: ../includes/general-functions.php:697
 msgid "Namibia"
 msgstr ""
 
-#: ../includes/general-functions.php:696
+#: ../includes/general-functions.php:698
 msgid "Nauru"
 msgstr ""
 
-#: ../includes/general-functions.php:697
+#: ../includes/general-functions.php:699
 msgid "Nepal"
 msgstr ""
 
-#: ../includes/general-functions.php:699
+#: ../includes/general-functions.php:701
 msgid "New Caledonia"
 msgstr ""
 
-#: ../includes/general-functions.php:701
+#: ../includes/general-functions.php:703
 msgid "Nicaragua"
 msgstr ""
 
-#: ../includes/general-functions.php:702
+#: ../includes/general-functions.php:704
 msgid "Niger"
 msgstr ""
 
-#: ../includes/general-functions.php:703
+#: ../includes/general-functions.php:705
 msgid "Nigeria"
 msgstr ""
 
-#: ../includes/general-functions.php:704
+#: ../includes/general-functions.php:706
 msgid "Niue"
 msgstr ""
 
-#: ../includes/general-functions.php:705
+#: ../includes/general-functions.php:707
 msgid "Norfolk Island"
 msgstr ""
 
-#: ../includes/general-functions.php:706
+#: ../includes/general-functions.php:708
 msgid "Northern Mariana Islands"
 msgstr ""
 
-#: ../includes/general-functions.php:707
+#: ../includes/general-functions.php:709
 msgid "Norway"
 msgstr ""
 
-#: ../includes/general-functions.php:708
+#: ../includes/general-functions.php:710
 msgid "Oman"
 msgstr ""
 
-#: ../includes/general-functions.php:709
+#: ../includes/general-functions.php:711
 msgid "Pakistan"
 msgstr ""
 
-#: ../includes/general-functions.php:710
+#: ../includes/general-functions.php:712
 msgid "Palau"
 msgstr ""
 
-#: ../includes/general-functions.php:711
+#: ../includes/general-functions.php:713
 msgid "Palestinian Territory, Occupied"
 msgstr ""
 
-#: ../includes/general-functions.php:712
+#: ../includes/general-functions.php:714
 msgid "Panama"
 msgstr ""
 
-#: ../includes/general-functions.php:713
+#: ../includes/general-functions.php:715
 msgid "Papua New Guinea"
 msgstr ""
 
-#: ../includes/general-functions.php:714
+#: ../includes/general-functions.php:716
 msgid "Paraguay"
 msgstr ""
 
-#: ../includes/general-functions.php:715
+#: ../includes/general-functions.php:717
 msgid "Peru"
 msgstr ""
 
-#: ../includes/general-functions.php:716
+#: ../includes/general-functions.php:718
 msgid "Philippines"
 msgstr ""
 
-#: ../includes/general-functions.php:717
+#: ../includes/general-functions.php:719
 msgid "Pitcairn"
 msgstr ""
 
-#: ../includes/general-functions.php:719
+#: ../includes/general-functions.php:721
 msgid "Portugal"
 msgstr ""
 
-#: ../includes/general-functions.php:720
+#: ../includes/general-functions.php:722
 msgid "Puerto Rico"
 msgstr ""
 
-#: ../includes/general-functions.php:721
+#: ../includes/general-functions.php:723
 msgid "Qatar"
 msgstr ""
 
-#: ../includes/general-functions.php:722
+#: ../includes/general-functions.php:724
 msgid "Réunion"
 msgstr ""
 
-#: ../includes/general-functions.php:723
+#: ../includes/general-functions.php:725
 msgid "Romania"
 msgstr ""
 
-#: ../includes/general-functions.php:724
+#: ../includes/general-functions.php:726
 msgid "Russian Federation"
 msgstr ""
 
-#: ../includes/general-functions.php:725
+#: ../includes/general-functions.php:727
 msgid "Rwanda"
 msgstr ""
 
-#: ../includes/general-functions.php:726
+#: ../includes/general-functions.php:728
 msgid "Saint Barthélemy"
 msgstr ""
 
-#: ../includes/general-functions.php:727
+#: ../includes/general-functions.php:729
 msgid "Saint Helena, Ascension and Tristan da Cunha"
 msgstr ""
 
-#: ../includes/general-functions.php:728
+#: ../includes/general-functions.php:730
 msgid "Saint Kitts and Nevis"
 msgstr ""
 
-#: ../includes/general-functions.php:729
+#: ../includes/general-functions.php:731
 msgid "Saint Lucia"
 msgstr ""
 
-#: ../includes/general-functions.php:730
+#: ../includes/general-functions.php:732
 msgid "Saint Martin (French part)"
 msgstr ""
 
-#: ../includes/general-functions.php:731
+#: ../includes/general-functions.php:733
 msgid "Saint Pierre and Miquelon"
 msgstr ""
 
-#: ../includes/general-functions.php:732
+#: ../includes/general-functions.php:734
 msgid "Saint Vincent and the Grenadines"
 msgstr ""
 
-#: ../includes/general-functions.php:733
+#: ../includes/general-functions.php:735
 msgid "Samoa"
 msgstr ""
 
-#: ../includes/general-functions.php:734
+#: ../includes/general-functions.php:736
 msgid "San Marino"
 msgstr ""
 
-#: ../includes/general-functions.php:735
+#: ../includes/general-functions.php:737
 msgid "Sao Tome and Principe"
 msgstr ""
 
-#: ../includes/general-functions.php:736
+#: ../includes/general-functions.php:738
 msgid "Saudi Arabia"
 msgstr ""
 
-#: ../includes/general-functions.php:737
+#: ../includes/general-functions.php:739
 msgid "Senegal"
 msgstr ""
 
-#: ../includes/general-functions.php:738
+#: ../includes/general-functions.php:740
 msgid "Serbia"
 msgstr ""
 
-#: ../includes/general-functions.php:739
+#: ../includes/general-functions.php:741
 msgid "Seychelles"
 msgstr ""
 
-#: ../includes/general-functions.php:740
+#: ../includes/general-functions.php:742
 msgid "Sierra Leone"
 msgstr ""
 
-#: ../includes/general-functions.php:742
+#: ../includes/general-functions.php:744
 msgid "Sint Maarten (Dutch part)"
 msgstr ""
 
-#: ../includes/general-functions.php:743
+#: ../includes/general-functions.php:745
 msgid "Slovakia"
 msgstr ""
 
-#: ../includes/general-functions.php:744
+#: ../includes/general-functions.php:746
 msgid "Slovenia"
 msgstr ""
 
-#: ../includes/general-functions.php:745
+#: ../includes/general-functions.php:747
 msgid "Solomon Islands"
 msgstr ""
 
-#: ../includes/general-functions.php:746
+#: ../includes/general-functions.php:748
 msgid "Somalia"
 msgstr ""
 
-#: ../includes/general-functions.php:747
+#: ../includes/general-functions.php:749
 msgid "South Africa"
 msgstr ""
 
-#: ../includes/general-functions.php:748
+#: ../includes/general-functions.php:750
 msgid "South Georgia and the South Sandwich Islands"
 msgstr ""
 
-#: ../includes/general-functions.php:749
+#: ../includes/general-functions.php:751
 msgid "South Sudan"
 msgstr ""
 
-#: ../includes/general-functions.php:751
+#: ../includes/general-functions.php:753
 msgid "Sri Lanka"
 msgstr ""
 
-#: ../includes/general-functions.php:752
+#: ../includes/general-functions.php:754
 msgid "Sudan"
 msgstr ""
 
-#: ../includes/general-functions.php:753
+#: ../includes/general-functions.php:755
 msgid "Suriname"
 msgstr ""
 
-#: ../includes/general-functions.php:754
+#: ../includes/general-functions.php:756
 msgid "Svalbard and Jan Mayen"
 msgstr ""
 
-#: ../includes/general-functions.php:755
+#: ../includes/general-functions.php:757
 msgid "Swaziland"
 msgstr ""
 
-#: ../includes/general-functions.php:758
+#: ../includes/general-functions.php:760
 msgid "Syrian Arab Republic"
 msgstr ""
 
-#: ../includes/general-functions.php:759
+#: ../includes/general-functions.php:761
 msgid "Taiwan, Province of China"
 msgstr ""
 
-#: ../includes/general-functions.php:760
+#: ../includes/general-functions.php:762
 msgid "Tajikistan"
 msgstr ""
 
-#: ../includes/general-functions.php:761
+#: ../includes/general-functions.php:763
 msgid "Tanzania, United Republic of"
 msgstr ""
 
-#: ../includes/general-functions.php:762
+#: ../includes/general-functions.php:764
 msgid "Thailand"
 msgstr ""
 
-#: ../includes/general-functions.php:763
+#: ../includes/general-functions.php:765
 msgid "Timor-Leste"
 msgstr ""
 
-#: ../includes/general-functions.php:764
+#: ../includes/general-functions.php:766
 msgid "Togo"
 msgstr ""
 
-#: ../includes/general-functions.php:765
+#: ../includes/general-functions.php:767
 msgid "Tokelau"
 msgstr ""
 
-#: ../includes/general-functions.php:766
+#: ../includes/general-functions.php:768
 msgid "Tonga"
 msgstr ""
 
-#: ../includes/general-functions.php:767
+#: ../includes/general-functions.php:769
 msgid "Trinidad and Tobago"
 msgstr ""
 
-#: ../includes/general-functions.php:768
+#: ../includes/general-functions.php:770
 msgid "Tunisia"
 msgstr ""
 
-#: ../includes/general-functions.php:769
+#: ../includes/general-functions.php:771
 msgid "Turkey"
 msgstr ""
 
-#: ../includes/general-functions.php:770
+#: ../includes/general-functions.php:772
 msgid "Turkmenistan"
 msgstr ""
 
-#: ../includes/general-functions.php:771
+#: ../includes/general-functions.php:773
 msgid "Turks and Caicos Islands"
 msgstr ""
 
-#: ../includes/general-functions.php:772
+#: ../includes/general-functions.php:774
 msgid "Tuvalu"
 msgstr ""
 
-#: ../includes/general-functions.php:773
+#: ../includes/general-functions.php:775
 msgid "Uganda"
 msgstr ""
 
-#: ../includes/general-functions.php:774
+#: ../includes/general-functions.php:776
 msgid "Ukraine"
 msgstr ""
 
-#: ../includes/general-functions.php:775
+#: ../includes/general-functions.php:777
 msgid "United Arab Emirates"
 msgstr ""
 
-#: ../includes/general-functions.php:778
+#: ../includes/general-functions.php:780
 msgid "United States Minor Outlying Islands"
 msgstr ""
 
-#: ../includes/general-functions.php:779
+#: ../includes/general-functions.php:781
 msgid "Uruguay"
 msgstr ""
 
-#: ../includes/general-functions.php:780
+#: ../includes/general-functions.php:782
 msgid "Uzbekistan"
 msgstr ""
 
-#: ../includes/general-functions.php:781
+#: ../includes/general-functions.php:783
 msgid "Vanuatu"
 msgstr ""
 
-#: ../includes/general-functions.php:782
+#: ../includes/general-functions.php:784
 msgid "Venezuela, Bolivarian Republic of"
 msgstr ""
 
-#: ../includes/general-functions.php:783
+#: ../includes/general-functions.php:785
 msgid "Viet Nam"
 msgstr ""
 
-#: ../includes/general-functions.php:784
+#: ../includes/general-functions.php:786
 msgid "Virgin Islands, British"
 msgstr ""
 
-#: ../includes/general-functions.php:785
+#: ../includes/general-functions.php:787
 msgid "Virgin Islands, U.S."
 msgstr ""
 
-#: ../includes/general-functions.php:786
+#: ../includes/general-functions.php:788
 msgid "Wallis and Futuna"
 msgstr ""
 
-#: ../includes/general-functions.php:787
+#: ../includes/general-functions.php:789
 msgid "Western Sahara"
 msgstr ""
 
-#: ../includes/general-functions.php:788
+#: ../includes/general-functions.php:790
 msgid "Yemen"
 msgstr ""
 
-#: ../includes/general-functions.php:789
+#: ../includes/general-functions.php:791
 msgid "Zambia"
 msgstr ""
 
-#: ../includes/general-functions.php:790
+#: ../includes/general-functions.php:792
 msgid "Zimbabwe"
 msgstr ""
 
-#: ../includes/general-functions.php:802
+#: ../includes/general-functions.php:804
 msgid "Jan"
 msgstr ""
 
-#: ../includes/general-functions.php:803
+#: ../includes/general-functions.php:805
 msgid "Feb"
 msgstr ""
 
-#: ../includes/general-functions.php:804
+#: ../includes/general-functions.php:806
 msgid "Mar"
 msgstr ""
 
-#: ../includes/general-functions.php:805
+#: ../includes/general-functions.php:807
 msgid "Apr"
 msgstr ""
 
-#: ../includes/general-functions.php:806
+#: ../includes/general-functions.php:808
 msgid "May"
 msgstr ""
 
-#: ../includes/general-functions.php:807
+#: ../includes/general-functions.php:809
 msgid "Jun"
 msgstr ""
 
-#: ../includes/general-functions.php:808
+#: ../includes/general-functions.php:810
 msgid "Jul"
 msgstr ""
 
-#: ../includes/general-functions.php:809
+#: ../includes/general-functions.php:811
 msgid "Aug"
 msgstr ""
 
-#: ../includes/general-functions.php:810
+#: ../includes/general-functions.php:812
 msgid "Sep"
 msgstr ""
 
-#: ../includes/general-functions.php:811
+#: ../includes/general-functions.php:813
 msgid "Oct"
 msgstr ""
 
-#: ../includes/general-functions.php:812
+#: ../includes/general-functions.php:814
 msgid "Nov"
 msgstr ""
 
-#: ../includes/general-functions.php:813
+#: ../includes/general-functions.php:815
 msgid "Dec"
 msgstr ""
 
-#: ../includes/general-functions.php:858 ../includes/internal-hooks.php:168
+#: ../includes/general-functions.php:860 ../includes/internal-hooks.php:168
 #, php-format
 msgid "%1$s %2$s %3$s"
 msgstr ""
 
-#: ../includes/general-functions.php:868
+#: ../includes/general-functions.php:870
 msgid "Order Fraud"
 msgstr ""
 
-#: ../includes/general-functions.php:897 ../includes/internal-hooks.php:283
+#: ../includes/general-functions.php:904 ../includes/internal-hooks.php:283
 msgid "Download"
 msgstr ""
 
-#: ../includes/general-functions.php:918
+#: ../includes/general-functions.php:925
 msgid "Under Review"
 msgstr ""
 
-#: ../includes/general-functions.php:920
+#: ../includes/general-functions.php:927
 msgid "Payment Completed"
 msgstr ""
 
-#: ../includes/general-functions.php:933
+#: ../includes/general-functions.php:940
 msgid "Order date: "
 msgstr ""
 
-#: ../includes/general-functions.php:934
+#: ../includes/general-functions.php:941
 msgid "Order status: "
 msgstr ""
 
-#: ../includes/general-functions.php:936
+#: ../includes/general-functions.php:943
 msgid "Transaction ID: "
 msgstr ""
 
-#: ../includes/general-functions.php:938
+#: ../includes/general-functions.php:945
 msgid "Subtotal: "
 msgstr ""
 
-#: ../includes/general-functions.php:946
+#: ../includes/general-functions.php:953
 msgid "Total: "
 msgstr ""
 
-#: ../includes/general-functions.php:1008
+#: ../includes/general-functions.php:1015
 msgid "You don't have required permissions to access this page."
 msgstr ""
 
-#: ../includes/general-functions.php:1150
+#: ../includes/general-functions.php:1157
 msgid "Fixed"
 msgstr ""
 
-#: ../includes/general-functions.php:1151
+#: ../includes/general-functions.php:1158
 msgid "Percentage"
 msgstr ""
 
-#: ../includes/general-functions.php:1265 ../includes/internal-hooks.php:400
+#: ../includes/general-functions.php:1272 ../includes/internal-hooks.php:400
 msgid "All"
 msgstr ""
 
-#: ../includes/general-functions.php:1293 ../includes/internal-hooks.php:415
+#: ../includes/general-functions.php:1300 ../includes/internal-hooks.php:415
 msgid "Fixed Amount"
 msgstr ""
 
-#: ../includes/general-functions.php:1294 ../includes/internal-hooks.php:417
+#: ../includes/general-functions.php:1301 ../includes/internal-hooks.php:417
 msgid "Percentage (%)"
 msgstr ""
 

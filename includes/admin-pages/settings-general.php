@@ -47,7 +47,7 @@ $tc_general_settings = get_option( 'tc_general_setting', false );
 							<?php
 							$fields = $general_settings->get_settings_general_fields();
 							foreach ( $fields as $field ) {
-								if ( $field[ 'section' ] == $section[ 'name' ] ) {
+								if ( isset($field[ 'section' ]) && $field[ 'section' ] == $section[ 'name' ] ) {
 									?>    
 									<tr valign="top">
 										<th scope="row"><label for="<?php echo $field[ 'field_name' ]; ?>"><?php echo $field[ 'field_title' ]; ?></label></th>

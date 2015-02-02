@@ -511,6 +511,7 @@ function tc_get_order_page_settings( $field_name, $default_value = '' ) {
 }
 
 function tc_get_pages_settings( $field_name, $default_value = '' ) {
+	global $tc;
 	?>
 	<p class="submit"><a href="<?php echo add_query_arg( 'install_tickera_pages', 'true', admin_url( 'admin.php?page=tc_settings' ) ); ?>" class="button-primary"><?php printf( __( 'Install %s Pages', 'tc' ), $tc->title ); ?></a></p>
 	<?php
@@ -875,6 +876,11 @@ function tc_get_order_status_select( $field_name = '', $post_id = '' ) {
 function tc_get_order_customer( $field_name = '', $post_id = '' ) {
 	$value = get_post_meta( $post_id, $field_name, true );
 	echo $value[ 'buyer_data' ][ 'first_name_post_meta' ] . ' ' . $value[ 'buyer_data' ][ 'last_name_post_meta' ];
+}
+
+function tc_get_order_customer_email( $field_name = '', $post_id = '' ) {
+	$value = get_post_meta( $post_id, $field_name, true );
+	echo $value[ 'buyer_data' ][ 'email_post_meta' ];
 }
 
 function tc_get_ticket_instance_event( $field_name = false, $field_id = false, $ticket_instance_id ) {

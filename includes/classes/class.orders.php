@@ -60,6 +60,16 @@ if ( !class_exists( 'TC_Orders' ) ) {
 					'post_field_type'	 => 'post_meta'
 				),
 				array(
+					'id'				 => 'customer_email',
+					'field_name'		 => 'tc_cart_info',
+					'field_title'		 => __( 'Customer E-mail', 'tc' ),
+					'field_type'		 => 'function',
+					'function'			 => 'tc_get_order_customer_email',
+					'field_description'	 => '',
+					'table_visibility'	 => false,
+					'post_field_type'	 => 'post_meta'
+				),
+				array(
 					'id'				 => 'parent_event',
 					'field_name'		 => 'tc_cart_contents',
 					'field_title'		 => __( 'Ticket(s)', 'tc' ),

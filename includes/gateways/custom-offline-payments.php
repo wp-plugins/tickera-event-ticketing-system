@@ -1,4 +1,5 @@
 <?php
+
 /*
   Custom Offline Payments Gateway
  */
@@ -22,11 +23,35 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 		$this->public_name		 = $tc->get_setting( 'gateways->custom_offline_payments->public_name' ) ? $tc->get_setting( 'gateways->custom_offline_payments->public_name', __( 'Cash on Delivery', 'tc' ) ) : __( 'Cash on Delivery', 'tc' );
 		$this->method_img_url	 = $tc->plugin_url . 'images/gateways/custom-offline-payments.png';
 		$this->admin_img_url	 = $tc->plugin_url . 'images/gateways/small-custom-offline-payments.png';
+		add_action( 'tc_order_created', array( &$this, 'send_payment_instructions' ), 10, 5 );
 	}
 
 	function payment_form( $cart ) {
 		global $tc;
 		return $tc->get_setting( 'gateways->custom_offline_payments->info' );
+	}
+
+	function send_payment_instructions( $order_id, $status, $cart_contents, $cart_info, $payment_info ) {
+		global $tc, $order_instructions_sent;
+
+		$send_instructions_value = $tc->get_setting( 'gateways->custom_offline_payments->instructions_email' );
+		$send_instructions		 = isset( $send_instructions_value ) ? $send_instructions_value : 0;
+
+		if ( $send_instructions == 1 && $status == 'order_received' ) {
+			add_filter( 'wp_mail_content_type', 'set_content_type' );
+			add_filter( 'wp_mail_from', 'client_email_from_email', 999 );
+			add_filter( 'wp_mail_from_name', 'client_email_from_name', 999 );
+
+			$client_headers	 = '';
+			$to				 = $cart_info[ 'buyer_data' ][ 'email_post_meta' ];
+			$message		 = $tc->get_setting( 'gateways->custom_offline_payments->instructions' );
+			$subject		 = $tc->get_setting( 'gateways->custom_offline_payments->instructions_email_subject' );
+
+			if ( $order_instructions_sent !== $cart_info[ 'buyer_data' ][ 'email_post_meta' ] ) {
+				wp_mail( $to, $subject, apply_filters( 'tc_order_created_client_email_message', $message ), apply_filters( 'tc_order_created_client_email_headers', $client_headers ) );
+				$order_instructions_sent = $cart_info[ 'buyer_data' ][ 'email_post_meta' ];
+			}
+		}
 	}
 
 	function process_payment( $cart ) {
@@ -121,12 +146,12 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 		$content = '';
 
 		if ( $order->details->post_status == 'order_received' ) {
-			$content .= '<p>' . sprintf( __( 'Your payment via ' . $this->public_name . ' for this order totaling <strong>%s</strong> is not yet complete.', 'tc' ), $tc->get_cart_currency_and_format( $order->details->tc_payment_info[ 'total' ] ) ) . '</p>';
+			$content .= '<p>' . sprintf( __( 'Your payment via %s for this order totaling <strong>%s</strong> is not yet complete.', 'tc' ), $this->public_name, $tc->get_cart_currency_and_format( $order->details->tc_payment_info[ 'total' ] ) ) . '</p>';
 			$content .= '<p>' . __( 'Current order status:', 'tc' ) . ' <strong>' . __( 'Pending Payment' ) . '</strong></p>';
 		} else if ( $order->details->post_status == 'order_fraud' ) {
 			$content .= '<p>' . __( 'Your payment is under review. We will back to you soon.', 'tc' ) . '</p>';
 		} else if ( $order->details->post_status == 'order_paid' ) {
-			$content .= '<p>' . sprintf( __( 'Your payment via ' . $this->public_name . ' for this order totaling <strong>%s</strong> is complete.', 'tc' ), $tc->get_cart_currency_and_format( $order->details->tc_payment_info[ 'total' ] ) ) . '</p>';
+			$content .= '<p>' . sprintf( __( 'Your payment via %s for this order totaling <strong>%s</strong> is complete.', 'tc' ), $this->public_name, $tc->get_cart_currency_and_format( $order->details->tc_payment_info[ 'total' ] ) ) . '</p>';
 		}
 
 		$content = apply_filters( 'tc_order_confirmation_message_content_' . $this->plugin_name, $content );
@@ -142,7 +167,7 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 	function gateway_admin_settings( $settings, $visible ) {
 		global $tc;
 		?>
-		<div id="<?php echo $this->plugin_name; ?>" class="postbox" <?php echo (!$visible ? 'style="display:none;"' : ''); ?>>
+		<div id="<?php echo $this->plugin_name; ?>" class="postbox" <?php echo (!$visible ? 'style = "display:none;"' : ''); ?>>
 			<h3 class='handle'><span><?php _e( 'Offline Payments', 'tc' ); ?></span></h3>
 			<div class="inside">
 				<span class="description"><?php _e( 'Track offline / custom payments (Cash on Delivery, Money Orders, Bank Deposits, Cheques etc.) manually.', 'tc' ) ?></span>
@@ -171,7 +196,7 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 						<td>
 							<span class="description"><?php _e( 'Information about the payment method which will be visible to user upon choosing this payment method.', 'tc' ) ?></span>
 							<p>
-								<?php wp_editor( $tc->get_setting( 'gateways->custom_offline_payments->info' ), 'custom_offline_payments_info', array( 'textarea_name' => 'tc[gateways][custom_offline_payments][info]', 'textarea_rows' => 2 ) ); ?>
+								<?php wp_editor( $tc->get_setting( 'gateways->custom_offline_payments->info' ), 'custom_offline_payments_info', array( 'textarea_name' => 'tc[ gateways ][ custom_offline_payments ][ info ]', 'textarea_rows' => 2 ) ); ?>
 							</p>
 						</td>
 					</tr>
@@ -181,7 +206,38 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 						<td>
 							<span class="description"><?php _e( 'Your customers who checkout using the custom offline payment method will be given a set of instructions (set by you) to complete the purchase process immediately after checkout completion.', 'tc' ) ?></span>
 							<p>
-								<?php wp_editor( $tc->get_setting( 'gateways->custom_offline_payments->instructions' ), 'custom_offline_payments_instructions', array( 'textarea_name' => 'tc[gateways][custom_offline_payments][instructions]', 'textarea_rows' => 5 ) ); ?>
+								<?php wp_editor( $tc->get_setting( 'gateways->custom_offline_payments->instructions' ), 'custom_offline_payments_instructions', array( 'textarea_name' => 'tc[ gateways ][ custom_offline_payments ][ instructions ]', 'textarea_rows' => 5 ) ); ?>
+							</p>
+						</td>
+					</tr>
+
+					<tr>
+						<th scope="row"><label for="custom_offline_payments_instructions_email"><?php _e( 'E-mail Instructions', 'tc' ) ?></label></th>
+						<td>
+							<span class="description"><?php _e( 'Send an email with the payment instructions to a customer upon creating an order. The e-mail will be sent only if status of a order is "Order Received".', 'tc' ) ?></span>
+							<p>
+								<?php
+								$send_instructions_value		 = $tc->get_setting( 'gateways->custom_offline_payments->instructions_email' );
+								$send_instructions				 = isset( $send_instructions_value ) ? $send_instructions_value : 0;
+								?>
+								<select name="tc[gateways][custom_offline_payments][instructions_email]">
+									<option value="0" <?php selected( $send_instructions, 0, true ); ?>><?php _e( 'No', 'tc' ); ?></option>
+									<option value="1" <?php selected( $send_instructions, 1, true ); ?>><?php _e( 'Yes', 'tc' ); ?></option>
+								</select>
+							</p>
+						</td>
+					</tr>
+
+					<tr>
+						<th scope="row"><label for="custom_offline_payments_instructions_email_subject"><?php _e( 'Instructions E-mail Subject', 'tc' ) ?></label></th>
+						<td>
+							<span class="description"><?php _e( 'Subject of the payment instructions e-mail', 'tc' ) ?></span>
+							<p>
+								<?php
+								$send_instructions_subject_value = $tc->get_setting( 'gateways->custom_offline_payments->instructions_email_subject' );
+								$send_instructions_subject		 = isset( $send_instructions_subject_value ) ? $send_instructions_subject_value : __( 'Payment Instructions', 'tc' );
+								?>
+								<input type="text" name="tc[gateways][custom_offline_payments][instructions_email_subject]" value="<?php echo esc_attr( $send_instructions_subject ); ?>" />
 							</p>
 						</td>
 					</tr>
@@ -191,7 +247,7 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 						<td>
 							<span class="description"><?php _e( 'Automatic payment status which will be set for all custom offline payment orders.', 'tc' ) ?></span>
 							<p>
-								<?php $automatic_status = $tc->get_setting( 'gateways->custom_offline_payments->automatic_status' ); ?>
+								<?php $automatic_status				 = $tc->get_setting( 'gateways->custom_offline_payments->automatic_status' ); ?>
 								<select name="tc[gateways][custom_offline_payments][automatic_status]">
 									<option value="order_received" <?php selected( $automatic_status, 'order_received', true ); ?>><?php _e( 'Order Received', 'tc' ); ?></option>
 									<option value="order_paid" <?php selected( $automatic_status, 'order_paid', true ); ?>><?php _e( 'Order Paid', 'tc' ); ?></option>

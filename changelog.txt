@@ -1,6 +1,11 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
+3.1.4.3 - 02/FEB/2015
+- Added option for e-mail payment instructions upon placing an order in custom / offline payments gateway
+- Added customer e-mail field on the order details in the admin
+- Fixed text domain issue in Free Order and Custom Offline payments gateways
+
 3.1.4.2 - 30/JAN/2015
 - Fixed issues with ticket quantity limits
 - Fixed issue with post author upon creating default tickera pages
