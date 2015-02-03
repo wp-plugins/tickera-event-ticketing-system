@@ -36,6 +36,10 @@ class TC_Gateway_Free_Orders extends TC_Gateway_API {
 
 		$cart_contents = $tc->get_cart_cookie();
 
+		if ( !session_id() ) {
+			session_start();
+		}
+
 		$cart_total = $_SESSION[ 'tc_cart_total' ];
 
 		if ( !isset( $_SESSION ) ) {

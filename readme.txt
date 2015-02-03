@@ -97,6 +97,10 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.4.4 = - 
+- Fixed issues with saving custom offline payments fields in the admin
+- Fixed issue with including JS files on the payment page in Stripe payment gateway
+
 = 3.1.4.3 =
 - Added option for e-mail payment instructions upon placing an order in custom / offline payments gateway
 - Added customer e-mail field on the order details in the admin

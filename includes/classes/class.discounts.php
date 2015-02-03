@@ -178,7 +178,7 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 									$discount_value				 = $discount_value + $discount_value_per_each;
 									$number_of_discount_uses++;
 									$discount_codes_available	 = $usage_limit - $number_of_discount_uses;
-									$max_discount = ($ordered_count >= $discount_codes_available ? $discount_codes_available : $ordered_count);
+									$max_discount				 = ($ordered_count >= $discount_codes_available ? $discount_codes_available : $ordered_count);
 									//echo $i.'<br />';
 								}
 
@@ -206,7 +206,7 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 								$discount_value_per_each = ($discount_object->details->discount_type == 1 ? $discount_object->details->discount_value : (($ticket_price / 100) * $discount_object->details->discount_value));
 
 								$max_discount = ($ordered_count >= $discount_codes_available ? $discount_codes_available : $ordered_count);
-					
+
 								for ( $i = 1; $i <= $max_discount; $i++ ) {
 									$discount_value				 = $discount_value + $discount_value_per_each;
 									$number_of_discount_uses++;
@@ -260,6 +260,10 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 
 			}
 
+			if ( !session_id() ) {
+				session_start();
+			}
+			
 			$new_total = (isset( $_SESSION[ 'tc_cart_subtotal' ] ) ? $_SESSION[ 'tc_cart_subtotal' ] : 0) - $discount_value;
 
 			add_filter( 'tc_cart_total', 'tc_cart_total_minimum_total' );
@@ -268,9 +272,11 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 
 				function tc_cart_total_minimum_total() {
 					global $new_total;
-					if ( !isset( $_SESSION ) ) {
+
+					if ( !session_id() ) {
 						session_start();
 					}
+
 					$_SESSION[ 'tc_cart_total' ] = tc_minimum_total( $new_total );
 
 					return tc_minimum_total( $new_total );

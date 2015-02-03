@@ -94,11 +94,11 @@ class TC_Gateway_2Checkout extends TC_Gateway_API {
 		$buyer_full_name	 = $buyer_first_name . ' ' . $buyer_last_name;
 		$buyer_email		 = isset( $_SESSION[ 'cart_info' ][ 'buyer_data' ][ 'email_post_meta' ] ) ? $_SESSION[ 'cart_info' ][ 'buyer_data' ][ 'email_post_meta' ] : '';
 
-		$cart_total = $_SESSION[ 'tc_cart_total' ];
-
-		if ( !isset( $_SESSION ) ) {
+		if ( !session_id() ) {
 			session_start();
 		}
+
+		$cart_total = $_SESSION[ 'tc_cart_total' ];
 
 		$discounted_total								 = isset( $_SESSION[ 'discounted_total' ] ) ? $_SESSION[ 'discounted_total' ] : '';
 		$_SESSION[ 'cart_info' ][ 'gateway' ]			 = $this->plugin_name;

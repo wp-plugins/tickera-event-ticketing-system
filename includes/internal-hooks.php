@@ -94,6 +94,9 @@ function tc_cart_tax( $total ) {
 
 	function tc_cart_total_with_tax( $total_price ) {
 		global $total_fees, $tax_value;
+		if ( !session_id() ) {
+			session_start();
+		}
 		$_SESSION[ 'tc_cart_total' ] = $total_price + $tax_value;
 		return $total_price + $tax_value;
 	}
@@ -300,7 +303,7 @@ function tc_ticket_instance_field_value( $value = false, $field_value = false, $
 
 	if ( $field_id == 'owner_name' ) {
 		$value = get_post_meta( $value, 'first_name', true ) . ' ' . get_post_meta( $value, 'last_name', true );
-		if(trim($value) == ''){
+		if ( trim( $value ) == '' ) {
 			$value = '-';
 		}
 	}

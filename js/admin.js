@@ -164,7 +164,7 @@ jQuery( document ).ready( function( $ ) {
 
         jQuery( this ).change( function() {
             fix_chosen();
-            
+
             if ( this.checked ) {
                 jQuery( this ).closest( '.image-check-wrap' ).toggleClass( 'active-gateway' );
             } else {

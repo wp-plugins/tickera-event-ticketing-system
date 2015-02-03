@@ -8,6 +8,10 @@ $cart_contents	 = $tc->get_cart_cookie();
 $payment_class_name	 = $tc_gateway_plugins[ $_POST[ 'tc_choose_gateway' ] ][ 0 ];
 $payment_gateway	 = new $payment_class_name;
 
+if ( !session_id() ) {
+	session_start();
+}
+
 $cart_total = $_SESSION[ 'tc_cart_total' ];
 
 if ( $tc->checkout_error == false ) {
