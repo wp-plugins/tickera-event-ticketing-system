@@ -35,6 +35,7 @@ If you need more payment options, you can download [Tickera Premium](http://tick
 * Braintree
 * PayUMoney
 * PayTabs
+* White Payments
 * Custom Offline Payments
 * Free Orders.
 
