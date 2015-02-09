@@ -97,6 +97,9 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.4.5 =
+- Improved cart performance when checking out a lot of tickets (few hundreds)
+
 = 3.1.4.4 =  
 - Fixed issues with saving custom offline payments fields in the admin
 - Fixed issue with including JS files on the payment page in Stripe payment gateway
