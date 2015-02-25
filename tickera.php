@@ -5,7 +5,7 @@
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.1.4.5
+  Version: 3.1.4.7
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.1.4.5';
+		var $version			 = '3.1.4.7';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -730,7 +730,7 @@ if ( !class_exists( 'TC' ) ) {
 				if ( !session_id() ) {
 					session_start();
 				}
-				
+
 				$_SESSION[ 'cart_info' ][ 'coupon_code' ]	 = $_POST[ 'coupon_code' ];
 				$_SESSION[ 'cart_info' ][ 'total' ]			 = $_SESSION[ 'discounted_total' ];
 				$_SESSION[ 'cart_info' ][ 'currency' ]		 = $this->get_cart_currency();
@@ -809,7 +809,7 @@ if ( !class_exists( 'TC' ) ) {
 			}
 
 			$cart_total = $_SESSION[ 'tc_cart_total' ];
-			
+
 			if ( $cart_total == 0 ) {
 				$tc_gateway_plugins		 = array();
 				$free_orders			 = new TC_Gateway_Free_Orders();
@@ -2443,14 +2443,17 @@ if ( !class_exists( 'TC' ) ) {
 			wp_enqueue_script( 'media-upload' );
 			wp_enqueue_style( 'wp-color-picker' );
 			wp_enqueue_script( $this->name . '-admin', $this->plugin_url . 'js/admin.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-sortable', 'jquery-ui-draggable', 'jquery-ui-droppable', 'jquery-ui-accordion', 'wp-color-picker' ), false, false );
+			
 			wp_localize_script( $this->name . '-admin', 'tc_vars', array(
 				'ajaxUrl'						 => admin_url( 'admin-ajax.php', (is_ssl() ? 'https' : 'http' ) ),
 				'animated_transitions'			 => apply_filters( 'tc_animated_transitions', true ),
 				'delete_confirmation_message'	 => __( 'Please confirm that you want to delete it permanently?', 'tc' ),
 				'order_status_changed_message'	 => __( 'Order status changed successfully.', 'tc' )
 			) );
+			
 			wp_enqueue_script( $this->name . '-chosen', $this->plugin_url . 'js/chosen.jquery.min.js', array( $this->name . '-admin' ), false, false );
 			wp_enqueue_style( $this->name . '-admin', $this->plugin_url . 'css/admin.css', array(), $this->version );
+			
 			wp_enqueue_style( $this->name . '-chosen', $this->plugin_url . 'css/chosen.min.css', array(), $this->version );
 			wp_enqueue_script( $this->name . '-simple-dtpicker', $this->plugin_url . 'js/jquery.simple-dtpicker.js', array( 'jquery' ), $this->version );
 			wp_enqueue_style( $this->name . '-simple-dtpicker', $this->plugin_url . 'css/jquery.simple-dtpicker.css', array(), $this->version );

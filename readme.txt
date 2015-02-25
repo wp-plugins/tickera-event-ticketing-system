@@ -98,6 +98,10 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.4.7 =
+- Added new hooks for developers
+- Other code improvements
+
 = 3.1.4.5 =
 - Improved cart performance when checking out a lot of tickets (few hundreds)
 

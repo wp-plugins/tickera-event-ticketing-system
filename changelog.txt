@@ -1,7 +1,16 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
+3.1.4.7 - 25/FEB/2015
+- Added new hooks for developers
+- Other code improvements
+
+3.1.4.6 - 16/FEB/2015
+- Added additional charge parameters in the White Payments gateway
+- Fixed VoguePay process payment content type issue
+
 3.1.4.5 - 08/FEB/2015
+- Added White Payments payment gateway (https://whitepayments.com/)
 - Improved cart performance when checking out a lot of tickets (few hundreds)
 
 3.1.4.4 - 03/FEB/2015

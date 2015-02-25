@@ -10,7 +10,7 @@ if ( !class_exists( 'TC_Discounts_Search' ) ) {
 		var $per_page	 = 10;
 		var $args		 = array();
 		var $post_type	 = 'tc_discounts';
-		var $page_name	 = 'tc_discounts';
+		var $page_name	 = 'tc_discount_codes';
 		var $items_title	 = 'Discounts';
 
 		function __construct( $search_term = '', $page_num = '', $per_page = 10 ) {
