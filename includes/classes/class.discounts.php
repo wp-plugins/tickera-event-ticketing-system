@@ -299,7 +299,7 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 			//return $discounted_total;
 		}
 
-		function discount_code_message( $message ) {
+		public static function discount_code_message( $message ) {
 			global $discount;
 			$message = $discount->discount_message;
 			return $message;

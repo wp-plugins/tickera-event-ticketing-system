@@ -142,15 +142,18 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 											 $field_values = explode( ',', $field[ 'field_values' ] );
 											 foreach ( $field_values as $field_value ) {
 												 ?>
-											<input type="<?php echo $field[ 'field_type' ]; ?>" class="buyer-field-<?php echo $field[ 'field_type' ]; ?> tickera-input-field" value="<?php echo trim( $field_value ); ?>" name="<?php echo 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>" <?php
+											<input type="<?php echo $field[ 'field_type' ]; ?>" class="buyer-field-<?php echo $field[ 'field_type' ]; ?> tickera-input-field" value="<?php echo trim( $field_value ); ?>" <?php
 											if ( isset( $field[ 'field_default_value' ] ) && $field[ 'field_default_value' ] == trim( $field_value ) ) {
 												echo 'checked';
 											}
 											?>><?php echo trim( $field_value ); ?>
 												   <?php
 											   }
-										   }
-										   ?>
+											   ?>
+										<input type="hidden" class="checkbox_values" name="<?php echo 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>" value="" />
+										<?php
+									}
+									?>
 								</label><span class="description"><?php echo $field[ 'field_description' ]; ?></span></div><!-- fields-wrap --><?php } ?>
 
 						<?php if ( $field[ 'field_type' ] == 'select' ) { ?><div class="fields-wrap <?php
@@ -231,29 +234,29 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 														if ( $field[ 'required' ] && $show_owner_fields ) {
 															if ( $show_owner_fields ) {
 																?>
-																																																																																																																																																														<input type="hidden" name="tc_cart_required[]" value="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>" />
+																																																																																																																																																																						<input type="hidden" name="tc_cart_required[]" value="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>" />
 												<?php
 											}
 										}
 										?>
-																																																																																																																																					                                                                
-																																																																																																																																					                                                                    <div class="tc-clearfix"></div>
+																																																																																																																																											                                                                
+																																																																																																																																											                                                                    <div class="tc-clearfix"></div>
 										<?php
 									}
 								}
 								?>		
-																																																																																							</div><!-- owner-info-wrap -->																																																															                                                                                
+																																																																																											</div><!-- owner-info-wrap -->																																																															                                                                                
 						<?php } $i++; ?>
-																																																																						                                                            <div class="tc-clearfix"></div>     
-																																																																						                                                            
-																																																																						                                         
-																																																																																					
+																																																																									                                                            <div class="tc-clearfix"></div>     
+																																																																									                                                            
+																																																																									                                         
+																																																																																								
 					<?php } //foreach ( $cart_contents as $ticket_type => $ordered_count ) ?>
 
-																																															                            </div><!-- tickera_owner_info -->
+																																																	                            </div><!-- tickera_owner_info -->
 				<?php do_action( 'before_cart_submit' ); ?>
-																																														                                <p><input type="submit" id="proceed_to_checkout" name='proceed_to_checkout' value="<?php _e( "Proceed to Checkout", "tc" ); ?>" class="tickera_checkout tickera-button"></p>
-																																														                            </div><!-- tickera_additional_info -->
+																																																                                <p><input type="submit" id="proceed_to_checkout" name='proceed_to_checkout' value="<?php _e( "Proceed to Checkout", "tc" ); ?>" class="tickera_checkout tickera-button"></p>
+																																																                            </div><!-- tickera_additional_info -->
 			<?php
 		} else {
 			?><div class="cart_empty_message"><?php _e( "The cart is empty.", "tc" ); ?></div>

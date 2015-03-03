@@ -98,6 +98,9 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.4.8 =
+- Added additional control on the cart page (force cart update)
+
 = 3.1.4.7 =
 - Added new hooks for developers
 - Other code improvements

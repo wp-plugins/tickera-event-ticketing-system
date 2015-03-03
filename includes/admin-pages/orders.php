@@ -81,7 +81,8 @@ $columns = $orders->get_columns();
 								?>
 								<?php
 								if ( $field[ 'field_type' ] == 'function' ) {
-									eval( $field[ 'function' ] . '("' . $field[ 'field_name' ] . '"' . (isset( $post_id ) ? ',' . $post_id : '') . ');' );
+									//eval( $field[ 'function' ] . '("' . $field[ 'field_name' ] . '"' . (isset( $post_id ) ? ',' . $post_id : '') . ');' );
+									eval( $field[ 'function' ] . '("' . $field[ 'field_name' ] . '"' . (isset( $post_id ) ? ',' . $post_id : '') . (isset( $field[ 'id' ] ) ? ',"' . $field[ 'id' ] .'"' : '') . ');' );
 									?>
 
 								<?php } ?>

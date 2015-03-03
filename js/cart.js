@@ -1,5 +1,22 @@
 jQuery( document ).ready( function( $ ) {
 
+    function tc_check_cart_update() {
+        if ( $( '.quantity' ).val() != $( '.owner-info-wrap' ).length ) {
+            $( '.tc_cart_errors' ).html( '<ul><li><a href="cjsea" class="cjsea"></a>' + tc_ajax.update_cart_message + '</li></ul>' );
+
+            var $target = $( '.cjsea' );
+
+            $( 'html, body' ).stop().animate( {
+                'scrollTop': ( $target.offset().top ) - 40
+            }, 350, 'swing', function() {
+                window.location.hash = target;
+            } );
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     $( 'input.tickera_button.plus' ).on( 'click', function() {
         var quantity = $( this ).parent().find( '.quantity' ).val();
         $( this ).parent().find( '.quantity' ).val( parseInt( quantity ) + 1 );
@@ -126,6 +143,15 @@ jQuery( document ).ready( function( $ ) {
         window.location.href = $( this ).data( 'url' );
     } );
 
+    jQuery( '#proceed_to_checkout' ).on( 'click', function( event ) {
+        jQuery( '#cart_action' ).val( 'proceed_to_checkout' );//when user click on the proceed to checkout button
+        if ( tc_check_cart_update() ) {
+            //all good, do not prevent the click
+        } else {
+            event.preventDefault();
+        }
+    } );
+
 } );
 
 
@@ -135,14 +161,14 @@ jQuery( document ).ready( function( $ ) {
     var gateways_count = $( '.tc_gateway_form' ).length;
 
     if ( gateways_count > 1 ) {
-        $( 'div.tc_gateway_form' ).css('max-height', 'auto');
+        $( 'div.tc_gateway_form' ).css( 'max-height', 'auto' );
     }
     //payment method choice
     $( '.tickera-payment-gateways input.tc_choose_gateway' ).change( function() {
         var gid = $( 'input.tc_choose_gateway:checked' ).val();
-                
-        $( 'div.tc_gateway_form' ).removeClass('tickera-height');
-        $( 'div#' + gid ).addClass('tickera-height');
+
+        $( 'div.tc_gateway_form' ).removeClass( 'tickera-height' );
+        $( 'div#' + gid ).addClass( 'tickera-height' );
     } );
 
 
@@ -157,6 +183,18 @@ jQuery( document ).ready( function( $ ) {
             }
         } );
     } )
+
+    jQuery( '.buyer-field-checkbox' ).change( function() {
+        var checkbox_values_field = jQuery( this ).parent().find( '.checkbox_values' );
+        checkbox_values_field.val( '' );
+        jQuery( this ).parent().find( 'input' ).each( function( key, value ) {
+            if ( jQuery( this ).attr( 'checked' ) ) {
+                checkbox_values_field.val( checkbox_values_field.val() + '' + jQuery( this ).val( ) + ', ' );
+            }
+        } );
+        checkbox_values_field.val( checkbox_values_field.val().substring( 0, checkbox_values_field.val().length - 2 ) );
+
+    } );
 
 
 

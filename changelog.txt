@@ -1,6 +1,9 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
+3.1.4.8 - 03/MAR/2015
+- Added additional control on the cart page (force cart update)
+
 3.1.4.7 - 25/FEB/2015
 - Added new hooks for developers
 - Other code improvements

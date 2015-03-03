@@ -937,13 +937,13 @@ function tc_get_order_details_front( $order_id = '', $order_key = '' ) {
 		$order_date		 = $payment_date	 = apply_filters( 'tc_order_date', date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $order->details->tc_order_date, false ) );
 		?>
 
-		<label><span class="order_details_title"><?php _e( 'Order: ' ); ?></span> <?php echo $order_id; ?></label>
-		<label><span class="order_details_title"><?php _e( 'Order date: ' ); ?></span> <?php echo $order_date; ?></label>
-		<label><span class="order_details_title"><?php _e( 'Order status: ' ); ?></span> <?php echo $order_status; ?></label>
+		<label><span class="order_details_title"><?php _e( 'Order: ', 'tc' ); ?></span> <?php echo $order_id; ?></label>
+		<label><span class="order_details_title"><?php _e( 'Order date: ', 'tc' ); ?></span> <?php echo $order_date; ?></label>
+		<label><span class="order_details_title"><?php _e( 'Order status: ', 'tc' ); ?></span> <?php echo $order_status; ?></label>
 		<?php if ( isset( $transaction_id ) && $transaction_id !== '' ) { ?>
-			<label><span class="order_details_title"><?php _e( 'Transaction ID: ' ); ?></span> <?php echo $transaction_id; ?></label>
+			<label><span class="order_details_title"><?php _e( 'Transaction ID: ', 'tc' ); ?></span> <?php echo $transaction_id; ?></label>
 		<?php } ?>
-		<label><span class="order_details_title"><?php _e( 'Subtotal: ' ); ?></span> <?php echo $subtotal; ?></label>
+		<label><span class="order_details_title"><?php _e( 'Subtotal: ', 'tc' ); ?></span> <?php echo $subtotal; ?></label>
 		<?php if ( !isset( $tc_general_settings[ 'show_fees' ] ) || isset( $tc_general_settings[ 'show_fees' ] ) && $tc_general_settings[ 'show_fees' ] == 'yes' ) { ?>
 			<label><span class="order_details_title"><?php echo $tc_general_settings[ 'fees_label' ]; ?></span> <?php echo $fees_total; ?></label>
 		<?php } ?>
@@ -951,7 +951,7 @@ function tc_get_order_details_front( $order_id = '', $order_key = '' ) {
 			<label><span class="order_details_title"><?php echo $tc_general_settings[ 'tax_label' ]; ?></span> <?php echo $tax_total; ?></label>
 		<?php } ?>
 		<hr />
-		<label><span class="order_details_title"><?php _e( 'Total: ' ); ?></span> <?php echo $total; ?></label>
+		<label><span class="order_details_title"><?php _e( 'Total: ', 'tc' ); ?></span> <?php echo $total; ?></label>
 
 		<?php
 		if ( $order->details->post_status == 'order_paid' ) {
