@@ -17,44 +17,49 @@ if (!class_exists('TC_Ticket_Templates')) {
         function generate_preview($ticket_instance_id = false, $force_download = false, $template_id = false, $ticket_type_id = false) {
             global $tc, $pdf;
             error_reporting(0);
-			require_once($tc->plugin_dir . 'includes/tcpdf/examples/tcpdf_include.php');
-			
+
+            require_once($tc->plugin_dir . 'includes/tcpdf/examples/tcpdf_include.php');
+
             //include_once( $tc->plugin_dir . 'includes/tcpdf/config/lang/eng.php' );
             //require_once( $tc->plugin_dir . 'includes/tcpdf/tcpdf.php' );
-            ob_end_clean();
-            ob_start();
+            $output_buffering = ini_get('output_buffering');
+            if (isset($output_buffering) && $output_buffering > 0) {
+                ob_end_clean();
+                ob_start();
+            }
             //use $template_id only if you preview the ticket
 
-            /*if (ini_get('output_buffering') == 0) {
-                echo 'Output buffering is turned off on this server and that\'s the reason why PDF tickets cannot be generated.<br />';
-                echo 'You can turn on the output buffering by adding this line to your .htaccess file: <br /><br />
+            /* if (ini_get('output_buffering') == 0) {
+              echo 'Output buffering is turned off on this server and that\'s the reason why PDF tickets cannot be generated.<br />';
+              echo 'You can turn on the output buffering by adding this line to your .htaccess file: <br /><br />
               <strong>php_flag output_buffering on</strong><br /><br />';
-                echo 'In case that above line does not work, try adding this one:<br /><br />
+              echo 'In case that above line does not work, try adding this one:<br /><br />
               <strong>php_value output_buffering 1</strong><br /><br />';
-                exit;
-            }*/
-			
-			//use $template_id only if you preview the ticket
-            
+              exit;
+              } */
+
+            //use $template_id only if you preview the ticket
+
             if ($ticket_instance_id) {
                 $ticket_instance = new TC_Ticket($ticket_instance_id);
             }
             //require_once($tc->plugin_dir . 'includes/tcpdf/examples/tcpdf_include.php');
-            
+
             if ($template_id) {
                 $post_id = $template_id;
             } else {
                 $post_id = get_post_meta($ticket_instance->details->ticket_type_id, 'ticket_template', true);
             }
-            
+
             if ($post_id) {//post id = template id
                 $metas = tc_get_post_meta_all($post_id);
             }
-            
+
             $margin_left = $metas['document_ticket_left_margin'];
             $margin_top = $metas['document_ticket_top_margin'];
             $margin_right = $metas['document_ticket_right_margin'];
             // create new PDF document
+
             $pdf = new TCPDF($metas['document_ticket_orientation'], PDF_UNIT, apply_filters('tc_additional_ticket_document_size_output', $metas['document_ticket_size']), true, apply_filters('tc_ticket_document_encoding', get_bloginfo('charset')), false);
             $pdf->setPrintHeader(false);
             $pdf->setPrintFooter(false);
@@ -124,10 +129,11 @@ if (!class_exists('TC_Ticket_Templates')) {
                 $rows .= '</tr>';
             }
             $rows .= '</table>';
-            //echo $rows;
-			
+
             $page1 = preg_replace("/\s\s+/", '', $rows); //Strip excess whitespace 
-            ob_get_clean();
+            if (isset($output_buffering) && $output_buffering > 0) {
+                ob_get_clean();
+            }
             $pdf->writeHTML($page1, true, 0, true, 0); //Write page 1 
             //$pdf->lastPage();
             $pdf->Output((isset($ticket_instance->details->ticket_code) ? $ticket_instance->details->ticket_code : __('preview', 'tc')) . '.pdf', ($force_download ? 'D' : 'I'));

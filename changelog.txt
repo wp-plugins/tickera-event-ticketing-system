@@ -1,6 +1,9 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
+3.1.5 - 05/MAR/2015
+- Fixed issue with output buffering when downloading a ticket
+
 3.1.4.9 - 04/MAR/2015
 - Added option to hide discount code field from the cart page
 - Added option to control number of result rows displayed in the admin tables
