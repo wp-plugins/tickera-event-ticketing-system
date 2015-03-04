@@ -13,11 +13,11 @@ if ( !class_exists( 'TC_Tickets_Instances_Search' ) ) {
 		var $page_name	 = 'tc_attendees';
 		var $items_title	 = 'Attendees';
 
-		function __construct( $search_term = '', $page_num = '', $per_page = 10, $post_parent = false, $offset = true,
+		function __construct( $search_term = '', $page_num = '', $per_page = '', $post_parent = false, $offset = true,
 						$meta_key = '', $meta_value = '', $post_status = 'publish' ) {
 			global $tc;
 
-			$this->per_page		 = $per_page;
+			$this->per_page		 = $per_page == '' ? tc_global_admin_per_page( $this->per_page ) : $per_page;
 			$this->page_name	 = $tc->name . '_attendees';
 			$this->search_term	 = $search_term;
 			$this->raw_page		 = ( '' == $page_num ) ? false : (int) $page_num;

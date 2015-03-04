@@ -16,6 +16,7 @@ if ( !class_exists( 'TC_API_Keys_Search' ) ) {
 		function __construct( $search_term = '', $page_num = '', $valid_for_event_id = false ) {
 			global $tc;
 
+			//$this->per_page		 = empty($per_page) ? tc_global_admin_per_page( $this->per_page ) : $per_page;
 			$this->page_name	 = $tc->name . '_api_keys';
 			$this->search_term	 = $search_term;
 			$this->raw_page		 = ( '' == $page_num ) ? false : (int) $page_num;

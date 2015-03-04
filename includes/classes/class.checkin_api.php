@@ -322,7 +322,6 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 					array( 'Ticket Type', $ticket_type->details->post_title ),
 					array( 'Buyer Name', $order->details->tc_cart_info[ 'buyer_data' ][ 'first_name_post_meta' ].' '.$order->details->tc_cart_info[ 'buyer_data' ][ 'last_name_post_meta' ] ),
 					array( 'Buyer E-mail', $order->details->tc_cart_info[ 'buyer_data' ][ 'email_post_meta' ] ),
-				//array( 'Buyer Name', $r[ 'buyer_first' ] . ' ' . $r[ 'buyer_last' ] ),
 				);
 
 				$data[ 'custom_fields' ] = apply_filters( 'tc_checkin_custom_fields', $data[ 'custom_fields' ], $ticket_instance->details->ID, $ticket_event_id );

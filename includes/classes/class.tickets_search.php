@@ -16,7 +16,7 @@ if ( !class_exists( 'TC_Tickets_Search' ) ) {
 		function __construct( $search_term = '', $page_num = '', $per_page = 10 ) {
 			global $tc;
 
-                        $this->per_page		 = $per_page == '' ? $this->per_page : $per_page;
+			$this->per_page		 = $per_page == '' ? tc_global_admin_per_page( $this->per_page ) : $per_page;
 			$this->page_name	 = $tc->name . '_ticket_types';
 			$this->search_term	 = $search_term;
 			$this->raw_page		 = ( '' == $page_num ) ? false : (int) $page_num;

@@ -221,6 +221,27 @@ function tc_force_login( $field_name, $default_value = '' ) {
 	<?php
 }
 
+function tc_show_discount_code_field( $field_name, $default_value = '' ) {
+	global $tc_general_settings;
+	if ( isset( $tc_general_settings[ $field_name ] ) ) {
+		$checked = $tc_general_settings[ $field_name ];
+	} else {
+		if ( $default_value !== '' ) {
+			$checked = $default_value;
+		} else {
+			$checked = 'no';
+		}
+	}
+	?>
+	<label>
+		<input type="radio" name="tc_general_setting[<?php echo esc_attr( $field_name ); ?>]" value="yes" <?php checked( $checked, 'yes', true ); ?>  /><?php _e( 'Yes', 'tc' ); ?>
+	</label>
+	<label>
+		<input type="radio" name="tc_general_setting[<?php echo esc_attr( $field_name ); ?>]" value="no" <?php checked( $checked, 'no', true ); ?> /><?php _e( 'No', 'tc' ); ?>
+	</label>
+	<?php
+}
+
 function tc_get_client_order_message( $field_name, $default_value = '' ) {
 	global $tc_email_settings;
 	if ( isset( $tc_email_settings[ $field_name ] ) ) {
@@ -443,6 +464,42 @@ function tc_get_global_currencies( $field_name, $default_value = '' ) {
 		foreach ( $currencies as $symbol => $title ) {
 			?>
 			<option value="<?php echo $symbol; ?>" <?php selected( $checked, $symbol, true ); ?>><?php echo $title; ?></option>
+			<?php
+		}
+		?>
+	</select>
+	<?php
+}
+
+function tc_global_admin_per_page($value){
+	global $tc_general_settings;
+	$settings	 = get_option( 'tc_settings' );
+	$global_rows = isset($tc_general_settings[ 'global_admin_per_page' ]) ? $tc_general_settings[ 'global_admin_per_page' ] : $value;
+	return $global_rows;
+	//
+}
+
+function tc_get_global_admin_per_page( $field_name, $default_value = '' ) {
+	global $tc_general_settings;
+	$settings	 = get_option( 'tc_settings' );
+	
+	$rows = array(10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100);
+
+	if ( isset( $tc_general_settings[ $field_name ] ) ) {
+		$checked = $tc_general_settings[ $field_name ];
+	} else {
+		if ( $default_value !== '' ) {
+			$checked = $default_value;
+		} else {
+			$checked = '10';
+		}
+	}
+	?>
+	<select name="tc_general_setting[<?php echo $field_name; ?>]">
+		<?php
+		foreach ( $rows as $row ) {
+			?>
+			<option value="<?php echo $row; ?>" <?php selected( $checked, $row, true ); ?>><?php echo $row; ?></option>
 			<?php
 		}
 		?>

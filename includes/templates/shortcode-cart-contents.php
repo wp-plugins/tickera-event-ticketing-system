@@ -69,7 +69,11 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 							<tr>
 								<td class="actions" colspan="<?php echo apply_filters( 'tc_cart_table_colspan', '5' ); ?>">
 									<?php do_action( 'tc_cart_before_discount_field' ); ?>
-									<span class="coupon-code"><input type="text" name="coupon_code" id="coupon_code" placeholder="<?php _e( "Discount Code", "tc" ); ?>" class="coupon_code tickera-input-field" value="<?php echo esc_attr( (isset( $_POST[ 'coupon_code' ] ) ? $_POST[ 'coupon_code' ] : (isset( $_COOKIE[ 'tc_discount_code_' . COOKIEHASH ] ) ? $_COOKIE[ 'tc_discount_code_' . COOKIEHASH ] : '') ) ); ?>" /></span> <input type="submit" id="apply_coupon" value="<?php _e( "APPLY", "tc" ); ?>" class="apply_coupon tickera-button"><span class="coupon-code-message"><?php echo apply_filters( 'tc_discount_code_message', '' ); ?></span><?php do_action( 'tc_cart_after_discount_field' ); ?>
+									<?php
+									if ( !isset( $tc_general_settings[ 'show_discount_field' ] ) || (isset( $tc_general_settings[ 'show_discount_field' ] ) && $tc_general_settings[ 'show_discount_field' ] == 'yes') ) {
+										?>
+										<span class="coupon-code"><input type="text" name="coupon_code" id="coupon_code" placeholder="<?php _e( "Discount Code", "tc" ); ?>" class="coupon_code tickera-input-field" value="<?php echo esc_attr( (isset( $_POST[ 'coupon_code' ] ) ? $_POST[ 'coupon_code' ] : (isset( $_COOKIE[ 'tc_discount_code_' . COOKIEHASH ] ) ? $_COOKIE[ 'tc_discount_code_' . COOKIEHASH ] : '') ) ); ?>" /></span> <input type="submit" id="apply_coupon" value="<?php _e( "APPLY", "tc" ); ?>" class="apply_coupon tickera-button"><span class="coupon-code-message"><?php echo apply_filters( 'tc_discount_code_message', '' ); ?></span><?php do_action( 'tc_cart_after_discount_field' ); ?>
+									<?php } ?>
 									<input type="submit" id="update_cart" value="<?php _e( "Update Cart", "tc" ); ?>" class="tickera_update tickera-button">
 									<?php do_action( 'tc_cart_after_update_cart' ); ?>
 								</td>
@@ -234,29 +238,29 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 														if ( $field[ 'required' ] && $show_owner_fields ) {
 															if ( $show_owner_fields ) {
 																?>
-																																																																																																																																																																						<input type="hidden" name="tc_cart_required[]" value="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>" />
+																																																																																																																																																																																														<input type="hidden" name="tc_cart_required[]" value="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>" />
 												<?php
 											}
 										}
 										?>
-																																																																																																																																											                                                                
-																																																																																																																																											                                                                    <div class="tc-clearfix"></div>
+																																																																																																																																																													                                                                
+																																																																																																																																																													                                                                    <div class="tc-clearfix"></div>
 										<?php
 									}
 								}
 								?>		
-																																																																																											</div><!-- owner-info-wrap -->																																																															                                                                                
+																																																																																																							</div><!-- owner-info-wrap -->																																																															                                                                                
 						<?php } $i++; ?>
-																																																																									                                                            <div class="tc-clearfix"></div>     
-																																																																									                                                            
-																																																																									                                         
-																																																																																								
+																																																																																		                                                            <div class="tc-clearfix"></div>     
+																																																																																		                                                            
+																																																																																		                                         
+																																																																																																	
 					<?php } //foreach ( $cart_contents as $ticket_type => $ordered_count ) ?>
 
-																																																	                            </div><!-- tickera_owner_info -->
+																																																							                            </div><!-- tickera_owner_info -->
 				<?php do_action( 'before_cart_submit' ); ?>
-																																																                                <p><input type="submit" id="proceed_to_checkout" name='proceed_to_checkout' value="<?php _e( "Proceed to Checkout", "tc" ); ?>" class="tickera_checkout tickera-button"></p>
-																																																                            </div><!-- tickera_additional_info -->
+																																																						                                <p><input type="submit" id="proceed_to_checkout" name='proceed_to_checkout' value="<?php _e( "Proceed to Checkout", "tc" ); ?>" class="tickera_checkout tickera-button"></p>
+																																																						                            </div><!-- tickera_additional_info -->
 			<?php
 		} else {
 			?><div class="cart_empty_message"><?php _e( "The cart is empty.", "tc" ); ?></div>

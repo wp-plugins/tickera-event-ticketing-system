@@ -16,12 +16,12 @@ if (!class_exists('TC_Orders_Search')) {
         function __construct($search_term = '', $page_num = '', $per_page = '', $post_status = array('any'), $period = '', $period_compare = '=') {
             global $tc;
 
-            $this->per_page = $per_page == '' ? $this->per_page : $per_page;
+            $this->per_page = $per_page == '' ? tc_global_admin_per_page($this->per_page) : $per_page;
             $this->page_name = $tc->name . '_orders';
             $this->search_term = $search_term;
             $this->raw_page = ( '' == $page_num ) ? false : (int) $page_num;
             $this->page_num = (int) ( '' == $page_num ) ? 1 : $page_num;
-            $this->per_page = (int) ( '' == $per_page ) ? 10 : $per_page;
+            //$this->per_page = (int) ( '' == $per_page ) ? 10 : $per_page;
             $this->post_status = $post_status;
             $this->period = ( '' == $period ) ? '' : $period;
             $this->period_compare = $period_compare;

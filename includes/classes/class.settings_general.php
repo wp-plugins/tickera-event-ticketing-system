@@ -37,6 +37,11 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 					'title'			 => __( 'Menu' ),
 					'description'	 => '',
 				),
+				array(
+					'name'			 => 'miscellaneous_settings',
+					'title'			 => __( 'Miscellaneous' ),
+					'description'	 => '',
+				)
 			);
 
 			if ( !defined( 'TC_LCK' ) && !defined( 'TC_NU' ) ) {
@@ -163,6 +168,15 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 					'field_description'	 => __( 'Show Ticket Owner fields on the Cart page. If this option is not selected, owner info fields will not be collected and shown on the ticket.', 'tc' ),
 					'section'			 => 'store_settings'
 				),
+				array(
+					'field_name'		 => 'show_discount_field',
+					'field_title'		 => __( 'Show Discount Code', 'tc' ),
+					'field_type'		 => 'function',
+					'function'			 => 'tc_show_discount_code_field',
+					'default_value'		 => 'yes',
+					'field_description'	 => __( 'Show / Hide discount code field on the cart page', 'tc' ),
+					'section'			 => 'store_settings'
+				),
 			);
 
 			$pages_settings_default_fields = array(
@@ -213,7 +227,6 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 				),
 				//
 				array(
-					
 				)
 			);
 
@@ -288,8 +301,23 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 				),
 			);
 
+			$miscellaneous_settings_default_fields = array(
+				array(
+					'field_name'		 => 'global_admin_per_page',
+					'field_title'		 => __( 'Admin results per page', 'tc' ),
+					'field_type'		 => 'function',
+					'function'			 => 'tc_get_global_admin_per_page',
+					'default_value'		 => '10',
+					'field_description'	 => __( 'Set number of result rows show in the admin tables of the plugin', 'tc' ),
+					'section'			 => 'miscellaneous_settings'
+				)
+			);
+
+			//
+
 			$default_fields	 = array_merge( $store_settings_default_fields, $pages_settings_default_fields );
 			$default_fields	 = array_merge( $menu_settings_default_fields, $default_fields );
+			$default_fields	 = array_merge( $miscellaneous_settings_default_fields, $default_fields );
 
 			if ( !defined( 'TC_LCK' ) && !defined( 'TC_NU' ) ) {
 				$default_fields = array_merge( $license_settings_default_fields, $default_fields );
