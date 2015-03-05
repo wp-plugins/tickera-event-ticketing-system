@@ -1,6 +1,10 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
+3.1.5.3 - 05/MAR/2015
+- Fixed issue caused by output buffering when downloading a ticket (on some servers) 
+- Added customer front order detail page link on the order details page in the admin
+
 3.1.5.2 - 05/MAR/2015
 - Fixed issue with the HTML characters in the email body
 

@@ -34,7 +34,7 @@ function tc_create_page( $slug, $option = '', $page_title = '', $page_content = 
 		return $page_found;
 	}
 
-	$page_data	 = array(
+	$page_data = array(
 		'post_author'	 => get_current_user_id(),
 		'post_status'	 => 'publish',
 		'post_type'		 => 'page',
@@ -45,8 +45,8 @@ function tc_create_page( $slug, $option = '', $page_title = '', $page_content = 
 		'post_parent'	 => $post_parent,
 		'comment_status' => 'closed'
 	);
-	
-	$page_id	 = wp_insert_post( $page_data );
+
+	$page_id = wp_insert_post( $page_data );
 
 	if ( $option ) {
 		update_option( $option, $page_id );
@@ -154,7 +154,7 @@ function tc_order_created_email( $order_id, $status, $cart_contents = false, $ca
 
 			$client_headers = ''; //'From: ' . client_email_from_name( '' ) . ' <' . client_email_from_email( '' ) . '>' . "\r\n";
 
-			wp_mail( $to, $subject, html_entity_decode(stripcslashes(apply_filters( 'tc_order_completed_admin_email_message', $message ))), apply_filters( 'tc_order_completed_client_email_headers', $client_headers ) );
+			wp_mail( $to, $subject, html_entity_decode( stripcslashes( apply_filters( 'tc_order_completed_admin_email_message', $message ) ) ), apply_filters( 'tc_order_completed_client_email_headers', $client_headers ) );
 		}
 
 		/* --------------------------------------------------------------------- */
@@ -185,7 +185,7 @@ function tc_order_created_email( $order_id, $status, $cart_contents = false, $ca
 
 			$admin_headers = ''; //'From: ' . admin_email_from_name( '' ) . ' <' . admin_email_from_email( '' ) . '>' . "\r\n";
 
-			wp_mail( $to, $subject, html_entity_decode(stripcslashes(apply_filters( 'tc_order_completed_admin_email_message', $message ))), apply_filters( 'tc_order_completed_admin_email_headers', $admin_headers ) );
+			wp_mail( $to, $subject, html_entity_decode( stripcslashes( apply_filters( 'tc_order_completed_admin_email_message', $message ) ) ), apply_filters( 'tc_order_completed_admin_email_headers', $admin_headers ) );
 		}
 	}
 
@@ -253,7 +253,7 @@ function tc_get_client_order_message( $field_name, $default_value = '' ) {
 			$value = '';
 		}
 	}
-	wp_editor( html_entity_decode(stripcslashes($value)), $field_name, array( 'textarea_name' => 'tc_email_setting[' . $field_name . ']', 'textarea_rows' => 2 ) );
+	wp_editor( html_entity_decode( stripcslashes( $value ) ), $field_name, array( 'textarea_name' => 'tc_email_setting[' . $field_name . ']', 'textarea_rows' => 2 ) );
 }
 
 function tc_get_admin_order_message( $field_name, $default_value = '' ) {
@@ -267,7 +267,7 @@ function tc_get_admin_order_message( $field_name, $default_value = '' ) {
 			$value = '';
 		}
 	}
-	wp_editor( html_entity_decode(stripcslashes($value)), $field_name, array( 'textarea_name' => 'tc_email_setting[' . $field_name . ']', 'textarea_rows' => 2 ) );
+	wp_editor( html_entity_decode( stripcslashes( $value ) ), $field_name, array( 'textarea_name' => 'tc_email_setting[' . $field_name . ']', 'textarea_rows' => 2 ) );
 }
 
 function tc_show_tax_rate( $field_name, $default_value = '' ) {
@@ -471,19 +471,19 @@ function tc_get_global_currencies( $field_name, $default_value = '' ) {
 	<?php
 }
 
-function tc_global_admin_per_page($value){
+function tc_global_admin_per_page( $value ) {
 	global $tc_general_settings;
 	$settings	 = get_option( 'tc_settings' );
-	$global_rows = isset($tc_general_settings[ 'global_admin_per_page' ]) ? $tc_general_settings[ 'global_admin_per_page' ] : $value;
+	$global_rows = isset( $tc_general_settings[ 'global_admin_per_page' ] ) ? $tc_general_settings[ 'global_admin_per_page' ] : $value;
 	return $global_rows;
 	//
 }
 
 function tc_get_global_admin_per_page( $field_name, $default_value = '' ) {
 	global $tc_general_settings;
-	$settings	 = get_option( 'tc_settings' );
-	
-	$rows = array(10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100);
+	$settings = get_option( 'tc_settings' );
+
+	$rows = array( 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100 );
 
 	if ( isset( $tc_general_settings[ $field_name ] ) ) {
 		$checked = $tc_general_settings[ $field_name ];
@@ -916,6 +916,13 @@ function tc_get_order_status( $field_name = '', $post_id = '' ) {
 	}
 
 	echo sprintf( __( '%1$s %2$s %3$s', 'tc' ), '<font color="' . $color . '">', __( ucwords( $new_value ), 'tc' ), '</font>' );
+}
+
+function tc_get_order_front_link( $field_name = '', $post_id = '' ) {
+	global $tc, $wp;
+	$order = new TC_Order( $post_id );
+
+	echo $tc->tc_order_status_url( $order, $order->details->tc_order_date, 'Order details page' );
 }
 
 function tc_get_order_status_select( $field_name = '', $post_id = '' ) {

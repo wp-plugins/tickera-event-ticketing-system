@@ -31,6 +31,15 @@ if ( !class_exists( 'TC_Orders' ) ) {
 					'post_field_type'	 => 'post_title'
 				),
 				array(
+					'field_name'		 => 'ID',
+					'field_title'		 => __( 'Order Link', 'tc' ),
+					'field_type'		 => 'function',
+					'function'			 => 'tc_get_order_front_link',
+					'field_description'	 => '',
+					'table_visibility'	 => true,
+					'post_field_type'	 => 'post_title'
+				),
+				array(
 					'field_name'		 => 'order_status',
 					'field_title'		 => __( 'Status', 'tc' ),
 					'field_type'		 => 'function',

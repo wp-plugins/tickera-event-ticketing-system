@@ -5,7 +5,7 @@
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.1.5.2
+  Version: 3.1.5.3
   TextDomain: tc
   Domain Path: /languages/
 

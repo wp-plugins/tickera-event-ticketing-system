@@ -98,6 +98,10 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.5.3 =
+- Fixed issue caused by output buffering when downloading a ticket (on some servers) 
+- Added customer front order detail page link on the order details page in the admin
+
 = 3.1.5.2 =
 - Fixed issue with the HTML characters in the email body
 
