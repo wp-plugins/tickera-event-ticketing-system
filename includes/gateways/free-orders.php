@@ -180,7 +180,7 @@ class TC_Gateway_Free_Orders extends TC_Gateway_API {
 						<td>
 							<span class="description"><?php _e( 'Information about the payment method which will be visible to user.', 'tc' ) ?></span>
 							<p>
-								<?php wp_editor( $tc->get_setting( 'gateways->free_orders->info' ), 'free_orders_info', array( 'textarea_name' => 'tc[gateways][free_orders][info]', 'textarea_rows' => 2 ) ); ?>
+								<?php wp_editor( html_entity_decode(stripcslashes($tc->get_setting( 'gateways->free_orders->info' ))), 'free_orders_info', array( 'textarea_name' => 'tc[gateways][free_orders][info]', 'textarea_rows' => 2 ) ); ?>
 							</p>
 						</td>
 					</tr>
@@ -190,7 +190,7 @@ class TC_Gateway_Free_Orders extends TC_Gateway_API {
 						<td>
 							<span class="description"><?php _e( 'An additional message shown on the payment confirmation page.', 'tc' ) ?></span>
 							<p>
-								<?php wp_editor( $tc->get_setting( 'gateways->free_orders->instructions' ), 'free_orders_instructions', array( 'textarea_name' => 'tc[gateways][free_orders][instructions]', 'textarea_rows' => 5 ) ); ?>
+								<?php wp_editor( html_entity_decode(stripcslashes($tc->get_setting( 'gateways->free_orders->instructions' ))), 'free_orders_instructions', array( 'textarea_name' => 'tc[gateways][free_orders][instructions]', 'textarea_rows' => 5 ) ); ?>
 							</p>
 						</td>
 					</tr>

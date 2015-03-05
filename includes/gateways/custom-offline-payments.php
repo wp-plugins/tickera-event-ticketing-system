@@ -195,7 +195,7 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 						<td>
 							<span class="description"><?php _e( 'Information about the payment method which will be visible to user upon choosing this payment method.', 'tc' ) ?></span>
 							<p>
-								<?php wp_editor( $tc->get_setting( 'gateways->custom_offline_payments->info' ), 'custom_offline_payments_info', array( 'textarea_name' => 'tc[gateways][custom_offline_payments][info]', 'textarea_rows' => 2 ) ); ?>
+								<?php wp_editor( html_entity_decode(stripcslashes($tc->get_setting( 'gateways->custom_offline_payments->info' ))), 'custom_offline_payments_info', array( 'textarea_name' => 'tc[gateways][custom_offline_payments][info]', 'textarea_rows' => 2 ) ); ?>
 							</p>
 						</td>
 					</tr>
@@ -205,7 +205,7 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 						<td>
 							<span class="description"><?php _e( 'Your customers who checkout using the custom offline payment method will be given a set of instructions (set by you) to complete the purchase process immediately after checkout completion.', 'tc' ) ?></span>
 							<p>
-								<?php wp_editor( $tc->get_setting( 'gateways->custom_offline_payments->instructions' ), 'custom_offline_payments_instructions', array( 'textarea_name' => 'tc[gateways][custom_offline_payments][instructions]', 'textarea_rows' => 5 ) ); ?>
+								<?php wp_editor( html_entity_decode(stripcslashes($tc->get_setting( 'gateways->custom_offline_payments->instructions' ))), 'custom_offline_payments_instructions', array( 'textarea_name' => 'tc[gateways][custom_offline_payments][instructions]', 'textarea_rows' => 5 ) ); ?>
 							</p>
 						</td>
 					</tr>

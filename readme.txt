@@ -98,6 +98,12 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.5.2 =
+- Fixed issue with the HTML characters in the email body
+
+= 3.1.5.1 =
+- Fixed issue with broken images in the content editors in admin (in order messages, offline payments and free orders editors)
+
 = 3.1.5 =
 - Fixed issue with output buffering when downloading a ticket
 

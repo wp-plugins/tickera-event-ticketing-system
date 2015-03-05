@@ -1,7 +1,13 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
-3.1.5 - 05/MAR/2015
+3.1.5.2 - 05/MAR/2015
+- Fixed issue with the HTML characters in the email body
+
+3.1.5.1 - 05/MAR/2015
+- Fixed issue with broken images in the content editors in admin (in order messages, offline payments and free orders editors)
+
+3.1.5 - 04/MAR/2015
 - Fixed issue with output buffering when downloading a ticket
 
 3.1.4.9 - 04/MAR/2015

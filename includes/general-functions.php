@@ -154,7 +154,7 @@ function tc_order_created_email( $order_id, $status, $cart_contents = false, $ca
 
 			$client_headers = ''; //'From: ' . client_email_from_name( '' ) . ' <' . client_email_from_email( '' ) . '>' . "\r\n";
 
-			wp_mail( $to, $subject, apply_filters( 'tc_order_completed_admin_email_message', $message ), apply_filters( 'tc_order_completed_client_email_headers', $client_headers ) );
+			wp_mail( $to, $subject, html_entity_decode(stripcslashes(apply_filters( 'tc_order_completed_admin_email_message', $message ))), apply_filters( 'tc_order_completed_client_email_headers', $client_headers ) );
 		}
 
 		/* --------------------------------------------------------------------- */
@@ -185,7 +185,7 @@ function tc_order_created_email( $order_id, $status, $cart_contents = false, $ca
 
 			$admin_headers = ''; //'From: ' . admin_email_from_name( '' ) . ' <' . admin_email_from_email( '' ) . '>' . "\r\n";
 
-			wp_mail( $to, $subject, apply_filters( 'tc_order_completed_admin_email_message', $message ), apply_filters( 'tc_order_completed_admin_email_headers', $admin_headers ) );
+			wp_mail( $to, $subject, html_entity_decode(stripcslashes(apply_filters( 'tc_order_completed_admin_email_message', $message ))), apply_filters( 'tc_order_completed_admin_email_headers', $admin_headers ) );
 		}
 	}
 
@@ -253,7 +253,7 @@ function tc_get_client_order_message( $field_name, $default_value = '' ) {
 			$value = '';
 		}
 	}
-	wp_editor( $value, $field_name, array( 'textarea_name' => 'tc_email_setting[' . $field_name . ']', 'textarea_rows' => 2 ) );
+	wp_editor( html_entity_decode(stripcslashes($value)), $field_name, array( 'textarea_name' => 'tc_email_setting[' . $field_name . ']', 'textarea_rows' => 2 ) );
 }
 
 function tc_get_admin_order_message( $field_name, $default_value = '' ) {
@@ -267,7 +267,7 @@ function tc_get_admin_order_message( $field_name, $default_value = '' ) {
 			$value = '';
 		}
 	}
-	wp_editor( $value, $field_name, array( 'textarea_name' => 'tc_email_setting[' . $field_name . ']', 'textarea_rows' => 2 ) );
+	wp_editor( html_entity_decode(stripcslashes($value)), $field_name, array( 'textarea_name' => 'tc_email_setting[' . $field_name . ']', 'textarea_rows' => 2 ) );
 }
 
 function tc_show_tax_rate( $field_name, $default_value = '' ) {

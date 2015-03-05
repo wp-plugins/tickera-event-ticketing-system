@@ -8,7 +8,7 @@ if ( !class_exists( 'TC_Orders' ) ) {
 	class TC_Orders {
 
 		var $form_title				 = '';
-		var $valid_admin_fields_type	 = array( 'ID', 'text', 'textarea', 'image', 'function' );
+		var $valid_admin_fields_type	 = array( 'ID', 'text', 'textarea', 'image', 'function', 'separator' );
 
 		function __construct() {
 			$this->form_title				 = __( 'Orders', 'tc' );
