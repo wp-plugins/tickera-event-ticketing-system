@@ -52,7 +52,7 @@ if (!class_exists('TC_Cart_Form')) {
             return apply_filters('tc_buyer_info_fields', $default_fields, $ticket_type_id);
         }
 
-        function get_owner_info_fields() {
+        function get_owner_info_fields($ticket_type_id = '') {
 
             $default_fields = array(
                 array(

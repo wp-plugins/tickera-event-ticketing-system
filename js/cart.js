@@ -1,7 +1,14 @@
 jQuery( document ).ready( function( $ ) {
 
     function tc_check_cart_update() {
-        if ( $( '.quantity' ).val() != $( '.owner-info-wrap' ).length ) {
+        var total_quantity = 0;
+        
+        $( '.quantity' ).each( function( index ) {
+            total_quantity = parseInt(total_quantity) + parseInt($(this).val());
+        } );
+
+        if ( total_quantity != $( '.owner-info-wrap' ).length ) {
+
             $( '.tc_cart_errors' ).html( '<ul><li><a href="cjsea" class="cjsea"></a>' + tc_ajax.update_cart_message + '</li></ul>' );
 
             var $target = $( '.cjsea' );

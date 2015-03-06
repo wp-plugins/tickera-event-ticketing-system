@@ -1,6 +1,9 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
+3.1.5.4 - 06/MAR/2015
+- Fixed issue with update cart check control on the cart page
+
 3.1.5.3 - 05/MAR/2015
 - Fixed issue caused by output buffering when downloading a ticket (on some servers) 
 - Added customer front order detail page link on the order details page in the admin

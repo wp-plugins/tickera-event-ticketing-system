@@ -98,6 +98,9 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.5.4  =
+- Fixed issue with update cart check control on the cart page
+
 = 3.1.5.3 =
 - Fixed issue caused by output buffering when downloading a ticket (on some servers) 
 - Added customer front order detail page link on the order details page in the admin
