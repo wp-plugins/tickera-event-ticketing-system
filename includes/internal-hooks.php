@@ -238,6 +238,14 @@ add_filter( 'tc_ticket_fields', 'my_custom_tickets_admin_fields' );
 function my_custom_tickets_admin_fields( $ticket_fields ) {
 
 	$ticket_fields[] = array(
+		'field_name'		 => 'tickets_sold',
+		'field_title'		 => __( 'Quantity Sold', 'tc' ),
+		'field_type'		 => 'read-only',
+		'table_visibility'	 => true,
+		'post_field_type'	 => 'read-only'
+	);
+
+	$ticket_fields[] = array(
 		'field_name'		 => 'ticket_shortcode',
 		'field_title'		 => __( 'Shortcode', 'tc' ),
 		'field_type'		 => 'read-only',
@@ -252,6 +260,18 @@ add_filter( 'tc_ticket_object_details', 'my_custom_tc_ticket_object_details' );
 
 function my_custom_tc_ticket_object_details( $object_details ) {
 	$object_details->ticket_shortcode = '[ticket id="' . $object_details->ID . '"]';
+
+	global $wpdb;
+	$count_sold = $wpdb->get_col( $wpdb->prepare(
+	"
+	SELECT      COUNT(*)
+	FROM        $wpdb->posts p, $wpdb->postmeta pm
+	WHERE       p.ID = pm.post_ID 
+	            AND p.ID = %d
+	", $object_details->ID
+	) );
+
+	$object_details->tickets_sold = isset($count_sold[0]) ? $count_sold[0] : 0;
 	return $object_details;
 }
 

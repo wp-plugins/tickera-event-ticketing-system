@@ -76,6 +76,16 @@ if ( !class_exists( 'TC_Tickets' ) ) {
 					'table_visibility'	 => true,
 					'post_field_type'	 => 'post_meta'
 				),
+				/*array(
+					'field_name'		 => 'quantity_sold',
+					'field_title'		 => __( 'Quantity Sold', 'tc' ),
+					'placeholder'	     => '',
+					'field_type'		 => 'function',
+					'function'			 => 'tc_get_quantity_sold',
+					'field_description'	 => '',
+					'table_visibility'	 => true,
+					'post_field_type'	 => 'post_meta'
+				),*/
 				array(
 					'field_name'		 => 'min_tickets_per_order',
 					'field_title'		 => __( 'Min. tickets per order', 'tc' ),

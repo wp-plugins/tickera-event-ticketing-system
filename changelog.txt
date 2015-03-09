@@ -1,6 +1,9 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
+3.1.5.5 - 09/MAR/2015
+- Resolved issues with comment form when tickera is activated
+
 3.1.5.4 - 06/MAR/2015
 - Fixed issue with update cart check control on the cart page
 

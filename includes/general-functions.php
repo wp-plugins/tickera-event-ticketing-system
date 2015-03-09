@@ -1300,6 +1300,10 @@ function tc_ticket_limit_types( $field_name = '', $post_id = '' ) {
 
 /* Get events drop down */
 
+function tc_get_quantity_sold( $field_name = '', $post_id = '' ) {
+	return $post_id;
+}
+
 function tc_get_events( $field_name = '', $post_id = '' ) {
 	$wp_events_search = new TC_Events_Search( '', '', '-1' );
 	if ( $post_id !== '' ) {

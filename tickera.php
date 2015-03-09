@@ -5,7 +5,7 @@
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.1.5.4
+  Version: 3.1.5.5
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if (!class_exists('TC')) {
 
     class TC {
 
-        var $version = '3.1.5.4';
+        var $version = '3.1.5.5';
         var $title = 'Tickera';
         var $name = 'tc';
         var $dir_name = 'tickera-event-ticketing-system';
@@ -145,6 +145,9 @@ if (!class_exists('TC')) {
 
 //Add plugin admin menu
             add_action('admin_menu', array(&$this, 'add_admin_menu'));
+            
+            //Add plugin newtork admin menu
+            //add_action('network_admin_menu', array(&$this, 'add_network_admin_menu'));
 
 //Add plugin Settings link
             add_filter('plugin_action_links_' . plugin_basename(__FILE__), array(&$this, 'plugin_action_link'), 10, 2);
@@ -361,10 +364,12 @@ if (!class_exists('TC')) {
             global $wp;
 
             $current_post = get_post($post_id);
-
+			
             if ($current_post && $current_post->post_type == 'virtual_page') {
-                return false;
+                $open = false;
             }
+			
+			return $open;
         }
 
         function activation() {
@@ -1556,6 +1561,44 @@ if (!class_exists('TC')) {
                     eval("function " . $this->name . "_" . $handler . "_admin() {require_once( '" . $this->plugin_dir . "includes/admin-pages/" . $handler . ".php');}");
 
                     add_submenu_page($first_tc_menu_handler, __($value, 'tc'), __($value, 'tc'), 'manage_' . $handler . '_cap', $this->name . '_' . $handler, $this->name . '_' . $handler . '_admin');
+                    do_action($this->name . '_add_menu_items_after_' . $handler);
+                }
+
+                $number_of_sub_menu_items++;
+            }
+
+            do_action($this->name . '_add_menu_items_down');
+        }
+        
+        function add_network_admin_menu(){
+            global $first_tc_network_menu_handler;
+
+            $plugin_admin_menu_items = array(
+                'network_settings' => 'Settings',
+            );
+
+            apply_filters('tc_plugin_network_admin_menu_items', $plugin_admin_menu_items);
+
+// Add the sub menu items
+            $number_of_sub_menu_items = 0;
+            $first_tc_network_menu_handler = '';
+
+            foreach ($plugin_admin_menu_items as $handler => $value) {
+                if ($number_of_sub_menu_items == 0) {
+
+                    $first_tc_network_menu_handler = $this->name . '_' . $handler;
+
+                    eval("function " . $this->name . "_" . $handler . "_admin() {require_once( '" . $this->plugin_dir . "includes/network-admin-pages/" . $handler . ".php');}");
+
+                    add_menu_page($this->name, $this->title, 'manage_' . $handler . '_cap', $this->name . '_' . $handler, $this->name . '_' . $handler . '_admin');
+                    do_action($this->name . '_add_menu_items_up');
+
+                    add_submenu_page($this->name . '_' . $handler, __($value, 'tc'), __($value, 'tc'), 'manage_' . $handler . '_cap', $this->name . '_' . $handler, $this->name . '_' . $handler . '_admin');
+                    do_action($this->name . '_add_menu_items_after_' . $handler);
+                } else {
+                    eval("function " . $this->name . "_" . $handler . "_admin() {require_once( '" . $this->plugin_dir . "includes/network-admin-pages/" . $handler . ".php');}");
+
+                    add_submenu_page($first_tc_network_menu_handler, __($value, 'tc'), __($value, 'tc'), 'manage_' . $handler . '_cap', $this->name . '_' . $handler, $this->name . '_' . $handler . '_admin');
                     do_action($this->name . '_add_menu_items_after_' . $handler);
                 }
 

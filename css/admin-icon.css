@@ -27,8 +27,12 @@
     content: "\e600";
 }
 
-
 #adminmenu #toplevel_page_tc_events div.wp-menu-image:before{
+    font-family: 'tck' !important;
+    content: "\e600";
+}
+
+#adminmenu #toplevel_page_tc_network_settings div.wp-menu-image:before{
     font-family: 'tck' !important;
     content: "\e600";
 }

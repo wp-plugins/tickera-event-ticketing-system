@@ -98,6 +98,9 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.5.5 =
+- Resolved issues with comment form when tickera is activated
+
 = 3.1.5.4  =
 - Fixed issue with update cart check control on the cart page
 
