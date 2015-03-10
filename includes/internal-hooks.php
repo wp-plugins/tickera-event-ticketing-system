@@ -237,13 +237,13 @@ add_filter( 'tc_ticket_fields', 'my_custom_tickets_admin_fields' );
 
 function my_custom_tickets_admin_fields( $ticket_fields ) {
 
-	$ticket_fields[] = array(
+	/*$ticket_fields[] = array(
 		'field_name'		 => 'tickets_sold',
 		'field_title'		 => __( 'Quantity Sold', 'tc' ),
 		'field_type'		 => 'read-only',
 		'table_visibility'	 => true,
 		'post_field_type'	 => 'read-only'
-	);
+	);*/
 
 	$ticket_fields[] = array(
 		'field_name'		 => 'ticket_shortcode',

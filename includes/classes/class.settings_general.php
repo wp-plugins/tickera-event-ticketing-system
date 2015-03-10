@@ -177,6 +177,15 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 					'field_description'	 => __( 'Show / Hide discount code field on the cart page', 'tc' ),
 					'section'			 => 'store_settings'
 				),
+				/*array(
+					'field_name'		 => 'delete_pending_orders',
+					'field_title'		 => __( 'Delete Pending Orders (if order is not paid for)', 'tc' ),
+					'field_type'		 => 'function',
+					'function'			 => 'tc_show_delete_pending_orders_times',
+					'default_value'		 => 'never',
+					'field_description'	 => __( 'Delete order and associated tickets / attendees if order is not paid for a specific time set', 'tc' ),
+					'section'			 => 'store_settings'
+				),*/
 			);
 
 			$pages_settings_default_fields = array(

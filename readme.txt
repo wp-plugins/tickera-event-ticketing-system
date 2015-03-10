@@ -98,6 +98,10 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.5.6 =
+- Fixed issue with barcode scan
+- Fixed issue with order confirmation mail with Offline Payments
+
 = 3.1.5.5 =
 - Resolved issues with comment form when tickera is activated
 

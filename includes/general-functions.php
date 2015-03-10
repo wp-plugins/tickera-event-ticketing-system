@@ -471,6 +471,86 @@ function tc_get_global_currencies( $field_name, $default_value = '' ) {
 	<?php
 }
 
+function tc_add_additional_schedule_intervals( $schedules ) {
+	$schedules[ 'half_hour' ] = array(
+		'interval'	 => 30 * 60,
+		'display'	 => __( 'Half Hour' )
+	);
+	return $schedules;
+}
+
+add_filter( 'cron_schedules', 'tc_add_additional_schedule_intervals' );
+
+function tc_show_delete_pending_orders_times( $field_name, $default_value = '' ) {
+	global $tc_general_settings;
+	$settings	 = get_option( 'tc_settings' );
+	$schedules	 = array(
+		__( 'Never', 'tc' )		 => '',
+		__( '30 Minutes', 'tc' ) => 30 * 60,
+		__( '45 Minutes', 'tc' ) => 45 * 60,
+		__( '1 Hour', 'tc' )	 => 60 * 60,
+		__( '2 Hours', 'tc' )	 => 2 * 60 * 60,
+		__( '3 Hours', 'tc' )	 => 3 * 60 * 60,
+		__( '4 Hours', 'tc' )	 => 4 * 60 * 60,
+		__( '5 Hours', 'tc' )	 => 5 * 60 * 60,
+		__( '6 Hours', 'tc' )	 => 6 * 60 * 60,
+		__( '12 Hours', 'tc' )	 => 12 * 60 * 60,
+		__( '1 Day', 'tc' )		 => 24 * 60 * 60,
+		__( '2 Days', 'tc' )	 => 2 * 24 * 60 * 60,
+		__( '3 Days', 'tc' )	 => 3 * 24 * 60 * 60,
+		__( '7 Days', 'tc' )	 => 7 * 24 * 60 * 60,
+		__( '14 Days', 'tc' )	 => 14 * 24 * 60 * 60,
+		__( '30 Days', 'tc' )	 => 30 * 24 * 60 * 60
+	);
+
+	$schedules = apply_filters( 'tc_delete_pending_orders_schedule_times', $schedules );
+
+	if ( isset( $tc_general_settings[ $field_name ] ) ) {
+		$checked = $tc_general_settings[ $field_name ];
+	} else {
+		if ( $default_value !== '' ) {
+			$checked = $default_value;
+		} else {
+			$checked = 'never';
+		}
+	}
+	?>
+	<select name="tc_general_setting[<?php echo $field_name; ?>]">
+		<?php
+		foreach ( $schedules as $display => $interval ) {
+			?>
+			<option value="<?php echo $interval; ?>" <?php selected( $checked, $interval, true ); ?>><?php echo $display; ?></option>
+			<?php
+		}
+		?>
+	</select>
+	<?php
+}
+
+add_action( 'tcmaybedeletependingorders', 'tc_check_maybe_delete_pending_orders' );
+
+function tc_check_maybe_delete_pending_orders() {
+	global $wpdb;
+
+	$tc_general_settings = get_option( 'tc_general_setting', false );
+
+	if ( isset( $tc_general_settings[ 'delete_pending_orders' ] ) && is_numeric( $tc_general_settings[ 'delete_pending_orders' ] ) ) {
+
+		$max_unpaid_time = $tc_general_settings[ 'delete_pending_orders' ];
+
+		$current_time	 = gmdate( 'Y-m-d H:i:s', time() );
+		$pending_orders	 = $wpdb->get_results( "SELECT ID, post_date_gmt FROM " . $wpdb->prefix . "posts WHERE post_status = 'order_received'", OBJECT );
+
+		foreach ( $pending_orders as $pending_order ) {
+			$delete_time = strtotime( $pending_order->post_date_gmt ) + $max_unpaid_time;
+			if ( strtotime( $current_time ) > $delete_time ) {
+				$order = new TC_Order( $pending_order->ID );
+				$order->delete_order( true );
+			}
+		}
+	}
+}
+
 function tc_global_admin_per_page( $value ) {
 	global $tc_general_settings;
 	$settings	 = get_option( 'tc_settings' );
@@ -1530,6 +1610,21 @@ function current_url() {
 	}
 	return $pageURL;
 }
+
+if ( !function_exists( 'tc_write_log' ) ) {
+
+	function tc_write_log( $log ) {
+		if ( true === WP_DEBUG ) {
+			if ( is_array( $log ) || is_object( $log ) ) {
+				error_log( print_r( $log, true ) );
+			} else {
+				error_log( $log );
+			}
+		}
+	}
+
+}
+
 
 require_once("internal-hooks.php");
 ?>

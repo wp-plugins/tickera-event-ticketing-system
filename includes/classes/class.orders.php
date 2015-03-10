@@ -36,7 +36,7 @@ if ( !class_exists( 'TC_Orders' ) ) {
 					'field_type'		 => 'function',
 					'function'			 => 'tc_get_order_front_link',
 					'field_description'	 => '',
-					'table_visibility'	 => true,
+					'table_visibility'	 => false,
 					'post_field_type'	 => 'post_title'
 				),
 				array(

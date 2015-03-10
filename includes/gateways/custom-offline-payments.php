@@ -33,22 +33,24 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 	function send_payment_instructions( $order_id, $status, $cart_contents, $cart_info, $payment_info ) {
 		global $tc, $order_instructions_sent;
 
-		$send_instructions_value = $tc->get_setting( 'gateways->custom_offline_payments->instructions_email' );
-		$send_instructions		 = isset( $send_instructions_value ) ? $send_instructions_value : 0;
+		if ( $payment_info[ 'gateway_private_name' ] == $this->admin_name ) {
+			$send_instructions_value = $tc->get_setting( 'gateways->custom_offline_payments->instructions_email' );
+			$send_instructions		 = isset( $send_instructions_value ) ? $send_instructions_value : 0;
 
-		if ( $send_instructions == 1 && $status == 'order_received' ) {
-			add_filter( 'wp_mail_content_type', 'set_content_type' );
-			add_filter( 'wp_mail_from', 'client_email_from_email', 999 );
-			add_filter( 'wp_mail_from_name', 'client_email_from_name', 999 );
+			if ( $send_instructions == 1 && $status == 'order_received' ) {
+				add_filter( 'wp_mail_content_type', 'set_content_type' );
+				add_filter( 'wp_mail_from', 'client_email_from_email', 999 );
+				add_filter( 'wp_mail_from_name', 'client_email_from_name', 999 );
 
-			$client_headers	 = '';
-			$to				 = $cart_info[ 'buyer_data' ][ 'email_post_meta' ];
-			$message		 = $tc->get_setting( 'gateways->custom_offline_payments->instructions' );
-			$subject		 = $tc->get_setting( 'gateways->custom_offline_payments->instructions_email_subject' );
+				$client_headers	 = '';
+				$to				 = $cart_info[ 'buyer_data' ][ 'email_post_meta' ];
+				$message		 = $tc->get_setting( 'gateways->custom_offline_payments->instructions' );
+				$subject		 = $tc->get_setting( 'gateways->custom_offline_payments->instructions_email_subject' );
 
-			if ( $order_instructions_sent !== $cart_info[ 'buyer_data' ][ 'email_post_meta' ] ) {
-				wp_mail( $to, $subject, apply_filters( 'tc_order_created_client_email_message', $message ), apply_filters( 'tc_order_created_client_email_headers', $client_headers ) );
-				$order_instructions_sent = $cart_info[ 'buyer_data' ][ 'email_post_meta' ];
+				if ( $order_instructions_sent !== $cart_info[ 'buyer_data' ][ 'email_post_meta' ] ) {
+					wp_mail( $to, $subject, apply_filters( 'tc_order_created_client_email_message', $message ), apply_filters( 'tc_order_created_client_email_headers', $client_headers ) );
+					$order_instructions_sent = $cart_info[ 'buyer_data' ][ 'email_post_meta' ];
+				}
 			}
 		}
 	}
@@ -195,7 +197,7 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 						<td>
 							<span class="description"><?php _e( 'Information about the payment method which will be visible to user upon choosing this payment method.', 'tc' ) ?></span>
 							<p>
-								<?php wp_editor( html_entity_decode(stripcslashes($tc->get_setting( 'gateways->custom_offline_payments->info' ))), 'custom_offline_payments_info', array( 'textarea_name' => 'tc[gateways][custom_offline_payments][info]', 'textarea_rows' => 2 ) ); ?>
+								<?php wp_editor( html_entity_decode( stripcslashes( $tc->get_setting( 'gateways->custom_offline_payments->info' ) ) ), 'custom_offline_payments_info', array( 'textarea_name' => 'tc[gateways][custom_offline_payments][info]', 'textarea_rows' => 2 ) ); ?>
 							</p>
 						</td>
 					</tr>
@@ -205,7 +207,7 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 						<td>
 							<span class="description"><?php _e( 'Your customers who checkout using the custom offline payment method will be given a set of instructions (set by you) to complete the purchase process immediately after checkout completion.', 'tc' ) ?></span>
 							<p>
-								<?php wp_editor( html_entity_decode(stripcslashes($tc->get_setting( 'gateways->custom_offline_payments->instructions' ))), 'custom_offline_payments_instructions', array( 'textarea_name' => 'tc[gateways][custom_offline_payments][instructions]', 'textarea_rows' => 5 ) ); ?>
+								<?php wp_editor( html_entity_decode( stripcslashes( $tc->get_setting( 'gateways->custom_offline_payments->instructions' ) ) ), 'custom_offline_payments_instructions', array( 'textarea_name' => 'tc[gateways][custom_offline_payments][instructions]', 'textarea_rows' => 5 ) ); ?>
 							</p>
 						</td>
 					</tr>

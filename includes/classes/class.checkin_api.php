@@ -26,6 +26,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 			$results_per_page	 = isset( $wp->query_vars[ 'results_per_page' ] ) ? $wp->query_vars[ 'results_per_page' ] : (isset( $_REQUEST[ 'results_per_page' ] ) ? $_REQUEST[ 'results_per_page' ] : apply_filters( 'tc_ticket_info_default_results_per_page', 50 ));
 			$keyword			 = isset( $wp->query_vars[ 'keyword' ] ) ? $wp->query_vars[ 'keyword' ] : (isset( $_REQUEST[ 'keyword' ] ) ? $_REQUEST[ 'keyword' ] : '');
 
+			
 			if ( $checksum !== '' ) {
 				$findme	 = 'checksum'; //old QR code character
 				$pos	 = strpos( $checksum, $findme );
@@ -37,7 +38,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 				}
 			}
 
-			$this->ticket_code		 = apply_filters( 'tc_ticket_code_var_name', $checksum );
+			$this->ticket_code		 = apply_filters( 'tc_ticket_code_var_name', isset($ticket_code) && $ticket_code != '' ? $ticket_code : $checksum );
 			$this->page_number		 = apply_filters( 'tc_tickets_info_page_number_var_name', $page_number );
 			$this->results_per_page	 = apply_filters( 'tc_tickets_info_results_per_page_var_name', $results_per_page );
 			$this->keyword			 = apply_filters( 'tc_tickets_info_keyword_var_name', $keyword );
