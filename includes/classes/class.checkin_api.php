@@ -3,7 +3,6 @@
 if ( !defined( 'ABSPATH' ) )
 	exit; // Exit if accessed directly
 //if ( isset( $_REQUEST[ 'ct_json' ] ) ) {
-	header( 'Content-Type: application/json' );
 //}
 
 if ( !class_exists( 'TC_Checkin_API' ) ) {
@@ -26,7 +25,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 			$results_per_page	 = isset( $wp->query_vars[ 'results_per_page' ] ) ? $wp->query_vars[ 'results_per_page' ] : (isset( $_REQUEST[ 'results_per_page' ] ) ? $_REQUEST[ 'results_per_page' ] : apply_filters( 'tc_ticket_info_default_results_per_page', 50 ));
 			$keyword			 = isset( $wp->query_vars[ 'keyword' ] ) ? $wp->query_vars[ 'keyword' ] : (isset( $_REQUEST[ 'keyword' ] ) ? $_REQUEST[ 'keyword' ] : '');
 
-			
+
 			if ( $checksum !== '' ) {
 				$findme	 = 'checksum'; //old QR code character
 				$pos	 = strpos( $checksum, $findme );
@@ -38,12 +37,14 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 				}
 			}
 
-			$this->ticket_code		 = apply_filters( 'tc_ticket_code_var_name', isset($ticket_code) && $ticket_code != '' ? $ticket_code : $checksum );
+			$this->ticket_code		 = apply_filters( 'tc_ticket_code_var_name', isset( $ticket_code ) && $ticket_code != '' ? $ticket_code : $checksum  );
 			$this->page_number		 = apply_filters( 'tc_tickets_info_page_number_var_name', $page_number );
 			$this->results_per_page	 = apply_filters( 'tc_tickets_info_results_per_page_var_name', $results_per_page );
 			$this->keyword			 = apply_filters( 'tc_tickets_info_keyword_var_name', $keyword );
 
 			if ( $execute_request ) {
+				header( 'Content-Type: application/json' );
+
 				if ( $request == apply_filters( 'tc_check_credentials_request_name', 'tickera_check_credentials' ) ) {
 					$this->check_credentials();
 				}
@@ -321,7 +322,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 
 				$data[ 'custom_fields' ] = array(
 					array( 'Ticket Type', $ticket_type->details->post_title ),
-					array( 'Buyer Name', $order->details->tc_cart_info[ 'buyer_data' ][ 'first_name_post_meta' ].' '.$order->details->tc_cart_info[ 'buyer_data' ][ 'last_name_post_meta' ] ),
+					array( 'Buyer Name', $order->details->tc_cart_info[ 'buyer_data' ][ 'first_name_post_meta' ] . ' ' . $order->details->tc_cart_info[ 'buyer_data' ][ 'last_name_post_meta' ] ),
 					array( 'Buyer E-mail', $order->details->tc_cart_info[ 'buyer_data' ][ 'email_post_meta' ] ),
 				);
 
@@ -381,7 +382,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 
 						$r[ 'custom_fields' ] = array(
 							array( 'Ticket Type', $ticket_type->details->post_title ),
-							array( 'Buyer Name', $order->details->tc_cart_info[ 'buyer_data' ][ 'first_name_post_meta' ].' '.$order->details->tc_cart_info[ 'buyer_data' ][ 'last_name_post_meta' ] ),
+							array( 'Buyer Name', $order->details->tc_cart_info[ 'buyer_data' ][ 'first_name_post_meta' ] . ' ' . $order->details->tc_cart_info[ 'buyer_data' ][ 'last_name_post_meta' ] ),
 							array( 'Buyer E-mail', $order->details->tc_cart_info[ 'buyer_data' ][ 'email_post_meta' ] ),
 						//array( 'Buyer Name', $r[ 'buyer_first' ] . ' ' . $r[ 'buyer_last' ] ),
 						//array( 'Example Field 1', 'Val 1' ),
