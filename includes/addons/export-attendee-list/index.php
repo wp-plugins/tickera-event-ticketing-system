@@ -13,7 +13,7 @@ if ( !class_exists( 'TC_Export_Mix' ) ) {
 
 	class TC_Export_Mix {
 
-		var $version		 = '1.0';
+		var $version		 = '1.1';
 		var $title		 = 'Tickera Export';
 		var $name		 = 'tc';
 		var $dir_name	 = 'tickera-export';
@@ -28,7 +28,7 @@ if ( !class_exists( 'TC_Export_Mix' ) ) {
 		}
 
 		function tc_settings_new_menus_additional( $settings_tabs ) {
-			$settings_tabs[ 'tickera_export_mixed_data' ] = __( 'Export', 'tc' );
+			$settings_tabs[ 'tickera_export_mixed_data' ] = __( 'Export PDF', 'tc' );
 			return $settings_tabs;
 		}
 
@@ -94,6 +94,9 @@ if ( !class_exists( 'TC_Export_Mix' ) ) {
 				if ( isset( $_POST[ 'col_qrcode' ] ) ) {
 					$rows .= '<th align="center">' . __( 'QR Code', 'tc' ) . '</th>';
 				}
+
+				$rows = apply_filters( 'tc_pdf_additional_column_titles', $rows, $_POST );
+
 				$rows .= '</tr>';
 
 				$args = array(
@@ -142,6 +145,9 @@ if ( !class_exists( 'TC_Export_Mix' ) ) {
 							if ( isset( $_POST[ 'col_qrcode' ] ) ) {
 								$rows .= '<td>QRCODE</td>';
 							}
+
+							$rows = apply_filters( 'tc_pdf_additional_column_values', $rows, $order, $instance, $_POST );
+
 							$rows .= '</tr>';
 						}
 					}
@@ -153,7 +159,7 @@ if ( !class_exists( 'TC_Export_Mix' ) ) {
 				ob_get_clean();
 				$pdf->writeHTML( $page1, true, 0, true, 0 ); //Write page 1 
 //$pdf->lastPage();
-				$pdf->Output( $_POST[ 'document_title' ] !== '' ? $_POST[ 'document_title' ] : __( 'Attendee List', 'tc' ) . '.pdf', 'D' ); //D
+				$pdf->Output( $_POST[ 'document_title' ] !== '' ? $_POST[ 'document_title' ] . '.pdf' : __( 'Attendee List', 'tc' ) . '.pdf', 'D' ); //D
 				exit;
 			}
 		}

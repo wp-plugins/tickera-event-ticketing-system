@@ -98,6 +98,11 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.5.8 =
+- Fixed translation string
+- Added additional hooks for developers
+- Other code improvements
+
 = 3.1.5.7 =
 - Fixed issues caused by forcing json content type (fixed potential conflicts with other plugins and themes)
 

@@ -191,7 +191,7 @@ jQuery( document ).ready( function( $ ) {
         } );
     } )
 
-    jQuery( '.buyer-field-checkbox' ).change( function() {
+    jQuery( '.buyer-field-checkbox, .owner-field-checkbox' ).change( function() {
         var checkbox_values_field = jQuery( this ).parent().find( '.checkbox_values' );
         checkbox_values_field.val( '' );
         jQuery( this ).parent().find( 'input' ).each( function( key, value ) {

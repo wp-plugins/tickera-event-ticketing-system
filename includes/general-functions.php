@@ -1174,6 +1174,9 @@ function tc_get_order_event( $field_name = '', $post_id = '' ) {
 	);
 	$tickets = get_posts( $args );
 	$columns = $orders->get_owner_info_fields();
+	
+	$columns = apply_filters('tc_order_details_owner_columns', $columns);
+	
 	$style	 = '';
 	?>
 	<table class="order-details widefat shadow-table">
@@ -1285,7 +1288,7 @@ function tc_get_order_download_tickets_link( $field_name = '', $post_id = '' ) {
 
 function tc_get_ticket_type_form_field( $field_name = '', $field_type = '', $ticket_type_id = '', $ticket_type_count ) {
 	?>
-	<input type="hidden" name="owner_data_<?php echo $field_name . '_' . $field_type; ?>[]" value="<?php echo $ticket_type_id; ?>" />
+	<input type="hidden" name="owner_data_<?php echo $field_name . '_' . $field_type; ?>[<?php echo $ticket_type_id;?>][]" value="<?php echo $ticket_type_id; ?>" />
 	<?php
 }
 

@@ -33,6 +33,14 @@
     font-size: 0.9em;
 }
 
+.tickera-payment-gateways .plugin-title label {
+    margin-bottom: 0;
+}
+
+.tickera-payment-gateways .plugin-title img {
+    vertical-align: middle;
+}
+
 .tickera-payment-options {
     margin-left: 15px;
 }
@@ -145,11 +153,11 @@
     text-align: center;
     border: 1px solid #e7e7e7;
     margin: 0 3px;
+    padding: 0 5px;
 }
 
 .ticket-quantity .plus {
     margin-left: -4px;
-    margin-top: 3px;
 }
 
 .ticket-quantity .tickera_button {
@@ -211,8 +219,6 @@
 
 .tickera-checkout .tickera_update{
     float: right;
-    padding: 10px 20px;
-    font-size: 15px;
     text-transform: uppercase;
     transition: all linear 0.2s;
     -webkit-transition: all linear 0.2s;
@@ -263,12 +269,16 @@
 }
 
 .tickera-checkout .last-table-row td {
-    padding: 10px;
+    padding: 20px 10px;
 }
 
 .ticket-info-wrap p {
     line-height: 0;
     margin: 0;
+}
+
+#coupon_code {
+    margin-bottom: 0;
 }
 
 .tickera_buyer_info {
@@ -325,6 +335,7 @@ span.cart_total_price_title,
 span.cart_total_price{
     font-weight: bold;
     margin-top: 14px;
+    margin-bottom: 0;
 }
 
 /* CART WIDGET */

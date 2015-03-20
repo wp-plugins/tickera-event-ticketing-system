@@ -41,6 +41,7 @@
 										<input type="checkbox" name="col_buyer_email" checked="checked"><?php _e( 'Buyer Email', 'tc' ); ?><br />
 										<!--<input type="checkbox" name="col_barcode"><?php _e( 'Barcode', 'tc' ); ?><br />-->
 										<!--<input type="checkbox" name="col_qrcode"><?php _e( 'QR code', 'tc' ); ?><br />-->
+										<?php do_action( 'tc_pdf_admin_columns' ); ?>
 									</label>
 								</td>
 							</tr>

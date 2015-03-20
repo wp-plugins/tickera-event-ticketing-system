@@ -24,7 +24,6 @@ if ( !class_exists( 'TC_Ticket_Template_Elements' ) ) {
 		}
 
 		function admin_content() {
-			;
 			echo $this->get_font_sizes();
 			echo $this->get_font_style();
 			echo $this->get_font_colors();
