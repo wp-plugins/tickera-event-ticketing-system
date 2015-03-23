@@ -32,6 +32,7 @@ If you need more payment options, you can download [Tickera Premium](http://tick
 * Authorize.net
 * PIN Payments
 * Vogue Pay
+* PayGate
 * Braintree
 * PayUMoney
 * PayTabs
