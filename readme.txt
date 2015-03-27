@@ -100,6 +100,15 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.6.1 =
+- Fixed issue with discount limit
+
+= 3.1.6 =
+- Added iPay88 payment gateway
+
+= 3.1.5.9 =
+- Added PayGate payment gateway
+
 = 3.1.5.8 =
 - Fixed translation string
 - Added additional hooks for developers

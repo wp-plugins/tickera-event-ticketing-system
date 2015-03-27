@@ -114,6 +114,18 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 			return $discount_value;
 		}
 
+		function discount_used_times( $discount_code ) {
+			$args = array(
+				'posts_per_page' => -1,
+				'meta_key'		 => 'tc_discount_code',
+				'meta_value'	 => $discount_code,
+				'post_type'		 => 'tc_orders',
+				'post_status'	 => 'any'
+			);
+
+			return count( get_posts( $args ) );
+		}
+
 		function discounted_cart_total( $total = false, $discount_code = '' ) {
 			global $tc, $discount, $discount_value_total, $init_total, $new_total;
 
@@ -126,6 +138,7 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 			if ( !$total ) {
 
 				$cart_contents = $tc->get_cart_cookie();
+
 				foreach ( $cart_contents as $ticket_type => $ordered_count ) {
 					$ticket			 = new TC_Ticket( $ticket_type );
 					$cart_subtotal	 = $cart_subtotal + ($ticket->details->price_per_ticket * $ordered_count);
@@ -161,8 +174,8 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 
 						$usage_limit = ($discount_object->details->usage_limit !== '' ? $discount_object->details->usage_limit : 9999999); //set "unlimited" if empty
 
-						$number_of_discount_uses	 = 0; //get real number of discount code uses
-						$discount_codes_available	 = $usage_limit - $number_of_discount_uses;
+						$number_of_discount_uses	 = $this->discount_used_times( $discount_code ); //get real number of discount code uses
+						$discount_codes_available	 = (int) $usage_limit - (int) $number_of_discount_uses;
 
 						if ( $discount_object->details->discount_availability == '' ) {//unlimited
 							foreach ( $cart_contents as $ticket_type_id => $ordered_count ) {
@@ -174,20 +187,21 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 
 								$max_discount = ($ordered_count >= $discount_codes_available ? $discount_codes_available : $ordered_count);
 
-								for ( $i = 1; $i <= (int) $max_discount; $i++ ) {
-									$discount_value				 = $discount_value + $discount_value_per_each;
-									$number_of_discount_uses++;
-									$discount_codes_available	 = $usage_limit - $number_of_discount_uses;
-									$max_discount				 = ($ordered_count >= $discount_codes_available ? $discount_codes_available : $ordered_count);
-									//echo $i.'<br />';
+								if ( $max_discount > 0 ) {
+									for ( $i = 1; $i <= (int) $max_discount; $i++ ) {
+										$discount_value				 = $discount_value + $discount_value_per_each;
+										$number_of_discount_uses++;
+										$discount_codes_available	 = $usage_limit - $number_of_discount_uses;
+										$max_discount				 = ($ordered_count >= $discount_codes_available ? $discount_codes_available : $ordered_count);
+									}
+								} else {
+									$discount->discount_message = __( 'Discount code invalid or expired', 'tc' );
 								}
-
 
 								$i = 1;
 							}
 							//exit;
 						} else {
-
 							//check ticket marked in availability is in the cart first
 							$is_in_cart = false;
 
@@ -206,12 +220,15 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 								$discount_value_per_each = ($discount_object->details->discount_type == 1 ? $discount_object->details->discount_value : (($ticket_price / 100) * $discount_object->details->discount_value));
 
 								$max_discount = ($ordered_count >= $discount_codes_available ? $discount_codes_available : $ordered_count);
-
-								for ( $i = 1; $i <= $max_discount; $i++ ) {
-									$discount_value				 = $discount_value + $discount_value_per_each;
-									$number_of_discount_uses++;
-									$discount_codes_available	 = ($discount_object->details->usage_limit == '' ? 99999 : $discount_object->details->usage_limit) - $number_of_discount_uses;
-									$max_discount				 = ($ordered_count >= $discount_codes_available ? $discount_codes_available : $ordered_count);
+								if ( $max_discount > 0 ) {
+									for ( $i = 1; $i <= $max_discount; $i++ ) {
+										$discount_value				 = $discount_value + $discount_value_per_each;
+										$number_of_discount_uses++;
+										$discount_codes_available	 = ($discount_object->details->usage_limit == '' ? 99999 : $discount_object->details->usage_limit) - $number_of_discount_uses;
+										$max_discount				 = ($ordered_count >= $discount_codes_available ? $discount_codes_available : $ordered_count);
+									}
+								} else {
+									$discount->discount_message = __( 'Discount code invalid or expired', 'tc' );
 								}
 							} else {
 								$discount->discount_message = __( "Discount code is not valid for the ticket type(s) in the cart.", 'tc' );
@@ -263,7 +280,7 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 			if ( !session_id() ) {
 				session_start();
 			}
-			
+
 			$new_total = (isset( $_SESSION[ 'tc_cart_subtotal' ] ) ? $_SESSION[ 'tc_cart_subtotal' ] : 0) - $discount_value;
 
 			add_filter( 'tc_cart_total', 'tc_cart_total_minimum_total' );
@@ -283,8 +300,10 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 				}
 
 			}
-
-			if ( $new_total != $total ) {
+			
+			if ( ((int)$new_total == (int)$total) || empty($total) ) {
+				
+			} else {
 				$discount->discount_message		 = __( 'Discount code applied.', 'tc' );
 				$_SESSION[ 'tc_discount_code' ]	 = $discount_code;
 			}
