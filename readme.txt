@@ -108,12 +108,6 @@ Author: Tickera.com
 = 3.1.6.1 =
 - Fixed issue with discount limit
 
-= 3.1.6 =
-- Added iPay88 payment gateway
-
-= 3.1.5.9 =
-- Added PayGate payment gateway
-
 = 3.1.5.8 =
 - Fixed translation string
 - Added additional hooks for developers
@@ -268,12 +262,6 @@ Author: Tickera.com
 * Resolved issues with e-mails (incorrect email headers, client e-mails not being sent)
 * Added option to send completed order e-mail confirmation to clients upon changing order status to order paid
 
-= 3.1.0.8 =
-* Added Braintree payment gateway
-
-= 3.1.0.7 =
-* Added VoguePay payment gateway
-
 = 3.1.0.6 =
 * Resolved issue with Cart page
 
@@ -296,9 +284,6 @@ Author: Tickera.com
 * Fixed issue with wp_mail email content type (set to 'text/html')
 * Fixed issue with incorrect link to order page in the notification emails
 * Added classes for input fields and wrapping divs on front-end
-
-= 3.1.0 =
-* Added PayPal PRO payment gateway
 
 = 3.0.1 =
 * Fixed issue with PDF preview
