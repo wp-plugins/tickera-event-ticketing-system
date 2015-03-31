@@ -383,7 +383,7 @@ function tc_show_cart( $field_name, $default_value = '' ) {
 		if ( $default_value !== '' ) {
 			$checked = $default_value;
 		} else {
-			$checked = 'yes';
+			$checked = 'no';
 		}
 	}
 	?>

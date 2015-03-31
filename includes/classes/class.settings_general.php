@@ -304,7 +304,7 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 					'field_title'		 => __( 'Show Cart Menu', 'tc' ),
 					'field_type'		 => 'function',
 					'function'			 => 'tc_show_cart',
-					'default_value'		 => 'yes',
+					'default_value'		 => 'no',
 					'field_description'	 => __( 'Show link to Cart in Menu on the front automatically.', 'tc' ),
 					'section'			 => 'menu_settings'
 				),

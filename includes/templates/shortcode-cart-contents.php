@@ -322,7 +322,7 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 										if ( $field[ 'required' ] && $show_owner_fields ) {
 											if ( $show_owner_fields ) {
 												?>
-												<input type="hidden" name="tc_cart_required[]" value="" />
+												<input type="hidden" name="tc_cart_required[]" value="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>" />
 												<?php
 											}
 										}

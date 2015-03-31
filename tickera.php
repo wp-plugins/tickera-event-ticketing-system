@@ -5,7 +5,7 @@
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.1.6.1
+  Version: 3.1.6.2
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.1.6.1';
+		var $version			 = '3.1.6.2';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -217,11 +217,11 @@ if ( !class_exists( 'TC' ) ) {
 
 			$tc_email_settings = get_option( 'tc_email_setting', false );
 
-			if ( !isset( $tc_general_settings[ 'show_cart_menu_item' ] ) || (isset( $tc_general_settings[ 'show_cart_menu_item' ] ) && $tc_general_settings[ 'show_cart_menu_item' ] == 'yes') ) {
+			if ( (isset( $tc_general_settings[ 'show_cart_menu_item' ] ) && $tc_general_settings[ 'show_cart_menu_item' ] == 'yes' ) ) {
 				add_filter( 'wp_nav_menu_objects', array( &$this, 'main_navigation_links' ), 10, 2 );
 			}
 
-			if ( !isset( $tc_general_settings[ 'show_cart_menu_item' ] ) || (isset( $tc_general_settings[ 'show_cart_menu_item' ] ) && $tc_general_settings[ 'show_cart_menu_item' ] == 'yes') ) {
+			if ( (isset( $tc_general_settings[ 'show_cart_menu_item' ] ) && $tc_general_settings[ 'show_cart_menu_item' ] == 'yes' ) ) {
 
 				$theme_location = 'primary';
 
@@ -252,6 +252,9 @@ if ( !class_exists( 'TC' ) ) {
 			add_action( 'admin_print_styles', array( &$this, 'add_notices' ) );
 
 			add_action( 'admin_init', array( &$this, 'install_actions' ) );
+
+			add_filter( 'wp_get_nav_menu_items', array( &$this, 'remove_unnecessary_plugin_menu_items' ), 10, 1 );
+			add_filter( 'wp_page_menu_args', array( &$this, 'remove_unnecessary_plugin_menu_items_wp_page_menu_args' ), 10, 1 );
 		}
 
 		/**
@@ -1350,6 +1353,7 @@ if ( !class_exists( 'TC' ) ) {
 						$required_fields = $_POST[ 'tc_cart_required' ]; //array of required field names
 
 						foreach ( $_POST as $key => $value ) {
+
 							if ( $key !== 'tc_cart_required' ) {
 								if ( in_array( $key, $required_fields ) ) {
 									if ( !is_array( $value ) ) {
@@ -1358,14 +1362,23 @@ if ( !class_exists( 'TC' ) ) {
 										}
 									} else {
 										foreach ( $_POST[ $key ] as $val ) {
-											if ( trim( $val ) == '' ) {
-												$required_fields_error_count++;
+											if ( !is_array( $val ) ) {
+												if ( trim( $val ) == '' ) {
+													$required_fields_error_count++;
+												}
+											} else {
+												foreach ( $val as $val_str ) {
+													if ( trim( $val_str ) == '' ) {
+														$required_fields_error_count++;
+													}
+												}
 											}
 										}
 									}
 								}
 							}
 						}
+						
 
 						if ( $required_fields_error_count > 0 ) {
 							$tc_cart_errors .= '<li>' . __( 'All fields marked with * are required.', 'tc' ) . '</li>';
@@ -2484,6 +2497,30 @@ if ( !class_exists( 'TC' ) ) {
 			);
 
 			register_post_type( 'tc_templates', $args );
+		}
+
+		function remove_unnecessary_plugin_menu_items( $items ) {
+
+			$i = 0;
+			foreach ( $items as $item ) {
+				if ( $item->url == $this->get_payment_page( true ) || $item->url == $this->get_confirmation_page( true ) || $item->url == $this->get_order_page( true ) ) {
+					unset( $items[ $i ] );
+				}
+				$i++;
+			}
+
+			return $items;
+		}
+
+		function remove_unnecessary_plugin_menu_items_wp_page_menu_args( $args ) {
+
+			$exlude_plugin_pages[]	 = $this->get_payment_page();
+			$exlude_plugin_pages[]	 = $this->get_confirmation_page();
+			$exlude_plugin_pages[]	 = $this->get_order_page();
+
+			$args[ 'exclude' ] = implode( ',', $exlude_plugin_pages );
+
+			return $args;
 		}
 
 		function admin_header() {

@@ -1,6 +1,11 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
+3.1.6.2 - 31/MAR/2015
+- Hide cart menu by default
+- Removed unnecessary plugin menu items
+- Fixed issue with owner required fields
+
 3.1.6.1 - 27/MAR/2015
 - Fixed issue with discount limit
 

@@ -100,6 +100,11 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.6.2 =
+- Hide cart menu by default
+- Removed unnecessary plugin menu items
+- Fixed issue with owner required fields
+
 = 3.1.6.1 =
 - Fixed issue with discount limit
 
