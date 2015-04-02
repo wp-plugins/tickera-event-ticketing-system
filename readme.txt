@@ -24,6 +24,7 @@ Tickera plugin comes with 2Checkout payment gateway, Custom Offline Payments and
 If you need more payment options, you can download [Tickera Premium](http://tickera.com/?wp "WordPress Event Ticketing system") version which includes:
 
 * Mijireh (80+ Gateways included)
+* Mollie (iDeal, Credit Card, Bancontact / Mister Cash, SOFORT Banking, Overbooking, Bitcoin, PayPal, paysafecard and   AcceptEmail)
 * PayPal Standard
 * PayPal PRO
 * 2Checkout
@@ -99,6 +100,9 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 
 Plugin Name: Tickera
 Author: Tickera.com
+
+= 3.1.6.3 =
+- Fixed issue with payment gateway public name shown on front (was admin_name instead)
 
 = 3.1.6.2 =
 - Hide cart menu by default

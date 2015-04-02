@@ -5,7 +5,7 @@
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.1.6.2
+  Version: 3.1.6.3
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.1.6.2';
+		var $version			 = '3.1.6.3';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -867,7 +867,7 @@ if ( !class_exists( 'TC' ) ) {
 						$content .= '<input type="radio" class="tc_choose_gateway" id="' . $gateway->plugin_name . '" name="tc_choose_gateway" value="' . $gateway->plugin_name . '" ' . checked( isset( $_SESSION[ 'tc_payment_method' ] ) ? $_SESSION[ 'tc_payment_method' ] : '', $gateway->plugin_name, false ) . '/>';
 					}
 
-					$content .= $gateway->admin_name
+					$content .= $gateway->public_name
 					. '<img src="' . $gateway->method_img_url . '" class="tickera-payment-options" alt="' . $gateway->plugin_name . '" /></label>'
 					. '</label>'
 					. '</div>'
