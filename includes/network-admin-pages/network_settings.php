@@ -45,7 +45,7 @@ if (empty($tab)) {
     <?php
     switch ($tab) {
         case 'gateways':
-            $tc->show_page_tab('gateways');
+            $tc->show_network_page_tab('gateways');
             break;
 
             do_action('case_' . $tab);

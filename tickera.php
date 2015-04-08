@@ -5,7 +5,7 @@
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.1.6.3
+  Version: 3.1.6.4
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.1.6.3';
+		var $version			 = '3.1.6.4';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -147,7 +147,8 @@ if ( !class_exists( 'TC' ) ) {
 			add_action( 'admin_menu', array( &$this, 'add_admin_menu' ) );
 
 			//Add plugin newtork admin menu
-			//add_action('network_admin_menu', array(&$this, 'add_network_admin_menu'));
+			add_action( 'network_admin_menu', array( &$this, 'add_network_admin_menu' ) );
+
 //Add plugin Settings link
 			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( &$this, 'plugin_action_link' ), 10, 2 );
 
@@ -827,61 +828,63 @@ if ( !class_exists( 'TC' ) ) {
 			$skip_payment_screen = false;
 
 			foreach ( (array) $tc_gateway_plugins as $code => $plugin ) {
-				if ( $cart_total == 0 ) {
-					$gateway = new $plugin;
-				} else {
-					$gateway = new $plugin[ 0 ];
-				}
+				if ( $this->gateway_is_network_allowed( $code ) ) {
+					if ( $cart_total == 0 ) {
+						$gateway = new $plugin;
+					} else {
+						$gateway = new $plugin[ 0 ];
+					}
 
-				if ( isset( $settings[ 'gateways' ][ 'active' ] ) ) {
-					if ( in_array( $code, $settings[ 'gateways' ][ 'active' ] ) ) {
+					if ( isset( $settings[ 'gateways' ][ 'active' ] ) ) {
+						if ( in_array( $code, $settings[ 'gateways' ][ 'active' ] ) ) {
+							$visible = true;
+							$active_gateways_num++;
+						} else {
+							$visible = false;
+						}
+					} elseif ( $gateway->automatically_activated ) {
 						$visible = true;
 						$active_gateways_num++;
 					} else {
 						$visible = false;
 					}
-				} elseif ( $gateway->automatically_activated ) {
-					$visible = true;
-					$active_gateways_num++;
-				} else {
-					$visible = false;
-				}
 
-				if ( $visible ) {
+					if ( $visible ) {
 
-					if ( count( (array) $tc_gateway_active_plugins ) == 1 ) {
-						$tickera_max_height = 'tickera-height';
-					} else {
-						$tickera_max_height = '';
+						if ( count( (array) $tc_gateway_active_plugins ) == 1 ) {
+							$tickera_max_height = 'tickera-height';
+						} else {
+							$tickera_max_height = '';
+						}
+
+
+						$skip_payment_screen = $gateway->skip_payment_screen;
+						$content .= '<div class="tickera tickera-payment-gateways">'
+						. '<div class="' . $gateway->plugin_name . ' plugin-title">'
+						. '<label>';
+
+						if ( count( (array) $tc_gateway_active_plugins ) == 1 ) {
+							$content .= '<input type="radio" class="tc_choose_gateway tickera-hide-button" id="' . $gateway->plugin_name . '" name="tc_choose_gateway" value="' . $gateway->plugin_name . '" checked ' . checked( isset( $_SESSION[ 'tc_payment_method' ] ) ? $_SESSION[ 'tc_payment_method' ] : '', $gateway->plugin_name, false ) . '/>';
+						} else {
+							$content .= '<input type="radio" class="tc_choose_gateway" id="' . $gateway->plugin_name . '" name="tc_choose_gateway" value="' . $gateway->plugin_name . '" ' . checked( isset( $_SESSION[ 'tc_payment_method' ] ) ? $_SESSION[ 'tc_payment_method' ] : '', $gateway->plugin_name, false ) . '/>';
+						}
+
+						$content .= $gateway->public_name
+						. '<img src="' . $gateway->method_img_url . '" class="tickera-payment-options" alt="' . $gateway->plugin_name . '" /></label>'
+						. '</label>'
+						. '</div>'
+						. '<div class="tc_gateway_form ' . $tickera_max_height . '" id="' . $gateway->plugin_name . '">';
+						$content .= $gateway->payment_form( $cart );
+						$content .= '<p class="tc_cart_direct_checkout">';
+
+						$content .= '<div class="tc_redirect_message">' . sprintf( __( 'Redirecting to %s payment page...', 'tc' ), $gateway->public_name ) . '</div>';
+						if ( $gateway->plugin_name == 'free_orders' ) {
+							$content .= '<input type="submit" name="tc_payment_submit" id="tc_payment_confirm" class="tickera-button" value="' . __( 'Continue &raquo;', 'tc' ) . '" />';
+						} else {
+							$content .= '<input type="submit" name="tc_payment_submit" id="tc_payment_confirm" class="tickera-button" value="' . __( 'Continue Checkout &raquo;', 'tc' ) . '" />';
+						}
+						$content .= '</p></div></div>';
 					}
-
-
-					$skip_payment_screen = $gateway->skip_payment_screen;
-					$content .= '<div class="tickera tickera-payment-gateways">'
-					. '<div class="' . $gateway->plugin_name . ' plugin-title">'
-					. '<label>';
-
-					if ( count( (array) $tc_gateway_active_plugins ) == 1 ) {
-						$content .= '<input type="radio" class="tc_choose_gateway tickera-hide-button" id="' . $gateway->plugin_name . '" name="tc_choose_gateway" value="' . $gateway->plugin_name . '" checked ' . checked( isset( $_SESSION[ 'tc_payment_method' ] ) ? $_SESSION[ 'tc_payment_method' ] : '', $gateway->plugin_name, false ) . '/>';
-					} else {
-						$content .= '<input type="radio" class="tc_choose_gateway" id="' . $gateway->plugin_name . '" name="tc_choose_gateway" value="' . $gateway->plugin_name . '" ' . checked( isset( $_SESSION[ 'tc_payment_method' ] ) ? $_SESSION[ 'tc_payment_method' ] : '', $gateway->plugin_name, false ) . '/>';
-					}
-
-					$content .= $gateway->public_name
-					. '<img src="' . $gateway->method_img_url . '" class="tickera-payment-options" alt="' . $gateway->plugin_name . '" /></label>'
-					. '</label>'
-					. '</div>'
-					. '<div class="tc_gateway_form ' . $tickera_max_height . '" id="' . $gateway->plugin_name . '">';
-					$content .= $gateway->payment_form( $cart );
-					$content .= '<p class="tc_cart_direct_checkout">';
-
-					$content .= '<div class="tc_redirect_message">' . sprintf( __( 'Redirecting to %s payment page...', 'tc' ), $gateway->public_name ) . '</div>';
-					if ( $gateway->plugin_name == 'free_orders' ) {
-						$content .= '<input type="submit" name="tc_payment_submit" id="tc_payment_confirm" class="tickera-button" value="' . __( 'Continue &raquo;', 'tc' ) . '" />';
-					} else {
-						$content .= '<input type="submit" name="tc_payment_submit" id="tc_payment_confirm" class="tickera-button" value="' . __( 'Continue Checkout &raquo;', 'tc' ) . '" />';
-					}
-					$content .= '</p></div></div>';
 				}
 			}
 
@@ -1378,7 +1381,7 @@ if ( !class_exists( 'TC' ) ) {
 								}
 							}
 						}
-						
+
 
 						if ( $required_fields_error_count > 0 ) {
 							$tc_cart_errors .= '<li>' . __( 'All fields marked with * are required.', 'tc' ) . '</li>';
@@ -1773,6 +1776,11 @@ if ( !class_exists( 'TC' ) ) {
 			require_once( $this->plugin_dir . 'includes/admin-pages/settings-' . $tab . '.php' );
 		}
 
+		function show_network_page_tab( $tab ) {
+			do_action( 'tc_show_network_page_tab_' . $tab );
+			require_once( $this->plugin_dir . 'includes/network-admin-pages/network_settings-' . $tab . '.php' );
+		}
+
 		function get_setting( $key, $default = null ) {
 			$settings	 = get_option( 'tc_settings' );
 			$keys		 = explode( '->', $key );
@@ -1787,6 +1795,35 @@ if ( !class_exists( 'TC' ) ) {
 				$setting	 = isset( $settings[ $keys[ 0 ] ][ $keys[ 1 ] ][ $keys[ 2 ] ][ $keys[ 3 ] ] ) ? $settings[ $keys[ 0 ] ][ $keys[ 1 ] ][ $keys[ 2 ] ][ $keys[ 3 ] ] : $default;
 
 			return apply_filters( "tc_setting_" . implode( '', $keys ), $setting, $default );
+		}
+
+		function get_network_setting( $key, $default = null ) {
+			$settings	 = get_site_option( 'tc_network_settings' );
+			$keys		 = explode( '->', $key );
+			array_map( 'trim', $keys );
+			if ( count( $keys ) == 1 )
+				$setting	 = isset( $settings[ $keys[ 0 ] ] ) ? $settings[ $keys[ 0 ] ] : $default;
+			else if ( count( $keys ) == 2 )
+				$setting	 = isset( $settings[ $keys[ 0 ] ][ $keys[ 1 ] ] ) ? $settings[ $keys[ 0 ] ][ $keys[ 1 ] ] : $default;
+			else if ( count( $keys ) == 3 )
+				$setting	 = isset( $settings[ $keys[ 0 ] ][ $keys[ 1 ] ][ $keys[ 2 ] ] ) ? $settings[ $keys[ 0 ] ][ $keys[ 1 ] ][ $keys[ 2 ] ] : $default;
+			else if ( count( $keys ) == 4 )
+				$setting	 = isset( $settings[ $keys[ 0 ] ][ $keys[ 1 ] ][ $keys[ 2 ] ][ $keys[ 3 ] ] ) ? $settings[ $keys[ 0 ] ][ $keys[ 1 ] ][ $keys[ 2 ] ][ $keys[ 3 ] ] : $default;
+
+			return apply_filters( "tc_network_setting_" . implode( '', $keys ), $setting, $default );
+		}
+
+		function gateway_is_network_allowed( $gateway ) {
+			$settings = get_site_option( 'tc_network_settings', '' );
+			if ( in_array( $gateway, $this->get_network_setting( 'gateways->active', array() ) ) || $gateway == 'free_orders' ) {
+				return true;
+			} else {
+				if ( $settings == '' ) {//not set by the network admin and every gateway is available by default
+					return true;
+				} else {
+					return false;
+				}
+			}
 		}
 
 		function handle_gateway_returns( $wp_query ) {

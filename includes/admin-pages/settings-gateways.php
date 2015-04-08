@@ -29,21 +29,24 @@ if ( isset( $_POST[ 'gateway_settings' ] ) ) {
                         <td>
 							<?php
 							foreach ( (array) $tc_gateway_plugins as $code => $plugin ) {
-								$gateway = new $plugin[ 0 ];
-								?>
 
-								<div class="image-check-wrap">
-									<label>
-										<input type="checkbox" class="tc_active_gateways" name="tc[gateways][active][]" value="<?php echo $code; ?>"<?php echo (in_array( $code, $this->get_setting( 'gateways->active', array() ) )) ? ' checked="checked"' : ((isset( $gateway->automatically_activated ) && $gateway->automatically_activated)) ? ' checked="checked"' : ''; ?> <?php echo ((isset( $gateway->automatically_activated ) && $gateway->automatically_activated)) ? 'disabled' : ''; ?> /> 
+								if ( $tc->gateway_is_network_allowed( $code ) ) {
+									$gateway = new $plugin[ 0 ];
+									?>
 
-										<div class="check-image check-image-<?php echo in_array( $code, $this->get_setting( 'gateways->active', array() ) ) ?>">
-											<img src="<?php echo esc_attr( $gateway->admin_img_url ); ?>" />
-										</div>
+									<div class="image-check-wrap">
+										<label>
+											<input type="checkbox" class="tc_active_gateways" name="tc[gateways][active][]" value="<?php echo $code; ?>"<?php echo (in_array( $code, $this->get_setting( 'gateways->active', array() ) )) ? ' checked="checked"' : ((isset( $gateway->automatically_activated ) && $gateway->automatically_activated)) ? ' checked="checked"' : ''; ?> <?php echo ((isset( $gateway->automatically_activated ) && $gateway->automatically_activated)) ? 'disabled' : ''; ?> /> 
 
-									</label>
-								</div><!-- image-check-wrap -->
+											<div class="check-image check-image-<?php echo in_array( $code, $this->get_setting( 'gateways->active', array() ) ) ?>">
+												<img src="<?php echo esc_attr( $gateway->admin_img_url ); ?>" />
+											</div>
 
-								<?php
+										</label>
+									</div><!-- image-check-wrap -->
+
+									<?php
+								}
 							}
 							?>
                         </td>
@@ -62,19 +65,21 @@ if ( isset( $_POST[ 'gateway_settings' ] ) ) {
 
 		<?php
 		foreach ( (array) $tc_gateway_plugins as $code => $plugin ) {
-			$gateway = new $plugin[ 0 ];
-			if ( isset( $settings[ 'gateways' ][ 'active' ] ) ) {
-				if ( in_array( $code, $settings[ 'gateways' ][ 'active' ] ) || (isset( $gateway->automatically_activated ) && $gateway->automatically_activated) ) {
+			if ( $tc->gateway_is_network_allowed( $code ) ) {
+				$gateway = new $plugin[ 0 ];
+				if ( isset( $settings[ 'gateways' ][ 'active' ] ) ) {
+					if ( in_array( $code, $settings[ 'gateways' ][ 'active' ] ) || (isset( $gateway->automatically_activated ) && $gateway->automatically_activated) ) {
+						$visible = true;
+					} else {
+						$visible = false;
+					}
+				} else if ( isset( $gateway->automatically_activated ) && $gateway->automatically_activated ) {
 					$visible = true;
 				} else {
 					$visible = false;
 				}
-			} else if ( isset( $gateway->automatically_activated ) && $gateway->automatically_activated ) {
-				$visible = true;
-			} else {
-				$visible = false;
+				$gateway->gateway_admin_settings( $settings, $visible );
 			}
-			$gateway->gateway_admin_settings( $settings, $visible );
 		}
 		?>
 

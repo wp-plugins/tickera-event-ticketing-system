@@ -101,6 +101,10 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.6.4 =
+- Added option to control availability of the payment gateways for all subsites from within a multisite admin panel
+- Added additional hooks for developers
+
 = 3.1.6.3 =
 - Fixed issue with payment gateway public name shown on front (was admin_name instead)
 
