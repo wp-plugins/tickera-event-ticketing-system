@@ -23,8 +23,8 @@ Tickera plugin comes with 2Checkout payment gateway, Custom Offline Payments and
 
 If you need more payment options, you can download [Tickera Premium](http://tickera.com/?wp "WordPress Event Ticketing system") version which includes:
 
-* Mijireh (80+ Gateways included)
-* Mollie (iDeal, Credit Card, Bancontact / Mister Cash, SOFORT Banking, Overbooking, Bitcoin, PayPal, paysafecard and   AcceptEmail)
+* [Mijireh](http://tickera.com/addons/mijireh-checkout/ "Mijireh payment gateway for Tickera") (80+ Gateways included)
+* [Mollie](http://tickera.com/addons/mollie-payment-gateway/ "Mollie payment gateway for Tickera") (iDeal, Credit Card, Bancontact / Mister Cash, SOFORT Banking, Overbooking, Bitcoin, PayPal, paysafecard and   AcceptEmail)
 * PayPal Standard
 * PayPal PRO
 * 2Checkout
@@ -42,6 +42,13 @@ If you need more payment options, you can download [Tickera Premium](http://tick
 * Custom Offline Payments
 * Free Orders.
 
+<blockquote>
+<h4>TAKE A CUT</h4>
+Check out these awesome Tickera add-ons which will allow you to take a percentage per each sale on your WordPress multisite network:
+* [Stripe Connect](http://tickera.com/addons/stripe-connect/ "Stripe Connect gateway for Tickera")
+* [PayPal Chained Payments](http://tickera.com/addons/paypal-chained-payments/ "PayPal Chained Payments gateway for Tickera")
+</blockquote>
+
 = CART =
 Your customers will be able to purchase unlimited number of tickets from more than one event at once!
 
@@ -56,6 +63,7 @@ Do you have WordPress multisite installed with a number of subsites and clients?
 
 = PURCHASE FORM =
 Purchase form includes info from each ticket owner. New hooks allows you to add new fields for buyer or ticket owners. It would be useful if you want to add, for instance, additional field where your customers may choose food preference, set their age, sex, etc. In addition, buyers are able to download tickets directly from a purchase confirmation page – no more lost emails which have to be sent manually, lost attachments or server issues which prevent tickets to reach your clients.
+Check [Custom Forms](http://tickera.com/addons/custom-forms/ "PayPal Chained Payments gateway for Tickera") add-on and create beautiful forms which will fit into your theme's design. Control order of the elements, number of columns, set required and optional fields in an easy way.
 
 = TRANSLATION READY =
 You’ll be able to translate every possible word in a [WordPress way](http://www.tickera.com/blog/translating-tickera-plugin/ "Translate Tickera plugin").
@@ -77,6 +85,10 @@ Create unlimited number of discount codes available for all or just certain tick
 
 = CUSTOMIZABLE =
 Tickera is developer friendly. Customize any aspect of Tickera with actions and filters! Extend its functionality by creating great add-ons!
+
+= ADD-ONS & EXTENSTIONS =
+
+[Extend Tickera](http://tickera.com/tickera-events-add-ons/ "Tickera Add-ons and Extensions") with a number of add-ons.
 
 = DOCUMENTATION =
 Stuck? Check out the [plugin documentation](http://tickera.com/documentation-category/tickera/ "Tickera Documentation") 
