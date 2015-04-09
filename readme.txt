@@ -59,9 +59,7 @@ Purchase form includes info from each ticket owner. New hooks allows you to add 
 Check [Custom Forms](http://tickera.com/addons/custom-forms/ "PayPal Chained Payments gateway for Tickera") add-on and create beautiful forms which will fit into your theme's design. Control order of the elements, number of columns, set required and optional fields in an easy way.
 
 = TAKE A CUT =
-Check out these awesome Tickera add-ons which will allow you to take a percentage per each sale on your WordPress multisite network:
-* [Stripe Connect](http://tickera.com/addons/stripe-connect/ "Stripe Connect gateway for Tickera")
-* [PayPal Chained Payments](http://tickera.com/addons/paypal-chained-payments/ "PayPal Chained Payments gateway for Tickera")
+Check out [Stripe Connect](http://tickera.com/addons/stripe-connect/ "Stripe Connect gateway for Tickera") and [PayPal Chained Payments](http://tickera.com/addons/paypal-chained-payments/ "PayPal Chained Payments gateway for Tickera") Tickera add-ons which will allow you to take a percentage per each sale on your WordPress multisite network
 
 = TRANSLATION READY =
 You’ll be able to translate every possible word in a [WordPress way](http://www.tickera.com/blog/translating-tickera-plugin/ "Translate Tickera plugin").
