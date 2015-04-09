@@ -42,12 +42,10 @@ If you need more payment options, you can download [Tickera Premium](http://tick
 * Custom Offline Payments
 * Free Orders.
 
-<blockquote>
 <h4>TAKE A CUT</h4>
 Check out these awesome Tickera add-ons which will allow you to take a percentage per each sale on your WordPress multisite network:
 * [Stripe Connect](http://tickera.com/addons/stripe-connect/ "Stripe Connect gateway for Tickera")
 * [PayPal Chained Payments](http://tickera.com/addons/paypal-chained-payments/ "PayPal Chained Payments gateway for Tickera")
-</blockquote>
 
 = CART =
 Your customers will be able to purchase unlimited number of tickets from more than one event at once!
