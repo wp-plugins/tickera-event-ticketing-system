@@ -42,11 +42,6 @@ If you need more payment options, you can download [Tickera Premium](http://tick
 * Custom Offline Payments
 * Free Orders.
 
-<h4>TAKE A CUT</h4>
-Check out these awesome Tickera add-ons which will allow you to take a percentage per each sale on your WordPress multisite network:
-* [Stripe Connect](http://tickera.com/addons/stripe-connect/ "Stripe Connect gateway for Tickera")
-* [PayPal Chained Payments](http://tickera.com/addons/paypal-chained-payments/ "PayPal Chained Payments gateway for Tickera")
-
 = CART =
 Your customers will be able to purchase unlimited number of tickets from more than one event at once!
 
@@ -62,6 +57,11 @@ Do you have WordPress multisite installed with a number of subsites and clients?
 = PURCHASE FORM =
 Purchase form includes info from each ticket owner. New hooks allows you to add new fields for buyer or ticket owners. It would be useful if you want to add, for instance, additional field where your customers may choose food preference, set their age, sex, etc. In addition, buyers are able to download tickets directly from a purchase confirmation page – no more lost emails which have to be sent manually, lost attachments or server issues which prevent tickets to reach your clients.
 Check [Custom Forms](http://tickera.com/addons/custom-forms/ "PayPal Chained Payments gateway for Tickera") add-on and create beautiful forms which will fit into your theme's design. Control order of the elements, number of columns, set required and optional fields in an easy way.
+
+= TAKE A CUT =
+Check out these awesome Tickera add-ons which will allow you to take a percentage per each sale on your WordPress multisite network:
+* [Stripe Connect](http://tickera.com/addons/stripe-connect/ "Stripe Connect gateway for Tickera")
+* [PayPal Chained Payments](http://tickera.com/addons/paypal-chained-payments/ "PayPal Chained Payments gateway for Tickera")
 
 = TRANSLATION READY =
 You’ll be able to translate every possible word in a [WordPress way](http://www.tickera.com/blog/translating-tickera-plugin/ "Translate Tickera plugin").
