@@ -109,6 +109,9 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.6.5 =
+- Added quantity sold field on ticket types screen in the admin
+
 = 3.1.6.4 =
 - Added option to control availability of the payment gateways for all subsites from within a multisite admin panel
 - Added additional hooks for developers
