@@ -1,5 +1,106 @@
 <?php
 
+function tc_get_tickets_count_left( $ticket_id ) {
+	global $wpdb, $wp_query;
+
+	$global_quantity_available	 = 0;
+	$unlimited					 = false;
+	
+	$quantity_available = get_post_meta( $ticket_id, 'quantity_available', true );
+	
+	if ( is_numeric( $quantity_available ) ) {
+		$global_quantity_available = $global_quantity_available + $quantity_available;
+	} else {
+		$unlimited = true;
+	}
+
+	if ( $unlimited ) {
+		return '∞';
+	} else {
+		$quantity_sold = tc_get_tickets_count_sold( $ticket_id );
+		return abs( $global_quantity_available - $quantity_sold );
+	}
+}
+
+function tc_get_tickets_count_sold( $ticket_id ) {
+	global $wpdb, $wp_query;
+
+	$sold_records = $wpdb->get_results(
+	"
+	SELECT      COUNT(*) as cnt, p.post_parent
+	FROM        $wpdb->posts p, $wpdb->postmeta pm
+                    WHERE p.ID = pm.post_id
+                    AND pm.meta_key = 'ticket_type_id'
+                    AND pm.meta_value = ".(int)$ticket_id."
+                    GROUP BY p.post_parent
+	"
+	);
+
+	$sold_count = 0;
+
+	foreach ( $sold_records as $sold_record ) {
+		if ( get_post_status( $sold_record->post_parent ) == 'order_paid' ) {
+			$sold_count = $sold_count + $sold_record->cnt;
+		}
+	}
+
+	return $sold_count;
+}
+
+function tc_get_event_tickets_count_left( $event_id ) {
+	global $wpdb, $wp_query;
+
+	$event			 = new TC_Event( $event_id );
+	$ticket_types	 = $event->get_event_ticket_types();
+
+	$global_quantity_available	 = 0;
+	$unlimited					 = false;
+
+	foreach ( $ticket_types as $ticket_type_id ) {
+		$quantity_available = get_post_meta( $ticket_type_id, 'quantity_available', true );
+		if ( is_numeric( $quantity_available ) ) {
+			$global_quantity_available = $global_quantity_available + $quantity_available;
+		} else {
+			$unlimited = true;
+		}
+	}
+
+	if ( $unlimited ) {
+		return '∞';
+	} else {
+		$quantity_sold = tc_get_event_tickets_count_sold( $event_id );
+		return abs( $global_quantity_available - $quantity_sold );
+	}
+}
+
+function tc_get_event_tickets_count_sold( $event_id ) {
+	global $wpdb, $wp_query;
+
+	$event			 = new TC_Event( $event_id );
+	$ticket_types	 = $event->get_event_ticket_types();
+
+	$sold_records = $wpdb->get_results(
+	"
+	SELECT      COUNT(*) as cnt, p.post_parent
+	FROM        $wpdb->posts p, $wpdb->postmeta pm
+                    WHERE p.ID = pm.post_id
+                    AND pm.meta_key = 'ticket_type_id'
+                    AND pm.meta_value IN (" . implode( ',', $ticket_types ) . ")
+                    GROUP BY p.post_parent
+	"
+	);
+
+	$sold_count = 0;
+
+	foreach ( $sold_records as $sold_record ) {
+		if ( get_post_status( $sold_record->post_parent ) == 'order_paid' ) {
+			$sold_count = $sold_count + $sold_record->cnt;
+		}
+	}
+
+	return $sold_count;
+}
+
 function tc_get_payment_page_slug() {
 	$page_id = get_option( 'tc_payment_page_id', false );
 	$page	 = get_post( $page_id, OBJECT );
@@ -1174,10 +1275,10 @@ function tc_get_order_event( $field_name = '', $post_id = '' ) {
 	);
 	$tickets = get_posts( $args );
 	$columns = $orders->get_owner_info_fields();
-	
-	$columns = apply_filters('tc_order_details_owner_columns', $columns);
-	
-	$style	 = '';
+
+	$columns = apply_filters( 'tc_order_details_owner_columns', $columns );
+
+	$style = '';
 	?>
 	<table class="order-details widefat shadow-table">
 		<tr>
@@ -1288,7 +1389,7 @@ function tc_get_order_download_tickets_link( $field_name = '', $post_id = '' ) {
 
 function tc_get_ticket_type_form_field( $field_name = '', $field_type = '', $ticket_type_id = '', $ticket_type_count ) {
 	?>
-	<input type="hidden" name="owner_data_<?php echo $field_name . '_' . $field_type; ?>[<?php echo $ticket_type_id;?>][]" value="<?php echo $ticket_type_id; ?>" />
+	<input type="hidden" name="owner_data_<?php echo $field_name . '_' . $field_type; ?>[<?php echo $ticket_type_id; ?>][]" value="<?php echo $ticket_type_id; ?>" />
 	<?php
 }
 

@@ -51,7 +51,7 @@ if ( !class_exists( 'TC_Event' ) ) {
 			$ticket_types = get_posts( $args );
 
 			foreach ( $ticket_types as $ticket_type ) {
-				$ticket_ids[] = $ticket_type->ID;
+				$ticket_ids[] = (int)$ticket_type->ID;
 			}
 
 			return $ticket_ids;

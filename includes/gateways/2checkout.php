@@ -78,9 +78,8 @@ class TC_Gateway_2Checkout extends TC_Gateway_API {
 	function process_payment( $cart ) {
 		global $tc;
 
-		$settings = get_option( 'tc_settings' );
-
-		$cart_contents = $tc->get_cart_cookie();
+		$settings		 = get_option( 'tc_settings' );
+		$cart_contents	 = $tc->get_cart_cookie();
 
 		if ( $this->SandboxFlag == 'sandbox' ) {
 			//$url = 'https://sandbox.2checkout.com/checkout/purchase';
@@ -131,23 +130,29 @@ class TC_Gateway_2Checkout extends TC_Gateway_API {
 		$params[ 'mode' ]				 = '2CO';
 		$params[ 'card_holder_name' ]	 = $buyer_full_name;
 		$params[ 'email' ]				 = $buyer_email;
+
 		if ( $this->SandboxFlag == 'sandbox' ) {
 			$params[ 'demo' ] = 'Y';
 		}
 
-		$counter	 = 0;
-		$cart_total	 = 0;
+		//$counter	 = 0;
+		//$cart_total	 = 0;
 
-		foreach ( $cart_contents as $ticket_type => $ordered_count ) {
-			$ticket										 = new TC_Ticket( $ticket_type );
-			$cart_total									 = $cart_total + ($ticket->details->price_per_ticket * $ordered_count);
-			$sku										 = $ticket_type;
-			$params[ "li_" . $counter . "_type" ]		 = "product";
-			$params[ "li_" . $counter . "_name" ]		 = $ticket->details->post_title;
-			$params[ "li_" . $counter . "_price" ]		 = $ticket->details->price_per_ticket;
-			$params[ "li_" . $counter . "_tangible" ]	 = 'N';
-			$counter++;
-		}
+		/* foreach ( $cart_contents as $ticket_type => $ordered_count ) {
+		  $ticket										 = new TC_Ticket( $ticket_type );
+		  $cart_total									 = $cart_total + ($ticket->details->price_per_ticket * $ordered_count);
+		  $sku										 = $ticket_type;
+		  $params[ "li_" . $counter . "_type" ]		 = "product";
+		  $params[ "li_" . $counter . "_name" ]		 = $ticket->details->post_title;
+		  $params[ "li_" . $counter . "_price" ]		 = $ticket->details->price_per_ticket;
+		  $params[ "li_" . $counter . "_tangible" ]	 = 'N';
+		  $counter++;
+		  } */
+
+		$params[ "li_0_type" ]		 = "product";
+		$params[ "li_0_name" ]		 = apply_filters( 'tc_item_name_2checkout', __( 'Order: #', 'tc' ) . $order_id );
+		$params[ "li_0_price" ]		 = $total;
+		$params[ "li_0_tangible" ]	 = 'N';
 
 		if ( !isset( $_SESSION ) ) {
 			session_start();

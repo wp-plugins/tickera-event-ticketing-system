@@ -21,6 +21,12 @@ class TC_Shortcodes extends TC {
 		add_shortcode( 'ticket_price', array( &$this, 'ticket_price' ) );
 		add_shortcode( 'tc_ticket_price', array( &$this, 'ticket_price' ) );
 
+		add_shortcode( 'event_tickets_sold', array( &$this, 'event_tickets_sold' ) );
+		add_shortcode( 'event_tickets_left', array( &$this, 'event_tickets_left' ) );
+		
+		add_shortcode( 'tickets_sold', array( &$this, 'tickets_sold' ) );
+		add_shortcode( 'tickets_left', array( &$this, 'tickets_left' ) );
+		
 		add_shortcode( 'event', array( &$this, 'event' ) );
 		add_shortcode( 'tc_event', array( &$this, 'event' ) );
 	}
@@ -134,6 +140,34 @@ class TC_Shortcodes extends TC {
 
 		$ticket_type = new TC_Ticket( $id, 'publish' );
 		return $tc->get_cart_currency_and_format( $ticket_type->details->price_per_ticket );
+	}
+
+	function event_tickets_sold( $atts ) {
+		extract( shortcode_atts( array(
+			'event_id' => ''
+		), $atts ) );
+		return tc_get_event_tickets_count_sold( $event_id );
+	}
+	
+	function event_tickets_left( $atts ) {
+		extract( shortcode_atts( array(
+			'event_id' => ''
+		), $atts ) );
+		return tc_get_event_tickets_count_left( $event_id );
+	}
+	
+	function tickets_sold( $atts ) {
+		extract( shortcode_atts( array(
+			'ticket_type_id' => ''
+		), $atts ) );
+		return tc_get_tickets_count_sold( $ticket_type_id );
+	}
+	
+	function tickets_left( $atts ) {
+		extract( shortcode_atts( array(
+			'ticket_type_id' => ''
+		), $atts ) );
+		return tc_get_tickets_count_left( $ticket_type_id );
 	}
 
 	function tc_cart_page( $atts ) {

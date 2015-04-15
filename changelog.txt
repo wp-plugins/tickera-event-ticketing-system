@@ -1,6 +1,10 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
+3.1.6.6 - 15/APR/2015
+- Added additional shortcodes (event_tickets_sold, event_tickets_left, tickets_sold, tickets_left)
+- Fixed issue with incorrect total amount shown on the 2checkout.com
+
 3.1.6.5 - 09/APR/2015
 - Added quantity sold field on ticket types screen in the admin
 
