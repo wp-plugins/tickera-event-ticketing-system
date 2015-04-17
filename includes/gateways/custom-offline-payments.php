@@ -18,10 +18,11 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 	function on_creation() {
 		global $tc;
 
-		$this->admin_name		 = $tc->get_setting( 'gateways->custom_offline_payments->admin_name' ) ? $tc->get_setting( 'gateways->custom_offline_payments->admin_name', __( 'Offline Payment', 'tc' ) ) : __( 'Offline Payment', 'tc' );
-		$this->public_name		 = $tc->get_setting( 'gateways->custom_offline_payments->public_name' ) ? $tc->get_setting( 'gateways->custom_offline_payments->public_name', __( 'Cash on Delivery', 'tc' ) ) : __( 'Cash on Delivery', 'tc' );
-		$this->method_img_url	 = $tc->plugin_url . 'images/gateways/custom-offline-payments.png';
-		$this->admin_img_url	 = $tc->plugin_url . 'images/gateways/small-custom-offline-payments.png';
+		$this->skip_payment_screen	 = apply_filters( $this->plugin_name . '_skip_payment_screen', $this->skip_payment_screen );
+		$this->admin_name			 = $tc->get_setting( 'gateways->custom_offline_payments->admin_name' ) ? $tc->get_setting( 'gateways->custom_offline_payments->admin_name', __( 'Offline Payment', 'tc' ) ) : __( 'Offline Payment', 'tc' );
+		$this->public_name			 = $tc->get_setting( 'gateways->custom_offline_payments->public_name' ) ? $tc->get_setting( 'gateways->custom_offline_payments->public_name', __( 'Cash on Delivery', 'tc' ) ) : __( 'Cash on Delivery', 'tc' );
+		$this->method_img_url		 = $tc->plugin_url . 'images/gateways/custom-offline-payments.png';
+		$this->admin_img_url		 = $tc->plugin_url . 'images/gateways/small-custom-offline-payments.png';
 		add_action( 'tc_order_created', array( &$this, 'send_payment_instructions' ), 10, 5 );
 	}
 

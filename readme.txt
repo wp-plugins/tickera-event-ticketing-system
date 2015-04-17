@@ -109,6 +109,10 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.6.7 =
+- Fixed issue with admin discount code page pagination
+- Added additional hooks for developers (for skipping payment confirmation page)
+
 = 3.1.6.6 =
 - Added additional shortcodes (event_tickets_sold, event_tickets_left, tickets_sold, tickets_left)
 - Fixed issue with incorrect total amount shown on the 2checkout.com

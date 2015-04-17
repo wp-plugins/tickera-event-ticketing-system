@@ -17,7 +17,7 @@ if ( !class_exists( 'TC_Discounts_Search' ) ) {
 			global $tc;
 
 			$this->per_page		 = $per_page == '' ? tc_global_admin_per_page($this->per_page) : $per_page;
-			$this->page_name	 = $tc->name . '_discounts';
+			$this->page_name	 = $tc->name . '_discount_codes';
 			$this->search_term	 = $search_term;
 			$this->raw_page		 = ( '' == $page_num ) ? false : (int) $page_num;
 			$this->page_num		 = (int) ( '' == $page_num ) ? 1 : $page_num;
