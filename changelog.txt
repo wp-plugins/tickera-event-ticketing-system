@@ -1,6 +1,10 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
+3.1.6.8 - 20/APR/2015
+- Added additional hooks for developers
+- Various code improvements
+
 3.1.6.7 - 17/APR/2015
 - Fixed issue with admin discount code page pagination
 - Added additional hooks for developers (for skipping payment confirmation page)

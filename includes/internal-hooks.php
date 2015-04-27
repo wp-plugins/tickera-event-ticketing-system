@@ -45,7 +45,7 @@ function tc_cart_col_value_before_total_price($ticket_type, $ordered_count, $tic
     $tc_general_settings = get_option('tc_general_setting', false);
     if (!isset($tc_general_settings['show_fees']) || (isset($tc_general_settings['show_fees']) && $tc_general_settings['show_fees'] == 'yes')) {
         ?>
-        <td class="ticket-fee" class="ticket_fee"><?php echo $tc->get_cart_currency_and_format($fee); ?></td>
+        <td class="ticket-fee" class="ticket_fee"><?php echo apply_filters('tc_cart_currency_and_format', $fee); ?></td>
         <?php
     }
 }
@@ -67,7 +67,7 @@ function tc_cart_col_value_before_total_price_total($total) {
 
     if (!isset($tc_general_settings['show_fees']) || (isset($tc_general_settings['show_fees']) && $tc_general_settings['show_fees'] == 'yes')) {
         ?>
-        <span class="total_item_title"><?php echo $fees_label; ?>:</span><span class="total_item_amount"><?php echo $tc->get_cart_currency_and_format($total_fees); ?></span>
+        <span class="total_item_title"><?php echo $fees_label; ?>:</span><span class="total_item_amount"><?php echo apply_filters('tc_cart_currency_and_format', $total_fees); ?></span>
         <?php
     }
 }
@@ -105,7 +105,7 @@ function tc_cart_tax($total) {
 
     if (!isset($tc_general_settings['show_tax_rate']) || (isset($tc_general_settings['show_tax_rate']) && $tc_general_settings['show_tax_rate'] == 'yes')) {
         ?>
-        <span class="total_item_title"><?php echo $tax_label; ?>:</span><span class="total_item_amount"><?php echo $tc->get_cart_currency_and_format($tax_value); ?></span>
+        <span class="total_item_title"><?php echo $tax_label; ?>:</span><span class="total_item_amount"><?php echo apply_filters('tc_cart_currency_and_format', $tax_value); ?></span>
         <?php
     }
 }

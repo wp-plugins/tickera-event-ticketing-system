@@ -5,9 +5,9 @@ function tc_get_tickets_count_left( $ticket_id ) {
 
 	$global_quantity_available	 = 0;
 	$unlimited					 = false;
-	
+
 	$quantity_available = get_post_meta( $ticket_id, 'quantity_available', true );
-	
+
 	if ( is_numeric( $quantity_available ) ) {
 		$global_quantity_available = $global_quantity_available + $quantity_available;
 	} else {
@@ -31,7 +31,7 @@ function tc_get_tickets_count_sold( $ticket_id ) {
 	FROM        $wpdb->posts p, $wpdb->postmeta pm
                     WHERE p.ID = pm.post_id
                     AND pm.meta_key = 'ticket_type_id'
-                    AND pm.meta_value = ".(int)$ticket_id."
+                    AND pm.meta_value = " . (int) $ticket_id . "
                     GROUP BY p.post_parent
 	"
 	);
@@ -247,7 +247,7 @@ function tc_order_created_email( $order_id, $status, $cart_contents = false, $ca
 			$order_status_url	 = $tc->tc_order_status_url( $order, $order->details->tc_order_date, '', false );
 
 			$placeholders		 = array( 'ORDER_ID', 'ORDER_TOTAL', 'DOWNLOAD_URL' );
-			$placeholder_values	 = array( $order_id, $tc->get_cart_currency_and_format( $payment_info[ 'total' ] ), $order_status_url );
+			$placeholder_values	 = array( $order_id, apply_filters( 'tc_cart_currency_and_format', $payment_info[ 'total' ] ), $order_status_url );
 
 			$to = $cart_info[ 'buyer_data' ][ 'email_post_meta' ];
 
@@ -278,7 +278,7 @@ function tc_order_created_email( $order_id, $status, $cart_contents = false, $ca
 			$order_admin_url = admin_url( 'admin.php?page=tc_orders&action=details&ID=' . $order->details->ID );
 
 			$placeholders		 = array( 'ORDER_ID', 'ORDER_TOTAL', 'ORDER_ADMIN_URL' );
-			$placeholder_values	 = array( $order_id, $tc->get_cart_currency_and_format( $payment_info[ 'total' ] ), $order_admin_url );
+			$placeholder_values	 = array( $order_id, apply_filters( 'tc_cart_currency_and_format', $payment_info[ 'total' ] ), $order_admin_url );
 
 			$to = isset( $tc_email_settings[ 'admin_order_from_email' ] ) ? $tc_email_settings[ 'admin_order_from_email' ] : get_option( 'admin_email' );
 
@@ -302,6 +302,29 @@ function tc_minimum_total( $total ) {
 }
 
 function tc_force_login( $field_name, $default_value = '' ) {
+	global $tc_general_settings;
+	if ( isset( $tc_general_settings[ $field_name ] ) ) {
+		$checked = $tc_general_settings[ $field_name ];
+	} else {
+		if ( $default_value !== '' ) {
+			$checked = $default_value;
+		} else {
+			$checked = 'no';
+		}
+	}
+	?>
+	<label>
+		<input type="radio" name="tc_general_setting[<?php echo esc_attr( $field_name ); ?>]" value="yes" <?php checked( $checked, 'yes', true ); ?>  /><?php _e( 'Yes', 'tc' ); ?>
+	</label>
+	<label>
+		<input type="radio" name="tc_general_setting[<?php echo esc_attr( $field_name ); ?>]" value="no" <?php checked( $checked, 'no', true ); ?> /><?php _e( 'No', 'tc' ); ?>
+	</label>
+	<?php
+}
+
+/* General purpose which retrieves yes/no values */
+
+function tc_yes_no( $field_name, $default_value = '' ) {
 	global $tc_general_settings;
 	if ( isset( $tc_general_settings[ $field_name ] ) ) {
 		$checked = $tc_general_settings[ $field_name ];
@@ -514,7 +537,7 @@ function tc_get_price_formats( $field_name, $default_value = '' ) {
 		<option value="eu" <?php selected( $checked, 'eu', true ); ?>><?php _e( '1.234,56', 'tc' ); ?></option>
 		<option value="french_comma" <?php selected( $checked, 'french_comma', true ); ?>><?php _e( '1 234,56', 'tc' ); ?></option>
 		<option value="french_dot" <?php selected( $checked, 'french_dot', true ); ?>><?php _e( '1 234.56', 'tc' ); ?></option>
-		<?php do_action( 'tc_price_formats' ); ?>
+	<?php do_action( 'tc_price_formats' ); ?>
 	</select>
 	<?php
 }
@@ -538,7 +561,7 @@ function tc_get_currency_positions( $field_name, $default_value = '' ) {
 		<option value="pre_nospace" <?php selected( $checked, 'pre_nospace', true ); ?>><?php echo $symbol . '10'; ?></option>
 		<option value="post_nospace" <?php selected( $checked, 'post_nospace', true ); ?>><?php echo '10' . $symbol; ?></option>
 		<option value="post_space" <?php selected( $checked, 'post_space', true ); ?>><?php echo '10 ' . $symbol; ?></option>
-		<?php do_action( 'tc_currencies_position' ); ?>
+	<?php do_action( 'tc_currencies_position' ); ?>
 	</select>
 	<?php
 }
@@ -587,21 +610,21 @@ function tc_show_delete_pending_orders_times( $field_name, $default_value = '' )
 	$settings	 = get_option( 'tc_settings' );
 	$schedules	 = array(
 		__( 'Never', 'tc' )		 => '',
-		__( '30 Minutes', 'tc' ) => 30 * 60,
-		__( '45 Minutes', 'tc' ) => 45 * 60,
-		__( '1 Hour', 'tc' )	 => 60 * 60,
-		__( '2 Hours', 'tc' )	 => 2 * 60 * 60,
-		__( '3 Hours', 'tc' )	 => 3 * 60 * 60,
-		__( '4 Hours', 'tc' )	 => 4 * 60 * 60,
-		__( '5 Hours', 'tc' )	 => 5 * 60 * 60,
-		__( '6 Hours', 'tc' )	 => 6 * 60 * 60,
+		__( '30 Minutes', 'tc' )	 => 30 * 60,
+		__( '45 Minutes', 'tc' )	 => 45 * 60,
+		__( '1 Hour', 'tc' )		 => 60 * 60,
+		__( '2 Hours', 'tc' )		 => 2 * 60 * 60,
+		__( '3 Hours', 'tc' )		 => 3 * 60 * 60,
+		__( '4 Hours', 'tc' )		 => 4 * 60 * 60,
+		__( '5 Hours', 'tc' )		 => 5 * 60 * 60,
+		__( '6 Hours', 'tc' )		 => 6 * 60 * 60,
 		__( '12 Hours', 'tc' )	 => 12 * 60 * 60,
 		__( '1 Day', 'tc' )		 => 24 * 60 * 60,
-		__( '2 Days', 'tc' )	 => 2 * 24 * 60 * 60,
-		__( '3 Days', 'tc' )	 => 3 * 24 * 60 * 60,
-		__( '7 Days', 'tc' )	 => 7 * 24 * 60 * 60,
-		__( '14 Days', 'tc' )	 => 14 * 24 * 60 * 60,
-		__( '30 Days', 'tc' )	 => 30 * 24 * 60 * 60
+		__( '2 Days', 'tc' )		 => 2 * 24 * 60 * 60,
+		__( '3 Days', 'tc' )		 => 3 * 24 * 60 * 60,
+		__( '7 Days', 'tc' )		 => 7 * 24 * 60 * 60,
+		__( '14 Days', 'tc' )		 => 14 * 24 * 60 * 60,
+		__( '30 Days', 'tc' )		 => 30 * 24 * 60 * 60
 	);
 
 	$schedules = apply_filters( 'tc_delete_pending_orders_schedule_times', $schedules );
@@ -751,7 +774,7 @@ function tc_get_order_page_settings( $field_name, $default_value = '' ) {
 function tc_get_pages_settings( $field_name, $default_value = '' ) {
 	global $tc;
 	?>
-	<p class="submit"><a href="<?php echo add_query_arg( 'install_tickera_pages', 'true', admin_url( 'admin.php?page=tc_settings' ) ); ?>" class="button-primary"><?php printf( __( 'Install %s Pages', 'tc' ), $tc->title ); ?></a></p>
+	<p class="submit"><a href="<?php echo esc_url( add_query_arg( 'install_tickera_pages', 'true', admin_url( 'admin.php?page=tc_settings' ) ) ); ?>" class="button-primary"><?php printf( __( 'Install %s Pages', 'tc' ), $tc->title ); ?></a></p>
 	<?php
 }
 
@@ -1173,10 +1196,10 @@ function tc_get_order_details_front( $order_id = '', $order_key = '' ) {
 			$order_status = __( 'Payment Completed', 'tc' );
 		}
 
-		$fees_total		 = $tc->get_cart_currency_and_format( $order->details->tc_payment_info[ 'fees_total' ] );
-		$tax_total		 = $tc->get_cart_currency_and_format( $order->details->tc_payment_info[ 'tax_total' ] );
-		$subtotal		 = $tc->get_cart_currency_and_format( $order->details->tc_payment_info[ 'subtotal' ] );
-		$total			 = $tc->get_cart_currency_and_format( $order->details->tc_payment_info[ 'total' ] );
+		$fees_total		 = apply_filters( 'tc_cart_currency_and_format', $order->details->tc_payment_info[ 'fees_total' ] );
+		$tax_total		 = apply_filters( 'tc_cart_currency_and_format', $order->details->tc_payment_info[ 'tax_total' ] );
+		$subtotal		 = apply_filters( 'tc_cart_currency_and_format', $order->details->tc_payment_info[ 'subtotal' ] );
+		$total			 = apply_filters( 'tc_cart_currency_and_format', $order->details->tc_payment_info[ 'total' ] );
 		$transaction_id	 = isset( $order->details->tc_payment_info[ 'transaction_id' ] ) ? $order->details->tc_payment_info[ 'transaction_id' ] : '';
 		$order_id		 = strtoupper( $order->details->post_name );
 		$order_date		 = $payment_date	 = apply_filters( 'tc_order_date', date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $order->details->tc_order_date, false ) );
@@ -1248,8 +1271,8 @@ function tc_get_order_details_front( $order_id = '', $order_key = '' ) {
 								}
 								?>
 							</td>
-						<?php }
-						?>
+					<?php }
+					?>
 					</tr>
 					<?php
 				}
@@ -1318,8 +1341,8 @@ function tc_get_order_event( $field_name = '', $post_id = '' ) {
 						}
 						?>
 					</td>
-				<?php }
-				?>
+			<?php }
+			?>
 			</tr>
 			<?php
 		}
@@ -1362,25 +1385,25 @@ function tc_get_order_discount_info( $field_name = '', $post_id = '' ) {
 function tc_get_order_total( $field_name = '', $post_id = '' ) {
 	global $tc;
 	$order = new TC_Order( $post_id );
-	echo $tc->get_cart_currency_and_format( $order->details->tc_payment_info[ 'total' ] );
+	echo apply_filters( 'tc_cart_currency_and_format', $order->details->tc_payment_info[ 'total' ] );
 }
 
 function tc_get_order_subtotal( $field_name = '', $post_id = '' ) {
 	global $tc;
 	$order = new TC_Order( $post_id );
-	echo $tc->get_cart_currency_and_format( $order->details->tc_payment_info[ 'subtotal' ] );
+	echo apply_filters( 'tc_cart_currency_and_format', $order->details->tc_payment_info[ 'subtotal' ] );
 }
 
 function tc_get_order_fees_total( $field_name = '', $post_id = '' ) {
 	global $tc;
 	$order = new TC_Order( $post_id );
-	echo $tc->get_cart_currency_and_format( $order->details->tc_payment_info[ 'fees_total' ] );
+	echo apply_filters( 'tc_cart_currency_and_format', $order->details->tc_payment_info[ 'fees_total' ] );
 }
 
 function tc_get_order_tax_total( $field_name = '', $post_id = '' ) {
 	global $tc;
 	$order = new TC_Order( $post_id );
-	echo $tc->get_cart_currency_and_format( $order->details->tc_payment_info[ 'tax_total' ] );
+	echo apply_filters( 'tc_cart_currency_and_format', $order->details->tc_payment_info[ 'tax_total' ] );
 }
 
 function tc_get_order_download_tickets_link( $field_name = '', $post_id = '' ) {
@@ -1477,7 +1500,7 @@ function tc_ticket_limit_types( $field_name = '', $post_id = '' ) {
 		<?php ?>
 		<option value="ticket_level" <?php selected( $currently_selected, 'ticket_level', true ); ?>><?php echo __( 'Ticket Type' ); ?></option>
 		<option value="event_level" <?php selected( $currently_selected, 'event_level', true ); ?>><?php echo __( 'Event' ); ?></option>
-		<?php ?>
+	<?php ?>
 	</select>
 	<?php
 }
@@ -1503,7 +1526,7 @@ function tc_get_events( $field_name = '', $post_id = '' ) {
 			$event_obj		 = new TC_Event( $event->ID );
 			$event_object	 = $event_obj->details;
 			?>
-			<option value="<?php echo $event_object->ID; ?>" <?php selected( $currently_selected, $event_object->ID, true ); ?>><?php echo $event_object->post_title; ?></option>
+			<option value="<?php echo $event_object->ID; ?>" <?php selected( $currently_selected, $event_object->ID, true ); ?>><?php echo apply_filters( 'tc_event_select_name', $event_object->post_title, $event_object->ID ); ?></option>
 			<?php
 		}
 		?>

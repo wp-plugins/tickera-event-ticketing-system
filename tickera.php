@@ -5,7 +5,7 @@
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.1.6.7
+  Version: 3.1.6.8
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.1.6.7';
+		var $version			 = '3.1.6.8';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -1245,7 +1245,7 @@ if ( !class_exists( 'TC' ) ) {
 						$ticket = new TC_Ticket( $ticket_type );
 						?>
 						<li id='tc_ticket_type_<?php echo $ticket_type; ?>'>
-							<?php echo apply_filters( 'tc_cart_widget_item', ($ordered_count . ' x ' . $ticket->details->post_title . ' (' . $this->get_cart_currency_and_format( $ticket->details->price_per_ticket * $ordered_count ) . ')' ), $ordered_count, $ticket->details->post_title, $ticket->details->price_per_ticket ); ?>
+							<?php echo apply_filters( 'tc_cart_widget_item', ($ordered_count . ' x ' . $ticket->details->post_title . ' (' . apply_filters( 'tc_cart_currency_and_format', $ticket->details->price_per_ticket * $ordered_count ) . ')' ), $ordered_count, $ticket->details->post_title, $ticket->details->price_per_ticket ); ?>
 						</li>
 						<?php
 					}

@@ -109,6 +109,10 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.6.8 =
+- Added additional hooks for developers
+- Various code improvements
+
 = 3.1.6.7 =
 - Fixed issue with admin discount code page pagination
 - Added additional hooks for developers (for skipping payment confirmation page)

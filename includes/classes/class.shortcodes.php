@@ -139,7 +139,7 @@ class TC_Shortcodes extends TC {
 		), $atts ) );
 
 		$ticket_type = new TC_Ticket( $id, 'publish' );
-		return $tc->get_cart_currency_and_format( $ticket_type->details->price_per_ticket );
+		return apply_filters('tc_cart_currency_and_format', $ticket_type->details->price_per_ticket );
 	}
 
 	function event_tickets_sold( $atts ) {

@@ -187,6 +187,8 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 					'section'			 => 'store_settings'
 				),*/
 			);
+                        
+                        $store_settings_default_fields = apply_filters('tc_general_settings_store_fields', $store_settings_default_fields);
 
 			$pages_settings_default_fields = array(
 				array(
@@ -238,6 +240,8 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 				array(
 				)
 			);
+                        
+                        $pages_settings_default_fields = apply_filters('tc_general_settings_page_fields', $pages_settings_default_fields);
 
 			/* $slugs_settings_default_fields = array(
 			  array(
@@ -309,6 +313,8 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 					'section'			 => 'menu_settings'
 				),
 			);
+                        
+                        $menu_settings_default_fields = apply_filters('tc_general_settings_menu_fields', $menu_settings_default_fields);
 
 			$miscellaneous_settings_default_fields = array(
 				array(
@@ -321,6 +327,8 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 					'section'			 => 'miscellaneous_settings'
 				)
 			);
+                        
+                        $miscellaneous_settings_default_fields = apply_filters('tc_general_settings_miscellaneous_fields', $miscellaneous_settings_default_fields);
 
 			//
 
