@@ -213,6 +213,7 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 						<h2><?php echo apply_filters( 'tc_checkout_owner_info_ticket_title', $ticket->details->post_title, $ticket_type, $cart_contents ); ?></h2>
 						<?php
 						for ( $i = 1; $i <= $ordered_count; $i++ ) {
+							$owner_index = $i - 1;
 							?>																																																																											
 							<h5><?php
 								echo $i . '. ';
@@ -236,7 +237,7 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 														 if ( isset( $field[ 'field_placeholder' ] ) ) {
 															 echo 'placeholder="' . esc_attr( $field[ 'field_placeholder' ] ) . '"';
 														 }
-														 ?> class="owner-field-<?php echo $field[ 'field_type' ]; ?> tickera-input-field" value="" name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][]"></label><span class="description"><?php echo $field[ 'field_description' ]; ?></span></div><!-- fields-wrap --><?php } ?>
+														 ?> class="owner-field-<?php echo $field[ 'field_type' ]; ?> tickera-input-field" value="" name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][<?php echo $owner_index;?>]"></label><span class="description"><?php echo $field[ 'field_description' ]; ?></span></div><!-- fields-wrap --><?php } ?>
 
 										<?php if ( $field[ 'field_type' ] == 'textarea' ) { ?><div class="fields-wrap <?php
 											if ( isset( $field[ 'field_class' ] ) ) {
@@ -246,7 +247,7 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 												 if ( isset( $field[ 'field_placeholder' ] ) ) {
 													 echo 'placeholder="' . esc_attr( $field[ 'field_placeholder' ] ) . '"';
 												 }
-												 ?> name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][]"></textarea></label><span class="description"><?php echo $field[ 'field_description' ]; ?></span></div><!-- fields-wrap --><?php } ?>
+												 ?> name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][<?php echo $owner_index;?>]"></textarea></label><span class="description"><?php echo $field[ 'field_description' ]; ?></span></div><!-- fields-wrap --><?php } ?>
 
 										<?php if ( $field[ 'field_type' ] == 'radio' ) { ?><div class="fields-wrap <?php
 											if ( isset( $field[ 'field_class' ] ) ) {
@@ -258,7 +259,7 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 														 $field_values = explode( ',', $field[ 'field_values' ] );
 														 foreach ( $field_values as $field_value ) {
 															 ?>
-														<label><input type="<?php echo $field[ 'field_type' ]; ?>" class="owner-field-<?php echo $field[ 'field_type' ]; ?> tickera-input-field" value="<?php echo esc_attr( trim( $field_value ) ); ?>" name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][]" <?php
+														<label><input type="<?php echo $field[ 'field_type' ]; ?>" class="owner-field-<?php echo $field[ 'field_type' ]; ?> tickera-input-field" value="<?php echo esc_attr( trim( $field_value ) ); ?>" name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][<?php echo $owner_index;?>]" <?php
 															if ( isset( $field[ 'field_default_value' ] ) && $field[ 'field_default_value' ] == trim( $field_value ) ) {
 																echo 'checked';
 															}
@@ -286,7 +287,7 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 															<?php
 														}
 														?>
-													<input type="hidden" class="checkbox_values" name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][]" value="" />
+													<input type="hidden" class="checkbox_values" name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][<?php echo $owner_index;?>]" value="" />
 													<?php
 												}
 												?>
@@ -297,7 +298,7 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 												echo $field[ 'field_class' ];
 											}
 											?>"><label><span><?php echo ($field[ 'required' ] ? '*' : ''); ?><?php echo $field[ 'field_title' ]; ?></span>
-													<select class="owner-field-<?php echo $field[ 'field_type' ]; ?> tickera-input-field" name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][]">	 
+													<select class="owner-field-<?php echo $field[ 'field_type' ]; ?> tickera-input-field" name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][<?php echo $owner_index;?>]">	 
 														<?php
 														if ( isset( $field[ 'field_values' ] ) ) {
 															$field_values = explode( ',', $field[ 'field_values' ] );

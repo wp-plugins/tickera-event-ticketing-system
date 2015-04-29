@@ -208,7 +208,7 @@ class TC_Gateway_2Checkout extends TC_Gateway_API {
 
 		if ( $order->details->post_status == 'order_received' ) {
 			$content .= '<p>' . sprintf( __( 'Your payment via 2Checkout for this order totaling <strong>%s</strong> is not yet complete.', 'tc' ), apply_filters('tc_cart_currency_and_format', $order->details->tc_payment_info[ 'total' ] ) ) . '</p>';
-			$content .= '<p>' . __( 'Current order status:', 'tc' ) . ' <strong>' . __( 'Pending Payment' ) . '</strong></p>';
+			$content .= '<p>' . __( 'Current order status:', 'tc' ) . ' <strong>' . __( 'Pending Payment','tc' ) . '</strong></p>';
 		} else if ( $order->details->post_status == 'order_fraud' ) {
 			$content .= '<p>' . __( 'Your payment is under review. We will back to you soon.', 'tc' ) . '</p>';
 		} else if ( $order->details->post_status == 'order_paid' ) {

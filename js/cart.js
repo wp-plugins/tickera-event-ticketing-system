@@ -2,9 +2,9 @@ jQuery( document ).ready( function( $ ) {
 
     function tc_check_cart_update() {
         var total_quantity = 0;
-        
+
         $( '.quantity' ).each( function( index ) {
-            total_quantity = parseInt(total_quantity) + parseInt($(this).val());
+            total_quantity = parseInt( total_quantity ) + parseInt( $( this ).val() );
         } );
 
         if ( total_quantity != $( '.owner-info-wrap' ).length ) {
@@ -192,9 +192,12 @@ jQuery( document ).ready( function( $ ) {
     } )
 
     jQuery( '.buyer-field-checkbox, .owner-field-checkbox' ).change( function() {
-        var checkbox_values_field = jQuery( this ).parent().find( '.checkbox_values' );
+
+        var checkbox_values_field = jQuery( this ).parent().parent().find( '.checkbox_values' );
+
         checkbox_values_field.val( '' );
-        jQuery( this ).parent().find( 'input' ).each( function( key, value ) {
+        
+        jQuery( this ).parent().parent().find( 'input' ).each( function( key, value ) {
             if ( jQuery( this ).attr( 'checked' ) ) {
                 checkbox_values_field.val( checkbox_values_field.val() + '' + jQuery( this ).val( ) + ', ' );
             }

@@ -1,6 +1,11 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
+3.1.7 - 29/APR/2015
+- Fixed issue with ticket sold count displayed in orders table
+- Fixed issue with custom forms add-on 
+- Added new hooks for developers (tc_2d_code_params)
+
 3.1.6.9 - 28/APR/2015
 - Fixed issues with Custom Forms on the front (cart page) in Firefox
 

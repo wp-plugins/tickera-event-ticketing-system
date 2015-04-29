@@ -57,7 +57,20 @@ class tc_ticket_qr_code_element extends TC_Ticket_Template_Elements {
 			'bgcolor'	 => tc_hex2rgb( apply_filters( 'qr_code_bg_color', '#FFFFFF' ) ),
 		);
 
-		$pars = $pdf->serializeTCPDFtagParameters( array( isset( $qrstring ) ? apply_filters( 'tc_qr_string', $qrstring ) : $tc->create_unique_id(), 'QRCODE,H', '', '', $code_size, $code_size, $style, 'N' ) );
+		$params_array = array(
+			isset( $qrstring ) ? apply_filters( 'tc_qr_string', $qrstring ) : $tc->create_unique_id(),
+			'QRCODE,H',
+			'',
+			'',
+			$code_size,
+			$code_size,
+			$style,
+			'N'
+		);
+
+		$params_array = apply_filters( 'tc_2d_code_params', $params_array, isset( $qrstring ) ? apply_filters( 'tc_qr_string', $qrstring ) : $tc->create_unique_id(), 'QRCODE,H', '', '', $code_size, $code_size, $style, 'N' );
+
+		$pars = $pdf->serializeTCPDFtagParameters( $params_array );
 
 		return '<tcpdf method="write2DBarcode" params="' . $pars . '" />';
 	}

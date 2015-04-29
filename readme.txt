@@ -109,6 +109,11 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.7 =
+- Fixed issue with ticket sold count displayed in orders table
+- Fixed issue with custom forms add-on 
+- Added new hooks for developers (tc_2d_code_params)
+
 = 3.1.6.9 =
 - Fixed issues with Custom Forms on the front (cart page) in Firefox
 

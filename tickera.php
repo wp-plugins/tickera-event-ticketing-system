@@ -5,7 +5,7 @@
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.1.6.9
+  Version: 3.1.7
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.1.6.9';
+		var $version			 = '3.1.7';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -1359,19 +1359,25 @@ if ( !class_exists( 'TC' ) ) {
 						foreach ( $_POST as $key => $value ) {
 
 							if ( $key !== 'tc_cart_required' ) {
+
 								if ( in_array( $key, $required_fields ) ) {
 									if ( !is_array( $value ) ) {
 										if ( trim( $value ) == '' ) {
 											$required_fields_error_count++;
 										}
 									} else {
+
+
 										foreach ( $_POST[ $key ] as $val ) {
 											if ( !is_array( $val ) ) {
 												if ( trim( $val ) == '' ) {
 													$required_fields_error_count++;
 												}
 											} else {
+												//var_dump($_POST[ $key ]);
+												//var_dump($val);
 												foreach ( $val as $val_str ) {
+													//echo 'val:'.$val_str.'<br />';
 													if ( trim( $val_str ) == '' ) {
 														$required_fields_error_count++;
 													}
@@ -1382,7 +1388,6 @@ if ( !class_exists( 'TC' ) ) {
 								}
 							}
 						}
-
 
 						if ( $required_fields_error_count > 0 ) {
 							$tc_cart_errors .= '<li>' . __( 'All fields marked with * are required.', 'tc' ) . '</li>';
@@ -1906,12 +1911,15 @@ if ( !class_exists( 'TC' ) ) {
 		}
 
 		function get_cart_event_tickets( $cart_contents, $event_id ) {
+			$ticket_count_global = 0;
+
 			foreach ( $cart_contents as $ticket_type => $ticket_count ) {
 				$event = get_post_meta( $ticket_type, 'event_name', true );
 				if ( $event == $event_id ) {
-					return $ticket_count;
+					$ticket_count_global = $ticket_count_global + $ticket_count;
 				}
 			}
+			return $ticket_count_global;
 		}
 
 		//returns all event ids based on the cart contents

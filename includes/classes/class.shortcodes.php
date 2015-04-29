@@ -40,7 +40,7 @@ class TC_Shortcodes extends TC {
 			'ticket_type_title'	 => __( 'Ticket Type', 'tc' ),
 			'price_title'		 => __( 'Price', 'tc' ),
 			'cart_title'		 => __( 'Cart', 'tc' ),
-			'soldout_message'	 => __( 'Tickets are sold out.' ),
+			'soldout_message'	 => __( 'Tickets are sold out.','tc' ),
 			'wrapper'			 => '' ), $atts ) );
 
 		$event			 = new TC_Event( $id );
@@ -84,7 +84,7 @@ class TC_Shortcodes extends TC {
 			'price_position'		 => 'after',
 			'price_wrapper'			 => 'span',
 			'price_wrapper_class'	 => 'price',
-			'soldout_message'		 => __( 'Tickets are sold out.' ),
+			'soldout_message'		 => __( 'Tickets are sold out.','tc' ),
 			'type'					 => 'cart',
 			'wrapper'				 => '' ), $atts ) );
 
