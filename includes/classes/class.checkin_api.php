@@ -45,6 +45,10 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 			if ( $execute_request ) {
 				header( 'Content-Type: application/json' );
 
+				if ( $request == apply_filters( 'tc_translation_request_name', 'tickera_translation' ) ) {
+					$this->translation();
+				}
+
 				if ( $request == apply_filters( 'tc_check_credentials_request_name', 'tickera_check_credentials' ) ) {
 					$this->check_credentials();
 				}
@@ -86,6 +90,52 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 				return $post[ 0 ]->ID;
 			} else {
 				return false;
+			}
+		}
+
+		function translation( $echo = true ) {
+
+			if ( $this->get_api_key_id() ) {
+				$data = array(
+					'WORDPRESS_INSTALLATION_URL' => 'WORDPRESS INSTALLATION URL',
+					'API_KEY'					 => 'API KEY',
+					'AUTO_LOGIN'				 => 'AUTO LOGIN',
+					'SIGN_IN'					 => 'SIGN IN',
+					'SOLD_TICKETS'				 => 'SOLD TICKETS',
+					'CHECKED_IN_TICKETS'		 => 'CHECKED-IN TICKETS',
+					'HOME_STATS'				 => 'HOME - STATS',
+					'LIST'						 => 'LIST',
+					'SIGN_OUT'					 => 'SIGN OUT',
+					'CANCEL'					 => 'Cancel',
+					'SEARCH'					 => 'Search',
+					'ID'						 => 'ID',
+					'PURCHASED'					 => 'Purchased',
+					'CHECKINS'					 => 'Checkins',
+					'CHECK_IN'					 => 'CHECK IN',
+					'SUCCESS'					 => 'SUCCESS',
+					'SUCCESS_MESSAGE'			 => 'TICKET WITH THIS CODE HAS BEEN CHECKED',
+					'OK'						 => 'OK',
+					'ERROR'						 => 'ERROR',
+					'ERROR_MESSAGE'				 => 'WRONG TICKET CODE',
+					'PASS'						 => 'Pass',
+					'FAIL'						 => 'Fail',
+					'ERROR_LOADING_DATA'		 => 'There is a problem in loading your data',
+					'API_KEY_LOGIN_ERROR'		 => 'The API Key and/or URL is wrong',
+					'APP_TITLE'					 => 'SIMPLE EVENT TICKETING SYSTEM',
+				);
+			} else {
+				$data = array(
+					'pass' => false //api key is NOT valid
+				);
+			}
+
+			$json = json_encode( apply_filters( 'tc_translation_data_output', $data ) );
+
+			if ( $echo ) {
+				echo $json;
+				exit;
+			} else {
+				return $json;
 			}
 		}
 

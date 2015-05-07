@@ -1,6 +1,10 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
+3.1.7.1 - 05/MAY/2015
+- Added automatic Stripe receipt sending option
+- Extended mobile check-in API
+
 3.1.7 - 29/APR/2015
 - Fixed issue with ticket sold count displayed in orders table
 - Fixed issue with custom forms add-on 

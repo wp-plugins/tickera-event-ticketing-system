@@ -109,6 +109,10 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.7.1 =
+- Added automatic Stripe receipt sending option
+- Extended mobile check-in API
+
 = 3.1.7 =
 - Fixed issue with ticket sold count displayed in orders table
 - Fixed issue with custom forms add-on 

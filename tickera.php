@@ -1,11 +1,11 @@
 <?php
 /*
-  Plugin Name: Tickera - WordPress Event Ticketing
+  Plugin Name: WordPress Event Ticketing
   Plugin URI: http://tickera.com/
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.1.7
+  Version: 3.1.7.1
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.1.7';
+		var $version			 = '3.1.7.1';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -1155,6 +1155,7 @@ if ( !class_exists( 'TC' ) ) {
 
 
 			/* Check-in API */
+			$new_rules[ '^tc-api/(.+)/translation' ]			 = 'index.php?tickera=tickera_translation&api_key=$matches[1]';
 			$new_rules[ '^tc-api/(.+)/check_credentials' ]			 = 'index.php?tickera=tickera_check_credentials&api_key=$matches[1]';
 			$new_rules[ '^tc-api/(.+)/event_essentials' ]			 = 'index.php?tickera=tickera_event_essentials&api_key=$matches[1]';
 			$new_rules[ '^tc-api/(.+)/ticket_checkins/(.+)' ]		 = 'index.php?tickera=tickera_checkins&api_key=$matches[1]&checksum=$matches[2]';
