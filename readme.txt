@@ -19,7 +19,7 @@ If you want to sell tickets on your site and deliver them to your buyers digital
 
 = PAYMENT GATEWAYS =
 
-Tickera plugin comes with 2Checkout payment gateway, Custom Offline Payments and Free Orders.
+Tickera plugin comes with [2Checkout payment gateway](https://www.2checkout.com/referral?r=95d26f72d1 "2Checkout payment gateway"), Custom Offline Payments and Free Orders.
 
 If you need more payment options, you can download [Tickera Premium](http://tickera.com/?wp "WordPress Event Ticketing system") version which includes:
 
