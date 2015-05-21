@@ -1,6 +1,9 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
+3.1.7.2 - 21/MAY/2015
+- Updated language file
+
 3.1.7.1 - 05/MAY/2015
 - Added automatic Stripe receipt sending option
 - Extended mobile check-in API

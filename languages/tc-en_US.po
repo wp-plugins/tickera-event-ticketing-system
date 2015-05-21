@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Tickera\n"
-"POT-Creation-Date: 2015-02-02 13:09+0100\n"
-"PO-Revision-Date: 2015-02-02 13:09+0100\n"
+"POT-Creation-Date: 2015-05-21 13:17+0100\n"
+"PO-Revision-Date: 2015-05-21 13:17+0100\n"
 "Last-Translator: \n"
 "Language-Team: Tickera.com <info@tickera.com>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.10\n"
+"X-Generator: Poedit 1.7.4\n"
 "X-Poedit-Basepath: ./\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -25,7 +25,7 @@ msgstr ""
 #: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:12
 #: ../includes/classes/class.api_keys.php:45
 #: ../includes/classes/class.tickets_instances.php:64
-#: ../includes/general-functions.php:1230
+#: ../includes/general-functions.php:1502
 msgid "Event"
 msgstr ""
 
@@ -56,11 +56,11 @@ msgstr ""
 
 #: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:39
 #: ../includes/addons/export-attendee-list/index.php:83
-#: ../includes/classes/class.orders.php:189
-#: ../includes/classes/class.orders.php:247
-#: ../includes/classes/class.shortcodes.php:34
+#: ../includes/classes/class.orders.php:198
+#: ../includes/classes/class.orders.php:256
+#: ../includes/classes/class.shortcodes.php:40
 #: ../includes/classes/class.tickets_instances.php:37
-#: ../includes/general-functions.php:1229
+#: ../includes/general-functions.php:1501
 #: ../includes/templates/shortcode-cart-contents.php:23
 #: ../includes/ticket-elements/ticket_type_element.php:9
 #: ../includes/ticket-elements/ticket_type_element.php:29
@@ -86,202 +86,202 @@ msgstr ""
 msgid "QR code"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:49
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:50
 msgid "Document Font"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:53
-#: ../includes/classes/class.ticket_template_elements.php:158
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:54
+#: ../includes/classes/class.ticket_template_elements.php:157
 msgid "Al Arabiya"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:54
-#: ../includes/classes/class.ticket_template_elements.php:159
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:55
+#: ../includes/classes/class.ticket_template_elements.php:158
 msgid "Furat"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:55
-#: ../includes/classes/class.ticket_template_elements.php:160
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:56
+#: ../includes/classes/class.ticket_template_elements.php:159
 msgid "Arial Unicode MS (Simplified Chinese)"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:56
-#: ../includes/classes/class.ticket_template_elements.php:161
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:57
+#: ../includes/classes/class.ticket_template_elements.php:160
 msgid "Arial Unicode MS (Japanese)"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:57
-#: ../includes/classes/class.ticket_template_elements.php:162
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:58
+#: ../includes/classes/class.ticket_template_elements.php:161
 msgid "Arial Unicode MS (Korean)"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:58
-#: ../includes/classes/class.ticket_template_elements.php:163
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:59
+#: ../includes/classes/class.ticket_template_elements.php:162
 msgid "Courier"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:59
-#: ../includes/classes/class.ticket_template_elements.php:164
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:60
+#: ../includes/classes/class.ticket_template_elements.php:163
 msgid "DejaVu Sans"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:60
-#: ../includes/classes/class.ticket_template_elements.php:165
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:61
+#: ../includes/classes/class.ticket_template_elements.php:164
 msgid "DejaVu Sans Condensed"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:61
-#: ../includes/classes/class.ticket_template_elements.php:166
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:62
+#: ../includes/classes/class.ticket_template_elements.php:165
 msgid "DejaVu Sans ExtraLight"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:62
-#: ../includes/classes/class.ticket_template_elements.php:167
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:63
+#: ../includes/classes/class.ticket_template_elements.php:166
 msgid "DejaVu Sans Mono"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:63
-#: ../includes/classes/class.ticket_template_elements.php:168
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:64
+#: ../includes/classes/class.ticket_template_elements.php:167
 msgid "DejaVu Serif"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:64
-#: ../includes/classes/class.ticket_template_elements.php:169
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:65
+#: ../includes/classes/class.ticket_template_elements.php:168
 msgid "DejaVu Serif Condensed"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:65
-#: ../includes/classes/class.ticket_template_elements.php:170
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:66
+#: ../includes/classes/class.ticket_template_elements.php:169
 msgid "FreeMono"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:66
-#: ../includes/classes/class.ticket_template_elements.php:171
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:67
+#: ../includes/classes/class.ticket_template_elements.php:170
 msgid "FreeSans"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:67
-#: ../includes/classes/class.ticket_template_elements.php:172
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:68
+#: ../includes/classes/class.ticket_template_elements.php:171
 msgid "FreeSerif"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:68
-#: ../includes/classes/class.ticket_template_elements.php:173
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:69
+#: ../includes/classes/class.ticket_template_elements.php:172
 msgid "Helvetica"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:69
-#: ../includes/classes/class.ticket_template_elements.php:174
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:70
+#: ../includes/classes/class.ticket_template_elements.php:173
 msgid "MyungJo Medium (Korean)"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:70
-#: ../includes/classes/class.ticket_template_elements.php:175
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:71
+#: ../includes/classes/class.ticket_template_elements.php:174
 msgid "Kozuka Gothic Pro (Japanese Sans-Serif)"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:71
-#: ../includes/classes/class.ticket_template_elements.php:176
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:72
+#: ../includes/classes/class.ticket_template_elements.php:175
 msgid "Kozuka Mincho Pro (Japanese Serif)"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:72
-#: ../includes/classes/class.ticket_template_elements.php:177
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:73
+#: ../includes/classes/class.ticket_template_elements.php:176
 msgid "MSung Light (Traditional Chinese)"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:73
-#: ../includes/classes/class.ticket_template_elements.php:178
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:74
+#: ../includes/classes/class.ticket_template_elements.php:177
 msgid "PDFA Courier"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:74
-#: ../includes/classes/class.ticket_template_elements.php:179
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:75
+#: ../includes/classes/class.ticket_template_elements.php:178
 msgid "PDFA Helvetica"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:75
-#: ../includes/classes/class.ticket_template_elements.php:180
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:76
+#: ../includes/classes/class.ticket_template_elements.php:179
 msgid "PDFA Symbol"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:76
-#: ../includes/classes/class.ticket_template_elements.php:181
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:77
+#: ../includes/classes/class.ticket_template_elements.php:180
 msgid "PDFA Times"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:77
-#: ../includes/classes/class.ticket_template_elements.php:182
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:78
+#: ../includes/classes/class.ticket_template_elements.php:181
 msgid "PDFA Zapfdingbats"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:78
-#: ../includes/classes/class.ticket_template_elements.php:183
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:79
+#: ../includes/classes/class.ticket_template_elements.php:182
 msgid "STSong Light (Simplified Chinese)"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:79
-#: ../includes/classes/class.ticket_template_elements.php:184
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:80
+#: ../includes/classes/class.ticket_template_elements.php:183
 msgid "Symbol"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:80
-#: ../includes/classes/class.ticket_template_elements.php:185
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:81
+#: ../includes/classes/class.ticket_template_elements.php:184
 msgid "Times-Roman"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:81
-#: ../includes/classes/class.ticket_template_elements.php:186
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:82
+#: ../includes/classes/class.ticket_template_elements.php:185
 msgid "ZapfDingbats"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:88
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:89
 msgid "Document Font Size"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:108
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:109
 msgid "Document Orientation"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:111
-#: ../includes/classes/class.ticket_template_elements.php:80
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:112
+#: ../includes/classes/class.ticket_template_elements.php:79
 msgid "Landscape"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:113
-#: ../includes/classes/class.ticket_template_elements.php:79
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:114
+#: ../includes/classes/class.ticket_template_elements.php:78
 msgid "Portrait"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:118
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:119
 msgid "Document Size"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:121
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:122
 msgid "A3 (297 × 420 mm)"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:122
-#: ../includes/classes/class.ticket_template_elements.php:65
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:123
+#: ../includes/classes/class.ticket_template_elements.php:64
 msgid "A4 (210 × 297)"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:123
-#: ../includes/classes/class.ticket_template_elements.php:66
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:124
+#: ../includes/classes/class.ticket_template_elements.php:65
 msgid "A5 (148 × 210)"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:124
-#: ../includes/classes/class.ticket_template_elements.php:67
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:125
+#: ../includes/classes/class.ticket_template_elements.php:66
 msgid "A6 (105 × 148)"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:130
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:131
 msgid "Document Title"
 msgstr ""
 
-#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:132
-#: ../includes/addons/export-attendee-list/index.php:156
+#: ../includes/addons/export-attendee-list/includes/admin-pages/settings-tickera_export_mixed_data.php:133
+#: ../includes/addons/export-attendee-list/index.php:162
 msgid "Attendee List"
 msgstr ""
 
@@ -290,7 +290,7 @@ msgid "Tickera Export"
 msgstr ""
 
 #: ../includes/addons/export-attendee-list/index.php:31
-msgid "Export"
+msgid "Export PDF"
 msgstr ""
 
 #: ../includes/addons/export-attendee-list/index.php:71
@@ -299,7 +299,7 @@ msgstr ""
 
 #: ../includes/addons/export-attendee-list/index.php:95
 #: ../includes/ticket-elements/ticket_qr_code_element.php:9
-#: ../includes/ticket-elements/ticket_qr_code_element.php:67
+#: ../includes/ticket-elements/ticket_qr_code_element.php:80
 msgid "QR Code"
 msgstr ""
 
@@ -315,11 +315,12 @@ msgstr ""
 #: ../includes/admin-pages/settings-api.php:33
 #: ../includes/admin-pages/settings-email.php:11
 #: ../includes/admin-pages/settings-gateways.php:15
-#: ../includes/admin-pages/settings-general.php:14
+#: ../includes/admin-pages/settings-general.php:25
 #: ../includes/admin-pages/ticket_templates.php:21
 #: ../includes/admin-pages/ticket_templates.php:41
 #: ../includes/admin-pages/ticket_types.php:17
 #: ../includes/admin-pages/ticket_types.php:35
+#: ../includes/network-admin-pages/network_settings-gateways.php:20
 msgid "You do not have required permissions for this action."
 msgstr ""
 
@@ -346,7 +347,7 @@ msgid "Check-in Date"
 msgstr ""
 
 #: ../includes/admin-pages/attendees.php:103
-#: ../includes/classes/class.orders.php:35
+#: ../includes/classes/class.orders.php:44
 msgid "Status"
 msgstr ""
 
@@ -361,17 +362,17 @@ msgstr ""
 #: ../includes/admin-pages/attendees.php:240
 #: ../includes/admin-pages/discount_codes.php:200
 #: ../includes/admin-pages/events.php:204
-#: ../includes/admin-pages/orders.php:171
+#: ../includes/admin-pages/orders.php:178
 #: ../includes/admin-pages/settings-api.php:185
 #: ../includes/admin-pages/ticket_templates.php:132
-#: ../includes/admin-pages/ticket_types.php:207
+#: ../includes/admin-pages/ticket_types.php:209
 #: ../includes/classes/class.api_keys.php:96
-#: ../includes/classes/class.cart_form.php:99
-#: ../includes/classes/class.discounts.php:383
+#: ../includes/classes/class.cart_form.php:101
+#: ../includes/classes/class.discounts.php:418
 #: ../includes/classes/class.events.php:108
-#: ../includes/classes/class.orders.php:323
-#: ../includes/classes/class.ticket_templates.php:212
-#: ../includes/classes/class.tickets.php:149
+#: ../includes/classes/class.orders.php:332
+#: ../includes/classes/class.ticket_templates.php:221
+#: ../includes/classes/class.tickets.php:160
 #: ../includes/classes/class.tickets_instances.php:128
 msgid "Delete"
 msgstr ""
@@ -409,21 +410,21 @@ msgstr ""
 #: ../includes/admin-pages/settings-api.php:126
 #: ../includes/admin-pages/ticket_templates.php:66
 #: ../includes/admin-pages/ticket_types.php:57
-#: ../includes/admin-pages/ticket_types.php:144
+#: ../includes/admin-pages/ticket_types.php:146
 msgid "Add New"
 msgstr ""
 
 #: ../includes/admin-pages/discount_codes.php:123
 #: ../includes/admin-pages/events.php:127
-#: ../includes/admin-pages/ticket_types.php:129
-#: ../includes/classes/class.ticket_template_elements.php:99
+#: ../includes/admin-pages/ticket_types.php:131
+#: ../includes/classes/class.ticket_template_elements.php:98
 msgid "Browse"
 msgstr ""
 
 #: ../includes/admin-pages/discount_codes.php:138
 #: ../includes/admin-pages/events.php:142
 #: ../includes/admin-pages/settings-api.php:126
-#: ../includes/admin-pages/ticket_types.php:144
+#: ../includes/admin-pages/ticket_types.php:146
 msgid "Update"
 msgstr ""
 
@@ -436,15 +437,15 @@ msgstr ""
 #: ../includes/admin-pages/events.php:199
 #: ../includes/admin-pages/settings-api.php:180
 #: ../includes/admin-pages/ticket_templates.php:127
-#: ../includes/admin-pages/ticket_types.php:202
+#: ../includes/admin-pages/ticket_types.php:204
 #: ../includes/classes/class.api_keys.php:95
-#: ../includes/classes/class.cart_form.php:98
-#: ../includes/classes/class.discounts.php:382
+#: ../includes/classes/class.cart_form.php:100
+#: ../includes/classes/class.discounts.php:417
 #: ../includes/classes/class.events.php:107
-#: ../includes/classes/class.ticket_templates.php:211
-#: ../includes/classes/class.tickets.php:148 ../tickera.php:2280
-#: ../tickera.php:2304 ../tickera.php:2328 ../tickera.php:2352
-#: ../tickera.php:2373 ../tickera.php:2392
+#: ../includes/classes/class.ticket_templates.php:220
+#: ../includes/classes/class.tickets.php:159 ../tickera.php:2418
+#: ../tickera.php:2442 ../tickera.php:2466 ../tickera.php:2490
+#: ../tickera.php:2511 ../tickera.php:2530
 msgid "Edit"
 msgstr ""
 
@@ -465,7 +466,7 @@ msgid "Event has been successfully deleted."
 msgstr ""
 
 #: ../includes/admin-pages/events.php:153
-#: ../includes/admin-pages/events.php:155 ../tickera.php:2283
+#: ../includes/admin-pages/events.php:155 ../tickera.php:2421
 msgid "Search Events"
 msgstr ""
 
@@ -481,16 +482,16 @@ msgstr ""
 msgid "Order has been successfully deleted."
 msgstr ""
 
-#: ../includes/admin-pages/orders.php:118
-#: ../includes/admin-pages/orders.php:120 ../tickera.php:2375
+#: ../includes/admin-pages/orders.php:125
+#: ../includes/admin-pages/orders.php:127 ../tickera.php:2513
 msgid "Search Orders"
 msgstr ""
 
-#: ../includes/admin-pages/orders.php:166 ../includes/internal-hooks.php:283
+#: ../includes/admin-pages/orders.php:173 ../includes/internal-hooks.php:315
 msgid "View"
 msgstr ""
 
-#: ../includes/admin-pages/orders.php:209
+#: ../includes/admin-pages/orders.php:216
 msgid "No orders found."
 msgstr ""
 
@@ -503,7 +504,7 @@ msgid "API Key has been successfully deleted."
 msgstr ""
 
 #: ../includes/admin-pages/settings-api.php:138
-#: ../includes/admin-pages/settings-api.php:140 ../tickera.php:2307
+#: ../includes/admin-pages/settings-api.php:140 ../tickera.php:2445
 msgid "Search API Keys"
 msgstr ""
 
@@ -512,37 +513,41 @@ msgid "No API Keys found."
 msgstr ""
 
 #: ../includes/admin-pages/settings-email.php:9
-#: ../includes/admin-pages/settings-general.php:12
+#: ../includes/admin-pages/settings-general.php:23
 msgid "Settings data has been successfully saved."
 msgstr ""
 
 #: ../includes/admin-pages/settings-email.php:77
-#: ../includes/admin-pages/settings-general.php:80
+#: ../includes/admin-pages/settings-general.php:91
 msgid "Save Settings"
 msgstr ""
 
 #: ../includes/admin-pages/settings-gateways.php:13
+#: ../includes/network-admin-pages/network_settings-gateways.php:18
 msgid "Settings saved."
 msgstr ""
 
 #: ../includes/admin-pages/settings-gateways.php:25
+#: ../includes/network-admin-pages/network_settings-gateways.php:32
 msgid "Select Payment Gateway(s)"
 msgstr ""
 
-#: ../includes/admin-pages/settings-gateways.php:55
+#: ../includes/admin-pages/settings-gateways.php:58
 msgid ""
 "Get premium support, more payment gateways and unlock additional features"
 msgstr ""
 
-#: ../includes/admin-pages/settings-gateways.php:82
+#: ../includes/admin-pages/settings-gateways.php:87
+#: ../includes/network-admin-pages/network_settings-gateways.php:84
 msgid "Save Changes"
 msgstr ""
 
-#: ../includes/admin-pages/settings.php:15 ../tickera.php:1560
+#: ../includes/admin-pages/settings.php:15 ../tickera.php:1636
 msgid "Settings"
 msgstr ""
 
 #: ../includes/admin-pages/settings.php:20
+#: ../includes/network-admin-pages/network_settings.php:20
 msgid "Settings saved successfully."
 msgstr ""
 
@@ -551,11 +556,12 @@ msgid "General"
 msgstr ""
 
 #: ../includes/admin-pages/settings.php:28
+#: ../includes/network-admin-pages/network_settings.php:27
 msgid "Payment Gateways"
 msgstr ""
 
 #: ../includes/admin-pages/settings.php:29
-#: ../includes/classes/class.cart_form.php:42
+#: ../includes/classes/class.cart_form.php:44
 msgid "E-mail"
 msgstr ""
 
@@ -576,7 +582,7 @@ msgid "Ticket Templates"
 msgstr ""
 
 #: ../includes/admin-pages/ticket_templates.php:85
-#: ../includes/admin-pages/ticket_templates.php:87 ../tickera.php:2395
+#: ../includes/admin-pages/ticket_templates.php:87 ../tickera.php:2533
 msgid "Search Templates"
 msgstr ""
 
@@ -600,8 +606,8 @@ msgid "Ticket Elements"
 msgstr ""
 
 #: ../includes/admin-pages/ticket_templates.php:218
-#: ../includes/classes/class.orders.php:272
-#: ../includes/classes/class.tickets_instances.php:82 ../tickera.php:2324
+#: ../includes/classes/class.orders.php:281
+#: ../includes/classes/class.tickets_instances.php:82 ../tickera.php:2462
 msgid "Ticket"
 msgstr ""
 
@@ -628,7 +634,7 @@ msgid "NOTE: Save changes first, then check the preview."
 msgstr ""
 
 #: ../includes/admin-pages/ticket_templates.php:274
-#: ../includes/general-functions.php:1190
+#: ../includes/general-functions.php:1462
 msgid "Preview"
 msgstr ""
 
@@ -640,17 +646,17 @@ msgstr ""
 msgid "Ticket Type has been successfully deleted."
 msgstr ""
 
-#: ../includes/admin-pages/ticket_types.php:155
-#: ../includes/admin-pages/ticket_types.php:157 ../tickera.php:2331
+#: ../includes/admin-pages/ticket_types.php:157
+#: ../includes/admin-pages/ticket_types.php:159 ../tickera.php:2469
 msgid "Search Tickets"
 msgstr ""
 
-#: ../includes/admin-pages/ticket_types.php:236
+#: ../includes/admin-pages/ticket_types.php:238
 msgid "No tickets found."
 msgstr ""
 
-#: ../includes/classes/class.api_keys.php:14 ../tickera.php:2299
-#: ../tickera.php:2300
+#: ../includes/classes/class.api_keys.php:14 ../tickera.php:2437
+#: ../tickera.php:2438
 msgid "API Keys"
 msgstr ""
 
@@ -692,41 +698,41 @@ msgid ""
 msgstr ""
 
 #: ../includes/classes/class.api_keys.php:89
-#: ../includes/classes/class.cart_form.php:92
-#: ../includes/classes/class.discounts.php:376
+#: ../includes/classes/class.cart_form.php:94
+#: ../includes/classes/class.discounts.php:411
 #: ../includes/classes/class.events.php:101
-#: ../includes/classes/class.orders.php:172
-#: ../includes/classes/class.ticket_templates.php:205
+#: ../includes/classes/class.orders.php:181
+#: ../includes/classes/class.ticket_templates.php:214
 #: ../includes/classes/class.tickets.php:27
 msgid "ID"
 msgstr ""
 
-#: ../includes/classes/class.cart_form.php:26
-#: ../includes/classes/class.cart_form.php:67
-#: ../includes/classes/class.orders.php:198
-#: ../includes/classes/class.orders.php:256
+#: ../includes/classes/class.cart_form.php:28
+#: ../includes/classes/class.cart_form.php:69
+#: ../includes/classes/class.orders.php:207
+#: ../includes/classes/class.orders.php:265
 msgid "First Name"
 msgstr ""
 
-#: ../includes/classes/class.cart_form.php:34
-#: ../includes/classes/class.cart_form.php:75
-#: ../includes/classes/class.orders.php:206
-#: ../includes/classes/class.orders.php:264
+#: ../includes/classes/class.cart_form.php:36
+#: ../includes/classes/class.cart_form.php:77
+#: ../includes/classes/class.orders.php:215
+#: ../includes/classes/class.orders.php:273
 msgid "Last Name"
 msgstr ""
 
-#: ../includes/classes/class.cart_form.php:58
+#: ../includes/classes/class.cart_form.php:60
 msgid "Ticket Type ID"
 msgstr ""
 
-#: ../includes/classes/class.checkin_api.php:217
-#: ../includes/classes/class.checkin_api.php:223
+#: ../includes/classes/class.checkin_api.php:269
+#: ../includes/classes/class.checkin_api.php:275
 #: ../includes/classes/class.sales_api.php:288
 #: ../includes/classes/class.sales_api.php:294
 msgid "Ticket does not exist"
 msgstr ""
 
-#: ../includes/classes/class.checkin_api.php:229
+#: ../includes/classes/class.checkin_api.php:281
 #: ../includes/classes/class.sales_api.php:300
 msgid "Insufficient permissions. This API key cannot check-in this ticket."
 msgstr ""
@@ -735,80 +741,85 @@ msgstr ""
 msgid "Discount Codes"
 msgstr ""
 
-#: ../includes/classes/class.discounts.php:217
+#: ../includes/classes/class.discounts.php:198
+#: ../includes/classes/class.discounts.php:231
+msgid "Discount code invalid or expired"
+msgstr ""
+
+#: ../includes/classes/class.discounts.php:234
 msgid "Discount code is not valid for the ticket type(s) in the cart."
 msgstr ""
 
-#: ../includes/classes/class.discounts.php:221
+#: ../includes/classes/class.discounts.php:238
 msgid "Discount code expired"
 msgstr ""
 
-#: ../includes/classes/class.discounts.php:225
+#: ../includes/classes/class.discounts.php:242
 msgid "Discount code cannot be found"
 msgstr ""
 
-#: ../includes/classes/class.discounts.php:282
+#: ../includes/classes/class.discounts.php:307
 msgid "Discount code applied."
 msgstr ""
 
-#: ../includes/classes/class.discounts.php:307
-#: ../includes/templates/shortcode-cart-contents.php:72
+#: ../includes/classes/class.discounts.php:342
+#: ../includes/templates/shortcode-cart-contents.php:75
 msgid "Discount Code"
 msgstr ""
 
-#: ../includes/classes/class.discounts.php:309
+#: ../includes/classes/class.discounts.php:344
 msgid "Discount Code, e.g. ABC123"
 msgstr ""
 
-#: ../includes/classes/class.discounts.php:315
+#: ../includes/classes/class.discounts.php:350
 msgid "Discount Type"
 msgstr ""
 
-#: ../includes/classes/class.discounts.php:324
+#: ../includes/classes/class.discounts.php:359
 msgid "Discount Value"
 msgstr ""
 
-#: ../includes/classes/class.discounts.php:326
+#: ../includes/classes/class.discounts.php:361
 msgid "For example: 9.99"
 msgstr ""
 
-#: ../includes/classes/class.discounts.php:332
+#: ../includes/classes/class.discounts.php:367
 msgid "Discount Available for"
 msgstr ""
 
-#: ../includes/classes/class.discounts.php:341
+#: ../includes/classes/class.discounts.php:376
 msgid "Usage Limit"
 msgstr ""
 
-#: ../includes/classes/class.discounts.php:342
+#: ../includes/classes/class.discounts.php:377
 #: ../includes/classes/class.tickets.php:73
-#: ../includes/classes/class.tickets.php:100
-#: ../includes/internal-hooks.php:358 ../includes/internal-hooks.php:423
+#: ../includes/classes/class.tickets.php:111
+#: ../includes/internal-hooks.php:390 ../includes/internal-hooks.php:455
 msgid "Unlimited"
 msgstr ""
 
-#: ../includes/classes/class.discounts.php:344
+#: ../includes/classes/class.discounts.php:379
 msgid ""
 "(optional) How many times this discount code can be used before it is void, "
 "e.g. 100"
 msgstr ""
 
-#: ../includes/classes/class.discounts.php:350
+#: ../includes/classes/class.discounts.php:385
 msgid "Expiry Date"
 msgstr ""
 
-#: ../includes/classes/class.discounts.php:352
+#: ../includes/classes/class.discounts.php:387
 msgid "The date this discount will expire (24 hour format)"
 msgstr ""
 
-#: ../includes/classes/class.events.php:14 ../tickera.php:2275
-#: ../tickera.php:2276
+#: ../includes/classes/class.events.php:14 ../tickera.php:2413
+#: ../tickera.php:2414
 msgid "Events"
 msgstr ""
 
 #: ../includes/classes/class.events.php:27
-#: ../includes/classes/class.orders.php:180
-#: ../includes/classes/class.orders.php:238
+#: ../includes/classes/class.orders.php:189
+#: ../includes/classes/class.orders.php:247
 #: ../includes/classes/class.tickets.php:35
 #: ../includes/ticket-elements/event_name_element.php:9
 #: ../includes/ticket-elements/event_name_element.php:33
@@ -854,7 +865,7 @@ msgstr ""
 msgid "Sponsors Logo"
 msgstr ""
 
-#: ../includes/classes/class.orders.php:14 ../tickera.php:2371
+#: ../includes/classes/class.orders.php:14 ../tickera.php:2509
 msgid "Orders"
 msgstr ""
 
@@ -862,55 +873,59 @@ msgstr ""
 msgid "Order ID"
 msgstr ""
 
-#: ../includes/classes/class.orders.php:45
+#: ../includes/classes/class.orders.php:35
+msgid "Order Link"
+msgstr ""
+
+#: ../includes/classes/class.orders.php:54
 msgid "Order Date"
 msgstr ""
 
-#: ../includes/classes/class.orders.php:55
+#: ../includes/classes/class.orders.php:64
 msgid "Customer"
 msgstr ""
 
-#: ../includes/classes/class.orders.php:65
+#: ../includes/classes/class.orders.php:74
 msgid "Customer E-mail"
 msgstr ""
 
-#: ../includes/classes/class.orders.php:75
+#: ../includes/classes/class.orders.php:84
 msgid "Ticket(s)"
 msgstr ""
 
-#: ../includes/classes/class.orders.php:85
+#: ../includes/classes/class.orders.php:94
 msgid "Gateway"
 msgstr ""
 
-#: ../includes/classes/class.orders.php:105
+#: ../includes/classes/class.orders.php:114
 msgid "Discount"
 msgstr ""
 
-#: ../includes/classes/class.orders.php:115
+#: ../includes/classes/class.orders.php:124
 #: ../includes/templates/shortcode-cart-contents.php:29
 msgid "Subtotal"
 msgstr ""
 
-#: ../includes/classes/class.orders.php:125
+#: ../includes/classes/class.orders.php:134
 msgid "Fees"
 msgstr ""
 
-#: ../includes/classes/class.orders.php:135
+#: ../includes/classes/class.orders.php:144
 msgid "Tax"
 msgstr ""
 
-#: ../includes/classes/class.orders.php:145
+#: ../includes/classes/class.orders.php:154
 msgid "Total"
 msgstr ""
 
-#: ../includes/classes/class.orders.php:214
+#: ../includes/classes/class.orders.php:223
 #: ../includes/classes/class.tickets_instances.php:46
 #: ../includes/ticket-elements/ticket_id.php:9
 #: ../includes/ticket-elements/ticket_id.php:24
 msgid "Ticket Code"
 msgstr ""
 
-#: ../includes/classes/class.orders.php:318
+#: ../includes/classes/class.orders.php:327
 msgid "Details"
 msgstr ""
 
@@ -928,7 +943,7 @@ msgid "Subject"
 msgstr ""
 
 #: ../includes/classes/class.settings_email.php:46
-#: ../includes/general-functions.php:140
+#: ../includes/general-functions.php:241
 msgid "Order Completed"
 msgstr ""
 
@@ -979,7 +994,7 @@ msgid "Whether to send or not e-mail uppon each completed order)"
 msgstr ""
 
 #: ../includes/classes/class.settings_email.php:91
-#: ../includes/general-functions.php:169
+#: ../includes/general-functions.php:270
 msgid "New Order Completed"
 msgstr ""
 
@@ -994,7 +1009,7 @@ msgid "Store Settings"
 msgstr ""
 
 #: ../includes/classes/class.settings_general.php:32
-#: ../includes/classes/class.settings_general.php:207
+#: ../includes/classes/class.settings_general.php:232
 msgid "Pages"
 msgstr ""
 
@@ -1002,126 +1017,138 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:45
-#: ../includes/classes/class.settings_general.php:63
+#: ../includes/classes/class.settings_general.php:42
+msgid "Miscellaneous"
+msgstr ""
+
+#: ../includes/classes/class.settings_general.php:50
+#: ../includes/classes/class.settings_general.php:68
 msgid "License Key"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:66
+#: ../includes/classes/class.settings_general.php:71
 msgid ""
 "License Key is required if you want to update plugin from within the "
 "WordPress. You can obtain the key from you account page."
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:75
+#: ../includes/classes/class.settings_general.php:80
 #: ../includes/gateways/authorizenet-aim.php:271
 #: ../includes/gateways/braintree.php:385 ../includes/gateways/paymill.php:230
-#: ../includes/gateways/paypal-pro.php:250 ../includes/gateways/pin.php:220
-#: ../includes/gateways/stripe.php:330
+#: ../includes/gateways/paypal-pro.php:254 ../includes/gateways/pin.php:221
+#: ../includes/gateways/stripe.php:330 ../includes/gateways/white.php:186
 msgid "Currency"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:79
+#: ../includes/classes/class.settings_general.php:84
 msgid ""
 "This is currency used for display purposes. You have to match gateway "
 "currency with this one."
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:84
+#: ../includes/classes/class.settings_general.php:89
 msgid "Currency Symbol"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:87
+#: ../includes/classes/class.settings_general.php:92
 msgid ""
 "Put currency symbol (e.g $) which will be shown instead of the currency ISO "
 "code (e.g USD)"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:92
+#: ../includes/classes/class.settings_general.php:97
 msgid "Currency Position"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:100
+#: ../includes/classes/class.settings_general.php:105
 msgid "Price Format"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:108
+#: ../includes/classes/class.settings_general.php:113
 msgid "Tax Rate (%)"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:111
+#: ../includes/classes/class.settings_general.php:116
 msgid "Empty or zero means that no tax will be applied on orders"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:116
+#: ../includes/classes/class.settings_general.php:121
 msgid "Show Tax in Cart"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:120
+#: ../includes/classes/class.settings_general.php:125
 msgid "Show Tax in Cart. You may hide tax if you do not use it."
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:125
+#: ../includes/classes/class.settings_general.php:130
 msgid "Tax Label"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:133
+#: ../includes/classes/class.settings_general.php:138
 msgid "Show Fees"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:137
+#: ../includes/classes/class.settings_general.php:142
 msgid "Show Fees in Cart. You may hide fees if you do not use it."
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:142
+#: ../includes/classes/class.settings_general.php:147
 msgid "Fees Label"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:150
+#: ../includes/classes/class.settings_general.php:155
 msgid "Force Login"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:154
+#: ../includes/classes/class.settings_general.php:159
 msgid "Users must log in first in order to purchase and/or download tickets"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:159
+#: ../includes/classes/class.settings_general.php:164
 msgid "Show Ticket Owner Fields"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:163
+#: ../includes/classes/class.settings_general.php:168
 msgid ""
 "Show Ticket Owner fields on the Cart page. If this option is not selected, "
 "owner info fields will not be collected and shown on the ticket."
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:171
+#: ../includes/classes/class.settings_general.php:173
+msgid "Show Discount Code"
+msgstr ""
+
+#: ../includes/classes/class.settings_general.php:177
+msgid "Show / Hide discount code field on the cart page"
+msgstr ""
+
+#: ../includes/classes/class.settings_general.php:196
 msgid "Cart Page"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:175
+#: ../includes/classes/class.settings_general.php:200
 msgid ""
 "Users will be able to see their cart contents, insert buyer and ticket "
 "owner(s) info on this page. <strong>You can add this page to the site menu "
 "for easy accessibility.</strong>"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:180
+#: ../includes/classes/class.settings_general.php:205
 msgid "Payment Page"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:184
+#: ../includes/classes/class.settings_general.php:209
 msgid ""
 "Users will choose payment method on this page. <br /><strong>Do NOT add this "
 "page directly to the site menu since it will be automatically used by the "
 "plugin.</strong>"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:189
+#: ../includes/classes/class.settings_general.php:214
 msgid "Payment Confirmation Page"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:193
+#: ../includes/classes/class.settings_general.php:218
 msgid ""
 "This page will be shown after completed payment. Information about payment "
 "status and link to order page will be visible on confimation page. <br /"
@@ -1129,170 +1156,178 @@ msgid ""
 "automatically used by the plugin.</strong>"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:198
+#: ../includes/classes/class.settings_general.php:223
 msgid "Order Details Page"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:202
+#: ../includes/classes/class.settings_general.php:227
 msgid ""
 "The page where buyers will be able to check order status and / or download "
 "their ticket(s). <br /><strong>Do NOT add this page directly to the site "
 "menu since it will be automatically used by the plugin.</strong>"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:211
+#: ../includes/classes/class.settings_general.php:236
 msgid "Create pages required by the plugin"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:282
+#: ../includes/classes/class.settings_general.php:308
 msgid "Show Cart Menu"
 msgstr ""
 
-#: ../includes/classes/class.settings_general.php:286
+#: ../includes/classes/class.settings_general.php:312
 msgid "Show link to Cart in Menu on the front automatically."
 msgstr ""
 
-#: ../includes/classes/class.shortcodes.php:35
+#: ../includes/classes/class.settings_general.php:322
+msgid "Admin results per page"
+msgstr ""
+
+#: ../includes/classes/class.settings_general.php:326
+msgid "Set number of result rows show in the admin tables of the plugin"
+msgstr ""
+
+#: ../includes/classes/class.shortcodes.php:41
 msgid "Price"
 msgstr ""
 
-#: ../includes/classes/class.shortcodes.php:36
-#: ../includes/classes/class.shortcodes.php:99
-#: ../includes/widgets/cart-widget.php:16 ../tickera.php:288
-#: ../tickera.php:569 ../tickera.php:592 ../tickera.php:912
-#: ../tickera.php:1206
+#: ../includes/classes/class.shortcodes.php:42
+#: ../includes/classes/class.shortcodes.php:105
+#: ../includes/widgets/cart-widget.php:16 ../tickera.php:295
+#: ../tickera.php:578 ../tickera.php:601 ../tickera.php:933
+#: ../tickera.php:1228
 msgid "Cart"
 msgstr ""
 
-#: ../includes/classes/class.shortcodes.php:37
-#: ../includes/classes/class.shortcodes.php:81
+#: ../includes/classes/class.shortcodes.php:43
+#: ../includes/classes/class.shortcodes.php:87
 msgid "Tickets are sold out."
 msgstr ""
 
-#: ../includes/classes/class.shortcodes.php:76
+#: ../includes/classes/class.shortcodes.php:82
 msgid "Add to Cart"
 msgstr ""
 
-#: ../includes/classes/class.shortcodes.php:99 ../tickera.php:1206
+#: ../includes/classes/class.shortcodes.php:105 ../tickera.php:1228
 msgid "Ticket added to"
 msgstr ""
 
-#: ../includes/classes/class.shortcodes.php:122
+#: ../includes/classes/class.shortcodes.php:128
 msgid "Unknown ticket ID"
 msgstr ""
 
-#: ../includes/classes/class.ticket_template_elements.php:63
+#: ../includes/classes/class.ticket_template_elements.php:62
 msgid "Ticket Size"
 msgstr ""
 
-#: ../includes/classes/class.ticket_template_elements.php:68
+#: ../includes/classes/class.ticket_template_elements.php:67
 msgid "A7 (74 × 105)"
 msgstr ""
 
-#: ../includes/classes/class.ticket_template_elements.php:69
+#: ../includes/classes/class.ticket_template_elements.php:68
 msgid "A8 (52 × 74)"
 msgstr ""
 
-#: ../includes/classes/class.ticket_template_elements.php:77
+#: ../includes/classes/class.ticket_template_elements.php:76
 msgid "Orientation"
 msgstr ""
 
-#: ../includes/classes/class.ticket_template_elements.php:87
+#: ../includes/classes/class.ticket_template_elements.php:86
 msgid "Document Margins"
 msgstr ""
 
-#: ../includes/classes/class.ticket_template_elements.php:88
-#: ../includes/classes/class.ticket_template_elements.php:118
+#: ../includes/classes/class.ticket_template_elements.php:87
+#: ../includes/classes/class.ticket_template_elements.php:117
 msgid "Top"
 msgstr ""
 
-#: ../includes/classes/class.ticket_template_elements.php:89
-#: ../includes/classes/class.ticket_template_elements.php:109
+#: ../includes/classes/class.ticket_template_elements.php:88
+#: ../includes/classes/class.ticket_template_elements.php:108
 msgid "Right"
 msgstr ""
 
-#: ../includes/classes/class.ticket_template_elements.php:90
-#: ../includes/classes/class.ticket_template_elements.php:108
+#: ../includes/classes/class.ticket_template_elements.php:89
+#: ../includes/classes/class.ticket_template_elements.php:107
 msgid "Left"
 msgstr ""
 
-#: ../includes/classes/class.ticket_template_elements.php:97
+#: ../includes/classes/class.ticket_template_elements.php:96
 msgid "Ticket Background Image"
 msgstr ""
 
-#: ../includes/classes/class.ticket_template_elements.php:106
+#: ../includes/classes/class.ticket_template_elements.php:105
 msgid "Cell Alignment"
 msgstr ""
 
-#: ../includes/classes/class.ticket_template_elements.php:110
+#: ../includes/classes/class.ticket_template_elements.php:109
 msgid "Center"
 msgstr ""
 
-#: ../includes/classes/class.ticket_template_elements.php:117
+#: ../includes/classes/class.ticket_template_elements.php:116
 msgid "Element Break Lines"
 msgstr ""
 
-#: ../includes/classes/class.ticket_template_elements.php:119
+#: ../includes/classes/class.ticket_template_elements.php:118
 msgid "Bottom"
 msgstr ""
 
-#: ../includes/classes/class.ticket_template_elements.php:126
+#: ../includes/classes/class.ticket_template_elements.php:125
 msgid "Font Style"
 msgstr ""
 
-#: ../includes/classes/class.ticket_template_elements.php:128
+#: ../includes/classes/class.ticket_template_elements.php:127
 msgid "Regular"
 msgstr ""
 
-#: ../includes/classes/class.ticket_template_elements.php:129
+#: ../includes/classes/class.ticket_template_elements.php:128
 msgid "Bold"
 msgstr ""
 
-#: ../includes/classes/class.ticket_template_elements.php:130
+#: ../includes/classes/class.ticket_template_elements.php:129
 msgid "Bold + Italic"
 msgstr ""
 
-#: ../includes/classes/class.ticket_template_elements.php:131
+#: ../includes/classes/class.ticket_template_elements.php:130
 msgid "Bold + Underline"
 msgstr ""
 
-#: ../includes/classes/class.ticket_template_elements.php:132
+#: ../includes/classes/class.ticket_template_elements.php:131
 msgid "Bold + Underline + Italic"
 msgstr ""
 
-#: ../includes/classes/class.ticket_template_elements.php:133
+#: ../includes/classes/class.ticket_template_elements.php:132
 msgid "Italic"
 msgstr ""
 
-#: ../includes/classes/class.ticket_template_elements.php:134
+#: ../includes/classes/class.ticket_template_elements.php:133
 msgid "Italic + Underline"
 msgstr ""
 
-#: ../includes/classes/class.ticket_template_elements.php:135
+#: ../includes/classes/class.ticket_template_elements.php:134
 msgid "Underline"
 msgstr ""
 
-#: ../includes/classes/class.ticket_template_elements.php:156
+#: ../includes/classes/class.ticket_template_elements.php:155
 msgid "Font"
 msgstr ""
 
-#: ../includes/classes/class.ticket_template_elements.php:198
+#: ../includes/classes/class.ticket_template_elements.php:197
 msgid "Font Size"
 msgstr ""
 
-#: ../includes/classes/class.ticket_templates.php:133
+#: ../includes/classes/class.ticket_templates.php:142
 msgid "preview"
 msgstr ""
 
-#: ../includes/classes/class.ticket_templates.php:180
+#: ../includes/classes/class.ticket_templates.php:189
 msgid "Template Name"
 msgstr ""
 
-#: ../includes/classes/class.ticket_templates.php:188
+#: ../includes/classes/class.ticket_templates.php:197
 msgid "Date"
 msgstr ""
 
-#: ../includes/classes/class.tickets.php:14 ../tickera.php:2323
+#: ../includes/classes/class.tickets.php:14 ../tickera.php:2461
 msgid "Tickets"
 msgstr ""
 
@@ -1334,59 +1369,63 @@ msgid "Whole number like 100, empty field or 0 for unlimited"
 msgstr ""
 
 #: ../includes/classes/class.tickets.php:81
+msgid "Quantity Sold"
+msgstr ""
+
+#: ../includes/classes/class.tickets.php:92
 msgid "Min. tickets per order"
 msgstr ""
 
-#: ../includes/classes/class.tickets.php:82
+#: ../includes/classes/class.tickets.php:93
 msgid "No Minimum"
 msgstr ""
 
-#: ../includes/classes/class.tickets.php:84
+#: ../includes/classes/class.tickets.php:95
 msgid "Whole number e.g. 5, empty field or 0 for no minimum"
 msgstr ""
 
-#: ../includes/classes/class.tickets.php:90
+#: ../includes/classes/class.tickets.php:101
 msgid "Max. tickets per order"
 msgstr ""
 
-#: ../includes/classes/class.tickets.php:91
+#: ../includes/classes/class.tickets.php:102
 msgid "No Maximum"
 msgstr ""
 
-#: ../includes/classes/class.tickets.php:93
+#: ../includes/classes/class.tickets.php:104
 msgid "Whole number e.g. 5, empty field or 0 for no maximum"
 msgstr ""
 
-#: ../includes/classes/class.tickets.php:99
+#: ../includes/classes/class.tickets.php:110
 msgid "Available check-ins per ticket"
 msgstr ""
 
-#: ../includes/classes/class.tickets.php:102
+#: ../includes/classes/class.tickets.php:113
 msgid ""
 "It is useful if the event last more than one day. For instance, if duration "
 "of your event is 5 day, you should choose 5 or more for Available Check-ins"
 msgstr ""
 
-#: ../includes/classes/class.tickets.php:108
+#: ../includes/classes/class.tickets.php:119
 msgid "Ticket Fee"
 msgstr ""
 
-#: ../includes/classes/class.tickets.php:109
+#: ../includes/classes/class.tickets.php:120
 msgid "No Fees"
 msgstr ""
 
-#: ../includes/classes/class.tickets.php:111
+#: ../includes/classes/class.tickets.php:122
 msgid ""
 "Ticket / Service Fee (you can add additional fee per ticket in order to "
 "cover payment gateway, service or any other type of cost) - 0 or empty for "
 "no service fee."
 msgstr ""
 
-#: ../includes/classes/class.tickets.php:117
+#: ../includes/classes/class.tickets.php:128
 msgid "Ticket Fee Type"
 msgstr ""
 
-#: ../includes/classes/class.tickets.php:126
+#: ../includes/classes/class.tickets.php:137
 msgid "Ticket Template"
 msgstr ""
 
@@ -1395,8 +1434,8 @@ msgid "Attendees & Tickets"
 msgstr ""
 
 #: ../includes/classes/class.tickets_instances.php:73
-#: ../includes/gateways/voguepay.php:134 ../tickera.php:1018
-#: ../tickera.php:2372
+#: ../includes/gateways/voguepay.php:135 ../tickera.php:1039
+#: ../tickera.php:2510
 msgid "Order"
 msgstr ""
 
@@ -1405,13 +1444,14 @@ msgid "Check-ins"
 msgstr ""
 
 #: ../includes/gateways/2checkout.php:24 ../includes/gateways/2checkout.php:25
-#: ../includes/gateways/2checkout.php:257
-#: ../includes/gateways/2checkout.php:374
+#: ../includes/gateways/2checkout.php:262
+#: ../includes/gateways/2checkout.php:379
 msgid "2Checkout"
 msgstr ""
 
 #: ../includes/gateways/2checkout.php:38
 #: ../includes/gateways/braintree.php:200 ../includes/gateways/stripe.php:40
+#: ../includes/gateways/white.php:41
 msgid "AED - United Arab Emirates Dirham"
 msgstr ""
 
@@ -1420,7 +1460,7 @@ msgid "ARS - Argentina Peso"
 msgstr ""
 
 #: ../includes/gateways/2checkout.php:40 ../includes/gateways/braintree.php:53
-#: ../includes/gateways/paypal-pro.php:46
+#: ../includes/gateways/ipay88.php:54 ../includes/gateways/paypal-pro.php:46
 #: ../includes/gateways/paypal-standard.php:39 ../includes/gateways/pin.php:38
 #: ../includes/gateways/stripe.php:47
 msgid "AUD - Australian Dollar"
@@ -1434,7 +1474,7 @@ msgstr ""
 
 #: ../includes/gateways/2checkout.php:42
 #: ../includes/gateways/authorizenet-aim.php:46
-#: ../includes/gateways/braintree.php:69
+#: ../includes/gateways/braintree.php:69 ../includes/gateways/ipay88.php:56
 #: ../includes/gateways/paypal-pro.php:47
 #: ../includes/gateways/paypal-standard.php:41
 #: ../includes/gateways/stripe.php:62
@@ -1457,13 +1497,15 @@ msgstr ""
 
 #: ../includes/gateways/2checkout.php:45
 #: ../includes/gateways/authorizenet-aim.php:47
-#: ../includes/gateways/paymill.php:39 ../includes/gateways/paypal-pro.php:50
+#: ../includes/gateways/ipay88.php:57 ../includes/gateways/paymill.php:39
+#: ../includes/gateways/paypal-pro.php:50
 #: ../includes/gateways/paypal-standard.php:44 ../includes/gateways/pin.php:42
 #: ../includes/gateways/stripe.php:78
 msgid "EUR - Euro"
 msgstr ""
 
-#: ../includes/gateways/2checkout.php:46 ../includes/gateways/paymill.php:52
+#: ../includes/gateways/2checkout.php:46 ../includes/gateways/ipay88.php:55
+#: ../includes/gateways/paygate.php:47 ../includes/gateways/paymill.php:52
 #: ../includes/gateways/paypal-pro.php:57 ../includes/gateways/pin.php:43
 #: ../includes/gateways/stripe.php:81
 msgid "GBP - British Pound"
@@ -1501,7 +1543,7 @@ msgstr ""
 msgid "JPY - Japanese Yen"
 msgstr ""
 
-#: ../includes/gateways/2checkout.php:52
+#: ../includes/gateways/2checkout.php:52 ../includes/gateways/ipay88.php:50
 #: ../includes/gateways/paypal-standard.php:49
 #: ../includes/gateways/stripe.php:124
 msgid "MYR - Malaysian Ringgit"
@@ -1555,7 +1597,7 @@ msgid "SEK - Swedish Krona"
 msgstr ""
 
 #: ../includes/gateways/2checkout.php:60
-#: ../includes/gateways/braintree.php:177
+#: ../includes/gateways/braintree.php:177 ../includes/gateways/ipay88.php:52
 #: ../includes/gateways/paypal-pro.php:58
 #: ../includes/gateways/paypal-standard.php:57
 #: ../includes/gateways/stripe.php:148
@@ -1570,6 +1612,7 @@ msgstr ""
 
 #: ../includes/gateways/2checkout.php:62
 #: ../includes/gateways/authorizenet-aim.php:49
+#: ../includes/gateways/ipay88.php:58 ../includes/gateways/paygate.php:48
 #: ../includes/gateways/paypal-pro.php:61
 #: ../includes/gateways/paypal-standard.php:62
 msgid "USD - U.S. Dollar"
@@ -1581,115 +1624,127 @@ msgstr ""
 
 #: ../includes/gateways/2checkout.php:72
 #: ../includes/gateways/authorizenet-aim.php:60
-#: ../includes/gateways/paypal-standard.php:72
+#: ../includes/gateways/paypal-standard.php:73
 #: ../includes/gateways/paytabs.php:55 ../includes/gateways/payumoney.php:57
 #: ../includes/gateways/voguepay.php:54
 msgid "Your transaction has been canceled."
 msgstr ""
 
-#: ../includes/gateways/2checkout.php:205
-#, php-format
-msgid ""
-"Your payment via 2Checkout for this order totaling <strong>%s</strong> is "
-"not yet complete."
-msgstr ""
-
-#: ../includes/gateways/2checkout.php:206
-#: ../includes/gateways/authorizenet-aim.php:217
-#: ../includes/gateways/braintree.php:328
-#: ../includes/gateways/custom-offline-payments.php:146
-#: ../includes/gateways/free-orders.php:130
-#: ../includes/gateways/paymill.php:182
-#: ../includes/gateways/paypal-pro.php:193
-#: ../includes/gateways/paypal-standard.php:192
-#: ../includes/gateways/paytabs.php:272 ../includes/gateways/payumoney.php:326
-#: ../includes/gateways/pin.php:172 ../includes/gateways/stripe.php:282
-#: ../includes/gateways/voguepay.php:164
-msgid "Current order status:"
-msgstr ""
-
-#: ../includes/gateways/2checkout.php:206
-#: ../includes/gateways/authorizenet-aim.php:217
-#: ../includes/gateways/braintree.php:328
-#: ../includes/gateways/custom-offline-payments.php:146
-#: ../includes/gateways/paymill.php:182
-#: ../includes/gateways/paypal-pro.php:193
-#: ../includes/gateways/paypal-standard.php:192
-#: ../includes/gateways/paytabs.php:272 ../includes/gateways/payumoney.php:326
-#: ../includes/gateways/pin.php:172 ../includes/gateways/stripe.php:282
-#: ../includes/gateways/voguepay.php:164 ../includes/general-functions.php:923
-msgid "Pending Payment"
-msgstr ""
-
-#: ../includes/gateways/2checkout.php:208
-#: ../includes/gateways/authorizenet-aim.php:219
-#: ../includes/gateways/braintree.php:330
-#: ../includes/gateways/custom-offline-payments.php:148
-#: ../includes/gateways/free-orders.php:132
-#: ../includes/gateways/paymill.php:184
-#: ../includes/gateways/paypal-pro.php:195
-#: ../includes/gateways/paypal-standard.php:194
-#: ../includes/gateways/paytabs.php:274 ../includes/gateways/payumoney.php:328
-#: ../includes/gateways/pin.php:174 ../includes/gateways/stripe.php:284
-#: ../includes/gateways/voguepay.php:166
-msgid "Your payment is under review. We will back to you soon."
+#: ../includes/gateways/2checkout.php:153
+#: ../includes/gateways/payumoney.php:109
+#: ../includes/gateways/payumoney.php:165
+msgid "Order: #"
 msgstr ""
 
 #: ../includes/gateways/2checkout.php:210
 #, php-format
 msgid ""
 "Your payment via 2Checkout for this order totaling <strong>%s</strong> is "
+"not yet complete."
+msgstr ""
+
+#: ../includes/gateways/2checkout.php:211
+#: ../includes/gateways/authorizenet-aim.php:217
+#: ../includes/gateways/braintree.php:328
+#: ../includes/gateways/custom-offline-payments.php:152
+#: ../includes/gateways/free-orders.php:134
+#: ../includes/gateways/ipay88.php:224 ../includes/gateways/paygate.php:184
+#: ../includes/gateways/paymill.php:182
+#: ../includes/gateways/paypal-pro.php:197
+#: ../includes/gateways/paypal-standard.php:194
+#: ../includes/gateways/paytabs.php:272 ../includes/gateways/payumoney.php:326
+#: ../includes/gateways/pin.php:173 ../includes/gateways/stripe.php:282
+#: ../includes/gateways/voguepay.php:165 ../includes/gateways/white.php:138
+msgid "Current order status:"
+msgstr ""
+
+#: ../includes/gateways/2checkout.php:211
+#: ../includes/gateways/authorizenet-aim.php:217
+#: ../includes/gateways/braintree.php:328
+#: ../includes/gateways/custom-offline-payments.php:152
+#: ../includes/gateways/ipay88.php:224 ../includes/gateways/paygate.php:184
+#: ../includes/gateways/paymill.php:182
+#: ../includes/gateways/paypal-pro.php:197
+#: ../includes/gateways/paypal-standard.php:194
+#: ../includes/gateways/paytabs.php:272 ../includes/gateways/payumoney.php:326
+#: ../includes/gateways/pin.php:173 ../includes/gateways/stripe.php:282
+#: ../includes/gateways/voguepay.php:165 ../includes/gateways/white.php:138
+#: ../includes/general-functions.php:1192
+msgid "Pending Payment"
+msgstr ""
+
+#: ../includes/gateways/2checkout.php:213
+#: ../includes/gateways/authorizenet-aim.php:219
+#: ../includes/gateways/braintree.php:330
+#: ../includes/gateways/custom-offline-payments.php:154
+#: ../includes/gateways/free-orders.php:136
+#: ../includes/gateways/ipay88.php:226 ../includes/gateways/paygate.php:186
+#: ../includes/gateways/paymill.php:184
+#: ../includes/gateways/paypal-pro.php:199
+#: ../includes/gateways/paypal-standard.php:196
+#: ../includes/gateways/paytabs.php:274 ../includes/gateways/payumoney.php:328
+#: ../includes/gateways/pin.php:175 ../includes/gateways/stripe.php:284
+#: ../includes/gateways/voguepay.php:167 ../includes/gateways/white.php:140
+msgid "Your payment is under review. We will back to you soon."
+msgstr ""
+
+#: ../includes/gateways/2checkout.php:215
+#, php-format
+msgid ""
+"Your payment via 2Checkout for this order totaling <strong>%s</strong> is "
 "complete."
 msgstr ""
 
-#: ../includes/gateways/2checkout.php:260
-msgid "Sell your tickets via 2Checkout.com."
+#: ../includes/gateways/2checkout.php:265
+#, php-format
+msgid ""
+"Sell your tickets via <a target=\"_blank\" href=\"%s\">2Checkout.com</a>"
 msgstr ""
 
-#: ../includes/gateways/2checkout.php:264
+#: ../includes/gateways/2checkout.php:269
 #: ../includes/gateways/authorizenet-aim.php:245
-#: ../includes/gateways/paypal-standard.php:293
+#: ../includes/gateways/paypal-standard.php:295
 #: ../includes/gateways/payumoney.php:379
 msgid "Mode"
 msgstr ""
 
-#: ../includes/gateways/2checkout.php:268
+#: ../includes/gateways/2checkout.php:273
 #: ../includes/gateways/authorizenet-aim.php:249
-#: ../includes/gateways/paypal-standard.php:297
+#: ../includes/gateways/paypal-standard.php:299
 msgid "Sandbox"
 msgstr ""
 
-#: ../includes/gateways/2checkout.php:269
+#: ../includes/gateways/2checkout.php:274
 #: ../includes/gateways/authorizenet-aim.php:250
-#: ../includes/gateways/paypal-standard.php:298
+#: ../includes/gateways/paypal-standard.php:300
 #: ../includes/gateways/payumoney.php:384
 msgid "Live"
 msgstr ""
 
-#: ../includes/gateways/2checkout.php:275
+#: ../includes/gateways/2checkout.php:280
 msgid "2Checkout Credentials"
 msgstr ""
 
-#: ../includes/gateways/2checkout.php:277
+#: ../includes/gateways/2checkout.php:282
 #, php-format
 msgid ""
 "Login to your 2Checkout dashboard to obtain the seller ID and secret word. "
 "<a target=\"_blank\" href=\"%s\">Instructions &raquo;</a>"
 msgstr ""
 
-#: ../includes/gateways/2checkout.php:279
+#: ../includes/gateways/2checkout.php:284
 msgid "Seller ID"
 msgstr ""
 
-#: ../includes/gateways/2checkout.php:284
+#: ../includes/gateways/2checkout.php:289
 msgid "Secret Word"
 msgstr ""
 
-#: ../includes/gateways/2checkout.php:291
+#: ../includes/gateways/2checkout.php:296
 msgid "2Checkout Currency"
 msgstr ""
 
-#: ../includes/gateways/2checkout.php:293
+#: ../includes/gateways/2checkout.php:298
 msgid ""
 "Select 2Checkout currency. Make sure it matches global currency set in the "
 "General Settings."
@@ -1794,8 +1849,8 @@ msgid "Braintree"
 msgstr ""
 
 #: ../includes/gateways/braintree.php:32
-#: ../includes/gateways/braintree.php:468 ../includes/gateways/paymill.php:25
-#: ../includes/gateways/paypal-pro.php:31
+#: ../includes/gateways/braintree.php:468 ../includes/gateways/ipay88.php:62
+#: ../includes/gateways/paymill.php:25 ../includes/gateways/paypal-pro.php:31
 #: ../includes/gateways/paypal-pro.php:361
 msgid "Credit Card"
 msgstr ""
@@ -1832,7 +1887,7 @@ msgstr ""
 msgid "BSD - Bahamian Dollar"
 msgstr ""
 
-#: ../includes/gateways/braintree.php:56
+#: ../includes/gateways/braintree.php:56 ../includes/gateways/white.php:42
 msgid "BHD - Bahraini Dinar"
 msgstr ""
 
@@ -1900,7 +1955,7 @@ msgstr ""
 msgid "CLP - Chilean Peso"
 msgstr ""
 
-#: ../includes/gateways/braintree.php:75
+#: ../includes/gateways/braintree.php:75 ../includes/gateways/ipay88.php:53
 msgid "CNY - Chinese Yuan Renminbi"
 msgstr ""
 
@@ -2343,7 +2398,7 @@ msgstr ""
 msgid "TZS - Tanzanian Shilling"
 msgstr ""
 
-#: ../includes/gateways/braintree.php:194
+#: ../includes/gateways/braintree.php:194 ../includes/gateways/ipay88.php:51
 msgid "THB - Thailand Baht"
 msgstr ""
 
@@ -2372,7 +2427,7 @@ msgid "GBP - United Kingdom Sterling Pound"
 msgstr ""
 
 #: ../includes/gateways/braintree.php:202 ../includes/gateways/pin.php:39
-#: ../includes/gateways/stripe.php:165
+#: ../includes/gateways/stripe.php:165 ../includes/gateways/white.php:43
 msgid "USD - United States Dollar"
 msgstr ""
 
@@ -2414,19 +2469,19 @@ msgstr ""
 
 #: ../includes/gateways/braintree.php:250 ../includes/gateways/paymill.php:102
 #: ../includes/gateways/paypal-pro.php:84 ../includes/gateways/pin.php:94
-#: ../includes/gateways/stripe.php:221
+#: ../includes/gateways/stripe.php:221 ../includes/gateways/white.php:81
 msgid "Enter Your Credit Card Information:"
 msgstr ""
 
 #: ../includes/gateways/braintree.php:270 ../includes/gateways/paymill.php:126
-#: ../includes/gateways/paypal-pro.php:137 ../includes/gateways/pin.php:117
-#: ../includes/gateways/stripe.php:230
+#: ../includes/gateways/paypal-pro.php:141 ../includes/gateways/pin.php:118
+#: ../includes/gateways/stripe.php:230 ../includes/gateways/white.php:86
 msgid "Card Number"
 msgstr ""
 
 #: ../includes/gateways/braintree.php:278 ../includes/gateways/paymill.php:134
-#: ../includes/gateways/paypal-pro.php:145 ../includes/gateways/pin.php:125
-#: ../includes/gateways/stripe.php:238
+#: ../includes/gateways/paypal-pro.php:149 ../includes/gateways/pin.php:126
+#: ../includes/gateways/stripe.php:238 ../includes/gateways/white.php:94
 msgid "Expiration:"
 msgstr ""
 
@@ -2435,8 +2490,8 @@ msgid "CVV:"
 msgstr ""
 
 #: ../includes/gateways/braintree.php:303 ../includes/gateways/paymill.php:157
-#: ../includes/gateways/paypal-pro.php:168 ../includes/gateways/pin.php:146
-#: ../includes/gateways/stripe.php:259
+#: ../includes/gateways/paypal-pro.php:172 ../includes/gateways/pin.php:147
+#: ../includes/gateways/stripe.php:259 ../includes/gateways/white.php:115
 msgid "Processing..."
 msgstr ""
 
@@ -2514,187 +2569,340 @@ msgstr ""
 msgid "Validation errors: \"%s\"."
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:21
-#: ../includes/gateways/custom-offline-payments.php:185
+#: ../includes/gateways/custom-offline-payments.php:22
+#: ../includes/gateways/custom-offline-payments.php:191
 msgid "Offline Payment"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:22
-#: ../includes/gateways/custom-offline-payments.php:176
+#: ../includes/gateways/custom-offline-payments.php:23
+#: ../includes/gateways/custom-offline-payments.php:182
 msgid "Cash on Delivery"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:145
-#: ../includes/gateways/free-orders.php:129
+#: ../includes/gateways/custom-offline-payments.php:151
+#: ../includes/gateways/free-orders.php:133
 #, php-format
 msgid ""
 "Your payment via %s for this order totaling <strong>%s</strong> is not yet "
 "complete."
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:150
-#: ../includes/gateways/free-orders.php:134
+#: ../includes/gateways/custom-offline-payments.php:156
+#: ../includes/gateways/free-orders.php:138
 #, php-format
 msgid ""
 "Your payment via %s for this order totaling <strong>%s</strong> is complete."
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:167
-#: ../includes/gateways/custom-offline-payments.php:288
+#: ../includes/gateways/custom-offline-payments.php:173
+#: ../includes/gateways/custom-offline-payments.php:292
 msgid "Offline Payments"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:169
+#: ../includes/gateways/custom-offline-payments.php:175
 msgid ""
 "Track offline / custom payments (Cash on Delivery, Money Orders, Bank "
 "Deposits, Cheques etc.) manually."
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:172
-#: ../includes/gateways/free-orders.php:156
+#: ../includes/gateways/custom-offline-payments.php:178
+#: ../includes/gateways/free-orders.php:160
 msgid "Public Method Name"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:174
-#: ../includes/gateways/free-orders.php:158
+#: ../includes/gateways/custom-offline-payments.php:180
+#: ../includes/gateways/free-orders.php:162
 msgid ""
 "Insert public name for this payment method which will be visible to buyers"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:181
-#: ../includes/gateways/free-orders.php:165
+#: ../includes/gateways/custom-offline-payments.php:187
+#: ../includes/gateways/free-orders.php:169
 msgid "Admin Method Name"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:183
-#: ../includes/gateways/free-orders.php:167
+#: ../includes/gateways/custom-offline-payments.php:189
+#: ../includes/gateways/free-orders.php:171
 msgid ""
 "Insert admin name for this payment method which will be visible within the "
 "administration panel (Orders screen etc.)"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:191
-#: ../includes/gateways/free-orders.php:175
+#: ../includes/gateways/custom-offline-payments.php:197
+#: ../includes/gateways/free-orders.php:179
 msgid "Payment Method Info"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:193
+#: ../includes/gateways/custom-offline-payments.php:199
 msgid ""
 "Information about the payment method which will be visible to user upon "
 "choosing this payment method."
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:201
-#: ../includes/gateways/custom-offline-payments.php:234
+#: ../includes/gateways/custom-offline-payments.php:207
+#: ../includes/gateways/custom-offline-payments.php:240
 msgid "Payment Instructions"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:203
+#: ../includes/gateways/custom-offline-payments.php:209
 msgid ""
 "Your customers who checkout using the custom offline payment method will be "
 "given a set of instructions (set by you) to complete the purchase process "
 "immediately after checkout completion."
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:211
+#: ../includes/gateways/custom-offline-payments.php:217
 msgid "E-mail Instructions"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:213
+#: ../includes/gateways/custom-offline-payments.php:219
 msgid ""
 "Send an email with the payment instructions to a customer upon creating an "
 "order. The e-mail will be sent only if status of a order is \"Order Received"
 "\"."
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:220
-#: ../includes/general-functions.php:219 ../includes/general-functions.php:268
-#: ../includes/general-functions.php:289 ../includes/general-functions.php:310
-#: ../includes/general-functions.php:331 ../includes/general-functions.php:352
-#: ../includes/general-functions.php:373
+#: ../includes/gateways/custom-offline-payments.php:226
+#: ../includes/general-functions.php:320 ../includes/general-functions.php:343
+#: ../includes/general-functions.php:364 ../includes/general-functions.php:413
+#: ../includes/general-functions.php:434 ../includes/general-functions.php:455
+#: ../includes/general-functions.php:476 ../includes/general-functions.php:497
+#: ../includes/general-functions.php:518
 msgid "No"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:221
-#: ../includes/general-functions.php:216 ../includes/general-functions.php:265
-#: ../includes/general-functions.php:286 ../includes/general-functions.php:307
-#: ../includes/general-functions.php:328 ../includes/general-functions.php:349
-#: ../includes/general-functions.php:370
+#: ../includes/gateways/custom-offline-payments.php:227
+#: ../includes/general-functions.php:317 ../includes/general-functions.php:340
+#: ../includes/general-functions.php:361 ../includes/general-functions.php:410
+#: ../includes/general-functions.php:431 ../includes/general-functions.php:452
+#: ../includes/general-functions.php:473 ../includes/general-functions.php:494
+#: ../includes/general-functions.php:515
 msgid "Yes"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:228
+#: ../includes/gateways/custom-offline-payments.php:234
 msgid "Instructions E-mail Subject"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:230
+#: ../includes/gateways/custom-offline-payments.php:236
 msgid "Subject of the payment instructions e-mail"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:244
+#: ../includes/gateways/custom-offline-payments.php:248
 msgid "Automatic Payment Status"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:246
+#: ../includes/gateways/custom-offline-payments.php:250
 msgid ""
 "Automatic payment status which will be set for all custom offline payment "
 "orders."
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:250
-#: ../includes/gateways/free-orders.php:202
-#: ../includes/general-functions.php:868
+#: ../includes/gateways/custom-offline-payments.php:254
+#: ../includes/gateways/free-orders.php:206
+#: ../includes/general-functions.php:1137
 msgid "Order Received"
 msgstr ""
 
-#: ../includes/gateways/custom-offline-payments.php:251
-#: ../includes/gateways/free-orders.php:201
-#: ../includes/general-functions.php:869
+#: ../includes/gateways/custom-offline-payments.php:255
+#: ../includes/gateways/free-orders.php:205
+#: ../includes/general-functions.php:1138
 msgid "Order Paid"
 msgstr ""
 
 #: ../includes/gateways/free-orders.php:21
 #: ../includes/gateways/free-orders.php:22
-#: ../includes/gateways/free-orders.php:151
-#: ../includes/gateways/free-orders.php:160
-#: ../includes/gateways/free-orders.php:169
-#: ../includes/gateways/free-orders.php:238
+#: ../includes/gateways/free-orders.php:155
+#: ../includes/gateways/free-orders.php:164
+#: ../includes/gateways/free-orders.php:173
+#: ../includes/gateways/free-orders.php:242
 msgid "Free Orders"
 msgstr ""
 
-#: ../includes/gateways/free-orders.php:130
+#: ../includes/gateways/free-orders.php:134
 msgid "Pending Review"
 msgstr ""
 
-#: ../includes/gateways/free-orders.php:153
+#: ../includes/gateways/free-orders.php:157
 msgid ""
 "This method will be automatically activated if order total is 0 (zero). This "
 "is the only method which will be shown to buyers in this case - other "
 "payment options will be hidden."
 msgstr ""
 
-#: ../includes/gateways/free-orders.php:177
+#: ../includes/gateways/free-orders.php:181
 msgid "Information about the payment method which will be visible to user."
 msgstr ""
 
-#: ../includes/gateways/free-orders.php:185
+#: ../includes/gateways/free-orders.php:189
 msgid "Confirmation Message"
 msgstr ""
 
-#: ../includes/gateways/free-orders.php:187
+#: ../includes/gateways/free-orders.php:191
 msgid "An additional message shown on the payment confirmation page."
 msgstr ""
 
-#: ../includes/gateways/free-orders.php:195
+#: ../includes/gateways/free-orders.php:199
 msgid "Free Order Status"
 msgstr ""
 
-#: ../includes/gateways/free-orders.php:197
+#: ../includes/gateways/free-orders.php:201
 #, php-format
 msgid ""
 "Automatic payment status which will be set for each free order. For "
 "instance, you can automatically set status for all orders with 100% discount "
 "code or orders with free tickets to \"Order Paid\"."
+msgstr ""
+
+#: ../includes/gateways/ipay88.php:30 ../includes/gateways/ipay88.php:31
+#: ../includes/gateways/ipay88.php:256 ../includes/gateways/ipay88.php:402
+msgid "iPay88"
+msgstr ""
+
+#: ../includes/gateways/ipay88.php:63
+msgid "Maybank2U"
+msgstr ""
+
+#: ../includes/gateways/ipay88.php:64
+msgid "Alliance Online"
+msgstr ""
+
+#: ../includes/gateways/ipay88.php:65
+msgid "AmBank"
+msgstr ""
+
+#: ../includes/gateways/ipay88.php:66
+msgid "RHB"
+msgstr ""
+
+#: ../includes/gateways/ipay88.php:67
+msgid "Hong Leong Online"
+msgstr ""
+
+#: ../includes/gateways/ipay88.php:68
+msgid "FPX"
+msgstr ""
+
+#: ../includes/gateways/ipay88.php:69
+msgid "Mobile Money"
+msgstr ""
+
+#: ../includes/gateways/ipay88.php:70
+msgid "CIMB Click"
+msgstr ""
+
+#: ../includes/gateways/ipay88.php:71
+msgid "Web Cash"
+msgstr ""
+
+#: ../includes/gateways/ipay88.php:72
+msgid "MEPS Cash"
+msgstr ""
+
+#: ../includes/gateways/ipay88.php:73
+#: ../includes/gateways/paypal-standard.php:26
+msgid "PayPal"
+msgstr ""
+
+#: ../includes/gateways/ipay88.php:74
+msgid "AffinBank"
+msgstr ""
+
+#: ../includes/gateways/ipay88.php:91
+msgid "Choose payment method:"
+msgstr ""
+
+#: ../includes/gateways/ipay88.php:184 ../includes/gateways/paypal-pro.php:331
+#: ../includes/general-functions.php:1208
+msgid "Order: "
+msgstr ""
+
+#: ../includes/gateways/ipay88.php:223
+#, php-format
+msgid ""
+"Your payment via iPay88 for this order totaling <strong>%s</strong> is not "
+"yet complete."
+msgstr ""
+
+#: ../includes/gateways/ipay88.php:228
+#, php-format
+msgid ""
+"Your payment via iPay88 for this order totaling <strong>%s</strong> is "
+"complete."
+msgstr ""
+
+#: ../includes/gateways/ipay88.php:259
+msgid ""
+"iPay88 is a payment gateway for Malaysia. It works by redirecting the "
+"customer to iPay88 server to make a payment and then returns the customer "
+"back to your confirmation page."
+msgstr ""
+
+#: ../includes/gateways/ipay88.php:263
+msgid "iPay88 Credentials"
+msgstr ""
+
+#: ../includes/gateways/ipay88.php:266
+msgid "Merchant Code"
+msgstr ""
+
+#: ../includes/gateways/ipay88.php:276
+msgid "Merchant Key"
+msgstr ""
+
+#: ../includes/gateways/ipay88.php:283
+msgid "Payment Types"
+msgstr ""
+
+#: ../includes/gateways/ipay88.php:305
+msgid "iPay88 Currency"
+msgstr ""
+
+#: ../includes/gateways/ipay88.php:307 ../includes/gateways/paygate.php:238
+#: ../includes/gateways/voguepay.php:208
+msgid ""
+"Select currency. Make sure it matches global currency set in the General "
+"Settings."
+msgstr ""
+
+#: ../includes/gateways/paygate.php:31 ../includes/gateways/paygate.php:32
+#: ../includes/gateways/paygate.php:208 ../includes/gateways/paygate.php:270
+msgid "Paygate"
+msgstr ""
+
+#: ../includes/gateways/paygate.php:49
+msgid "ZAR - South Africa"
+msgstr ""
+
+#: ../includes/gateways/paygate.php:183
+#, php-format
+msgid ""
+"Your payment via Paygate for this order totaling <strong>%s</strong> is not "
+"yet complete."
+msgstr ""
+
+#: ../includes/gateways/paygate.php:188
+#, php-format
+msgid ""
+"Your payment via Paygate for this order totaling <strong>%s</strong> is "
+"complete."
+msgstr ""
+
+#: ../includes/gateways/paygate.php:215
+msgid "Paygate Credentials"
+msgstr ""
+
+#: ../includes/gateways/paygate.php:218 ../includes/gateways/payumoney.php:394
+#: ../includes/gateways/voguepay.php:199
+msgid "Merchant ID"
+msgstr ""
+
+#: ../includes/gateways/paygate.php:229
+msgid "Encryption Key"
+msgstr ""
+
+#: ../includes/gateways/paygate.php:236
+msgid "Paygate Currency"
 msgstr ""
 
 #: ../includes/gateways/paymill.php:24 ../includes/gateways/paymill.php:203
@@ -2723,6 +2931,7 @@ msgid "PLN - Polish Zloty"
 msgstr ""
 
 #: ../includes/gateways/paymill.php:74 ../includes/gateways/stripe.php:198
+#: ../includes/gateways/white.php:63
 msgid "Please enter a valid Credit Card Number."
 msgstr ""
 
@@ -2748,8 +2957,8 @@ msgid "Cardholder Name:"
 msgstr ""
 
 #: ../includes/gateways/paymill.php:148
-#: ../includes/gateways/paypal-pro.php:159 ../includes/gateways/pin.php:139
-#: ../includes/gateways/stripe.php:252
+#: ../includes/gateways/paypal-pro.php:163 ../includes/gateways/pin.php:140
+#: ../includes/gateways/stripe.php:252 ../includes/gateways/white.php:108
 msgid "CVC:"
 msgstr ""
 
@@ -2775,7 +2984,7 @@ msgid ""
 msgstr ""
 
 #: ../includes/gateways/paymill.php:205
-#: ../includes/gateways/paypal-pro.php:215
+#: ../includes/gateways/paypal-pro.php:219
 msgid "Read More &raquo;"
 msgstr ""
 
@@ -2789,24 +2998,25 @@ msgid ""
 "the site where the checkout form will be displayed."
 msgstr ""
 
-#: ../includes/gateways/paymill.php:210 ../includes/gateways/pin.php:195
+#: ../includes/gateways/paymill.php:210 ../includes/gateways/pin.php:196
 #: ../includes/gateways/stripe.php:305 ../includes/gateways/stripe.php:310
+#: ../includes/gateways/white.php:161
 msgid "More Info &raquo;"
 msgstr ""
 
 #: ../includes/gateways/paymill.php:212
-#: ../includes/gateways/paypal-pro.php:222 ../includes/gateways/pin.php:202
+#: ../includes/gateways/paypal-pro.php:226 ../includes/gateways/pin.php:203
 #: ../includes/gateways/stripe.php:312
 msgid "Force SSL (Live Site)"
 msgstr ""
 
-#: ../includes/gateways/paymill.php:213 ../includes/gateways/pin.php:203
+#: ../includes/gateways/paymill.php:213 ../includes/gateways/pin.php:204
 #: ../includes/gateways/stripe.php:313
 msgid "No SSL (Testing)"
 msgstr ""
 
 #: ../includes/gateways/paymill.php:218
-#: ../includes/gateways/paypal-pro.php:228
+#: ../includes/gateways/paypal-pro.php:232
 msgid "Paymill API Credentials"
 msgstr ""
 
@@ -2827,23 +3037,24 @@ msgstr ""
 msgid "The Paymill Token was not generated correctly."
 msgstr ""
 
-#: ../includes/gateways/paymill.php:315 ../includes/gateways/pin.php:314
+#: ../includes/gateways/paymill.php:315 ../includes/gateways/pin.php:315
 #, php-format
 msgid "%s Store Purchase - Order ID: %s, Email: %s"
 msgstr ""
 
-#: ../includes/gateways/paymill.php:325 ../includes/gateways/stripe.php:415
+#: ../includes/gateways/paymill.php:325 ../includes/gateways/stripe.php:418
+#: ../includes/gateways/white.php:276
 #, php-format
 msgid "%1$s Card ending in %2$s - Expires %3$s"
 msgstr ""
 
-#: ../includes/gateways/paymill.php:347 ../includes/gateways/pin.php:359
+#: ../includes/gateways/paymill.php:347 ../includes/gateways/pin.php:360
 #, php-format
 msgid "There was an error processing your card: \"%s\"."
 msgstr ""
 
 #: ../includes/gateways/paypal-pro.php:30
-#: ../includes/gateways/paypal-pro.php:213
+#: ../includes/gateways/paypal-pro.php:217
 #: ../includes/gateways/paypal-pro.php:410
 msgid "PayPal PRO"
 msgstr ""
@@ -2876,74 +3087,65 @@ msgstr ""
 msgid "ZIP Code:"
 msgstr ""
 
-#: ../includes/gateways/paypal-pro.php:192
-#: ../includes/gateways/paypal-standard.php:191
+#: ../includes/gateways/paypal-pro.php:196
+#: ../includes/gateways/paypal-standard.php:193
 #, php-format
 msgid ""
 "Your payment via PayPal for this order totaling <strong>%s</strong> is not "
 "yet complete."
 msgstr ""
 
-#: ../includes/gateways/paypal-pro.php:197
-#: ../includes/gateways/paypal-standard.php:196
+#: ../includes/gateways/paypal-pro.php:201
+#: ../includes/gateways/paypal-standard.php:198
 #, php-format
 msgid ""
 "Your payment via PayPal for this order totaling <strong>%s</strong> is "
 "complete."
 msgstr ""
 
-#: ../includes/gateways/paypal-pro.php:215
+#: ../includes/gateways/paypal-pro.php:219
 msgid ""
 "PayPal Payments Pro is an affordable website payment processing solution for "
 "businesses with more than 100+ orders/month. Our integration with PayPal PRO "
 "will appear seamlessly to your customers."
 msgstr ""
 
-#: ../includes/gateways/paypal-pro.php:218
+#: ../includes/gateways/paypal-pro.php:222
 msgid "PayPal Mode"
 msgstr ""
 
-#: ../includes/gateways/paypal-pro.php:220
+#: ../includes/gateways/paypal-pro.php:224
 msgid ""
 "When in live mode PayPal PRO requires a SSL certificate setup for the site "
 "where the checkout form will be displayed."
 msgstr ""
 
-#: ../includes/gateways/paypal-pro.php:223
+#: ../includes/gateways/paypal-pro.php:227
 msgid "No SSL (Testing / Sandbox)"
 msgstr ""
 
-#: ../includes/gateways/paypal-pro.php:232
+#: ../includes/gateways/paypal-pro.php:236
 msgid "API Username"
 msgstr ""
 
-#: ../includes/gateways/paypal-pro.php:237
+#: ../includes/gateways/paypal-pro.php:241
 msgid "API Password"
 msgstr ""
 
-#: ../includes/gateways/paypal-pro.php:242
+#: ../includes/gateways/paypal-pro.php:246
 msgid "API Signature"
 msgstr ""
 
-#: ../includes/gateways/paypal-pro.php:252
+#: ../includes/gateways/paypal-pro.php:256
 msgid ""
 "Select PayPal PRO currency. Make sure it matches global currency set in the "
 "General Settings."
 msgstr ""
 
-#: ../includes/gateways/paypal-pro.php:331
-#: ../includes/general-functions.php:939
-msgid "Order: "
-msgstr ""
-
 #: ../includes/gateways/paypal-standard.php:25
-#: ../includes/gateways/paypal-standard.php:288
-#: ../includes/gateways/paypal-standard.php:386
+#: ../includes/gateways/paypal-standard.php:290
+#: ../includes/gateways/paypal-standard.php:388
 msgid "PayPal Standard"
-msgstr ""
-
-#: ../includes/gateways/paypal-standard.php:26
-msgid "PayPal"
 msgstr ""
 
 #: ../includes/gateways/paypal-standard.php:60
@@ -2955,124 +3157,124 @@ msgstr ""
 msgid "THB - Thai Baht"
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:290
+#: ../includes/gateways/paypal-standard.php:292
 msgid "Sell tickets via PayPal standard payment gateway"
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:304
+#: ../includes/gateways/paypal-standard.php:306
 msgid "PayPal Credentials"
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:308
+#: ../includes/gateways/paypal-standard.php:310
 msgid "PayPal E-Mail"
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:315
+#: ../includes/gateways/paypal-standard.php:317
 msgid "PayPal Standard Currency"
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:317
+#: ../includes/gateways/paypal-standard.php:319
 msgid ""
 "Select PayPal currency. Make sure it matches global currency set in the "
 "General Settings."
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:332
+#: ../includes/gateways/paypal-standard.php:334
 msgid "PayPal Locale"
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:339
-#: ../includes/general-functions.php:557
+#: ../includes/gateways/paypal-standard.php:341
+#: ../includes/general-functions.php:819
 msgid "Australia"
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:340
-#: ../includes/general-functions.php:558
+#: ../includes/gateways/paypal-standard.php:342
+#: ../includes/general-functions.php:820
 msgid "Austria"
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:341
-#: ../includes/general-functions.php:565
+#: ../includes/gateways/paypal-standard.php:343
+#: ../includes/general-functions.php:827
 msgid "Belgium"
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:342
-#: ../includes/general-functions.php:583
+#: ../includes/gateways/paypal-standard.php:344
+#: ../includes/general-functions.php:845
 msgid "Canada"
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:343
-#: ../includes/general-functions.php:589
+#: ../includes/gateways/paypal-standard.php:345
+#: ../includes/general-functions.php:851
 msgid "China"
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:344
-#: ../includes/general-functions.php:619
+#: ../includes/gateways/paypal-standard.php:346
+#: ../includes/general-functions.php:881
 msgid "France"
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:345
-#: ../includes/general-functions.php:626
+#: ../includes/gateways/paypal-standard.php:347
+#: ../includes/general-functions.php:888
 msgid "Germany"
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:346
-#: ../includes/general-functions.php:643
+#: ../includes/gateways/paypal-standard.php:348
+#: ../includes/general-functions.php:905
 msgid "Hong Kong"
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:347
-#: ../includes/general-functions.php:653
+#: ../includes/gateways/paypal-standard.php:349
+#: ../includes/general-functions.php:915
 msgid "Italy"
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:348
-#: ../includes/general-functions.php:687
+#: ../includes/gateways/paypal-standard.php:350
+#: ../includes/general-functions.php:949
 msgid "Mexico"
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:349
-#: ../includes/general-functions.php:700
+#: ../includes/gateways/paypal-standard.php:351
+#: ../includes/general-functions.php:962
 msgid "Netherlands"
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:350
-#: ../includes/general-functions.php:702
+#: ../includes/gateways/paypal-standard.php:352
+#: ../includes/general-functions.php:964
 msgid "New Zealand"
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:351
-#: ../includes/general-functions.php:720
+#: ../includes/gateways/paypal-standard.php:353
+#: ../includes/general-functions.php:982
 msgid "Poland"
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:352
-#: ../includes/general-functions.php:743
+#: ../includes/gateways/paypal-standard.php:354
+#: ../includes/general-functions.php:1005
 msgid "Singapore"
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:353
-#: ../includes/general-functions.php:752
+#: ../includes/gateways/paypal-standard.php:355
+#: ../includes/general-functions.php:1014
 msgid "Spain"
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:354
-#: ../includes/general-functions.php:758
+#: ../includes/gateways/paypal-standard.php:356
+#: ../includes/general-functions.php:1020
 msgid "Sweden"
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:355
-#: ../includes/general-functions.php:759
+#: ../includes/gateways/paypal-standard.php:357
+#: ../includes/general-functions.php:1021
 msgid "Switzerland"
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:356
-#: ../includes/general-functions.php:778
+#: ../includes/gateways/paypal-standard.php:358
+#: ../includes/general-functions.php:1040
 msgid "United Kingdom"
 msgstr ""
 
-#: ../includes/gateways/paypal-standard.php:357
-#: ../includes/general-functions.php:779
+#: ../includes/gateways/paypal-standard.php:359
+#: ../includes/general-functions.php:1041
 msgid "United States"
 msgstr ""
 
@@ -3148,11 +3350,6 @@ msgstr ""
 msgid "PayUMoney"
 msgstr ""
 
-#: ../includes/gateways/payumoney.php:109
-#: ../includes/gateways/payumoney.php:165
-msgid "Order: #"
-msgstr ""
-
 #: ../includes/gateways/payumoney.php:181
 msgid "Redirecting to the payment page..."
 msgstr ""
@@ -3201,11 +3398,6 @@ msgid ""
 "obtain the Merchant ID and SALT"
 msgstr ""
 
-#: ../includes/gateways/payumoney.php:394
-#: ../includes/gateways/voguepay.php:198
-msgid "Merchant ID"
-msgstr ""
-
 #: ../includes/gateways/payumoney.php:399
 msgid "SALT"
 msgstr ""
@@ -3221,7 +3413,7 @@ msgid ""
 msgstr ""
 
 #: ../includes/gateways/pin.php:25 ../includes/gateways/pin.php:26
-#: ../includes/gateways/pin.php:193 ../includes/gateways/pin.php:374
+#: ../includes/gateways/pin.php:194 ../includes/gateways/pin.php:375
 msgid "PIN"
 msgstr ""
 
@@ -3229,75 +3421,75 @@ msgstr ""
 msgid "SGD - Singaporean Dollar"
 msgstr ""
 
-#: ../includes/gateways/pin.php:171
+#: ../includes/gateways/pin.php:172
 #, php-format
 msgid ""
 "Your payment via PIN for this order totaling <strong>%s</strong> is not yet "
 "complete."
 msgstr ""
 
-#: ../includes/gateways/pin.php:176
+#: ../includes/gateways/pin.php:177
 #, php-format
 msgid ""
 "Your payment via PIN for this order totaling <strong>%s</strong> is complete."
 msgstr ""
 
-#: ../includes/gateways/pin.php:195
+#: ../includes/gateways/pin.php:196
 msgid ""
 "Accept all major credit cards directly on your site. Your sales proceeds are "
 "deposited to any Australian bank account, no merchant account required."
 msgstr ""
 
-#: ../includes/gateways/pin.php:198
+#: ../includes/gateways/pin.php:199
 msgid "PIN Mode"
 msgstr ""
 
-#: ../includes/gateways/pin.php:200
+#: ../includes/gateways/pin.php:201
 msgid ""
 "When in live mode PIN recommends you have an SSL certificate setup for the "
 "site where the checkout form will be displayed."
 msgstr ""
 
-#: ../includes/gateways/pin.php:208
+#: ../includes/gateways/pin.php:209
 msgid "PIN API Credentials"
 msgstr ""
 
-#: ../includes/gateways/pin.php:210
+#: ../includes/gateways/pin.php:211
 msgid ""
 "You must login to PIN to <a target=\"_blank\" href=\"https://dashboard.pin."
 "net.au/account\">get your API credentials</a>. You can enter your test keys, "
 "then live ones when ready."
 msgstr ""
 
-#: ../includes/gateways/pin.php:211
+#: ../includes/gateways/pin.php:212
 msgid "Secret API Key"
 msgstr ""
 
-#: ../includes/gateways/pin.php:214
+#: ../includes/gateways/pin.php:215
 msgid "Publishable API Key"
 msgstr ""
 
-#: ../includes/gateways/pin.php:222
+#: ../includes/gateways/pin.php:223
 msgid ""
 "Select PIN currency. Make sure it matches global currency set in the General "
 "Settings."
 msgstr ""
 
-#: ../includes/gateways/pin.php:259
+#: ../includes/gateways/pin.php:260
 msgid "The PIN Token was not generated correctly."
 msgstr ""
 
-#: ../includes/gateways/pin.php:330
+#: ../includes/gateways/pin.php:331
 #, php-format
 msgid "%1$s Card %2$s"
 msgstr ""
 
-#: ../includes/gateways/pin.php:351
+#: ../includes/gateways/pin.php:352
 msgid "There was an error processing your card."
 msgstr ""
 
 #: ../includes/gateways/stripe.php:24 ../includes/gateways/stripe.php:25
-#: ../includes/gateways/stripe.php:303 ../includes/gateways/stripe.php:450
+#: ../includes/gateways/stripe.php:303 ../includes/gateways/stripe.php:453
 msgid "Stripe"
 msgstr ""
 
@@ -3565,15 +3757,15 @@ msgstr ""
 msgid "ZMW - Zambian Kwacha"
 msgstr ""
 
-#: ../includes/gateways/stripe.php:197
+#: ../includes/gateways/stripe.php:197 ../includes/gateways/white.php:62
 msgid "Please enter the full Cardholder Name."
 msgstr ""
 
-#: ../includes/gateways/stripe.php:199
+#: ../includes/gateways/stripe.php:199 ../includes/gateways/white.php:64
 msgid "Please choose a valid expiration date."
 msgstr ""
 
-#: ../includes/gateways/stripe.php:200
+#: ../includes/gateways/stripe.php:200 ../includes/gateways/white.php:65
 msgid ""
 "Please enter a valid card security code. This is the 3 digits on the "
 "signature panel, or 4 digits on the front of Amex cards."
@@ -3622,15 +3814,15 @@ msgid ""
 "your test credentials, then live ones when ready."
 msgstr ""
 
-#: ../includes/gateways/stripe.php:321
+#: ../includes/gateways/stripe.php:321 ../includes/gateways/white.php:177
 msgid "Secret key"
 msgstr ""
 
-#: ../includes/gateways/stripe.php:324
+#: ../includes/gateways/stripe.php:324 ../includes/gateways/white.php:180
 msgid "Publishable key"
 msgstr ""
 
-#: ../includes/gateways/stripe.php:332
+#: ../includes/gateways/stripe.php:332 ../includes/gateways/white.php:188
 msgid ""
 "Selecting a currency other than that used for your store may cause problems "
 "at checkout."
@@ -3641,1153 +3833,1294 @@ msgid ""
 "The Stripe Token was not generated correctly. Please go back and try again."
 msgstr ""
 
-#: ../includes/gateways/stripe.php:407
+#: ../includes/gateways/stripe.php:408
 #, php-format
-msgid "%s Store Purchase - Order ID - %s, Email - %s"
+msgid "%s Store Purchase - Order ID - %s"
 msgstr ""
 
-#: ../includes/gateways/stripe.php:437
+#: ../includes/gateways/stripe.php:440 ../includes/gateways/white.php:299
+#: ../includes/gateways/white.php:305 ../includes/gateways/white.php:311
+#: ../includes/gateways/white.php:317 ../includes/gateways/white.php:324
+#: ../includes/gateways/white.php:330
 #, php-format
 msgid "There was an error processing your card - \"%s\"."
 msgstr ""
 
 #: ../includes/gateways/voguepay.php:30 ../includes/gateways/voguepay.php:31
-#: ../includes/gateways/voguepay.php:188 ../includes/gateways/voguepay.php:271
+#: ../includes/gateways/voguepay.php:189 ../includes/gateways/voguepay.php:272
 msgid "VoguePay"
 msgstr ""
 
-#: ../includes/gateways/voguepay.php:163
+#: ../includes/gateways/voguepay.php:164
 #, php-format
 msgid ""
 "Your payment via VoguePay for this order totaling <strong>%s</strong> is not "
 "yet complete."
 msgstr ""
 
-#: ../includes/gateways/voguepay.php:168
+#: ../includes/gateways/voguepay.php:169
 #, php-format
 msgid ""
 "Your payment via VoguePay for this order totaling <strong>%s</strong> is "
 "complete."
 msgstr ""
 
-#: ../includes/gateways/voguepay.php:191
+#: ../includes/gateways/voguepay.php:192
 msgid ""
 "VoguePay Payment Gateway allows you to sell tickets and receive Mastercard, "
 "Verve Card and Visa Card Payments. Please note that gateway suppports only "
 "Nigerian Naira (NGN) currency."
 msgstr ""
 
-#: ../includes/gateways/voguepay.php:195
+#: ../includes/gateways/voguepay.php:196
 msgid "VoguePay Credentials"
 msgstr ""
 
-#: ../includes/gateways/voguepay.php:205
+#: ../includes/gateways/voguepay.php:206
 msgid "VoguePay Currency"
 msgstr ""
 
-#: ../includes/gateways/voguepay.php:207
-msgid ""
-"Select currency. Make sure it matches global currency set in the General "
-"Settings."
-msgstr ""
-
-#: ../includes/gateways/voguepay.php:257
+#: ../includes/gateways/voguepay.php:258
 #, php-format
 msgid ""
 "Something went wrong. Price paid %s and original price of %s do not match."
 msgstr ""
 
-#: ../includes/general-functions.php:391
+#: ../includes/gateways/white.php:24 ../includes/gateways/white.php:25
+#: ../includes/gateways/white.php:351
+msgid "White"
+msgstr ""
+
+#: ../includes/gateways/white.php:137
+#, php-format
+msgid ""
+"Your payment via White Payments for this order totaling <strong>%s</strong> "
+"is not yet complete."
+msgstr ""
+
+#: ../includes/gateways/white.php:142
+#, php-format
+msgid ""
+"Your payment via White Payments for this order totaling <strong>%s</strong> "
+"is complete."
+msgstr ""
+
+#: ../includes/gateways/white.php:159
+msgid "White Payments"
+msgstr ""
+
+#: ../includes/gateways/white.php:161
+msgid ""
+"Accept cards directly on your site. Credit cards go directly to White's "
+"secure environment, and never hit your servers so you can avoid most PCI "
+"requirements."
+msgstr ""
+
+#: ../includes/gateways/white.php:164
+msgid "White Mode"
+msgstr ""
+
+#: ../includes/gateways/white.php:166
+msgid ""
+"When in live mode it is recommended that you have an SSL certificate setup "
+"for the site where the checkout form will be displayed."
+msgstr ""
+
+#: ../includes/gateways/white.php:168
+msgid "Force SSL"
+msgstr ""
+
+#: ../includes/gateways/white.php:169
+msgid "No SSL"
+msgstr ""
+
+#: ../includes/gateways/white.php:174
+msgid "White API Credentials"
+msgstr ""
+
+#: ../includes/gateways/white.php:176
+msgid ""
+"You must login to White to <a target=\"_blank\" href=\"https://dashboard."
+"whitepayments.com/\">get your API credentials</a>."
+msgstr ""
+
+#: ../includes/gateways/white.php:220
+msgid ""
+"The White Token was not generated correctly. Please go back and try again."
+msgstr ""
+
+#: ../includes/gateways/white.php:265
+#, php-format
+msgid "%s Store Purchase - Order ID - %s, Email - %s"
+msgstr ""
+
+#: ../includes/general-functions.php:536
 msgid "1,234.56"
 msgstr ""
 
-#: ../includes/general-functions.php:392
+#: ../includes/general-functions.php:537
 msgid "1.234,56"
 msgstr ""
 
-#: ../includes/general-functions.php:393
+#: ../includes/general-functions.php:538
 msgid "1 234,56"
 msgstr ""
 
-#: ../includes/general-functions.php:394
+#: ../includes/general-functions.php:539
 msgid "1 234.56"
 msgstr ""
 
-#: ../includes/general-functions.php:515 ../includes/install-notice.php:14
+#: ../includes/general-functions.php:601
+msgid "Half Hour"
+msgstr ""
+
+#: ../includes/general-functions.php:612
+msgid "Never"
+msgstr ""
+
+#: ../includes/general-functions.php:613
+msgid "30 Minutes"
+msgstr ""
+
+#: ../includes/general-functions.php:614
+msgid "45 Minutes"
+msgstr ""
+
+#: ../includes/general-functions.php:615
+msgid "1 Hour"
+msgstr ""
+
+#: ../includes/general-functions.php:616
+msgid "2 Hours"
+msgstr ""
+
+#: ../includes/general-functions.php:617
+msgid "3 Hours"
+msgstr ""
+
+#: ../includes/general-functions.php:618
+msgid "4 Hours"
+msgstr ""
+
+#: ../includes/general-functions.php:619
+msgid "5 Hours"
+msgstr ""
+
+#: ../includes/general-functions.php:620
+msgid "6 Hours"
+msgstr ""
+
+#: ../includes/general-functions.php:621
+msgid "12 Hours"
+msgstr ""
+
+#: ../includes/general-functions.php:622
+msgid "1 Day"
+msgstr ""
+
+#: ../includes/general-functions.php:623
+msgid "2 Days"
+msgstr ""
+
+#: ../includes/general-functions.php:624
+msgid "3 Days"
+msgstr ""
+
+#: ../includes/general-functions.php:625
+msgid "7 Days"
+msgstr ""
+
+#: ../includes/general-functions.php:626
+msgid "14 Days"
+msgstr ""
+
+#: ../includes/general-functions.php:627
+msgid "30 Days"
+msgstr ""
+
+#: ../includes/general-functions.php:777 ../includes/install-notice.php:12
 #, php-format
 msgid "Install %s Pages"
 msgstr ""
 
-#: ../includes/general-functions.php:544
+#: ../includes/general-functions.php:806
 msgid "Afghanistan"
 msgstr ""
 
-#: ../includes/general-functions.php:545
+#: ../includes/general-functions.php:807
 msgid "Åland Islands"
 msgstr ""
 
-#: ../includes/general-functions.php:546
+#: ../includes/general-functions.php:808
 msgid "Albania"
 msgstr ""
 
-#: ../includes/general-functions.php:547
+#: ../includes/general-functions.php:809
 msgid "Algeria"
 msgstr ""
 
-#: ../includes/general-functions.php:548
+#: ../includes/general-functions.php:810
 msgid "American Samoa"
 msgstr ""
 
-#: ../includes/general-functions.php:549
+#: ../includes/general-functions.php:811
 msgid "Andorra"
 msgstr ""
 
-#: ../includes/general-functions.php:550
+#: ../includes/general-functions.php:812
 msgid "Angola"
 msgstr ""
 
-#: ../includes/general-functions.php:551
+#: ../includes/general-functions.php:813
 msgid "Anguilla"
 msgstr ""
 
-#: ../includes/general-functions.php:552
+#: ../includes/general-functions.php:814
 msgid "Antarctica"
 msgstr ""
 
-#: ../includes/general-functions.php:553
+#: ../includes/general-functions.php:815
 msgid "Antigua and Barbuda"
 msgstr ""
 
-#: ../includes/general-functions.php:554
+#: ../includes/general-functions.php:816
 msgid "Argentina"
 msgstr ""
 
-#: ../includes/general-functions.php:555
+#: ../includes/general-functions.php:817
 msgid "Armenia"
 msgstr ""
 
-#: ../includes/general-functions.php:556
+#: ../includes/general-functions.php:818
 msgid "Aruba"
 msgstr ""
 
-#: ../includes/general-functions.php:559
+#: ../includes/general-functions.php:821
 msgid "Azerbaijan"
 msgstr ""
 
-#: ../includes/general-functions.php:560
+#: ../includes/general-functions.php:822
 msgid "Bahamas"
 msgstr ""
 
-#: ../includes/general-functions.php:561
+#: ../includes/general-functions.php:823
 msgid "Bahrain"
 msgstr ""
 
-#: ../includes/general-functions.php:562
+#: ../includes/general-functions.php:824
 msgid "Bangladesh"
 msgstr ""
 
-#: ../includes/general-functions.php:563
+#: ../includes/general-functions.php:825
 msgid "Barbados"
 msgstr ""
 
-#: ../includes/general-functions.php:564
+#: ../includes/general-functions.php:826
 msgid "Belarus"
 msgstr ""
 
-#: ../includes/general-functions.php:566
+#: ../includes/general-functions.php:828
 msgid "Belize"
 msgstr ""
 
-#: ../includes/general-functions.php:567
+#: ../includes/general-functions.php:829
 msgid "Benin"
 msgstr ""
 
-#: ../includes/general-functions.php:568
+#: ../includes/general-functions.php:830
 msgid "Bermuda"
 msgstr ""
 
-#: ../includes/general-functions.php:569
+#: ../includes/general-functions.php:831
 msgid "Bhutan"
 msgstr ""
 
-#: ../includes/general-functions.php:570
+#: ../includes/general-functions.php:832
 msgid "Bolivia, Plurinational State of"
 msgstr ""
 
-#: ../includes/general-functions.php:571
+#: ../includes/general-functions.php:833
 msgid "Bonaire, Sint Eustatius and Saba"
 msgstr ""
 
-#: ../includes/general-functions.php:572
+#: ../includes/general-functions.php:834
 msgid "Bosnia and Herzegovina"
 msgstr ""
 
-#: ../includes/general-functions.php:573
+#: ../includes/general-functions.php:835
 msgid "Botswana"
 msgstr ""
 
-#: ../includes/general-functions.php:574
+#: ../includes/general-functions.php:836
 msgid "Bouvet Island"
 msgstr ""
 
-#: ../includes/general-functions.php:575
+#: ../includes/general-functions.php:837
 msgid "Brazil"
 msgstr ""
 
-#: ../includes/general-functions.php:576
+#: ../includes/general-functions.php:838
 msgid "British Indian Ocean Territory"
 msgstr ""
 
-#: ../includes/general-functions.php:577
+#: ../includes/general-functions.php:839
 msgid "Brunei Darussalam"
 msgstr ""
 
-#: ../includes/general-functions.php:578
+#: ../includes/general-functions.php:840
 msgid "Bulgaria"
 msgstr ""
 
-#: ../includes/general-functions.php:579
+#: ../includes/general-functions.php:841
 msgid "Burkina Faso"
 msgstr ""
 
-#: ../includes/general-functions.php:580
+#: ../includes/general-functions.php:842
 msgid "Burundi"
 msgstr ""
 
-#: ../includes/general-functions.php:581
+#: ../includes/general-functions.php:843
 msgid "Cambodia"
 msgstr ""
 
-#: ../includes/general-functions.php:582
+#: ../includes/general-functions.php:844
 msgid "Cameroon"
 msgstr ""
 
-#: ../includes/general-functions.php:584
+#: ../includes/general-functions.php:846
 msgid "Cape Verde"
 msgstr ""
 
-#: ../includes/general-functions.php:585
+#: ../includes/general-functions.php:847
 msgid "Cayman Islands"
 msgstr ""
 
-#: ../includes/general-functions.php:586
+#: ../includes/general-functions.php:848
 msgid "Central African Republic"
 msgstr ""
 
-#: ../includes/general-functions.php:587
+#: ../includes/general-functions.php:849
 msgid "Chad"
 msgstr ""
 
-#: ../includes/general-functions.php:588
+#: ../includes/general-functions.php:850
 msgid "Chile"
 msgstr ""
 
-#: ../includes/general-functions.php:590
+#: ../includes/general-functions.php:852
 msgid "Christmas Island"
 msgstr ""
 
-#: ../includes/general-functions.php:591
+#: ../includes/general-functions.php:853
 msgid "Cocos (Keeling) Islands"
 msgstr ""
 
-#: ../includes/general-functions.php:592
+#: ../includes/general-functions.php:854
 msgid "Colombia"
 msgstr ""
 
-#: ../includes/general-functions.php:593
+#: ../includes/general-functions.php:855
 msgid "Comoros"
 msgstr ""
 
-#: ../includes/general-functions.php:594
+#: ../includes/general-functions.php:856
 msgid "Congo"
 msgstr ""
 
-#: ../includes/general-functions.php:595
+#: ../includes/general-functions.php:857
 msgid "Congo, the Democratic Republic of the"
 msgstr ""
 
-#: ../includes/general-functions.php:596
+#: ../includes/general-functions.php:858
 msgid "Cook Islands"
 msgstr ""
 
-#: ../includes/general-functions.php:597
+#: ../includes/general-functions.php:859
 msgid "Costa Rica"
 msgstr ""
 
-#: ../includes/general-functions.php:598
+#: ../includes/general-functions.php:860
 msgid "Côte d'Ivoire"
 msgstr ""
 
-#: ../includes/general-functions.php:599
+#: ../includes/general-functions.php:861
 msgid "Croatia"
 msgstr ""
 
-#: ../includes/general-functions.php:600
+#: ../includes/general-functions.php:862
 msgid "Cuba"
 msgstr ""
 
-#: ../includes/general-functions.php:601
+#: ../includes/general-functions.php:863
 msgid "Curaçao"
 msgstr ""
 
-#: ../includes/general-functions.php:602
+#: ../includes/general-functions.php:864
 msgid "Cyprus"
 msgstr ""
 
-#: ../includes/general-functions.php:603
+#: ../includes/general-functions.php:865
 msgid "Czech Republic"
 msgstr ""
 
-#: ../includes/general-functions.php:604
+#: ../includes/general-functions.php:866
 msgid "Denmark"
 msgstr ""
 
-#: ../includes/general-functions.php:605
+#: ../includes/general-functions.php:867
 msgid "Djibouti"
 msgstr ""
 
-#: ../includes/general-functions.php:606
+#: ../includes/general-functions.php:868
 msgid "Dominica"
 msgstr ""
 
-#: ../includes/general-functions.php:607
+#: ../includes/general-functions.php:869
 msgid "Dominican Republic"
 msgstr ""
 
-#: ../includes/general-functions.php:608
+#: ../includes/general-functions.php:870
 msgid "Ecuador"
 msgstr ""
 
-#: ../includes/general-functions.php:609
+#: ../includes/general-functions.php:871
 msgid "Egypt"
 msgstr ""
 
-#: ../includes/general-functions.php:610
+#: ../includes/general-functions.php:872
 msgid "El Salvador"
 msgstr ""
 
-#: ../includes/general-functions.php:611
+#: ../includes/general-functions.php:873
 msgid "Equatorial Guinea"
 msgstr ""
 
-#: ../includes/general-functions.php:612
+#: ../includes/general-functions.php:874
 msgid "Eritrea"
 msgstr ""
 
-#: ../includes/general-functions.php:613
+#: ../includes/general-functions.php:875
 msgid "Estonia"
 msgstr ""
 
-#: ../includes/general-functions.php:614
+#: ../includes/general-functions.php:876
 msgid "Ethiopia"
 msgstr ""
 
-#: ../includes/general-functions.php:615
+#: ../includes/general-functions.php:877
 msgid "Falkland Islands (Malvinas)"
 msgstr ""
 
-#: ../includes/general-functions.php:616
+#: ../includes/general-functions.php:878
 msgid "Faroe Islands"
 msgstr ""
 
-#: ../includes/general-functions.php:617
+#: ../includes/general-functions.php:879
 msgid "Fiji"
 msgstr ""
 
-#: ../includes/general-functions.php:618
+#: ../includes/general-functions.php:880
 msgid "Finland"
 msgstr ""
 
-#: ../includes/general-functions.php:620
+#: ../includes/general-functions.php:882
 msgid "French Guiana"
 msgstr ""
 
-#: ../includes/general-functions.php:621
+#: ../includes/general-functions.php:883
 msgid "French Polynesia"
 msgstr ""
 
-#: ../includes/general-functions.php:622
+#: ../includes/general-functions.php:884
 msgid "French Southern Territories"
 msgstr ""
 
-#: ../includes/general-functions.php:623
+#: ../includes/general-functions.php:885
 msgid "Gabon"
 msgstr ""
 
-#: ../includes/general-functions.php:624
+#: ../includes/general-functions.php:886
 msgid "Gambia"
 msgstr ""
 
-#: ../includes/general-functions.php:625
+#: ../includes/general-functions.php:887
 msgid "Georgia"
 msgstr ""
 
-#: ../includes/general-functions.php:627
+#: ../includes/general-functions.php:889
 msgid "Ghana"
 msgstr ""
 
-#: ../includes/general-functions.php:628
+#: ../includes/general-functions.php:890
 msgid "Gibraltar"
 msgstr ""
 
-#: ../includes/general-functions.php:629
+#: ../includes/general-functions.php:891
 msgid "Greece"
 msgstr ""
 
-#: ../includes/general-functions.php:630
+#: ../includes/general-functions.php:892
 msgid "Greenland"
 msgstr ""
 
-#: ../includes/general-functions.php:631
+#: ../includes/general-functions.php:893
 msgid "Grenada"
 msgstr ""
 
-#: ../includes/general-functions.php:632
+#: ../includes/general-functions.php:894
 msgid "Guadeloupe"
 msgstr ""
 
-#: ../includes/general-functions.php:633
+#: ../includes/general-functions.php:895
 msgid "Guam"
 msgstr ""
 
-#: ../includes/general-functions.php:634
+#: ../includes/general-functions.php:896
 msgid "Guatemala"
 msgstr ""
 
-#: ../includes/general-functions.php:635
+#: ../includes/general-functions.php:897
 msgid "Guernsey"
 msgstr ""
 
-#: ../includes/general-functions.php:636
+#: ../includes/general-functions.php:898
 msgid "Guinea"
 msgstr ""
 
-#: ../includes/general-functions.php:637
+#: ../includes/general-functions.php:899
 msgid "Guinea-Bissau"
 msgstr ""
 
-#: ../includes/general-functions.php:638
+#: ../includes/general-functions.php:900
 msgid "Guyana"
 msgstr ""
 
-#: ../includes/general-functions.php:639
+#: ../includes/general-functions.php:901
 msgid "Haiti"
 msgstr ""
 
-#: ../includes/general-functions.php:640
+#: ../includes/general-functions.php:902
 msgid "Heard Island and McDonald Islands"
 msgstr ""
 
-#: ../includes/general-functions.php:641
+#: ../includes/general-functions.php:903
 msgid "Holy See (Vatican City State)"
 msgstr ""
 
-#: ../includes/general-functions.php:642
+#: ../includes/general-functions.php:904
 msgid "Honduras"
 msgstr ""
 
-#: ../includes/general-functions.php:644
+#: ../includes/general-functions.php:906
 msgid "Hungary"
 msgstr ""
 
-#: ../includes/general-functions.php:645
+#: ../includes/general-functions.php:907
 msgid "Iceland"
 msgstr ""
 
-#: ../includes/general-functions.php:646
+#: ../includes/general-functions.php:908
 msgid "India"
 msgstr ""
 
-#: ../includes/general-functions.php:647
+#: ../includes/general-functions.php:909
 msgid "Indonesia"
 msgstr ""
 
-#: ../includes/general-functions.php:648
+#: ../includes/general-functions.php:910
 msgid "Iran, Islamic Republic of"
 msgstr ""
 
-#: ../includes/general-functions.php:649
+#: ../includes/general-functions.php:911
 msgid "Iraq"
 msgstr ""
 
-#: ../includes/general-functions.php:650
+#: ../includes/general-functions.php:912
 msgid "Ireland"
 msgstr ""
 
-#: ../includes/general-functions.php:651
+#: ../includes/general-functions.php:913
 msgid "Isle of Man"
 msgstr ""
 
-#: ../includes/general-functions.php:652
+#: ../includes/general-functions.php:914
 msgid "Israel"
 msgstr ""
 
-#: ../includes/general-functions.php:654
+#: ../includes/general-functions.php:916
 msgid "Jamaica"
 msgstr ""
 
-#: ../includes/general-functions.php:655
+#: ../includes/general-functions.php:917
 msgid "Japan"
 msgstr ""
 
-#: ../includes/general-functions.php:656
+#: ../includes/general-functions.php:918
 msgid "Jersey"
 msgstr ""
 
-#: ../includes/general-functions.php:657
+#: ../includes/general-functions.php:919
 msgid "Jordan"
 msgstr ""
 
-#: ../includes/general-functions.php:658
+#: ../includes/general-functions.php:920
 msgid "Kazakhstan"
 msgstr ""
 
-#: ../includes/general-functions.php:659
+#: ../includes/general-functions.php:921
 msgid "Kenya"
 msgstr ""
 
-#: ../includes/general-functions.php:660
+#: ../includes/general-functions.php:922
 msgid "Kiribati"
 msgstr ""
 
-#: ../includes/general-functions.php:661
+#: ../includes/general-functions.php:923
 msgid "Korea, Democratic People's Republic of"
 msgstr ""
 
-#: ../includes/general-functions.php:662
+#: ../includes/general-functions.php:924
 msgid "Korea, Republic of"
 msgstr ""
 
-#: ../includes/general-functions.php:663
+#: ../includes/general-functions.php:925
 msgid "Kuwait"
 msgstr ""
 
-#: ../includes/general-functions.php:664
+#: ../includes/general-functions.php:926
 msgid "Kyrgyzstan"
 msgstr ""
 
-#: ../includes/general-functions.php:665
+#: ../includes/general-functions.php:927
 msgid "Lao People's Democratic Republic"
 msgstr ""
 
-#: ../includes/general-functions.php:666
+#: ../includes/general-functions.php:928
 msgid "Latvia"
 msgstr ""
 
-#: ../includes/general-functions.php:667
+#: ../includes/general-functions.php:929
 msgid "Lebanon"
 msgstr ""
 
-#: ../includes/general-functions.php:668
+#: ../includes/general-functions.php:930
 msgid "Lesotho"
 msgstr ""
 
-#: ../includes/general-functions.php:669
+#: ../includes/general-functions.php:931
 msgid "Liberia"
 msgstr ""
 
-#: ../includes/general-functions.php:670
+#: ../includes/general-functions.php:932
 msgid "Libya"
 msgstr ""
 
-#: ../includes/general-functions.php:671
+#: ../includes/general-functions.php:933
 msgid "Liechtenstein"
 msgstr ""
 
-#: ../includes/general-functions.php:672
+#: ../includes/general-functions.php:934
 msgid "Lithuania"
 msgstr ""
 
-#: ../includes/general-functions.php:673
+#: ../includes/general-functions.php:935
 msgid "Luxembourg"
 msgstr ""
 
-#: ../includes/general-functions.php:674
+#: ../includes/general-functions.php:936
 msgid "Macao"
 msgstr ""
 
-#: ../includes/general-functions.php:675
+#: ../includes/general-functions.php:937
 msgid "Macedonia, the former Yugoslav Republic of"
 msgstr ""
 
-#: ../includes/general-functions.php:676
+#: ../includes/general-functions.php:938
 msgid "Madagascar"
 msgstr ""
 
-#: ../includes/general-functions.php:677
+#: ../includes/general-functions.php:939
 msgid "Malawi"
 msgstr ""
 
-#: ../includes/general-functions.php:678
+#: ../includes/general-functions.php:940
 msgid "Malaysia"
 msgstr ""
 
-#: ../includes/general-functions.php:679
+#: ../includes/general-functions.php:941
 msgid "Maldives"
 msgstr ""
 
-#: ../includes/general-functions.php:680
+#: ../includes/general-functions.php:942
 msgid "Mali"
 msgstr ""
 
-#: ../includes/general-functions.php:681
+#: ../includes/general-functions.php:943
 msgid "Malta"
 msgstr ""
 
-#: ../includes/general-functions.php:682
+#: ../includes/general-functions.php:944
 msgid "Marshall Islands"
 msgstr ""
 
-#: ../includes/general-functions.php:683
+#: ../includes/general-functions.php:945
 msgid "Martinique"
 msgstr ""
 
-#: ../includes/general-functions.php:684
+#: ../includes/general-functions.php:946
 msgid "Mauritania"
 msgstr ""
 
-#: ../includes/general-functions.php:685
+#: ../includes/general-functions.php:947
 msgid "Mauritius"
 msgstr ""
 
-#: ../includes/general-functions.php:686
+#: ../includes/general-functions.php:948
 msgid "Mayotte"
 msgstr ""
 
-#: ../includes/general-functions.php:688
+#: ../includes/general-functions.php:950
 msgid "Micronesia, Federated States of"
 msgstr ""
 
-#: ../includes/general-functions.php:689
+#: ../includes/general-functions.php:951
 msgid "Moldova, Republic of"
 msgstr ""
 
-#: ../includes/general-functions.php:690
+#: ../includes/general-functions.php:952
 msgid "Monaco"
 msgstr ""
 
-#: ../includes/general-functions.php:691
+#: ../includes/general-functions.php:953
 msgid "Mongolia"
 msgstr ""
 
-#: ../includes/general-functions.php:692
+#: ../includes/general-functions.php:954
 msgid "Montenegro"
 msgstr ""
 
-#: ../includes/general-functions.php:693
+#: ../includes/general-functions.php:955
 msgid "Montserrat"
 msgstr ""
 
-#: ../includes/general-functions.php:694
+#: ../includes/general-functions.php:956
 msgid "Morocco"
 msgstr ""
 
-#: ../includes/general-functions.php:695
+#: ../includes/general-functions.php:957
 msgid "Mozambique"
 msgstr ""
 
-#: ../includes/general-functions.php:696
+#: ../includes/general-functions.php:958
 msgid "Myanmar"
 msgstr ""
 
-#: ../includes/general-functions.php:697
+#: ../includes/general-functions.php:959
 msgid "Namibia"
 msgstr ""
 
-#: ../includes/general-functions.php:698
+#: ../includes/general-functions.php:960
 msgid "Nauru"
 msgstr ""
 
-#: ../includes/general-functions.php:699
+#: ../includes/general-functions.php:961
 msgid "Nepal"
 msgstr ""
 
-#: ../includes/general-functions.php:701
+#: ../includes/general-functions.php:963
 msgid "New Caledonia"
 msgstr ""
 
-#: ../includes/general-functions.php:703
+#: ../includes/general-functions.php:965
 msgid "Nicaragua"
 msgstr ""
 
-#: ../includes/general-functions.php:704
+#: ../includes/general-functions.php:966
 msgid "Niger"
 msgstr ""
 
-#: ../includes/general-functions.php:705
+#: ../includes/general-functions.php:967
 msgid "Nigeria"
 msgstr ""
 
-#: ../includes/general-functions.php:706
+#: ../includes/general-functions.php:968
 msgid "Niue"
 msgstr ""
 
-#: ../includes/general-functions.php:707
+#: ../includes/general-functions.php:969
 msgid "Norfolk Island"
 msgstr ""
 
-#: ../includes/general-functions.php:708
+#: ../includes/general-functions.php:970
 msgid "Northern Mariana Islands"
 msgstr ""
 
-#: ../includes/general-functions.php:709
+#: ../includes/general-functions.php:971
 msgid "Norway"
 msgstr ""
 
-#: ../includes/general-functions.php:710
+#: ../includes/general-functions.php:972
 msgid "Oman"
 msgstr ""
 
-#: ../includes/general-functions.php:711
+#: ../includes/general-functions.php:973
 msgid "Pakistan"
 msgstr ""
 
-#: ../includes/general-functions.php:712
+#: ../includes/general-functions.php:974
 msgid "Palau"
 msgstr ""
 
-#: ../includes/general-functions.php:713
+#: ../includes/general-functions.php:975
 msgid "Palestinian Territory, Occupied"
 msgstr ""
 
-#: ../includes/general-functions.php:714
+#: ../includes/general-functions.php:976
 msgid "Panama"
 msgstr ""
 
-#: ../includes/general-functions.php:715
+#: ../includes/general-functions.php:977
 msgid "Papua New Guinea"
 msgstr ""
 
-#: ../includes/general-functions.php:716
+#: ../includes/general-functions.php:978
 msgid "Paraguay"
 msgstr ""
 
-#: ../includes/general-functions.php:717
+#: ../includes/general-functions.php:979
 msgid "Peru"
 msgstr ""
 
-#: ../includes/general-functions.php:718
+#: ../includes/general-functions.php:980
 msgid "Philippines"
 msgstr ""
 
-#: ../includes/general-functions.php:719
+#: ../includes/general-functions.php:981
 msgid "Pitcairn"
 msgstr ""
 
-#: ../includes/general-functions.php:721
+#: ../includes/general-functions.php:983
 msgid "Portugal"
 msgstr ""
 
-#: ../includes/general-functions.php:722
+#: ../includes/general-functions.php:984
 msgid "Puerto Rico"
 msgstr ""
 
-#: ../includes/general-functions.php:723
+#: ../includes/general-functions.php:985
 msgid "Qatar"
 msgstr ""
 
-#: ../includes/general-functions.php:724
+#: ../includes/general-functions.php:986
 msgid "Réunion"
 msgstr ""
 
-#: ../includes/general-functions.php:725
+#: ../includes/general-functions.php:987
 msgid "Romania"
 msgstr ""
 
-#: ../includes/general-functions.php:726
+#: ../includes/general-functions.php:988
 msgid "Russian Federation"
 msgstr ""
 
-#: ../includes/general-functions.php:727
+#: ../includes/general-functions.php:989
 msgid "Rwanda"
 msgstr ""
 
-#: ../includes/general-functions.php:728
+#: ../includes/general-functions.php:990
 msgid "Saint Barthélemy"
 msgstr ""
 
-#: ../includes/general-functions.php:729
+#: ../includes/general-functions.php:991
 msgid "Saint Helena, Ascension and Tristan da Cunha"
 msgstr ""
 
-#: ../includes/general-functions.php:730
+#: ../includes/general-functions.php:992
 msgid "Saint Kitts and Nevis"
 msgstr ""
 
-#: ../includes/general-functions.php:731
+#: ../includes/general-functions.php:993
 msgid "Saint Lucia"
 msgstr ""
 
-#: ../includes/general-functions.php:732
+#: ../includes/general-functions.php:994
 msgid "Saint Martin (French part)"
 msgstr ""
 
-#: ../includes/general-functions.php:733
+#: ../includes/general-functions.php:995
 msgid "Saint Pierre and Miquelon"
 msgstr ""
 
-#: ../includes/general-functions.php:734
+#: ../includes/general-functions.php:996
 msgid "Saint Vincent and the Grenadines"
 msgstr ""
 
-#: ../includes/general-functions.php:735
+#: ../includes/general-functions.php:997
 msgid "Samoa"
 msgstr ""
 
-#: ../includes/general-functions.php:736
+#: ../includes/general-functions.php:998
 msgid "San Marino"
 msgstr ""
 
-#: ../includes/general-functions.php:737
+#: ../includes/general-functions.php:999
 msgid "Sao Tome and Principe"
 msgstr ""
 
-#: ../includes/general-functions.php:738
+#: ../includes/general-functions.php:1000
 msgid "Saudi Arabia"
 msgstr ""
 
-#: ../includes/general-functions.php:739
+#: ../includes/general-functions.php:1001
 msgid "Senegal"
 msgstr ""
 
-#: ../includes/general-functions.php:740
+#: ../includes/general-functions.php:1002
 msgid "Serbia"
 msgstr ""
 
-#: ../includes/general-functions.php:741
+#: ../includes/general-functions.php:1003
 msgid "Seychelles"
 msgstr ""
 
-#: ../includes/general-functions.php:742
+#: ../includes/general-functions.php:1004
 msgid "Sierra Leone"
 msgstr ""
 
-#: ../includes/general-functions.php:744
+#: ../includes/general-functions.php:1006
 msgid "Sint Maarten (Dutch part)"
 msgstr ""
 
-#: ../includes/general-functions.php:745
+#: ../includes/general-functions.php:1007
 msgid "Slovakia"
 msgstr ""
 
-#: ../includes/general-functions.php:746
+#: ../includes/general-functions.php:1008
 msgid "Slovenia"
 msgstr ""
 
-#: ../includes/general-functions.php:747
+#: ../includes/general-functions.php:1009
 msgid "Solomon Islands"
 msgstr ""
 
-#: ../includes/general-functions.php:748
+#: ../includes/general-functions.php:1010
 msgid "Somalia"
 msgstr ""
 
-#: ../includes/general-functions.php:749
+#: ../includes/general-functions.php:1011
 msgid "South Africa"
 msgstr ""
 
-#: ../includes/general-functions.php:750
+#: ../includes/general-functions.php:1012
 msgid "South Georgia and the South Sandwich Islands"
 msgstr ""
 
-#: ../includes/general-functions.php:751
+#: ../includes/general-functions.php:1013
 msgid "South Sudan"
 msgstr ""
 
-#: ../includes/general-functions.php:753
+#: ../includes/general-functions.php:1015
 msgid "Sri Lanka"
 msgstr ""
 
-#: ../includes/general-functions.php:754
+#: ../includes/general-functions.php:1016
 msgid "Sudan"
 msgstr ""
 
-#: ../includes/general-functions.php:755
+#: ../includes/general-functions.php:1017
 msgid "Suriname"
 msgstr ""
 
-#: ../includes/general-functions.php:756
+#: ../includes/general-functions.php:1018
 msgid "Svalbard and Jan Mayen"
 msgstr ""
 
-#: ../includes/general-functions.php:757
+#: ../includes/general-functions.php:1019
 msgid "Swaziland"
 msgstr ""
 
-#: ../includes/general-functions.php:760
+#: ../includes/general-functions.php:1022
 msgid "Syrian Arab Republic"
 msgstr ""
 
-#: ../includes/general-functions.php:761
+#: ../includes/general-functions.php:1023
 msgid "Taiwan, Province of China"
 msgstr ""
 
-#: ../includes/general-functions.php:762
+#: ../includes/general-functions.php:1024
 msgid "Tajikistan"
 msgstr ""
 
-#: ../includes/general-functions.php:763
+#: ../includes/general-functions.php:1025
 msgid "Tanzania, United Republic of"
 msgstr ""
 
-#: ../includes/general-functions.php:764
+#: ../includes/general-functions.php:1026
 msgid "Thailand"
 msgstr ""
 
-#: ../includes/general-functions.php:765
+#: ../includes/general-functions.php:1027
 msgid "Timor-Leste"
 msgstr ""
 
-#: ../includes/general-functions.php:766
+#: ../includes/general-functions.php:1028
 msgid "Togo"
 msgstr ""
 
-#: ../includes/general-functions.php:767
+#: ../includes/general-functions.php:1029
 msgid "Tokelau"
 msgstr ""
 
-#: ../includes/general-functions.php:768
+#: ../includes/general-functions.php:1030
 msgid "Tonga"
 msgstr ""
 
-#: ../includes/general-functions.php:769
+#: ../includes/general-functions.php:1031
 msgid "Trinidad and Tobago"
 msgstr ""
 
-#: ../includes/general-functions.php:770
+#: ../includes/general-functions.php:1032
 msgid "Tunisia"
 msgstr ""
 
-#: ../includes/general-functions.php:771
+#: ../includes/general-functions.php:1033
 msgid "Turkey"
 msgstr ""
 
-#: ../includes/general-functions.php:772
+#: ../includes/general-functions.php:1034
 msgid "Turkmenistan"
 msgstr ""
 
-#: ../includes/general-functions.php:773
+#: ../includes/general-functions.php:1035
 msgid "Turks and Caicos Islands"
 msgstr ""
 
-#: ../includes/general-functions.php:774
+#: ../includes/general-functions.php:1036
 msgid "Tuvalu"
 msgstr ""
 
-#: ../includes/general-functions.php:775
+#: ../includes/general-functions.php:1037
 msgid "Uganda"
 msgstr ""
 
-#: ../includes/general-functions.php:776
+#: ../includes/general-functions.php:1038
 msgid "Ukraine"
 msgstr ""
 
-#: ../includes/general-functions.php:777
+#: ../includes/general-functions.php:1039
 msgid "United Arab Emirates"
 msgstr ""
 
-#: ../includes/general-functions.php:780
+#: ../includes/general-functions.php:1042
 msgid "United States Minor Outlying Islands"
 msgstr ""
 
-#: ../includes/general-functions.php:781
+#: ../includes/general-functions.php:1043
 msgid "Uruguay"
 msgstr ""
 
-#: ../includes/general-functions.php:782
+#: ../includes/general-functions.php:1044
 msgid "Uzbekistan"
 msgstr ""
 
-#: ../includes/general-functions.php:783
+#: ../includes/general-functions.php:1045
 msgid "Vanuatu"
 msgstr ""
 
-#: ../includes/general-functions.php:784
+#: ../includes/general-functions.php:1046
 msgid "Venezuela, Bolivarian Republic of"
 msgstr ""
 
-#: ../includes/general-functions.php:785
+#: ../includes/general-functions.php:1047
 msgid "Viet Nam"
 msgstr ""
 
-#: ../includes/general-functions.php:786
+#: ../includes/general-functions.php:1048
 msgid "Virgin Islands, British"
 msgstr ""
 
-#: ../includes/general-functions.php:787
+#: ../includes/general-functions.php:1049
 msgid "Virgin Islands, U.S."
 msgstr ""
 
-#: ../includes/general-functions.php:788
+#: ../includes/general-functions.php:1050
 msgid "Wallis and Futuna"
 msgstr ""
 
-#: ../includes/general-functions.php:789
+#: ../includes/general-functions.php:1051
 msgid "Western Sahara"
 msgstr ""
 
-#: ../includes/general-functions.php:790
+#: ../includes/general-functions.php:1052
 msgid "Yemen"
 msgstr ""
 
-#: ../includes/general-functions.php:791
+#: ../includes/general-functions.php:1053
 msgid "Zambia"
 msgstr ""
 
-#: ../includes/general-functions.php:792
+#: ../includes/general-functions.php:1054
 msgid "Zimbabwe"
 msgstr ""
 
-#: ../includes/general-functions.php:804
+#: ../includes/general-functions.php:1066
 msgid "Jan"
 msgstr ""
 
-#: ../includes/general-functions.php:805
+#: ../includes/general-functions.php:1067
 msgid "Feb"
 msgstr ""
 
-#: ../includes/general-functions.php:806
+#: ../includes/general-functions.php:1068
 msgid "Mar"
 msgstr ""
 
-#: ../includes/general-functions.php:807
+#: ../includes/general-functions.php:1069
 msgid "Apr"
 msgstr ""
 
-#: ../includes/general-functions.php:808
+#: ../includes/general-functions.php:1070
 msgid "May"
 msgstr ""
 
-#: ../includes/general-functions.php:809
+#: ../includes/general-functions.php:1071
 msgid "Jun"
 msgstr ""
 
-#: ../includes/general-functions.php:810
+#: ../includes/general-functions.php:1072
 msgid "Jul"
 msgstr ""
 
-#: ../includes/general-functions.php:811
+#: ../includes/general-functions.php:1073
 msgid "Aug"
 msgstr ""
 
-#: ../includes/general-functions.php:812
+#: ../includes/general-functions.php:1074
 msgid "Sep"
 msgstr ""
 
-#: ../includes/general-functions.php:813
+#: ../includes/general-functions.php:1075
 msgid "Oct"
 msgstr ""
 
-#: ../includes/general-functions.php:814
+#: ../includes/general-functions.php:1076
 msgid "Nov"
 msgstr ""
 
-#: ../includes/general-functions.php:815
+#: ../includes/general-functions.php:1077
 msgid "Dec"
 msgstr ""
 
-#: ../includes/general-functions.php:860 ../includes/internal-hooks.php:168
+#: ../includes/general-functions.php:1122 ../includes/internal-hooks.php:172
 #, php-format
 msgid "%1$s %2$s %3$s"
 msgstr ""
 
-#: ../includes/general-functions.php:870
+#: ../includes/general-functions.php:1139
 msgid "Order Fraud"
 msgstr ""
 
-#: ../includes/general-functions.php:904 ../includes/internal-hooks.php:283
+#: ../includes/general-functions.php:1173 ../includes/internal-hooks.php:315
 msgid "Download"
 msgstr ""
 
-#: ../includes/general-functions.php:925
+#: ../includes/general-functions.php:1194
 msgid "Under Review"
 msgstr ""
 
-#: ../includes/general-functions.php:927
+#: ../includes/general-functions.php:1196
 msgid "Payment Completed"
 msgstr ""
 
-#: ../includes/general-functions.php:940
+#: ../includes/general-functions.php:1209
 msgid "Order date: "
 msgstr ""
 
-#: ../includes/general-functions.php:941
+#: ../includes/general-functions.php:1210
 msgid "Order status: "
 msgstr ""
 
-#: ../includes/general-functions.php:943
+#: ../includes/general-functions.php:1212
 msgid "Transaction ID: "
 msgstr ""
 
-#: ../includes/general-functions.php:945
+#: ../includes/general-functions.php:1214
 msgid "Subtotal: "
 msgstr ""
 
-#: ../includes/general-functions.php:953
+#: ../includes/general-functions.php:1222
 msgid "Total: "
 msgstr ""
 
-#: ../includes/general-functions.php:1015
+#: ../includes/general-functions.php:1284
 msgid "You don't have required permissions to access this page."
 msgstr ""
 
-#: ../includes/general-functions.php:1157
+#: ../includes/general-functions.php:1429
 msgid "Fixed"
 msgstr ""
 
-#: ../includes/general-functions.php:1158
+#: ../includes/general-functions.php:1430
 msgid "Percentage"
 msgstr ""
 
-#: ../includes/general-functions.php:1272 ../includes/internal-hooks.php:400
+#: ../includes/general-functions.php:1548 ../includes/internal-hooks.php:432
 msgid "All"
 msgstr ""
 
-#: ../includes/general-functions.php:1300 ../includes/internal-hooks.php:415
+#: ../includes/general-functions.php:1576 ../includes/internal-hooks.php:447
 msgid "Fixed Amount"
 msgstr ""
 
-#: ../includes/general-functions.php:1301 ../includes/internal-hooks.php:417
+#: ../includes/general-functions.php:1577 ../includes/internal-hooks.php:449
 msgid "Percentage (%)"
 msgstr ""
 
-#: ../includes/install-notice.php:13
+#: ../includes/install-notice.php:11
 #, php-format
 msgid ""
 "<strong>Welcome to %s</strong> &#8211; Install pages required by the plugin "
 "automatically."
 msgstr ""
 
-#: ../includes/internal-hooks.php:189
+#: ../includes/internal-hooks.php:193
 msgid "Code: "
 msgstr ""
 
-#: ../includes/internal-hooks.php:217 ../includes/internal-hooks.php:239
+#: ../includes/internal-hooks.php:221 ../includes/internal-hooks.php:251
 msgid "Shortcode"
 msgstr ""
 
-#: ../includes/internal-hooks.php:297
+#: ../includes/internal-hooks.php:329
 msgid " Details"
 msgstr ""
 
-#: ../includes/internal-hooks.php:321
+#: ../includes/internal-hooks.php:353
 msgid "Administrator"
 msgstr ""
 
-#: ../includes/internal-hooks.php:335
+#: ../includes/internal-hooks.php:367
 msgid "Wrong user. API will be available to the administrators only."
 msgstr ""
 
-#: ../includes/internal-hooks.php:365
+#: ../includes/internal-hooks.php:397
 msgid "No minimum"
 msgstr ""
 
-#: ../includes/internal-hooks.php:371
+#: ../includes/internal-hooks.php:403
 msgid "No maximum"
 msgstr ""
 
-#: ../includes/internal-hooks.php:377
+#: ../includes/internal-hooks.php:409
 msgid "-"
+msgstr ""
+
+#: ../includes/network-admin-pages/network_settings-gateways.php:29
+msgid "Check payment gateways you want to allow on the subsites."
+msgstr ""
+
+#: ../includes/network-admin-pages/network_settings.php:15
+msgid "Network Settings"
 msgstr ""
 
 #: ../includes/templates/page-order.php:17
@@ -4827,27 +5160,27 @@ msgstr ""
 msgid "TOTAL: "
 msgstr ""
 
-#: ../includes/templates/shortcode-cart-contents.php:72
+#: ../includes/templates/shortcode-cart-contents.php:75
 msgid "APPLY"
 msgstr ""
 
-#: ../includes/templates/shortcode-cart-contents.php:73
+#: ../includes/templates/shortcode-cart-contents.php:77
 msgid "Update Cart"
 msgstr ""
 
-#: ../includes/templates/shortcode-cart-contents.php:85
+#: ../includes/templates/shortcode-cart-contents.php:89
 msgid "Buyer Info"
 msgstr ""
 
-#: ../includes/templates/shortcode-cart-contents.php:125
+#: ../includes/templates/shortcode-cart-contents.php:220
 msgid "Owner Info"
 msgstr ""
 
-#: ../includes/templates/shortcode-cart-contents.php:157
+#: ../includes/templates/shortcode-cart-contents.php:344
 msgid "Proceed to Checkout"
 msgstr ""
 
-#: ../includes/templates/shortcode-cart-contents.php:161
+#: ../includes/templates/shortcode-cart-contents.php:348
 msgid "The cart is empty."
 msgstr ""
 
@@ -4954,311 +5287,319 @@ msgstr ""
 msgid "Go to Cart"
 msgstr ""
 
-#: ../includes/widgets/cart-widget.php:73 ../tickera.php:1239
+#: ../includes/widgets/cart-widget.php:73 ../tickera.php:1261
 msgid "The cart is empty"
 msgstr ""
 
-#: ../tickera.php:287
+#: ../tickera.php:294
 msgid "tickets-cart"
 msgstr ""
 
-#: ../tickera.php:292
+#: ../tickera.php:299
 msgid "tickets-payment"
 msgstr ""
 
-#: ../tickera.php:293 ../tickera.php:937
+#: ../tickera.php:300 ../tickera.php:958
 msgid "Payment"
 msgstr ""
 
-#: ../tickera.php:297
+#: ../tickera.php:304
 msgid "tickets-order-confirmation"
 msgstr ""
 
-#: ../tickera.php:298
+#: ../tickera.php:305
 msgid "Payment Confirmation"
 msgstr ""
 
-#: ../tickera.php:302
+#: ../tickera.php:309
 msgid "tickets-order-details"
 msgstr ""
 
-#: ../tickera.php:303
+#: ../tickera.php:310
 msgid "Order Details"
 msgstr ""
 
-#: ../tickera.php:409
+#: ../tickera.php:418
 msgid "Default"
 msgstr ""
 
-#: ../tickera.php:515
+#: ../tickera.php:524
 msgid " is almost ready. "
 msgstr ""
 
-#: ../tickera.php:516
+#: ../tickera.php:525
 #, php-format
 msgid "You must %s to something other than the default for it to work."
 msgstr ""
 
-#: ../tickera.php:516
+#: ../tickera.php:525
 msgid "update your permalink structure"
 msgstr ""
 
-#: ../tickera.php:861
+#: ../tickera.php:881
 #, php-format
 msgid "Redirecting to %s payment page..."
 msgstr ""
 
-#: ../tickera.php:863
+#: ../tickera.php:883
 msgid "Continue &raquo;"
 msgstr ""
 
-#: ../tickera.php:865
+#: ../tickera.php:885
 msgid "Continue Checkout &raquo;"
 msgstr ""
 
-#: ../tickera.php:994
+#: ../tickera.php:1015
 msgid "Process Payment"
 msgstr ""
 
-#: ../tickera.php:1042
+#: ../tickera.php:1063
 msgid "Confirmation"
 msgstr ""
 
-#: ../tickera.php:1280
+#: ../tickera.php:1302
 #, php-format
 msgid "Minimum order quantity for \"%s\" is %d"
 msgstr ""
 
-#: ../tickera.php:1289
+#: ../tickera.php:1311
 #, php-format
 msgid "Maximum order quantity for \"%s\" is %d"
 msgstr ""
 
-#: ../tickera.php:1300
+#: ../tickera.php:1322
 #, php-format
 msgid "Only %d \"%s\" %s left"
 msgstr ""
 
-#: ../tickera.php:1300
+#: ../tickera.php:1322
 msgid "tickets"
 msgstr ""
 
-#: ../tickera.php:1300
+#: ../tickera.php:1322
 msgid "ticket"
 msgstr ""
 
-#: ../tickera.php:1303
+#: ../tickera.php:1325
 #, php-format
 msgid "\"%s\" tickets are sold out"
 msgstr ""
 
-#: ../tickera.php:1357
+#: ../tickera.php:1394
 msgid "All fields marked with * are required."
 msgstr ""
 
-#: ../tickera.php:1407
+#: ../tickera.php:1441
+msgid "here"
+msgstr ""
+
+#: ../tickera.php:1444
 msgid "You can check your order status here: "
 msgstr ""
 
-#: ../tickera.php:1408 ../tickera.php:1411
+#: ../tickera.php:1445 ../tickera.php:1448
 #, php-format
 msgid "You can check your order status %s."
 msgstr ""
 
-#: ../tickera.php:1414
+#: ../tickera.php:1451
 #, php-format
 msgid "You can check your order status and download tickets %s."
 msgstr ""
 
-#: ../tickera.php:1467
+#: ../tickera.php:1504
 msgid "Are you sure you want to remove all tickets from your cart?"
 msgstr ""
 
-#: ../tickera.php:1468
+#: ../tickera.php:1505
 msgid "Ticket Added!"
 msgstr ""
 
-#: ../tickera.php:1470
+#: ../tickera.php:1507
 msgid "Adding ticket to cart..."
 msgstr ""
 
-#: ../tickera.php:1471
+#: ../tickera.php:1508
 msgid "In Your Cart"
 msgstr ""
 
-#: ../tickera.php:1494
+#: ../tickera.php:1510
+msgid "Please update your cart before proceeding."
+msgstr ""
+
+#: ../tickera.php:1532
 #, php-format
 msgid ""
 "There was an issue determining where %s is installed. Please reinstall it."
 msgstr ""
 
-#: ../tickera.php:1737
+#: ../tickera.php:1853
 msgid "IPN"
 msgstr ""
 
-#: ../tickera.php:2277 ../tickera.php:2301 ../tickera.php:2325
-#: ../tickera.php:2349 ../tickera.php:2389
+#: ../tickera.php:2415 ../tickera.php:2439 ../tickera.php:2463
+#: ../tickera.php:2487 ../tickera.php:2527
 msgid "Create New"
 msgstr ""
 
-#: ../tickera.php:2278
+#: ../tickera.php:2416
 msgid "Create New Event"
 msgstr ""
 
-#: ../tickera.php:2279
+#: ../tickera.php:2417
 msgid "Edit Events"
 msgstr ""
 
-#: ../tickera.php:2281
+#: ../tickera.php:2419
 msgid "New Event"
 msgstr ""
 
-#: ../tickera.php:2282 ../tickera.php:2286
+#: ../tickera.php:2420 ../tickera.php:2424
 msgid "View Event"
 msgstr ""
 
-#: ../tickera.php:2284
+#: ../tickera.php:2422
 msgid "No Events Found"
 msgstr ""
 
-#: ../tickera.php:2285
+#: ../tickera.php:2423
 msgid "No Events found in Trash"
 msgstr ""
 
-#: ../tickera.php:2302
+#: ../tickera.php:2440
 msgid "Create New API Keys"
 msgstr ""
 
-#: ../tickera.php:2303
+#: ../tickera.php:2441
 msgid "Edit API Keys"
 msgstr ""
 
-#: ../tickera.php:2305
+#: ../tickera.php:2443
 msgid "New API Key"
 msgstr ""
 
-#: ../tickera.php:2306 ../tickera.php:2310
+#: ../tickera.php:2444 ../tickera.php:2448
 msgid "View API Key"
 msgstr ""
 
-#: ../tickera.php:2308
+#: ../tickera.php:2446
 msgid "No API Keys Found"
 msgstr ""
 
-#: ../tickera.php:2309
+#: ../tickera.php:2447
 msgid "No API Keys found in Trash"
 msgstr ""
 
-#: ../tickera.php:2326
+#: ../tickera.php:2464
 msgid "Create New Ticket"
 msgstr ""
 
-#: ../tickera.php:2327
+#: ../tickera.php:2465
 msgid "Edit Ticket"
 msgstr ""
 
-#: ../tickera.php:2329
+#: ../tickera.php:2467
 msgid "New Ticket"
 msgstr ""
 
-#: ../tickera.php:2330 ../tickera.php:2334
+#: ../tickera.php:2468 ../tickera.php:2472
 msgid "View Ticket"
 msgstr ""
 
-#: ../tickera.php:2332
+#: ../tickera.php:2470
 msgid "No Tickets Found"
 msgstr ""
 
-#: ../tickera.php:2333
+#: ../tickera.php:2471
 msgid "No Tickets found in Trash"
 msgstr ""
 
-#: ../tickera.php:2347
+#: ../tickera.php:2485
 msgid "Ticket Instances"
 msgstr ""
 
-#: ../tickera.php:2348
+#: ../tickera.php:2486
 msgid "Ticket Instance"
 msgstr ""
 
-#: ../tickera.php:2350
+#: ../tickera.php:2488
 msgid "Create New Ticket Instance"
 msgstr ""
 
-#: ../tickera.php:2351
+#: ../tickera.php:2489
 msgid "Edit Ticket Instance"
 msgstr ""
 
-#: ../tickera.php:2353
+#: ../tickera.php:2491
 msgid "New Ticket Instance"
 msgstr ""
 
-#: ../tickera.php:2354 ../tickera.php:2358
+#: ../tickera.php:2492 ../tickera.php:2496
 msgid "View Ticket Instance"
 msgstr ""
 
-#: ../tickera.php:2355
+#: ../tickera.php:2493
 msgid "Search Ticket Instances"
 msgstr ""
 
-#: ../tickera.php:2356
+#: ../tickera.php:2494
 msgid "No Ticket Instances Found"
 msgstr ""
 
-#: ../tickera.php:2357
+#: ../tickera.php:2495
 msgid "No Ticket Instances found in Trash"
 msgstr ""
 
-#: ../tickera.php:2374
+#: ../tickera.php:2512
 msgid "View Order"
 msgstr ""
 
-#: ../tickera.php:2376
+#: ../tickera.php:2514
 msgid "No Orders Found"
 msgstr ""
 
-#: ../tickera.php:2387 ../tickera.php:2388
+#: ../tickera.php:2525 ../tickera.php:2526
 msgid "Templates"
 msgstr ""
 
-#: ../tickera.php:2390
+#: ../tickera.php:2528
 msgid "Create New Template"
 msgstr ""
 
-#: ../tickera.php:2391
+#: ../tickera.php:2529
 msgid "Edit Templates"
 msgstr ""
 
-#: ../tickera.php:2393
+#: ../tickera.php:2531
 msgid "New Template"
 msgstr ""
 
-#: ../tickera.php:2394 ../tickera.php:2398
+#: ../tickera.php:2532 ../tickera.php:2536
 msgid "View Template"
 msgstr ""
 
-#: ../tickera.php:2396
+#: ../tickera.php:2534
 msgid "No Templates Found"
 msgstr ""
 
-#: ../tickera.php:2397
+#: ../tickera.php:2535
 msgid "No Templates found in Trash"
 msgstr ""
 
-#: ../tickera.php:2429
+#: ../tickera.php:2592
 msgid "Please confirm that you want to delete it permanently?"
 msgstr ""
 
-#: ../tickera.php:2430
+#: ../tickera.php:2593
 msgid "Order status changed successfully."
 msgstr ""
 
-#: ../tickera.php:2523
+#: ../tickera.php:2688
 msgid ""
 "An Unexpected HTTP Error occurred during the API request.</p> <p><a href=\"?"
 "\" onclick=\"document.location.reload(); return false;\">Try again</a>"
 msgstr ""
 
-#: ../tickera.php:2528
+#: ../tickera.php:2693
 msgid "An unknown error occurred"
 msgstr ""

@@ -207,12 +207,12 @@ class TC_Gateway_2Checkout extends TC_Gateway_API {
 		$content = '';
 
 		if ( $order->details->post_status == 'order_received' ) {
-			$content .= '<p>' . sprintf( __( 'Your payment via 2Checkout for this order totaling <strong>%s</strong> is not yet complete.', 'tc' ), apply_filters('tc_cart_currency_and_format', $order->details->tc_payment_info[ 'total' ] ) ) . '</p>';
-			$content .= '<p>' . __( 'Current order status:', 'tc' ) . ' <strong>' . __( 'Pending Payment','tc' ) . '</strong></p>';
+			$content .= '<p>' . sprintf( __( 'Your payment via 2Checkout for this order totaling <strong>%s</strong> is not yet complete.', 'tc' ), apply_filters( 'tc_cart_currency_and_format', $order->details->tc_payment_info[ 'total' ] ) ) . '</p>';
+			$content .= '<p>' . __( 'Current order status:', 'tc' ) . ' <strong>' . __( 'Pending Payment', 'tc' ) . '</strong></p>';
 		} else if ( $order->details->post_status == 'order_fraud' ) {
 			$content .= '<p>' . __( 'Your payment is under review. We will back to you soon.', 'tc' ) . '</p>';
 		} else if ( $order->details->post_status == 'order_paid' ) {
-			$content .= '<p>' . sprintf( __( 'Your payment via 2Checkout for this order totaling <strong>%s</strong> is complete.', 'tc' ), apply_filters('tc_cart_currency_and_format',  $order->details->tc_payment_info[ 'total' ] ) ) . '</p>';
+			$content .= '<p>' . sprintf( __( 'Your payment via 2Checkout for this order totaling <strong>%s</strong> is complete.', 'tc' ), apply_filters( 'tc_cart_currency_and_format', $order->details->tc_payment_info[ 'total' ] ) ) . '</p>';
 		}
 
 		$content = apply_filters( 'tc_order_confirmation_message_content_' . $this->plugin_name, $content );
@@ -261,9 +261,9 @@ class TC_Gateway_2Checkout extends TC_Gateway_API {
 		<div id="<?php echo $this->plugin_name; ?>" class="postbox" <?php echo (!$visible ? 'style="display:none;"' : ''); ?>>
 			<h3 class='handle'><span><?php _e( '2Checkout', 'tc' ); ?></span></h3>
 			<div class="inside">
-				<span class="description"><?php
-					_e( 'Sell your tickets via 2Checkout.com.', 'tc' );
-					?></span>
+				<span class="description">
+					<?php echo sprintf( __( 'Sell your tickets via <a target="_blank" href="%s">2Checkout.com</a>', 'tc' ), "https://www.2checkout.com/referral?r=95d26f72d1" ); ?>
+				</span>
 				<table class="form-table">
 					<tr>
 						<th scope="row"><?php _e( 'Mode', 'tc' ) ?></th>

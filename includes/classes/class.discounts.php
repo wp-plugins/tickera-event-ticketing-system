@@ -300,8 +300,8 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 				}
 
 			}
-			
-			if ( ((int)$new_total == (int)$total) || empty($total) ) {
+
+			if ( ((int) $new_total == (int) $total) || empty( $total ) ) {
 				
 			} else {
 				$discount->discount_message		 = __( 'Discount code applied.', 'tc' );
@@ -315,6 +315,16 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 			$_SESSION[ 'discounted_total' ]	 = tc_minimum_total( apply_filters( 'tc_discounted_total', $new_total ) );
 			$discounted_total				 = $new_total;
 
+
+			/*add_filter( 'tc_discounted_fees_total', 'tc_discounted_fees_total' );
+			if ( !function_exists( 'tc_discounted_fees_total' ) ) {
+
+				function tc_discounted_fees_total( $fees ) {
+					global $new_total;
+					return $new_total;
+				}
+
+			}*/
 			//return $discounted_total;
 		}
 
