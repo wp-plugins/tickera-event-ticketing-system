@@ -5,7 +5,7 @@
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.1.7.2
+  Version: 3.1.7.3
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.1.7.2';
+		var $version			 = '3.1.7.3';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -1111,7 +1111,7 @@ if ( !class_exists( 'TC' ) ) {
 			$new_rules[ '^' . $this->get_payment_gateway_return_slug() . '/(.+)' ] = 'index.php?page_id=-1&payment_gateway_return=$matches[1]';
 
 			if ( !$this->cart_has_custom_url() ) {
-				$new_rules[ '^' . $this->get_cart_slug() ] = 'index.php?page_id=-1&page_cart';
+				//$new_rules[ '^' . $this->get_cart_slug() ] = 'index.php?page_id=-1&page_cart';
 			}
 
 			if ( !$this->get_payment_page() ) {
@@ -1155,7 +1155,7 @@ if ( !class_exists( 'TC' ) ) {
 
 
 			/* Check-in API */
-			$new_rules[ '^tc-api/(.+)/translation' ]			 = 'index.php?tickera=tickera_translation&api_key=$matches[1]';
+			$new_rules[ '^tc-api/(.+)/translation' ]				 = 'index.php?tickera=tickera_translation&api_key=$matches[1]';
 			$new_rules[ '^tc-api/(.+)/check_credentials' ]			 = 'index.php?tickera=tickera_check_credentials&api_key=$matches[1]';
 			$new_rules[ '^tc-api/(.+)/event_essentials' ]			 = 'index.php?tickera=tickera_event_essentials&api_key=$matches[1]';
 			$new_rules[ '^tc-api/(.+)/ticket_checkins/(.+)' ]		 = 'index.php?tickera=tickera_checkins&api_key=$matches[1]&checksum=$matches[2]';

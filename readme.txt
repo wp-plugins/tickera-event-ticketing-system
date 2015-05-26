@@ -109,6 +109,9 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.7.3 =
+- Improved check-in API
+
 = 3.1.7.2 =
 - Updated language file
 
