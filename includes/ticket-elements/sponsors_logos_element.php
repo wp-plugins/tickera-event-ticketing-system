@@ -11,6 +11,8 @@ class tc_sponsors_logos_element extends TC_Ticket_Template_Elements {
 
 	function admin_content() {
 		//parent::admin_content();
+		echo parent::get_cell_alignment();
+		echo parent::get_element_margins();
 	}
 
 	function ticket_content( $ticket_instance_id = false, $ticket_type_id = false ) {

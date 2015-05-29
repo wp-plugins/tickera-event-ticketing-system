@@ -217,6 +217,7 @@ function tc_order_created_email( $order_id, $status, $cart_contents = false, $ca
 
 	if ( $cart_info === false ) {
 		$cart_info = get_post_meta( $order->ID, 'tc_cart_info', true );
+		$buyer_name = $cart_info[ 'buyer_data' ][ 'first_name_post_meta' ].' '.$cart_info[ 'buyer_data' ][ 'last_name_post_meta' ];
 	}
 
 	if ( $payment_info === false ) {
@@ -246,8 +247,8 @@ function tc_order_created_email( $order_id, $status, $cart_contents = false, $ca
 			$order				 = new TC_Order( $order->ID );
 			$order_status_url	 = $tc->tc_order_status_url( $order, $order->details->tc_order_date, '', false );
 
-			$placeholders		 = array( 'ORDER_ID', 'ORDER_TOTAL', 'DOWNLOAD_URL' );
-			$placeholder_values	 = array( $order_id, apply_filters( 'tc_cart_currency_and_format', $payment_info[ 'total' ] ), $order_status_url );
+			$placeholders		 = array( 'ORDER_ID', 'ORDER_TOTAL', 'DOWNLOAD_URL', 'BUYER_NAME' );
+			$placeholder_values	 = array( $order_id, apply_filters( 'tc_cart_currency_and_format', $payment_info[ 'total' ] ), $order_status_url, $buyer_name );
 
 			$to = $cart_info[ 'buyer_data' ][ 'email_post_meta' ];
 
@@ -255,7 +256,7 @@ function tc_order_created_email( $order_id, $status, $cart_contents = false, $ca
 
 			$client_headers = ''; //'From: ' . client_email_from_name( '' ) . ' <' . client_email_from_email( '' ) . '>' . "\r\n";
 
-			wp_mail( $to, $subject, html_entity_decode( stripcslashes( apply_filters( 'tc_order_completed_admin_email_message', $message ) ) ), apply_filters( 'tc_order_completed_client_email_headers', $client_headers ) );
+			wp_mail( $to, $subject, html_entity_decode( stripcslashes( apply_filters( 'tc_order_completed_admin_email_message', wpautop( $message ) ) ) ), apply_filters( 'tc_order_completed_client_email_headers', $client_headers ) );
 		}
 
 		/* --------------------------------------------------------------------- */
@@ -277,8 +278,8 @@ function tc_order_created_email( $order_id, $status, $cart_contents = false, $ca
 
 			$order_admin_url = admin_url( 'admin.php?page=tc_orders&action=details&ID=' . $order->details->ID );
 
-			$placeholders		 = array( 'ORDER_ID', 'ORDER_TOTAL', 'ORDER_ADMIN_URL' );
-			$placeholder_values	 = array( $order_id, apply_filters( 'tc_cart_currency_and_format', $payment_info[ 'total' ] ), $order_admin_url );
+			$placeholders		 = array( 'ORDER_ID', 'ORDER_TOTAL', 'ORDER_ADMIN_URL', 'BUYER_NAME' );
+			$placeholder_values	 = array( $order_id, apply_filters( 'tc_cart_currency_and_format', $payment_info[ 'total' ] ), $order_admin_url, $buyer_name );
 
 			$to = isset( $tc_email_settings[ 'admin_order_from_email' ] ) ? $tc_email_settings[ 'admin_order_from_email' ] : get_option( 'admin_email' );
 
@@ -286,7 +287,7 @@ function tc_order_created_email( $order_id, $status, $cart_contents = false, $ca
 
 			$admin_headers = ''; //'From: ' . admin_email_from_name( '' ) . ' <' . admin_email_from_email( '' ) . '>' . "\r\n";
 
-			wp_mail( $to, $subject, html_entity_decode( stripcslashes( apply_filters( 'tc_order_completed_admin_email_message', $message ) ) ), apply_filters( 'tc_order_completed_admin_email_headers', $admin_headers ) );
+			wp_mail( $to, $subject, html_entity_decode( stripcslashes( apply_filters( 'tc_order_completed_admin_email_message', wpautop( $message ) ) ) ), apply_filters( 'tc_order_completed_admin_email_headers', $admin_headers ) );
 		}
 	}
 
@@ -537,7 +538,7 @@ function tc_get_price_formats( $field_name, $default_value = '' ) {
 		<option value="eu" <?php selected( $checked, 'eu', true ); ?>><?php _e( '1.234,56', 'tc' ); ?></option>
 		<option value="french_comma" <?php selected( $checked, 'french_comma', true ); ?>><?php _e( '1 234,56', 'tc' ); ?></option>
 		<option value="french_dot" <?php selected( $checked, 'french_dot', true ); ?>><?php _e( '1 234.56', 'tc' ); ?></option>
-	<?php do_action( 'tc_price_formats' ); ?>
+		<?php do_action( 'tc_price_formats' ); ?>
 	</select>
 	<?php
 }
@@ -561,7 +562,7 @@ function tc_get_currency_positions( $field_name, $default_value = '' ) {
 		<option value="pre_nospace" <?php selected( $checked, 'pre_nospace', true ); ?>><?php echo $symbol . '10'; ?></option>
 		<option value="post_nospace" <?php selected( $checked, 'post_nospace', true ); ?>><?php echo '10' . $symbol; ?></option>
 		<option value="post_space" <?php selected( $checked, 'post_space', true ); ?>><?php echo '10 ' . $symbol; ?></option>
-	<?php do_action( 'tc_currencies_position' ); ?>
+		<?php do_action( 'tc_currencies_position' ); ?>
 	</select>
 	<?php
 }
@@ -610,21 +611,21 @@ function tc_show_delete_pending_orders_times( $field_name, $default_value = '' )
 	$settings	 = get_option( 'tc_settings' );
 	$schedules	 = array(
 		__( 'Never', 'tc' )		 => '',
-		__( '30 Minutes', 'tc' )	 => 30 * 60,
-		__( '45 Minutes', 'tc' )	 => 45 * 60,
-		__( '1 Hour', 'tc' )		 => 60 * 60,
-		__( '2 Hours', 'tc' )		 => 2 * 60 * 60,
-		__( '3 Hours', 'tc' )		 => 3 * 60 * 60,
-		__( '4 Hours', 'tc' )		 => 4 * 60 * 60,
-		__( '5 Hours', 'tc' )		 => 5 * 60 * 60,
-		__( '6 Hours', 'tc' )		 => 6 * 60 * 60,
+		__( '30 Minutes', 'tc' ) => 30 * 60,
+		__( '45 Minutes', 'tc' ) => 45 * 60,
+		__( '1 Hour', 'tc' )	 => 60 * 60,
+		__( '2 Hours', 'tc' )	 => 2 * 60 * 60,
+		__( '3 Hours', 'tc' )	 => 3 * 60 * 60,
+		__( '4 Hours', 'tc' )	 => 4 * 60 * 60,
+		__( '5 Hours', 'tc' )	 => 5 * 60 * 60,
+		__( '6 Hours', 'tc' )	 => 6 * 60 * 60,
 		__( '12 Hours', 'tc' )	 => 12 * 60 * 60,
 		__( '1 Day', 'tc' )		 => 24 * 60 * 60,
-		__( '2 Days', 'tc' )		 => 2 * 24 * 60 * 60,
-		__( '3 Days', 'tc' )		 => 3 * 24 * 60 * 60,
-		__( '7 Days', 'tc' )		 => 7 * 24 * 60 * 60,
-		__( '14 Days', 'tc' )		 => 14 * 24 * 60 * 60,
-		__( '30 Days', 'tc' )		 => 30 * 24 * 60 * 60
+		__( '2 Days', 'tc' )	 => 2 * 24 * 60 * 60,
+		__( '3 Days', 'tc' )	 => 3 * 24 * 60 * 60,
+		__( '7 Days', 'tc' )	 => 7 * 24 * 60 * 60,
+		__( '14 Days', 'tc' )	 => 14 * 24 * 60 * 60,
+		__( '30 Days', 'tc' )	 => 30 * 24 * 60 * 60
 	);
 
 	$schedules = apply_filters( 'tc_delete_pending_orders_schedule_times', $schedules );
@@ -1271,8 +1272,8 @@ function tc_get_order_details_front( $order_id = '', $order_key = '' ) {
 								}
 								?>
 							</td>
-					<?php }
-					?>
+						<?php }
+						?>
 					</tr>
 					<?php
 				}
@@ -1341,8 +1342,8 @@ function tc_get_order_event( $field_name = '', $post_id = '' ) {
 						}
 						?>
 					</td>
-			<?php }
-			?>
+				<?php }
+				?>
 			</tr>
 			<?php
 		}
@@ -1500,7 +1501,7 @@ function tc_ticket_limit_types( $field_name = '', $post_id = '' ) {
 		<?php ?>
 		<option value="ticket_level" <?php selected( $currently_selected, 'ticket_level', true ); ?>><?php echo __( 'Ticket Type' ); ?></option>
 		<option value="event_level" <?php selected( $currently_selected, 'event_level', true ); ?>><?php echo __( 'Event' ); ?></option>
-	<?php ?>
+		<?php ?>
 	</select>
 	<?php
 }

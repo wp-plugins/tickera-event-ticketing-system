@@ -44,12 +44,14 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 				)
 			);
 
-			if ( !defined( 'TC_LCK' ) && !defined( 'TC_NU' ) ) {
-				$sections[] = array(
-					'name'			 => 'license',
-					'title'			 => __( 'License Key' ),
-					'description'	 => '',
-				);
+			if ( count( $tc_gateway_plugins ) > 10 ) {
+				if ( !defined( 'TC_LCK' ) && !defined( 'TC_NU' ) ) {
+					$sections[] = array(
+						'name'			 => 'license',
+						'title'			 => __( 'License Key' ),
+						'description'	 => '',
+					);
+				}
 			}
 
 			apply_filters( 'tc_settings_general_sections', $sections );
@@ -177,18 +179,18 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 					'field_description'	 => __( 'Show / Hide discount code field on the cart page', 'tc' ),
 					'section'			 => 'store_settings'
 				),
-				/*array(
-					'field_name'		 => 'delete_pending_orders',
-					'field_title'		 => __( 'Delete Pending Orders (if order is not paid for)', 'tc' ),
-					'field_type'		 => 'function',
-					'function'			 => 'tc_show_delete_pending_orders_times',
-					'default_value'		 => 'never',
-					'field_description'	 => __( 'Delete order and associated tickets / attendees if order is not paid for a specific time set', 'tc' ),
-					'section'			 => 'store_settings'
-				),*/
+			/* array(
+			  'field_name'		 => 'delete_pending_orders',
+			  'field_title'		 => __( 'Delete Pending Orders (if order is not paid for)', 'tc' ),
+			  'field_type'		 => 'function',
+			  'function'			 => 'tc_show_delete_pending_orders_times',
+			  'default_value'		 => 'never',
+			  'field_description'	 => __( 'Delete order and associated tickets / attendees if order is not paid for a specific time set', 'tc' ),
+			  'section'			 => 'store_settings'
+			  ), */
 			);
-                        
-                        $store_settings_default_fields = apply_filters('tc_general_settings_store_fields', $store_settings_default_fields);
+
+			$store_settings_default_fields = apply_filters( 'tc_general_settings_store_fields', $store_settings_default_fields );
 
 			$pages_settings_default_fields = array(
 				array(
@@ -240,8 +242,8 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 				array(
 				)
 			);
-                        
-                        $pages_settings_default_fields = apply_filters('tc_general_settings_page_fields', $pages_settings_default_fields);
+
+			$pages_settings_default_fields = apply_filters( 'tc_general_settings_page_fields', $pages_settings_default_fields );
 
 			/* $slugs_settings_default_fields = array(
 			  array(
@@ -313,8 +315,8 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 					'section'			 => 'menu_settings'
 				),
 			);
-                        
-                        $menu_settings_default_fields = apply_filters('tc_general_settings_menu_fields', $menu_settings_default_fields);
+
+			$menu_settings_default_fields = apply_filters( 'tc_general_settings_menu_fields', $menu_settings_default_fields );
 
 			$miscellaneous_settings_default_fields = array(
 				array(
@@ -327,8 +329,8 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 					'section'			 => 'miscellaneous_settings'
 				)
 			);
-                        
-                        $miscellaneous_settings_default_fields = apply_filters('tc_general_settings_miscellaneous_fields', $miscellaneous_settings_default_fields);
+
+			$miscellaneous_settings_default_fields = apply_filters( 'tc_general_settings_miscellaneous_fields', $miscellaneous_settings_default_fields );
 
 			//
 

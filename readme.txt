@@ -109,6 +109,13 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.7.4 =
+- Added Cell Alignment and Element Break Lines control to the Sponsor Logos ticket template element
+- Added BUYER_NAME email confirmation placeholder
+- Fixed e-mail formatting for order confirmation e-mails
+- Fixed typo in PayPal Pro payment gateway (admin)
+
+
 = 3.1.7.3 =
 - Improved check-in API
 
