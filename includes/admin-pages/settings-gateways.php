@@ -3,7 +3,7 @@ global $tc_gateway_plugins, $tc;
 $settings = get_option( 'tc_settings' );
 
 if ( isset( $_POST[ 'gateway_settings' ] ) ) {
-	if ( current_user_can( 'manage_options' ) ) {
+	if ( current_user_can( 'manage_options' ) || current_user_can( 'save_settings_cap' ) ) {
 		if ( isset( $_POST[ 'tc' ] ) ) {
 			$filtered_settings	 = apply_filters( 'tc_gateway_settings_filter', $_POST[ 'tc' ] );
 			$settings			 = array_merge( $settings, $filtered_settings );

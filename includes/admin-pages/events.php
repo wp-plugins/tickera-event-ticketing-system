@@ -11,7 +11,7 @@ if(isset($_GET['restore'])){
 
 if ( isset( $_POST[ 'add_new_event' ] ) ) {
 	if ( check_admin_referer( 'save_event' ) ) {
-		if ( current_user_can( 'manage_options' ) ) {
+		if ( current_user_can( 'manage_options' ) || current_user_can( 'add_event_cap' ) ) {
 			$events->add_new_event();
 			$message = __( 'Event data has been saved successfully.', 'tc' );
 		} else {
@@ -28,7 +28,7 @@ if ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'edit' ) {
 if ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'delete' ) {
 	if ( !isset( $_POST[ '_wpnonce' ] ) ) {
 		check_admin_referer( 'delete_' . $_GET[ 'ID' ] );
-		if ( current_user_can( 'manage_options' ) ) {
+		if ( current_user_can( 'manage_options' ) || current_user_can( 'delete_event_cap' ) ) {
 			$event	 = new TC_Event( $_GET[ 'ID' ] );
 			$event->delete_event();
 			$message = __( 'Event has been successfully deleted.', 'tc' );

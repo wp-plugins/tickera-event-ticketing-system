@@ -5,7 +5,7 @@ $page = $_GET['page'];
 
 if (isset($_POST['add_new_order'])) {
     if (check_admin_referer('save_order')) {
-        if (current_user_can('manage_options')) {
+        if (current_user_can('manage_options') || current_user_can( 'save_order_cap' )) {
             $orders->add_new_order();
             $message = __('Order Data data has been saved successfully.', 'tc');
         } else {
@@ -22,7 +22,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'details') {
 if (isset($_GET['action']) && $_GET['action'] == 'delete') {
     if (!isset($_POST['_wpnonce'])) {
         check_admin_referer('delete_' . $_GET['ID']);
-        if (current_user_can('manage_options')) {
+        if (current_user_can('manage_options') || current_user_can( 'delete_order_cap' )) {
             $order = new TC_Order((int) $_GET['ID']);
             $order->delete_order();
             $message = __('Order has been successfully deleted.', 'tc');

@@ -5,7 +5,7 @@ $page = $_GET[ 'page' ];
 
 if ( isset( $_POST[ 'add_new_discount' ] ) ) {
 	if ( check_admin_referer( 'save_discount' ) ) {
-		if ( current_user_can( 'manage_options' ) ) {
+		if ( current_user_can( 'manage_options' ) || current_user_can( 'add_discount_cap' ) ) {
 			$discounts->add_new_discount();
 			$message = __( 'Discount Code data has been saved successfully.', 'tc' );
 		} else {
@@ -22,7 +22,7 @@ if ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'edit' ) {
 if ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'delete' ) {
 	if ( !isset( $_POST[ '_wpnonce' ] ) ) {
 		check_admin_referer( 'delete_' . $_GET[ 'ID' ] );
-		if ( current_user_can( 'manage_options' ) ) {
+		if ( current_user_can( 'manage_options' ) || current_user_can( 'delete_discount_cap' ) ) {
 			$discount	 = new TC_Discount( (int) $_GET[ 'ID' ] );
 			$discount->delete_discount();
 			$message	 = __( 'Discount Code has been successfully deleted.', 'tc' );

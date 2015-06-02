@@ -240,7 +240,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 
 				foreach ( $check_ins as $check_in ) {
 					$r[ 'date_checked' ] = date( 'Y-m-d H:i:s', $check_in[ 'date_checked' ] );
-					$r[ 'status' ]		 = $check_in[ 'status' ];
+					$r[ 'status' ]		 = apply_filters( 'tc_check_in_status_title', $check_in[ 'status' ] );
 					$rows[]				 = array( 'data' => $r );
 				}
 
@@ -371,9 +371,9 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 				);
 
 				$data[ 'custom_fields' ] = array(
-					array( 'Ticket Type', $ticket_type->details->post_title ),
-					array( 'Buyer Name', $order->details->tc_cart_info[ 'buyer_data' ][ 'first_name_post_meta' ] . ' ' . $order->details->tc_cart_info[ 'buyer_data' ][ 'last_name_post_meta' ] ),
-					array( 'Buyer E-mail', $order->details->tc_cart_info[ 'buyer_data' ][ 'email_post_meta' ] ),
+					array( apply_filters( 'tc_ticket_checkin_custom_field_title', 'Ticket Type' ), $ticket_type->details->post_title ),
+					array( apply_filters( 'tc_ticket_checkin_custom_field_title', 'Buyer Name' ), $order->details->tc_cart_info[ 'buyer_data' ][ 'first_name_post_meta' ] . ' ' . $order->details->tc_cart_info[ 'buyer_data' ][ 'last_name_post_meta' ] ),
+					array( apply_filters( 'tc_ticket_checkin_custom_field_title', 'Buyer E-mail' ), $order->details->tc_cart_info[ 'buyer_data' ][ 'email_post_meta' ] ),
 				);
 
 				$data[ 'custom_fields' ] = apply_filters( 'tc_checkin_custom_fields', $data[ 'custom_fields' ], $ticket_instance->details->ID, $ticket_event_id );
@@ -431,12 +431,9 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 						}
 
 						$r[ 'custom_fields' ] = array(
-							array( 'Ticket Type', $ticket_type->details->post_title ),
-							array( 'Buyer Name', $order->details->tc_cart_info[ 'buyer_data' ][ 'first_name_post_meta' ] . ' ' . $order->details->tc_cart_info[ 'buyer_data' ][ 'last_name_post_meta' ] ),
-							array( 'Buyer E-mail', $order->details->tc_cart_info[ 'buyer_data' ][ 'email_post_meta' ] ),
-						//array( 'Buyer Name', $r[ 'buyer_first' ] . ' ' . $r[ 'buyer_last' ] ),
-						//array( 'Example Field 1', 'Val 1' ),
-						//array( 'Example Field 2', 'Val 2' ),
+							array( apply_filters( 'tc_ticket_checkin_custom_field_title', 'Ticket Type' ), $ticket_type->details->post_title ),
+							array( apply_filters( 'tc_ticket_checkin_custom_field_title', 'Buyer Name' ), $order->details->tc_cart_info[ 'buyer_data' ][ 'first_name_post_meta' ] . ' ' . $order->details->tc_cart_info[ 'buyer_data' ][ 'last_name_post_meta' ] ),
+							array( apply_filters( 'tc_ticket_checkin_custom_field_title', 'Buyer E-mail' ), $order->details->tc_cart_info[ 'buyer_data' ][ 'email_post_meta' ] ),
 						);
 
 						$r[ 'custom_fields' ] = apply_filters( 'tc_checkin_custom_fields', $r[ 'custom_fields' ], $result->ID, $event_id );

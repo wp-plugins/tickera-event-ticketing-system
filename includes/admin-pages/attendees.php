@@ -6,7 +6,7 @@ $page = $_GET[ 'page' ];
 if ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'delete' ) {
 	if ( !isset( $_POST[ '_wpnonce' ] ) ) {
 		check_admin_referer( 'delete_' . $_GET[ 'ID' ] );
-		if ( current_user_can( 'manage_options' ) ) {
+		if ( current_user_can( 'manage_options' ) || current_user_can( 'delete_tickets_cap' ) ) {
 			$ticket_instance = new TC_Ticket_Instance( (int) $_GET[ 'ID' ] );
 			$ticket_instance->delete_ticket_instance();
 			$message		 = __( 'Attendee and Ticket data has been successfully deleted.', 'tc' );
@@ -102,7 +102,7 @@ $columns = $tickets_instances->get_columns();
 					<th><?php _e( 'Check-in Date', 'tc' ); ?></th>
 					<th><?php _e( 'Status', 'tc' ); ?></th>
 					<th><?php _e( 'API Key', 'tc' ); ?></th>
-					<?php if ( current_user_can( 'manage_options' ) ) { ?>
+					<?php if ( current_user_can( 'manage_options' ) || current_user_can( 'delete_tickets_cap' ) ) { ?>
 						<th><?php _e( 'Delete', 'tc' ); ?></th>
 					<?php } ?>
 				</tr>

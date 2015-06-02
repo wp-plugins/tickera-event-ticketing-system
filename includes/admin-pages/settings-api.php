@@ -8,7 +8,7 @@ $tab	 = $_GET[ 'tab' ];
 
 if ( isset( $_POST[ 'add_new_api_key' ] ) ) {
 	if ( check_admin_referer( 'save_api_key' ) ) {
-		if ( current_user_can( 'manage_options' ) ) {
+		if ( current_user_can( 'manage_options' ) || current_user_can( 'add_api_key_cap' ) ) {
 			$api_keys->add_new_api_key();
 			$message = __( 'API Key data has been successfully saved.', 'tc' );
 		} else {
@@ -25,7 +25,7 @@ if ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'edit' ) {
 if ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'delete' ) {
 	if ( !isset( $_POST[ '_wpnonce' ] ) ) {
 		check_admin_referer( 'delete_' . $_GET[ 'ID' ] );
-		if ( current_user_can( 'manage_options' ) ) {
+		if ( current_user_can( 'manage_options' ) || current_user_can( 'delete_api_key_cap' ) ) {
 			$api_key = new TC_API_Key( (int) $_GET[ 'ID' ] );
 			$api_key->delete_api_key();
 			$message = __( 'API Key has been successfully deleted.', 'tc' );

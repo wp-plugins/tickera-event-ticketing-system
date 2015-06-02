@@ -3,7 +3,7 @@ global $tc_general_settings, $wp_rewrite;
 
 if ( isset( $_POST[ 'save_tc_settings' ] ) ) {
 	if ( check_admin_referer( 'save_settings' ) ) {
-		if ( current_user_can( 'manage_options' ) ) {
+		if ( current_user_can( 'manage_options' ) || current_user_can( 'save_settings_cap' ) ) {
 			update_option( 'tc_general_setting', $_POST[ 'tc_general_setting' ] );
 
 			tc_save_page_ids();

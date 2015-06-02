@@ -14,7 +14,7 @@ $page					 = $_GET[ 'page' ];
 
 if ( isset( $_POST[ 'add_new_template' ] ) ) {
 	if ( check_admin_referer( 'save_template' ) ) {
-		if ( current_user_can( 'manage_options' ) ) {
+		if ( current_user_can( 'manage_options' ) || current_user_can( 'save_template_cap' ) ) {
 			$templates->add_new_template();
 			$message = __( 'Template data has been successfully saved.', 'tc' );
 		} else {
@@ -33,7 +33,7 @@ if ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'edit' ) {// && check_ad
 if ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'delete' ) {
 	if ( !isset( $_POST[ '_wpnonce' ] ) ) {
 		check_admin_referer( 'delete_' . $_GET[ 'ID' ] );
-		if ( current_user_can( 'manage_options' ) ) {
+		if ( current_user_can( 'manage_options' ) || current_user_can( 'delete_template_cap' ) ) {
 			$template	 = new TC_Template( (int) $_GET[ 'ID' ] );
 			$template->delete_template();
 			$message	 = __( 'Template has been successfully deleted.', 'tc' );
