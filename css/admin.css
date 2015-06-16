@@ -400,6 +400,20 @@ a.tc_link:hover{
     min-width: 1em !important;
 }
 
+.tickera_page_tc_settings .chosen-container-single a.chosen-single,
+.tickera_page_tc_ticket_templates .chosen-container-single a.chosen-single,
+.discount-table .chosen-container-single a.chosen-single,
+.ticket-table .chosen-container-single a.chosen-single {
+    height: auto;
+} 
+
+.tickera_page_tc_settings .chosen-container-single,
+.tickera_page_tc_ticket_templates .chosen-container-single,
+.discount-table .chosen-container-single,
+.ticket-table .chosen-container-single {
+    width: 350px !important;
+}
+
 
 @media only screen and (max-width: 1070px){
     .left-holder, .right-holder {

@@ -66,14 +66,14 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 									$discount_value				 = $discount_value + $discount_value_per_each;
 									$number_of_discount_uses++;
 									$discount_codes_available	 = $discount_object->details->usage_limit - $number_of_discount_uses;
-									//$max_discount = ($ordered_count >= $discount_codes_available ? $discount_codes_available : $ordered_count);
+//$max_discount = ($ordered_count >= $discount_codes_available ? $discount_codes_available : $ordered_count);
 								}
 
 
 								$i = 1;
 							}
 						} else {
-							//check ticket marked in availability is in the cart first
+//check ticket marked in availability is in the cart first
 							$is_in_cart = false;
 
 							foreach ( $cart_contents as $ticket_type_id => $ordered_count ) {
@@ -200,9 +200,9 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 
 								$i = 1;
 							}
-							//exit;
+//exit;
 						} else {
-							//check ticket marked in availability is in the cart first
+//check ticket marked in availability is in the cart first
 							$is_in_cart = false;
 
 							foreach ( $cart_contents as $ticket_type_id => $ordered_count ) {
@@ -316,16 +316,16 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 			$discounted_total				 = $new_total;
 
 
-			/*add_filter( 'tc_discounted_fees_total', 'tc_discounted_fees_total' );
-			if ( !function_exists( 'tc_discounted_fees_total' ) ) {
+			/* add_filter( 'tc_discounted_fees_total', 'tc_discounted_fees_total' );
+			  if ( !function_exists( 'tc_discounted_fees_total' ) ) {
 
-				function tc_discounted_fees_total( $fees ) {
-					global $new_total;
-					return $new_total;
-				}
+			  function tc_discounted_fees_total( $fees ) {
+			  global $new_total;
+			  return $new_total;
+			  }
 
-			}*/
-			//return $discounted_total;
+			  } */
+//return $discounted_total;
 		}
 
 		public static function discount_code_message( $message ) {
@@ -334,17 +334,17 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 			return $message;
 		}
 
-		function get_discount_fields() {
+		function get_discount_fields( $bulk = false ) {
 
 			$default_fields = array(
-				array(
+				/*array(
 					'field_name'		 => 'post_title',
 					'field_title'		 => __( 'Discount Code', 'tc' ),
 					'field_type'		 => 'text',
 					'field_description'	 => __( 'Discount Code, e.g. ABC123', 'tc' ),
 					'table_visibility'	 => true,
 					'post_field_type'	 => 'post_title'
-				),
+				),*/
 				array(
 					'field_name'		 => 'discount_type',
 					'field_title'		 => __( 'Discount Type', 'tc' ),
@@ -387,17 +387,30 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 					'field_description'	 => __( 'The date this discount will expire (24 hour format)', 'tc' ),
 					'table_visibility'	 => true,
 					'post_field_type'	 => 'post_meta'
-				), /*
-			  array(
-			  'field_name' => 'expiry_date',
-			  'field_title' => __('Expiry Date', 'tc'),
-			  'field_type' => 'function',
-			  'function' => 'tc_get_discount_expiry_date',
-			  'field_description' => __('The date this discount will expire (24 hour format)', 'tc'),
-			  'table_visibility' => true,
-			  'post_field_type' => 'post_meta'
-			  ), */
+				),
 			);
+
+			if ( $bulk ) {
+				$first_field = array(
+					'field_name'		 => 'post_titles',
+					'field_title'		 => __( 'Discount Code', 'tc' ),
+					'field_type'		 => 'textarea',
+					'field_description'	 => __( 'Discount Code, e.g. ABC123. <strong>One discount code per line</strong>.', 'tc' ),
+					'table_visibility'	 => true,
+					'post_field_type'	 => 'post_title'
+				);
+			} else {
+				$first_field = array(
+					'field_name'		 => 'post_title',
+					'field_title'		 => __( 'Discount Code', 'tc' ),
+					'field_type'		 => 'text',
+					'field_description'	 => __( 'Discount Code, e.g. ABC123', 'tc' ),
+					'table_visibility'	 => true,
+					'post_field_type'	 => 'post_title'
+				);
+			}
+			
+			array_unshift($default_fields, $first_field);
 
 			return apply_filters( 'tc_discount_fields', $default_fields );
 		}
@@ -478,7 +491,7 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 
 				$post_id = @wp_insert_post( $arg, true );
 
-				//Update post meta
+//Update post meta
 				if ( $post_id !== 0 ) {
 					if ( isset( $metas ) ) {
 						foreach ( $metas as $key => $value ) {

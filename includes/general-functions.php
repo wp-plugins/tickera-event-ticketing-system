@@ -216,8 +216,8 @@ function tc_order_created_email( $order_id, $status, $cart_contents = false, $ca
 	}
 
 	if ( $cart_info === false ) {
-		$cart_info = get_post_meta( $order->ID, 'tc_cart_info', true );
-		$buyer_name = $cart_info[ 'buyer_data' ][ 'first_name_post_meta' ].' '.$cart_info[ 'buyer_data' ][ 'last_name_post_meta' ];
+		$cart_info	 = get_post_meta( $order->ID, 'tc_cart_info', true );
+		$buyer_name	 = $cart_info[ 'buyer_data' ][ 'first_name_post_meta' ] . ' ' . $cart_info[ 'buyer_data' ][ 'last_name_post_meta' ];
 	}
 
 	if ( $payment_info === false ) {
@@ -1476,6 +1476,7 @@ function tc_get_api_keys_events( $field_name = '', $post_id = '' ) {
 	}
 	?>
 	<select name="<?php echo $field_name; ?>_post_meta">
+		<option value="all"><?php _e( 'All Events', 'tc' ); ?></option>
 		<?php
 		foreach ( $wp_events_search->get_results() as $event ) {
 

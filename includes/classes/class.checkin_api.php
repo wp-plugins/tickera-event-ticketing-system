@@ -166,8 +166,18 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 
 				$event_id = $this->get_api_event();
 
-				$event				 = new TC_Event( $event_id );
-				$event_ticket_types	 = $event->get_event_ticket_types();
+				$event_ticket_types = array();
+
+				if ( $event_id == 'all' ) {
+					$wp_events_search = new TC_Events_Search( '', '', '', 'publish' );
+					foreach ( $wp_events_search->get_results() as $event ) {
+						$event_obj			 = new TC_Event( $event->ID );
+						$event_ticket_types	 = array_merge( $event_ticket_types, $event_obj->get_event_ticket_types() );
+					}
+				} else {
+					$event				 = new TC_Event( $event_id );
+					$event_ticket_types	 = $event->get_event_ticket_types();
+				}
 
 				$event_tickets_total	 = 0;
 				$event_checkedin_tickets = 0;
@@ -209,11 +219,11 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 				$event_tickets_total = $tickets_sold;
 
 				$data = array(
-					'event_name'			 => stripslashes( $event->details->post_title ),
-					'event_date_time'		 => date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $event->details->event_date_time ), false ),
-					'event_location'		 => stripslashes( $event->details->event_location ),
-					'event_logo'			 => stripslashes( $event->details->event_logo_file_url ),
-					'event_sponsors_logos'	 => stripslashes( $event->details->sponsors_logo_file_url ),
+					'event_name'			 => $event_id == 'all' ? __( 'Multiple Events', 'tc' ) : stripslashes( $event->details->post_title ),
+					'event_date_time'		 => $event_id == 'all' ? __( 'N/A', 'tc' ) : date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $event->details->event_date_time ), false ),
+					'event_location'		 => $event_id == 'all' ? __( 'N/A', 'tc' ) : stripslashes( $event->details->event_location ),
+					'event_logo'			 => $event_id == 'all' ? __( 'N/A', 'tc' ) : stripslashes( $event->details->event_logo_file_url ),
+					'event_sponsors_logos'	 => $event_id == 'all' ? __( 'N/A', 'tc' ) : stripslashes( $event->details->sponsors_logo_file_url ),
 					'sold_tickets'			 => $event_tickets_total,
 					'checked_tickets'		 => $event_checkedin_tickets,
 					'pass'					 => true
@@ -277,12 +287,14 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 				}
 
 				if ( $this->get_api_event() != $ticket_event_id ) {//Only API key for the parent event can check-in this ticket
-					if ( $echo ) {
-						_e( 'Insufficient permissions. This API key cannot check-in this ticket.', 'tc' );
-					} else {
-						return 403; //error code for incufficient persmissions
+					if ( $this->get_api_event() !== 'all' ) {
+						if ( $echo ) {
+							_e( 'Insufficient permissions. This API key cannot check-in this ticket.', 'tc' );
+						} else {
+							return 403; //error code for incufficient persmissions
+						}
+						exit;
 					}
-					exit;
 				}
 
 				$check_ins = $ticket_instance->get_ticket_checkins();
@@ -394,7 +406,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 
 				$event_id = $this->get_api_event();
 
-				$ticket_search = new TC_Tickets_Instances_Search( $this->keyword, $this->page_number, $this->results_per_page, false, true, 'event_id', $event_id );
+				$ticket_search = new TC_Tickets_Instances_Search( $this->keyword, $this->page_number, $this->results_per_page, false, true, ($event_id == 'all' ? '' : 'event_id' ), ($event_id == 'all' ? '' : $event_id ) );
 
 				$results = $ticket_search->get_results();
 

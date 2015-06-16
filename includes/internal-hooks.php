@@ -343,9 +343,13 @@ add_filter( 'tc_api_key_field_value', 'tc_api_key_field_value', 10, 3 );
 
 function tc_api_key_field_value( $value, $post_field_type, $var_name ) {
 	if ( $var_name == 'event_name' ) {
-		$event_obj		 = new TC_Event( $value );
-		$event_object	 = $event_obj->details;
-		$value			 = $event_object->post_title;
+		if ( $value == 'all' ) {
+			$value = __('All Events', 'tc');
+		} else {
+			$event_obj		 = new TC_Event( $value );
+			$event_object	 = $event_obj->details;
+			$value			 = $event_object->post_title;
+		}
 	}
 
 	if ( $var_name == 'api_username' ) {

@@ -1,6 +1,14 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
+3.1.7.7 - 16/JUN/2015
+- CSS fixes for select boxes in the admin (to avoid theme issues)
+- Code improvements and added additional options for discount codes (for developers)
+
+3.1.7.6 - 06/JUN/2015
+- Added option for API KEYs to have access to all events at once
+- Check-in API improvements
+
 3.1.7.5 - 06/JUN/2015
 - Added new user capabilities
 
