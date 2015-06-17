@@ -1,6 +1,9 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
+3.1.7.8 - 17/JUN/2015
+- Added wp editors instead of textareas for ticket description and event terms and conditions
+
 3.1.7.7 - 16/JUN/2015
 - CSS fixes for select boxes in the admin (to avoid theme issues)
 - Code improvements and added additional options for discount codes (for developers)

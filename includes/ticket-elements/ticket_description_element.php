@@ -13,11 +13,11 @@ class tc_ticket_description_element extends TC_Ticket_Template_Elements {
 		if ( $ticket_instance_id ) {
 			$ticket_instance = new TC_Ticket( (int) $ticket_instance_id );
 			$ticket			 = new TC_Ticket( $ticket_instance->details->ticket_type_id );
-			return apply_filters( 'tc_ticket_description_element', $ticket->details->post_content );
+			return apply_filters( 'tc_ticket_description_element', apply_filters( 'the_content', $ticket->details->post_content) );
 		} else {
 			if ( $ticket_type_id ) {
 				$ticket_type = new TC_Ticket( (int) $ticket_type_id );
-				return apply_filters( 'tc_ticket_description_element', $ticket_type->details->post_content );
+				return apply_filters( 'tc_ticket_description_element', apply_filters( 'the_content', $ticket_type->details->post_content) );
 			} else {
 				return apply_filters( 'tc_ticket_description_element_default', __(
 				'<ul>

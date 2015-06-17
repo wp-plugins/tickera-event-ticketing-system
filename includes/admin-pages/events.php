@@ -4,9 +4,9 @@ $events = new TC_Events();
 
 $page = $_GET[ 'page' ];
 
-if(isset($_GET['restore'])){
+if ( isset( $_GET[ 'restore' ] ) ) {
 	$event = new TC_Event();
-	$event->restore_event((int)$_GET['restore']);
+	$event->restore_event( (int) $_GET[ 'restore' ] );
 }
 
 if ( isset( $_POST[ 'add_new_event' ] ) ) {
@@ -114,6 +114,21 @@ $columns			 = $events->get_columns();
 										?></textarea>
 									<span class="description"><?php echo $field[ 'field_description' ]; ?></span>
 								<?php } ?>
+								<?php if ( $field[ 'field_type' ] == 'textarea_editor' ) { ?>
+									<?php
+									if ( isset( $event ) ) {
+										if ( $field[ 'post_field_type' ] == 'post_meta' ) {
+											$editor_content = ( isset( $event->details->{$field[ 'field_name' ]} ) ? $event->details->{$field[ 'field_name' ]} : '' );
+										} else {
+											$editor_content = ( $event->details->{$field[ 'post_field_type' ]} );
+										}
+									}
+									wp_editor( html_entity_decode( stripcslashes( $editor_content ) ), $field[ 'field_name' ], array( 'textarea_name' => $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ], 'textarea_rows' => 5 ) );
+									?>
+									<span class="description"><?php echo $field[ 'field_description' ]; ?></span>
+								<?php } ?>
+
+
 								<?php
 								if ( $field[ 'field_type' ] == 'image' ) {
 									?>

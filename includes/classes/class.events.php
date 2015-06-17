@@ -8,7 +8,7 @@ if ( !class_exists( 'TC_Events' ) ) {
 	class TC_Events {
 
 		var $form_title				 = '';
-		var $valid_admin_fields_type	 = array( 'text', 'textarea', 'image', 'function' );
+		var $valid_admin_fields_type	 = array( 'text', 'textarea', 'textarea_editor', 'image', 'function' );
 
 		function __construct() {
 			$this->form_title				 = __( 'Events', 'tc' );
@@ -49,7 +49,7 @@ if ( !class_exists( 'TC_Events' ) ) {
 				array(
 					'field_name'		 => 'event_terms',
 					'field_title'		 => __( 'Terms of Use', 'tc' ),
-					'field_type'		 => 'textarea',
+					'field_type'		 => 'textarea_editor',
 					'field_description'	 => '',
 					'table_visibility'	 => false,
 					'post_field_type'	 => 'post_meta'
@@ -70,23 +70,23 @@ if ( !class_exists( 'TC_Events' ) ) {
 					'table_visibility'	 => false,
 					'post_field_type'	 => 'post_meta'
 				),
-				/*array(
-					'field_name'		 => 'tickets_limit_type',
-					'field_title'		 => __( 'Tickets Limit By', 'tc' ),
-					'field_type'		 => 'function',
-					'function'			 => 'tc_ticket_limit_types',
-					'field_description'	 => 'Wheter you want to limit tickets count that could be sold per each ticket type or whole event.',//__('If Event is selected, ...'),
-					'table_visibility'	 => false,
-					'post_field_type'	 => 'post_meta'
-				),
-				array(
-					'field_name'		 => 'event_ticket_limit',
-					'field_title'		 => __( 'Event Ticket Limit', 'tc' ),
-					'field_type'		 => 'text',
-					'field_description'	 => __('This number indicated maximum tickets count that could be sold for this event (0 or empty means unlimited)', 'tc'),
-					'table_visibility'	 => false,
-					'post_field_type'	 => 'post_meta'
-				)*/
+			/* array(
+			  'field_name'		 => 'tickets_limit_type',
+			  'field_title'		 => __( 'Tickets Limit By', 'tc' ),
+			  'field_type'		 => 'function',
+			  'function'			 => 'tc_ticket_limit_types',
+			  'field_description'	 => 'Wheter you want to limit tickets count that could be sold per each ticket type or whole event.',//__('If Event is selected, ...'),
+			  'table_visibility'	 => false,
+			  'post_field_type'	 => 'post_meta'
+			  ),
+			  array(
+			  'field_name'		 => 'event_ticket_limit',
+			  'field_title'		 => __( 'Event Ticket Limit', 'tc' ),
+			  'field_type'		 => 'text',
+			  'field_description'	 => __('This number indicated maximum tickets count that could be sold for this event (0 or empty means unlimited)', 'tc'),
+			  'table_visibility'	 => false,
+			  'post_field_type'	 => 'post_meta'
+			  ) */
 			);
 
 			return apply_filters( 'tc_event_fields', $default_fields );

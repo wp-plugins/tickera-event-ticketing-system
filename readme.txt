@@ -109,6 +109,9 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.7.8 =
+- Added wp editors instead of textareas for ticket description and event terms and conditions
+
 = 3.1.7.7 =
 - CSS fixes for select boxes in the admin (to avoid theme issues) 
 - Code improvements and added additional options for discount codes (for developers) 
