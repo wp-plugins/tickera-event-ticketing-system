@@ -171,12 +171,6 @@ $columns			 = $templates->get_columns();
 
 	<?php } else { ?>
 
-		<?php if ( !$an ) { ?>
-			<p>
-				<a class="tc_link" target="_blank" href="http://tickera.com/?wp"><?php _e( 'Create unlimited number of ticket templates, get premium support and unlock additional features.' ); ?></a>
-			</p>
-		<?php } else { ?>
-
 			<form action="" method="post" enctype = "multipart/form-data">
 				<div class="left-holder">
 					<?php wp_nonce_field( 'save_template' ); ?>
@@ -275,6 +269,6 @@ $columns			 = $templates->get_columns();
 					<?php } ?>
 				</div>
 			</form>
-		<?php } ?>
+		
 	</div>
 <?php } ?>

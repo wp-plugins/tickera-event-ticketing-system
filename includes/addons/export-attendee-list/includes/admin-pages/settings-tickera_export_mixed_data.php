@@ -12,7 +12,7 @@
 								<th scope="row"><label for="tc_export_event_data"><?php _e( 'Event', 'tc' ); ?></label></th>
 								<td>
 									<?php
-									$wp_events_search = new TC_Events_Search('', '', -1);
+									$wp_events_search = new TC_Events_Search( '', '', -1 );
 									?>
 									<select name="tc_export_event_data">
 										<?php
@@ -123,14 +123,15 @@
 										<option value="A4" selected="selected"><?php _e( 'A4 (210 × 297)', 'tc' ); ?></option>
 										<option value="A5"><?php _e( 'A5 (148 × 210)', 'tc' ); ?></option>
 										<option value="A6"><?php _e( 'A6 (105 × 148)', 'tc' ); ?></option>
+										<option value="ANSI_A"><?php echo _e( 'ANSI A (216x279 mm)', 'tc' ); ?></option>
 									</select>
 								</td>
 							</tr>
-							
+
 							<tr valign="top">
 								<th scope="row"><label for="document_title"><?php _e( 'Document Title', 'tc' ); ?></label></th>
 								<td>
-									<input type="text" name='document_title' value='<?php _e('Attendee List', 'tc');?>' />
+									<input type="text" name='document_title' value='<?php _e( 'Attendee List', 'tc' ); ?>' />
 								</td>
 							</tr>
 

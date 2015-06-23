@@ -66,7 +66,8 @@ if ( !class_exists( 'TC_Ticket_Template_Elements' ) ) {
 				<option value="A6" <?php selected( isset( $this->template_metas[ 'document_ticket_size' ] ) ? $this->template_metas[ 'document_ticket_size' ] : 'A4', 'A6', true ); ?>><?php echo _e( 'A6 (105 × 148)', 'tc' ); ?></option>
 				<option value="A7" <?php selected( isset( $this->template_metas[ 'document_ticket_size' ] ) ? $this->template_metas[ 'document_ticket_size' ] : 'A4', 'A7', true ); ?>><?php echo _e( 'A7 (74 × 105)', 'tc' ); ?></option>
 				<option value="A8" <?php selected( isset( $this->template_metas[ 'document_ticket_size' ] ) ? $this->template_metas[ 'document_ticket_size' ] : 'A4', 'A8', true ); ?>><?php echo _e( 'A8 (52 × 74)', 'tc' ); ?></option>
-				<?php do_action( 'tc_additional_ticket_document_size' ); ?>
+				<option value="ANSI_A" <?php selected( isset( $this->template_metas[ 'document_ticket_size' ] ) ? $this->template_metas[ 'document_ticket_size' ] : 'A4', 'ANSI_A', true ); ?>><?php echo _e( 'ANSI A (216x279 mm)', 'tc' ); ?></option>
+				<?php do_action( 'tc_additional_ticket_document_size', $this->template_metas[ 'document_ticket_size' ] ); ?>
 			</select>
 			<?php
 		}

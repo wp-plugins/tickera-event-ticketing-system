@@ -109,6 +109,10 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.7.9 =
+- Added support for ANSI A (216x279 mm) US paper size for ticket templates
+- Fixed issue with ticket template not showing
+
 = 3.1.7.8 =
 - Added wp editors instead of textareas for ticket description and event terms and conditions
 

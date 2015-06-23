@@ -65,7 +65,8 @@ if ( !class_exists( 'TC_Ticket_Templates' ) ) {
 			$margin_right	 = $metas[ 'document_ticket_right_margin' ];
 			// create new PDF document
 
-			$pdf = new TCPDF( $metas[ 'document_ticket_orientation' ], PDF_UNIT, apply_filters( 'tc_additional_ticket_document_size_output', $metas[ 'document_ticket_size' ] ), true, apply_filters( 'tc_ticket_document_encoding', get_bloginfo( 'charset' ) ), false );
+
+			$pdf = new TCPDF( $metas[ 'document_ticket_orientation' ], PDF_UNIT, apply_filters( 'tc_additional_ticket_document_size_output', apply_filters( 'tc_document_paper_size', $metas[ "document_ticket_size" ] ) ), true, apply_filters( 'tc_ticket_document_encoding', get_bloginfo( 'charset' ) ), false );
 			$pdf->setPrintHeader( false );
 			$pdf->setPrintFooter( false );
 			$pdf->SetFont( $metas[ 'document_font' ], '', 14 );
@@ -218,7 +219,7 @@ if ( !class_exists( 'TC_Ticket_Templates' ) ) {
 			}
 
 			$columns[ 'edit' ]	 = __( 'Edit', 'tc' );
-			$columns[ 'delete' ]	 = __( 'Delete', 'tc' );
+			$columns[ 'delete' ] = __( 'Delete', 'tc' );
 
 			return $columns;
 		}
