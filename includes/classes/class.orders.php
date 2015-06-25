@@ -216,6 +216,14 @@ if ( !class_exists( 'TC_Orders' ) ) {
 					'field_type'		 => 'text',
 					'field_description'	 => '',
 					'post_field_type'	 => 'post_meta'
+				),				
+                                array(
+					'id'				 => 'owner_email',
+					'field_name'		 => 'owner_email',
+					'field_title'		 => __( 'Owner E-Mail', 'tc' ),
+					'field_type'		 => 'text',
+					'field_description'	 => '',
+					'post_field_type'	 => 'post_meta'
 				),
 				array(
 					'id'				 => 'ticket_code',

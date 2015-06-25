@@ -119,6 +119,15 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 					'section'			 => 'store_settings'
 				),
 				array(
+					'field_name'		 => 'tax_inclusive',
+					'field_title'		 => __( 'Prices inclusive of tax', 'tc' ),
+					'field_type'		 => 'function',
+					'function'			 => 'tc_tax_inclusive',
+					'default_value'		 => 'no',
+					'field_description'	 => __( 'All prices set for tickets will be inclusive of tax.', 'tc' ),
+					'section'			 => 'store_settings'
+				),
+				array(
 					'field_name'		 => 'show_tax_rate',
 					'field_title'		 => __( 'Show Tax in Cart', 'tc' ),
 					'field_type'		 => 'function',
@@ -170,6 +179,17 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 					'field_description'	 => __( 'Show Ticket Owner fields on the Cart page. If this option is not selected, owner info fields will not be collected and shown on the ticket.', 'tc' ),
 					'section'			 => 'store_settings'
 				),
+                            
+                                array(
+					'field_name'		 => 'show_owner_email_field',
+					'field_title'		 => __( 'Show E-mail for Option For Ticket Owners', 'tc' ),
+					'field_type'		 => 'function',
+					'function'			 => 'tc_show_owner_fields',
+					'default_value'		 => 'no',
+					'field_description'	 => __( 'Show / Hide field for owner to write theirs e-mail', 'tc' ),
+					'section'			 => 'store_settings'
+				),
+                            
 				array(
 					'field_name'		 => 'show_discount_field',
 					'field_title'		 => __( 'Show Discount Code', 'tc' ),
@@ -244,65 +264,6 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 			);
 
 			$pages_settings_default_fields = apply_filters( 'tc_general_settings_page_fields', $pages_settings_default_fields );
-
-			/* $slugs_settings_default_fields = array(
-			  array(
-			  'field_name'		 => 'ticket_cart_slug',
-			  'field_title'		 => __( 'Cart Slug', 'tc' ),
-			  'field_type'		 => 'option',
-			  'default_value'		 => 'cart',
-			  'field_description'	 => sprintf( __( 'Users will be able to see their cart contents, insert buyer and ticket owner(s) info on this URL %s', 'tc' ), trailingslashit( home_url( isset( $tc_general_settings[ 'ticket_cart_slug' ] ) ? $tc_general_settings[ 'ticket_cart_slug' ] : 'cart'  ) ) ),
-			  'section'			 => 'slug_settings'
-			  ),
-			  array(
-			  'field_name'		 => 'ticket_custom_cart_url',
-			  'field_title'		 => __( 'Custom Cart URL', 'tc' ),
-			  'field_type'		 => 'option',
-			  'default_value'		 => '',
-			  'field_description'	 => __( 'Put here full URL if you want to create custom cart page where you should put shortcode [tc_cart]. It is useful if you set "Show Cart Menu" option to "No". Leave empty if you want to use virtual page already set.' ),
-			  'section'			 => 'slug_settings'
-			  ),
-			  array(
-			  'field_name'		 => 'ticket_payment_slug',
-			  'field_title'		 => __( 'Payment Slug', 'tc' ),
-			  'field_type'		 => 'option',
-			  'default_value'		 => 'payment',
-			  'field_description'	 => sprintf( __( 'Users will choose payment method on this URL %s', 'tc' ), trailingslashit( home_url( isset( $tc_general_settings[ 'ticket_payment_slug' ] ) ? $tc_general_settings[ 'ticket_payment_slug' ] : 'payment'  ) ) ),
-			  'section'			 => 'slug_settings'
-			  ),
-			  array(
-			  'field_name'		 => 'ticket_payment_process_slug',
-			  'field_title'		 => __( 'Process Payment Slug', 'tc' ),
-			  'field_type'		 => 'option',
-			  'default_value'		 => 'process-payment',
-			  'field_description'	 => sprintf( __( 'Gateways will process payments via this URL %s. This url is not visible to users, it is used internally.', 'tc' ), trailingslashit( home_url( isset( $tc_general_settings[ 'ticket_payment_process_slug' ] ) ? $tc_general_settings[ 'ticket_payment_process_slug' ] : 'process-payment'  ) ) ),
-			  'section'			 => 'slug_settings'
-			  ),
-			  array(
-			  'field_name'		 => 'ticket_confirmation_slug',
-			  'field_title'		 => __( 'Payment Confirmation Slug', 'tc' ),
-			  'field_type'		 => 'option',
-			  'default_value'		 => 'confirmation',
-			  'field_description'	 => sprintf( __( 'Users will see this URL %s after completed payment. Information about payment status and link to order page will be visible on confimation page.', 'tc' ), trailingslashit( home_url( isset( $tc_general_settings[ 'ticket_confirmation_slug' ] ) ? $tc_general_settings[ 'ticket_confirmation_slug' ] : 'confirmation'  ) ) ),
-			  'section'			 => 'slug_settings'
-			  ),
-			  array(
-			  'field_name'		 => 'ticket_payment_gateway_return_slug',
-			  'field_title'		 => __( 'Payment Gateway IPN slug', 'tc' ),
-			  'field_type'		 => 'option',
-			  'default_value'		 => 'payment-gateway-ipn',
-			  'field_description'	 => sprintf( __( 'Payment gateways will use this slug and URL %s to post instant payment notification messages. Slug is used internally.', 'tc' ), trailingslashit( home_url( isset( $tc_general_settings[ 'ticket_payment_gateway_return_slug' ] ) ? $tc_general_settings[ 'ticket_payment_gateway_return_slug' ] : 'payment-gateway-ipn'  ) ) ),
-			  'section'			 => 'slug_settings'
-			  ),
-			  array(
-			  'field_name'		 => 'ticket_order_slug',
-			  'field_title'		 => __( 'Order Slug', 'tc' ),
-			  'field_type'		 => 'option',
-			  'default_value'		 => 'order',
-			  'field_description'	 => sprintf( __( 'Users will be able to check order status and / or download their ticket(s) on this URL %s', 'tc' ), trailingslashit( home_url( isset( $tc_general_settings[ 'ticket_order_slug' ] ) ? $tc_general_settings[ 'ticket_order_slug' ] : 'order'  ) ) . 'order_timestamp/order_id/' ),
-			  'section'			 => 'slug_settings'
-			  ),
-			  ); */
 
 			$menu_settings_default_fields = array(
 				array(

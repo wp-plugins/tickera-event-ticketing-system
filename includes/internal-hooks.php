@@ -79,9 +79,12 @@ function tc_cart_tax( $total ) {
 	global $tc, $total_fees, $tax_value;
 
 	$tc_general_settings = get_option( 'tc_general_setting', false );
-	$total_cart			 = round( $total + $total_fees, 2 );
-	$tax_value			 = round( $total_cart * ($tc->get_tax_value() / 100), 2 );
-	$tax_label			 = isset( $tc_general_settings[ 'tax_label' ] ) ? $tc_general_settings[ 'tax_label' ] : 'TAX';
+
+	$tax_inclusive = tc_is_tax_inclusive();
+
+	$total_cart	 = round( $total + $total_fees, 2 );
+	$tax_value	 = round( $total_cart * ($tc->get_tax_value() / 100), 2 );
+	$tax_label	 = isset( $tc_general_settings[ 'tax_label' ] ) ? $tc_general_settings[ 'tax_label' ] : 'TAX';
 
 	if ( !isset( $_SESSION ) ) {
 		session_start();
@@ -89,17 +92,20 @@ function tc_cart_tax( $total ) {
 
 	$_SESSION[ 'tc_tax_value' ] = $tax_value;
 
-	$_SESSION[ 'cart_info' ][ 'total' ] = $total_cart + $tax_value;
+	$_SESSION[ 'cart_info' ][ 'total' ] = $tax_inclusive ? $total_cart : ($total_cart + $tax_value);
 
 	add_filter( 'tc_cart_total', 'tc_cart_total_with_tax', 10, 1 );
 
 	function tc_cart_total_with_tax( $total_price ) {
+
+		$tax_inclusive = tc_is_tax_inclusive();
+
 		global $total_fees, $tax_value;
 		if ( !session_id() ) {
 			session_start();
 		}
-		$_SESSION[ 'tc_cart_total' ] = $total_price + $tax_value;
-		return $total_price + $tax_value;
+		$_SESSION[ 'tc_cart_total' ] = $tax_inclusive ? $total_price : ($total_price + $tax_value);
+		return $tax_inclusive ? $total_price : ($total_price + $tax_value);
 	}
 
 	do_action( 'tc_cart_col_value_before_total_price_tax' );
@@ -114,9 +120,17 @@ function tc_cart_tax( $total ) {
 add_filter( 'tc_discounted_total', 'tc_discounted_total', 10, 1 );
 
 function tc_discounted_total( $total ) {
+	$tax_inclusive = tc_is_tax_inclusive();
 	$tax_value	 = $_SESSION[ 'tc_tax_value' ];
 	$total_fees	 = $_SESSION[ 'tc_total_fees' ];
-	return round( $total + $total_fees + $tax_value, 2 );
+	
+	if($tax_inclusive){
+		$discounted_total = round($total + $total_fees, 2 );
+	}else{
+		$discounted_total =round( $total + $total_fees + $tax_value, 2 );
+	}
+	
+	return $discounted_total;
 }
 
 add_filter( 'tc_event_date_time_element', 'tc_event_date_time_element', 10, 1 );
@@ -344,7 +358,7 @@ add_filter( 'tc_api_key_field_value', 'tc_api_key_field_value', 10, 3 );
 function tc_api_key_field_value( $value, $post_field_type, $var_name ) {
 	if ( $var_name == 'event_name' ) {
 		if ( $value == 'all' ) {
-			$value = __('All Events', 'tc');
+			$value = __( 'All Events', 'tc' );
 		} else {
 			$event_obj		 = new TC_Event( $value );
 			$event_object	 = $event_obj->details;

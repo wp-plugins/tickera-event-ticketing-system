@@ -14,9 +14,10 @@ if ( !class_exists( 'TC_Tickets_Instances_Search' ) ) {
 		var $items_title	 = 'Attendees';
 
 		function __construct( $search_term = '', $page_num = '', $per_page = '', $post_parent = false, $offset = true,
-						$meta_key = '', $meta_value = '', $post_status = 'publish' ) {
+						$meta_key = '', $meta_value = '', $post_status = 'publish', $filter_paid = false ) {
 			global $tc;
 
+			$this->filter_paid	 = $filter_paid;
 			$this->per_page		 = $per_page == '' ? tc_global_admin_per_page( $this->per_page ) : $per_page;
 			$this->page_name	 = $tc->name . '_attendees';
 			$this->search_term	 = $search_term;
@@ -39,6 +40,10 @@ if ( !class_exists( 'TC_Tickets_Instances_Search' ) ) {
 				'post_parent'	 => ($post_parent ? $post_parent : ''),
 				'post_status'	 => $post_status
 			);
+
+			if ( $filter_paid ) {
+				//$args[ 'post_parent__in' ] = array();//array( 2298, 1482 )
+			}
 
 			$this->args = $args;
 		}
@@ -66,6 +71,7 @@ if ( !class_exists( 'TC_Tickets_Instances_Search' ) ) {
 				. "DESC LIMIT %d "
 				. "OFFSET %d", $this->post_type, '%' . $this->search_term . '%', '%' . $this->search_term . '%', $this->per_page, $offset )
 				, OBJECT );
+
 				if ( $count ) {
 					return count( $results );
 				} else {

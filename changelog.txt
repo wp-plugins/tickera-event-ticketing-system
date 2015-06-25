@@ -1,7 +1,10 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
-3.1.7.9 - 18/JUN/2015
+3.1.8 - 25/JUN/2015
+- Added price inclusive of tax option
+
+3.1.7.9 - 23/JUN/2015
 - Added support for ANSI A (216x279 mm) US paper size for ticket templates
 - Fixed issue with ticket template not showing
 

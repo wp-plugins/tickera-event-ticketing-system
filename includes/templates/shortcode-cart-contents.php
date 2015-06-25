@@ -226,18 +226,19 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 									<?php
 									if ( $field[ 'field_type' ] == 'function' ) {
 										eval( $field[ 'function' ] . '("' . $field[ 'field_name' ] . '"' . (isset( $field[ 'post_field_type' ] ) ? ', "' . $field[ 'post_field_type' ] . '"' : '') . (isset( $ticket_type ) ? ',' . $ticket_type : '') . (isset( $ordered_count ) ? ',' . $ordered_count : '') . ');' );
-									}
+									} 
 									if ( $show_owner_fields ) {
 										?>
 										<?php if ( $field[ 'field_type' ] == 'text' ) { ?><div class="fields-wrap <?php
 											if ( isset( $field[ 'field_class' ] ) ) {
 												echo $field[ 'field_class' ];
 											}
-											?>"><label><span><?php echo ($field[ 'required' ] ? '*' : ''); ?><?php echo $field[ 'field_title' ]; ?></span><input type="<?php echo $field[ 'field_type' ]; ?>" <?php
+											?>">
+                                                                                            <?php if ( (isset( $tc_general_settings[ 'show_owner_email_field' ] ) && $tc_general_settings[ 'show_owner_email_field' ] == 'yes' && $field['field_name'] == 'owner_email' ) || $field['field_name'] !== 'owner_email'  ) { ?><label><span><?php echo ($field[ 'required' ] ? '*' : ''); ?><?php echo $field[ 'field_title' ]; ?></span><input type="<?php echo $field[ 'field_type' ]; ?>" <?php
 														 if ( isset( $field[ 'field_placeholder' ] ) ) {
 															 echo 'placeholder="' . esc_attr( $field[ 'field_placeholder' ] ) . '"';
 														 }
-														 ?> class="owner-field-<?php echo $field[ 'field_type' ]; ?> tickera-input-field" value="" name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][<?php echo $owner_index;?>]"></label><span class="description"><?php echo $field[ 'field_description' ]; ?></span></div><!-- fields-wrap --><?php } ?>
+                                                                                ?> class="owner-field-<?php echo $field[ 'field_type' ]; ?> tickera-input-field" value="" name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][<?php echo $owner_index;?>]"></label><span class="description"><?php echo $field[ 'field_description' ]; ?></span></div><!-- fields-wrap --><?php } ?><?php } ?>
 
 										<?php if ( $field[ 'field_type' ] == 'textarea' ) { ?><div class="fields-wrap <?php
 											if ( isset( $field[ 'field_class' ] ) ) {
@@ -328,7 +329,7 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 										?>                      																																																																																																																																																													                                                                
 										<!--<div class="tc-clearfix"></div>-->
 										<?php
-									}
+									} //if ( $show_owner_fields )
 								}
 								?>		
 							</div><!-- owner-info-wrap -->																																																															                                                                                

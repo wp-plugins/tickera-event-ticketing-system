@@ -80,6 +80,14 @@ if (!class_exists('TC_Cart_Form')) {
                     'post_field_type' => 'post_meta',
                     'required' => true
                 ),
+                array(
+                    'field_name' => 'owner_email',
+                    'field_title' => __('E-Mail', 'tc'),
+                    'field_type' => 'text',
+                    'field_description' => '',
+                    'post_field_type' => 'post_meta',
+                    'required' => true
+                ),
             );
 
             return apply_filters('tc_owner_info_fields', $default_fields, $ticket_type_id);

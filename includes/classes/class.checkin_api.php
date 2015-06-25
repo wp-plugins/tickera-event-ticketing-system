@@ -306,6 +306,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 				if ( $available_checkins > $num_of_check_ins ) {
 					$check_in_status		 = apply_filters( 'tc_checkin_status_name', true );
 					$check_in_status_bool	 = true;
+                                        do_action('tc_check_in_notification', $ticket_id);
 				} else {
 					$check_in_status		 = apply_filters( 'tc_checkin_status_name', false );
 					$check_in_status_bool	 = false;
@@ -406,7 +407,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 
 				$event_id = $this->get_api_event();
 
-				$ticket_search = new TC_Tickets_Instances_Search( $this->keyword, $this->page_number, $this->results_per_page, false, true, ($event_id == 'all' ? '' : 'event_id' ), ($event_id == 'all' ? '' : $event_id ) );
+				$ticket_search = new TC_Tickets_Instances_Search( $this->keyword, $this->page_number, $this->results_per_page, false, true, ($event_id == 'all' ? '' : 'event_id' ), ($event_id == 'all' ? '' : $event_id ), 'publish', true );
 
 				$results = $ticket_search->get_results();
 

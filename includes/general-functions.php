@@ -1,5 +1,11 @@
 <?php
 
+function tc_is_tax_inclusive() {
+	$tc_general_settings = get_option( 'tc_general_setting', false );
+	$tax_inclusive		 = isset( $tc_general_settings[ 'tax_inclusive' ] ) && $tc_general_settings[ 'tax_inclusive' ] == 'yes' ? true : false;
+	return $tax_inclusive;
+}
+
 function tc_get_tickets_count_left( $ticket_id ) {
 	global $wpdb, $wp_query;
 
@@ -396,6 +402,27 @@ function tc_get_admin_order_message( $field_name, $default_value = '' ) {
 }
 
 function tc_show_tax_rate( $field_name, $default_value = '' ) {
+	global $tc_general_settings;
+	if ( isset( $tc_general_settings[ $field_name ] ) ) {
+		$checked = $tc_general_settings[ $field_name ];
+	} else {
+		if ( $default_value !== '' ) {
+			$checked = $default_value;
+		} else {
+			$checked = 'yes';
+		}
+	}
+	?>
+	<label>
+		<input type="radio" name="tc_general_setting[<?php echo esc_attr( $field_name ); ?>]" value="yes" <?php checked( $checked, 'yes', true ); ?>  /><?php _e( 'Yes', 'tc' ); ?>
+	</label>
+	<label>
+		<input type="radio" name="tc_general_setting[<?php echo esc_attr( $field_name ); ?>]" value="no" <?php checked( $checked, 'no', true ); ?> /><?php _e( 'No', 'tc' ); ?>
+	</label>
+	<?php
+}
+
+function tc_tax_inclusive( $field_name, $default_value = '' ) {
 	global $tc_general_settings;
 	if ( isset( $tc_general_settings[ $field_name ] ) ) {
 		$checked = $tc_general_settings[ $field_name ];
