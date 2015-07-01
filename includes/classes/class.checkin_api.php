@@ -389,7 +389,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 					array( apply_filters( 'tc_ticket_checkin_custom_field_title', 'Buyer E-mail' ), $order->details->tc_cart_info[ 'buyer_data' ][ 'email_post_meta' ] ),
 				);
 
-				$data[ 'custom_fields' ] = apply_filters( 'tc_checkin_custom_fields', $data[ 'custom_fields' ], $ticket_instance->details->ID, $ticket_event_id );
+				$data[ 'custom_fields' ] = apply_filters( 'tc_checkin_custom_fields', $data[ 'custom_fields' ], $ticket_instance->details->ID, $ticket_event_id, $order, $ticket_type );
 
 				apply_filters( 'tc_checkin_output_data', $data );
 
@@ -418,6 +418,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 					$ticket_type	 = new TC_Ticket( $ticket_instance->details->ticket_type_id );
 
 					$order = new TC_Order( $ticket_instance->details->post_parent );
+					
 					if ( $order->details->post_status == 'order_paid' ) {
 						/* OLD */
 						$check_ins		 = get_post_meta( $ticket_instance->details->ID, 'tc_checkins', true );
@@ -449,7 +450,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 							array( apply_filters( 'tc_ticket_checkin_custom_field_title', 'Buyer E-mail' ), $order->details->tc_cart_info[ 'buyer_data' ][ 'email_post_meta' ] ),
 						);
 
-						$r[ 'custom_fields' ] = apply_filters( 'tc_checkin_custom_fields', $r[ 'custom_fields' ], $result->ID, $event_id );
+						$r[ 'custom_fields' ] = apply_filters( 'tc_checkin_custom_fields', $r[ 'custom_fields' ], $result->ID, $event_id, $order, $ticket_type );
 
 						$r[ 'custom_field_count' ] = count( $r[ 'custom_fields' ] );
 

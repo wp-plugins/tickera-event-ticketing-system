@@ -109,6 +109,12 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.8.2 =
+- Check-in API improvements (added additional filters used by custom fields add-on)
+
+= 3.1.8.1 =
+- Fixed conflict with Divi theme (2.4.3) which caused fatal error when downloading a PDF ticket
+
 = 3.1.8 =
 - Added price inclusive of tax option
 

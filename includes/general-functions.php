@@ -1,4 +1,9 @@
 <?php
+add_filter( 'tc_the_content', 'tc_the_content' );
+
+function tc_the_content( $content ) {
+	return wpautop( $content );
+}
 
 function tc_is_tax_inclusive() {
 	$tc_general_settings = get_option( 'tc_general_setting', false );

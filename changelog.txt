@@ -1,6 +1,12 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
+3.1.8.2 - 01/JUL/2015
+- Check-in API improvements (added additional filters used by custom fields add-on)
+
+3.1.8.1 - 26/JUN/2015
+- Fixed conflict with Divi theme (2.4.3) which caused fatal error when downloading a PDF ticket
+
 3.1.8 - 25/JUN/2015
 - Added price inclusive of tax option
 
