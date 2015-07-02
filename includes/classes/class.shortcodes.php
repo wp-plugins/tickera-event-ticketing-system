@@ -9,7 +9,7 @@ if ( !defined( 'ABSPATH' ) )
 class TC_Shortcodes extends TC {
 
 	function __construct() {
-		//register shortcodes
+//register shortcodes
 		add_shortcode( 'tc_cart', array( &$this, 'tc_cart_page' ) );
 		add_shortcode( 'tc_payment', array( &$this, 'tc_payment_page' ) );
 		add_shortcode( 'tc_order_confirmation', array( &$this, 'tc_order_confirmation_page' ) );
@@ -41,6 +41,8 @@ class TC_Shortcodes extends TC {
 			'price_title'		 => __( 'Price', 'tc' ),
 			'cart_title'		 => __( 'Cart', 'tc' ),
 			'soldout_message'	 => __( 'Tickets are sold out.', 'tc' ),
+			'quantity_title'	 => __( 'Qty.', 'tc' ),
+			'quantity'			 => false,
 			'wrapper'			 => '' ), $atts ) );
 
 		$event			 = new TC_Event( $id );
@@ -54,6 +56,10 @@ class TC_Shortcodes extends TC {
 					<th><?php echo $ticket_type_title; ?></th>
 					<?php do_action( 'tc_event_col_title_before_ticket_price' ); ?>
 					<th><?php echo $price_title; ?></th>
+					<?php if ( $quantity ) { ?>
+						<th><?php echo $quantity_title; ?></th>
+					<?php }
+					?>
 					<?php do_action( 'tc_event_col_title_before_cart_title' ); ?>
 					<th><?php echo $cart_title; ?></th>
 				</tr>
@@ -67,6 +73,9 @@ class TC_Shortcodes extends TC {
 						<?php do_action( 'tc_event_col_value_before_ticket_price', $event_ticket_id ); ?>
 						<td><?php echo do_shortcode( '[ticket_price id="' . $event_ticket->details->ID . '"]' ); ?></td>
 						<?php do_action( 'tc_event_col_value_before_cart_title', $event_ticket_id ); ?>
+						<?php if ( $quantity ) { ?>
+							<td><?php tc_quantity_selector( $event_ticket->details->ID ); ?></td>
+						<?php } ?>
 						<td><?php echo do_shortcode( '[ticket id="' . $event_ticket->details->ID . '" soldout_message="' . $soldout_message . '"]' ); ?></td>
 					</tr>
 				<?php } ?>
@@ -107,7 +116,7 @@ class TC_Shortcodes extends TC {
 				$with_price_content = '';
 			}
 
-			if ( array_key_exists( $id, $tc->get_cart_cookie() ) ) {
+			if ( is_array( $tc->get_cart_cookie()) && array_key_exists( $id, $tc->get_cart_cookie() ) ) {
 				$button = sprintf( '<' . $price_wrapper . ' class="tc_in_cart">%s <a href="%s">%s</a></' . $price_wrapper . '>', __( 'Ticket added to', 'tc' ), $tc->get_cart_slug( true ), __( 'Cart', 'tc' ) );
 			} else {
 				if ( $ticket_type->is_ticket_exceeded_quantity_limit() === false ) {

@@ -1,6 +1,10 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
+
+3.1.8.3 - 02/JUL/2015
+- Added quantity column option to the events shortcode. Example: [event id="53" quantity="true"]
+
 3.1.8.2 - 01/JUL/2015
 - Check-in API improvements (added additional filters used by custom fields add-on)
 

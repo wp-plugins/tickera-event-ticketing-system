@@ -1,6 +1,44 @@
 <?php
 add_filter( 'tc_the_content', 'tc_the_content' );
 
+function tc_quantity_selector( $ticket_id ) {
+	$quantity = 10;
+
+	$ticket			 = new TC_Ticket( $ticket_id );
+	$quantity_left	 = $ticket->get_tickets_quantity_left();
+
+	$max_quantity = get_post_meta( $ticket_id, 'max_tickets_per_order', true );
+
+	if ( isset( $max_quantity ) && is_numeric( $max_quantity ) ) {
+		$quantity = $max_quantity;
+	}
+
+	if ( $quantity_left <= $quantity ) {
+		$quantity = $quantity_left;
+	}
+
+
+	$min_quantity = get_post_meta( $ticket_id, 'min_tickets_per_order', true );
+
+	if ( isset( $min_quantity ) && is_numeric( $min_quantity ) && $min_quantity <= $quantity ) {
+		$i_val = $min_quantity;
+	} else {
+		$i_val = 1;
+	}
+	if ( $quantity_left > 0 ) {
+		?>
+		<select class="tc_quantity_selector">
+			<?php for ( $i = $i_val; $i <= $quantity; $i++ ) {
+				?>
+				<option value="<?php echo esc_attr( $i ); ?>"><?php echo esc_attr( $i ); ?></option>
+				<?php
+			}
+			?>
+		</select>
+		<?php
+	}
+}
+
 function tc_the_content( $content ) {
 	return wpautop( $content );
 }

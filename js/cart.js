@@ -57,8 +57,11 @@ jQuery( document ).ready( function( $ ) {
 
         var current_form = $( this ).parents( 'form.cart_form' );
         var ticket_id = current_form.find( ".ticket_id" ).val();
+        var qty = $( this ).closest( 'tr' ).find( '.tc_quantity_selector' ).val();
 
-        $.post( tc_ajax.ajaxUrl, { action: "add_to_cart", ticket_id: ticket_id }, function( data ) {
+        //$( this ).closest( 'tr' ).find( '.tc_quantity_selector' ).attr( 'disabled', 'disabled' );
+
+        $.post( tc_ajax.ajaxUrl, { action: "add_to_cart", ticket_id: ticket_id, tc_qty: qty }, function( data ) {
             if ( data != 'error' ) {
                 current_form.html( data );
 
@@ -196,7 +199,7 @@ jQuery( document ).ready( function( $ ) {
         var checkbox_values_field = jQuery( this ).parent().parent().find( '.checkbox_values' );
 
         checkbox_values_field.val( '' );
-        
+
         jQuery( this ).parent().parent().find( 'input' ).each( function( key, value ) {
             if ( jQuery( this ).attr( 'checked' ) ) {
                 checkbox_values_field.val( checkbox_values_field.val() + '' + jQuery( this ).val( ) + ', ' );

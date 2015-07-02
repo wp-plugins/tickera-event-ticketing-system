@@ -109,6 +109,9 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.8.3 =
+- Added quantity column option to the events shortcode. Example: [event id="53" quantity="true"]
+
 = 3.1.8.2 =
 - Check-in API improvements (added additional filters used by custom fields add-on)
 
