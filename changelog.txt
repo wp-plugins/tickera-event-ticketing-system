@@ -1,6 +1,8 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
+3.1.8.4 - 25/JUL/2015
+- Added missing div
 
 3.1.8.3 - 02/JUL/2015
 - Added quantity column option to the events shortcode. Example: [event id="53" quantity="true"]

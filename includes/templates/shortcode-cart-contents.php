@@ -229,12 +229,12 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 									} 
 									if ( $show_owner_fields ) {
 										?>
-										<?php if ( $field[ 'field_type' ] == 'text' ) { ?><div class="fields-wrap <?php
+										<?php if ( $field[ 'field_type' ] == 'text' ) { ?>
+                                                                                            <?php if ( (isset( $tc_general_settings[ 'show_owner_email_field' ] ) && $tc_general_settings[ 'show_owner_email_field' ] == 'yes' && $field['field_name'] == 'owner_email' ) || $field['field_name'] !== 'owner_email'  ) { ?><div class="fields-wrap <?php
 											if ( isset( $field[ 'field_class' ] ) ) {
 												echo $field[ 'field_class' ];
 											}
-											?>">
-                                                                                            <?php if ( (isset( $tc_general_settings[ 'show_owner_email_field' ] ) && $tc_general_settings[ 'show_owner_email_field' ] == 'yes' && $field['field_name'] == 'owner_email' ) || $field['field_name'] !== 'owner_email'  ) { ?><label><span><?php echo ($field[ 'required' ] ? '*' : ''); ?><?php echo $field[ 'field_title' ]; ?></span><input type="<?php echo $field[ 'field_type' ]; ?>" <?php
+											?>"><label><span><?php echo ($field[ 'required' ] ? '*' : ''); ?><?php echo $field[ 'field_title' ]; ?></span><input type="<?php echo $field[ 'field_type' ]; ?>" <?php
 														 if ( isset( $field[ 'field_placeholder' ] ) ) {
 															 echo 'placeholder="' . esc_attr( $field[ 'field_placeholder' ] ) . '"';
 														 }
