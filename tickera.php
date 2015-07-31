@@ -5,7 +5,7 @@
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.1.8.6
+  Version: 3.1.8.7
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.1.8.6';
+		var $version			 = '3.1.8.7';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -2645,13 +2645,4 @@ if ( !class_exists( 'TC' ) ) {
 }
 
 $tc_general_settings = get_option( 'tc_general_setting', false );
-
-if ( !defined( 'TC_NU' ) ) {//updates are allowed
-	$license_key = (defined( 'TC_LCK' ) && TC_LCK !== '') ? TC_LCK : (isset( $tc_general_settings[ 'license_key' ] ) && $tc_general_settings[ 'license_key' ] !== '' ? $tc_general_settings[ 'license_key' ] : '');
-
-	if ( $license_key !== '' ) {
-		require $tc->plugin_dir . 'includes/plugin-update-checker/plugin-update-checker.php';
-		$tc_plugin_update_checker = PucFactory::buildUpdateChecker( 'https://tickera.com/update/?action=get_metadata&slug=tickera', __FILE__, 1 );
-	}
-}
 ?>

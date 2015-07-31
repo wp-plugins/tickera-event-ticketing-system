@@ -1,7 +1,7 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
-3.1.8.6 - 31/JUL/2015
+3.1.8.7 - 31/JUL/2015
 - Added toggle controls for event and ticket visibility
 - Added delete pending orders functionality
 - Removed uppercase from buttons
