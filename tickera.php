@@ -5,7 +5,7 @@
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.1.8.4
+  Version: 3.1.8.6
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.1.8.4';
+		var $version			 = '3.1.8.6';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -201,7 +201,8 @@ if ( !class_exists( 'TC' ) ) {
 
 			add_action( 'wp_ajax_nopriv_change_order_status', array( &$this, 'change_order_status_ajax' ) );
 
-			add_action( 'wp_ajax_change_order_status', array( &$this, 'change_order_status_ajax' ) );
+			add_action( 'wp_ajax_change_event_status', array( &$this, 'change_event_status' ) );
+			add_action( 'wp_ajax_change_ticket_status', array( &$this, 'change_ticket_status' ) );
 
 			add_filter( 'tc_cart_currency_and_format', array( &$this, 'get_cart_currency_and_format' ) );
 
@@ -2106,6 +2107,42 @@ if ( !class_exists( 'TC' ) ) {
 			return $order_id;
 		}
 
+		function change_event_status() {
+			if ( isset( $_POST[ 'event_id' ] ) ) {
+				$event_id	 = (int) $_POST[ 'event_id' ];
+				$post_status = $_POST[ 'event_status' ];
+
+				$post_data = array(
+					'ID'			 => $event_id,
+					'post_status'	 => $post_status
+				);
+
+				wp_update_post( $post_data );
+				exit;
+			} else {
+				echo 'error';
+				exit;
+			}
+		}
+
+		function change_ticket_status() {
+			if ( isset( $_POST[ 'ticket_id' ] ) ) {
+				$ticket_id	 = (int) $_POST[ 'ticket_id' ];
+				$post_status = $_POST[ 'ticket_status' ];
+
+				$post_data = array(
+					'ID'			 => $ticket_id,
+					'post_status'	 => $post_status
+				);
+
+				wp_update_post( $post_data );
+				exit;
+			} else {
+				echo 'error';
+				exit;
+			}
+		}
+
 		function change_order_status_ajax() {
 			if ( isset( $_POST[ 'order_id' ] ) ) {
 				$order_id	 = $_POST[ 'order_id' ];
@@ -2605,5 +2642,16 @@ if ( !class_exists( 'TC' ) ) {
 
 	global $tc, $license_key;
 	$tc = new TC();
+}
+
+$tc_general_settings = get_option( 'tc_general_setting', false );
+
+if ( !defined( 'TC_NU' ) ) {//updates are allowed
+	$license_key = (defined( 'TC_LCK' ) && TC_LCK !== '') ? TC_LCK : (isset( $tc_general_settings[ 'license_key' ] ) && $tc_general_settings[ 'license_key' ] !== '' ? $tc_general_settings[ 'license_key' ] : '');
+
+	if ( $license_key !== '' ) {
+		require $tc->plugin_dir . 'includes/plugin-update-checker/plugin-update-checker.php';
+		$tc_plugin_update_checker = PucFactory::buildUpdateChecker( 'https://tickera.com/update/?action=get_metadata&slug=tickera', __FILE__, 1 );
+	}
 }
 ?>

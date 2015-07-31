@@ -5,19 +5,8 @@ if ( isset( $_POST[ 'save_tc_settings' ] ) ) {
 	if ( check_admin_referer( 'save_settings' ) ) {
 		if ( current_user_can( 'manage_options' ) || current_user_can( 'save_settings_cap' ) ) {
 			update_option( 'tc_general_setting', $_POST[ 'tc_general_setting' ] );
-
+			do_action( 'save_tc_general_settings' );
 			tc_save_page_ids();
-
-			/*if ( isset( $_POST[ 'tc_general_setting' ][ 'delete_pending_orders' ] ) ) {
-				if ( is_numeric( $_POST[ 'tc_general_setting' ][ 'delete_pending_orders' ] ) ) {
-					wp_unschedule_event( time(), 'tcmaybedeletependingorders' );
-					wp_clear_scheduled_hook('tcmaybedeletependingorders');
-					wp_schedule_event( time(), 'ten_seconds', 'tcmaybedeletependingorders' );
-				} else {
-					wp_unschedule_event( time(), 'tcmaybedeletependingorders' );
-					wp_clear_scheduled_hook('tcmaybedeletependingorders');
-				}
-			}*/
 
 			$wp_rewrite->flush_rules();
 			$message = __( 'Settings data has been successfully saved.', 'tc' );

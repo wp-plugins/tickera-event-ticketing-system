@@ -107,7 +107,7 @@ if ( !class_exists( 'TC_Tickets' ) ) {
 				),
 				array(
 					'field_name'		 => 'available_checkins_per_ticket',
-					'field_title'		 => __( 'Available check-ins per ticket', 'tc' ),
+					'field_title'		 => __( 'Check-ins per ticket', 'tc' ),
 					'placeholder'		 => __( 'Unlimited', 'tc' ),
 					'field_type'		 => 'text',
 					'field_description'	 => __( 'It is useful if the event last more than one day. For instance, if duration of your event is 5 day, you should choose 5 or more for Available Check-ins', 'tc' ),
@@ -140,6 +140,16 @@ if ( !class_exists( 'TC_Tickets' ) ) {
 					'field_description'	 => '',
 					'table_visibility'	 => false,
 					'post_field_type'	 => 'post_meta'
+				),
+				array(
+					'field_name'			 => 'ticket_active',
+					'field_title'			 => __( 'Active', 'tc' ),
+					'placeholder'			 => '',
+					'field_type'			 => 'text',
+					'field_description'		 => '',
+					'table_visibility'		 => true,
+					'post_field_type'		 => 'post_meta',
+					'table_edit_invisible'	 => true
 				),
 			);
 

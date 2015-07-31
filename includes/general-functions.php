@@ -591,6 +591,27 @@ function tc_show_cart( $field_name, $default_value = '' ) {
 	<?php
 }
 
+function tc_radio_checkbox( $field_name, $default_value = '' ) {
+	global $tc_general_settings;
+	if ( isset( $tc_general_settings[ $field_name ] ) ) {
+		$checked = $tc_general_settings[ $field_name ];
+	} else {
+		if ( $default_value !== '' ) {
+			$checked = $default_value;
+		} else {
+			$checked = 'no';
+		}
+	}
+	?>
+	<label>
+		<input type="radio" name="tc_general_setting[<?php echo esc_attr( $field_name ); ?>]" value="yes" <?php checked( $checked, 'yes', true ); ?> /><?php _e( 'Yes', 'tc' ); ?>
+	</label>
+	<label>
+		<input type="radio" name="tc_general_setting[<?php echo esc_attr( $field_name ); ?>]" value="no" <?php checked( $checked, 'no', true ); ?> /><?php _e( 'No', 'tc' ); ?>
+	</label>
+	<?php
+}
+
 function tc_get_price_formats( $field_name, $default_value = '' ) {
 	global $tc_general_settings;
 	if ( isset( $tc_general_settings[ $field_name ] ) ) {

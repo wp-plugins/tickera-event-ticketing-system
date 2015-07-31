@@ -46,45 +46,49 @@ class TC_Shortcodes extends TC {
 			'wrapper'			 => '' ), $atts ) );
 
 		$event			 = new TC_Event( $id );
-		$event_tickets	 = $event->get_event_ticket_types();
-		?>
+		$event_tickets	 = $event->get_event_ticket_types( 'publish' );
 
-		<div class="tickera">
-			<table class="<?php echo $event_table_class; ?>">
-				<tr>
-					<?php do_action( 'tc_event_col_title_before_ticket_title' ); ?>
-					<th><?php echo $ticket_type_title; ?></th>
-					<?php do_action( 'tc_event_col_title_before_ticket_price' ); ?>
-					<th><?php echo $price_title; ?></th>
-					<?php if ( $quantity ) { ?>
-						<th><?php echo $quantity_title; ?></th>
-					<?php }
-					?>
-					<?php do_action( 'tc_event_col_title_before_cart_title' ); ?>
-					<th><?php echo $cart_title; ?></th>
-				</tr>
-				<?php
-				foreach ( $event_tickets as $event_ticket_id ) {
-					$event_ticket = new TC_Ticket( $event_ticket_id );
-					?>
+		if ( $event->details->post_status == 'publish' ) {
+			?>
+
+			<div class="tickera">
+				<table class="<?php echo $event_table_class; ?>">
 					<tr>
-						<?php do_action( 'tc_event_col_value_before_ticket_type', $event_ticket_id ); ?>
-						<td><?php echo $event_ticket->details->post_title; ?></td>
-						<?php do_action( 'tc_event_col_value_before_ticket_price', $event_ticket_id ); ?>
-						<td><?php echo do_shortcode( '[ticket_price id="' . $event_ticket->details->ID . '"]' ); ?></td>
-						<?php do_action( 'tc_event_col_value_before_cart_title', $event_ticket_id ); ?>
+						<?php do_action( 'tc_event_col_title_before_ticket_title' ); ?>
+						<th><?php echo $ticket_type_title; ?></th>
+						<?php do_action( 'tc_event_col_title_before_ticket_price' ); ?>
+						<th><?php echo $price_title; ?></th>
 						<?php if ( $quantity ) { ?>
-							<td><?php tc_quantity_selector( $event_ticket->details->ID ); ?></td>
-						<?php } ?>
-						<td><?php echo do_shortcode( '[ticket id="' . $event_ticket->details->ID . '" soldout_message="' . $soldout_message . '"]' ); ?></td>
+							<th><?php echo $quantity_title; ?></th>
+						<?php }
+						?>
+						<?php do_action( 'tc_event_col_title_before_cart_title' ); ?>
+						<th><?php echo $cart_title; ?></th>
 					</tr>
-				<?php } ?>
-			</table>
-		</div><!-- tickera -->
+					<?php
+					foreach ( $event_tickets as $event_ticket_id ) {
+						$event_ticket = new TC_Ticket( $event_ticket_id );
+						?>
+						<tr>
+							<?php do_action( 'tc_event_col_value_before_ticket_type', $event_ticket_id ); ?>
+							<td><?php echo $event_ticket->details->post_title; ?></td>
+							<?php do_action( 'tc_event_col_value_before_ticket_price', $event_ticket_id ); ?>
+							<td><?php echo do_shortcode( '[ticket_price id="' . $event_ticket->details->ID . '"]' ); ?></td>
+							<?php do_action( 'tc_event_col_value_before_cart_title', $event_ticket_id ); ?>
+							<?php if ( $quantity ) { ?>
+								<td><?php tc_quantity_selector( $event_ticket->details->ID ); ?></td>
+							<?php } ?>
+							<td><?php echo do_shortcode( '[ticket id="' . $event_ticket->details->ID . '" soldout_message="' . $soldout_message . '"]' ); ?></td>
+						</tr>
+					<?php } ?>
+				</table>
+			</div><!-- tickera -->
 
-		<?php
-		$content = ob_get_clean();
-		return $content;
+			<?php
+			$content = ob_get_clean();
+
+			return $content;
+		}
 	}
 
 	function ticket_cart_button( $atts ) {
@@ -109,14 +113,16 @@ class TC_Shortcodes extends TC {
 			$ticket_type = new TC_Ticket( $id, 'publish' );
 		}
 
-		if ( isset( $ticket_type->details->ID ) ) {//check if ticket still exists
+		$event_id = get_post_meta( $id, 'event_name', true );
+
+		if ( isset( $ticket_type->details->ID ) && get_post_status( $event_id ) == 'publish' ) {//check if ticket still exists
 			if ( $show_price ) {
 				$with_price_content = ' <span class="' . $price_wrapper_class . '">' . do_shortcode( '[ticket_price id="' . $id . '"]' ) . '</span> ';
 			} else {
 				$with_price_content = '';
 			}
 
-			if ( is_array( $tc->get_cart_cookie()) && array_key_exists( $id, $tc->get_cart_cookie() ) ) {
+			if ( is_array( $tc->get_cart_cookie() ) && array_key_exists( $id, $tc->get_cart_cookie() ) ) {
 				$button = sprintf( '<' . $price_wrapper . ' class="tc_in_cart">%s <a href="%s">%s</a></' . $price_wrapper . '>', __( 'Ticket added to', 'tc' ), $tc->get_cart_slug( true ), __( 'Cart', 'tc' ) );
 			} else {
 				if ( $ticket_type->is_ticket_exceeded_quantity_limit() === false ) {

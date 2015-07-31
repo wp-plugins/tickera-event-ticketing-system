@@ -1,4 +1,68 @@
 jQuery( document ).ready( function( $ ) {
+
+
+    /* Toggle Controls */
+    //tickera_page_tc_ticket_types
+    var tc_event_id = 0;
+    var tc_ticket_id = 0;
+    var tc_event_status = 'publish';
+    var tc_ticket_status = 'publish';
+
+    var tc_toggle = {
+        init: function() {
+            $( 'body' ).addClass( 'tctgl' );
+            this.attachHandlers( '.tctgl .tc-control' );
+        },
+        tc_controls: {
+            $tc_toggle_init: function( selector )
+            {
+                $( selector ).click( function()
+                {
+                    tc_event_id = $( this ).attr( 'event_id' );
+                    tc_ticket_id = $( this ).attr( 'ticket_id' );
+
+                    if ( $( this ).hasClass( 'tc-on' ) ) {
+                        $( this ).removeClass( 'tc-on' );
+                        tc_event_status = 'private';
+                        tc_ticket_status = 'private';
+                    } else {
+                        $( this ).addClass( 'tc-on' );
+                        tc_event_status = 'publish';
+                        tc_ticket_status = 'publish';
+                    }
+
+                    var attr = $( this ).attr( 'event_id' );
+                    if ( typeof attr !== typeof undefined && attr !== false ) {//Event toggle
+                        $.post(
+                            tc_vars.ajaxUrl, {
+                                action: 'change_event_status',
+                                event_status: tc_event_status,
+                                event_id: tc_event_id,
+                            }
+                        );
+                    } else {
+                        $.post(
+                            tc_vars.ajaxUrl, {
+                                action: 'change_ticket_status',
+                                ticket_status: tc_ticket_status,
+                                ticket_id: tc_ticket_id,
+                            }
+                        );
+                    }
+
+
+                } );
+
+            }
+        },
+        attachHandlers: function( selector ) {
+            this.tc_controls.$tc_toggle_init( selector );
+        }
+    };
+
+    tc_toggle.init();
+
+
     $( "input.tc_active_gateways" ).change( function() {
         //alert($(this).val());
         var currently_selected_gateway_name = $( this ).val();
@@ -190,3 +254,4 @@ jQuery( document ).ready( function( $ ) {
 
     $( ".tc_wrap select" ).chosen( { disable_search_threshold: 5 } );
 } );
+

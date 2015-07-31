@@ -120,16 +120,16 @@ function tc_cart_tax( $total ) {
 add_filter( 'tc_discounted_total', 'tc_discounted_total', 10, 1 );
 
 function tc_discounted_total( $total ) {
-	$tax_inclusive = tc_is_tax_inclusive();
-	$tax_value	 = $_SESSION[ 'tc_tax_value' ];
-	$total_fees	 = $_SESSION[ 'tc_total_fees' ];
-	
-	if($tax_inclusive){
-		$discounted_total = round($total + $total_fees, 2 );
-	}else{
-		$discounted_total =round( $total + $total_fees + $tax_value, 2 );
+	$tax_inclusive	 = tc_is_tax_inclusive();
+	$tax_value		 = $_SESSION[ 'tc_tax_value' ];
+	$total_fees		 = $_SESSION[ 'tc_total_fees' ];
+
+	if ( $tax_inclusive ) {
+		$discounted_total = round( $total + $total_fees, 2 );
+	} else {
+		$discounted_total = round( $total + $total_fees + $tax_value, 2 );
 	}
-	
+
 	return $discounted_total;
 }
 
@@ -237,6 +237,14 @@ function my_custom_events_admin_fields( $event_fields ) {
 		'table_visibility'	 => true
 	);
 
+	$event_fields[] = array(
+		'field_name'			 => 'event_active',
+		'field_title'			 => __( 'Active', 'tc' ),
+		'field_type'			 => 'read-only',
+		'table_visibility'		 => true,
+		'table_edit_invisible'	 => true
+	);
+
 	return $event_fields;
 }
 
@@ -244,6 +252,11 @@ add_filter( 'tc_event_object_details', 'my_custom_tc_event_object_details' );
 
 function my_custom_tc_event_object_details( $object_details ) {
 	$object_details->event_shortcode = '[event id="' . $object_details->ID . '"]';
+
+	$event_status					 = get_post_status( $object_details->ID );
+	$on								 = $event_status == 'publish' ? 'tc-on' : '';
+	$object_details->event_active	 = '<div class="tc-control ' . $on . '" event_id="' . esc_attr( $object_details->ID ) . '"><div class="tc-toggle"></div></div>';
+
 	return $object_details;
 }
 
@@ -294,6 +307,10 @@ function my_custom_tc_ticket_object_details( $object_details ) {
 		}
 	}
 
+	$ticket_status					 = get_post_status( $object_details->ID );
+	$on								 = $ticket_status == 'publish' ? 'tc-on' : '';
+	$object_details->ticket_active	 = '<div class="tc-control ' . $on . '" ticket_id="' . esc_attr( $object_details->ID ) . '"><div class="tc-toggle"></div></div>';
+	
 	$object_details->quantity_sold = $sold_count;
 	return $object_details;
 }

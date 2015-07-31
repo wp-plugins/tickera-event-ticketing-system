@@ -38,7 +38,8 @@ if ( !class_exists( 'TC_Order' ) ) {
 			return $order;
 		}
 
-		function delete_order( $force_delete = true ) {
+		function delete_order( $force_delete = true, $id = false ) {
+			$id = $id ? $id : $this->id;
 			if ( $force_delete ) {
 				wp_delete_post( $this->id );
 			} else {

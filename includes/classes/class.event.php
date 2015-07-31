@@ -36,13 +36,13 @@ if ( !class_exists( 'TC_Event' ) ) {
 			return $event;
 		}
 
-		function get_event_ticket_types() {
+		function get_event_ticket_types( $post_status = 'any' ) {
 
 			$ticket_ids = array();
 
 			$args = array(
 				'post_type'		 => 'tc_tickets',
-				'post_status'	 => 'any',
+				'post_status'	 => $post_status,
 				'posts_per_page' => -1,
 				'meta_key'		 => 'event_name',
 				'meta_value'	 => (string) $this->id
@@ -51,7 +51,7 @@ if ( !class_exists( 'TC_Event' ) ) {
 			$ticket_types = get_posts( $args );
 
 			foreach ( $ticket_types as $ticket_type ) {
-				$ticket_ids[] = (int)$ticket_type->ID;
+				$ticket_ids[] = (int) $ticket_type->ID;
 			}
 
 			return $ticket_ids;
@@ -77,9 +77,9 @@ if ( !class_exists( 'TC_Event' ) ) {
 				$ticket_type_instance->delete_ticket();
 			}
 		}
-		
-		function restore_event($event_id) {
-			wp_untrash_post($event_id);
+
+		function restore_event( $event_id ) {
+			wp_untrash_post( $event_id );
 
 			//delete event ticket types
 			$args = array(
@@ -90,7 +90,7 @@ if ( !class_exists( 'TC_Event' ) ) {
 			$ticket_types = get_posts( $args );
 
 			foreach ( $ticket_types as $ticket_type ) {
-				wp_untrash_post($ticket_type->ID );
+				wp_untrash_post( $ticket_type->ID );
 			}
 		}
 

@@ -219,7 +219,6 @@
 
 .tickera-checkout .tickera_update{
     float: right;
-    text-transform: uppercase;
     transition: all linear 0.2s;
     -webkit-transition: all linear 0.2s;
     -moz-transition: all linear 0.2s;
@@ -228,7 +227,6 @@
 .tickera-button {
     border: none;
     color: #fff;
-    text-transform: uppercase;
     padding: 13px 20px;
     background-color: #4187c9;
     border: none;

@@ -77,7 +77,7 @@ $columns			 = $events->get_columns();
         <table class="event-table">
             <tbody>
 				<?php foreach ( $fields as $field ) { ?>
-					<?php if ( $events->is_valid_event_field_type( $field[ 'field_type' ] ) ) { ?>    
+					<?php if ( $events->is_valid_event_field_type( $field[ 'field_type' ] ) && !isset( $field[ 'table_edit_invisible' ] ) ) { ?>    
 						<tr valign="top">
 
 							<th scope="row"><label for="<?php echo $field[ 'field_name' ]; ?>"><?php echo $field[ 'field_title' ]; ?></label></th>

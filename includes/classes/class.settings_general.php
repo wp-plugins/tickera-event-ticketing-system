@@ -16,6 +16,7 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 		}
 
 		function get_settings_general_sections() {
+			global $tc_gateway_plugins;
 			$sections = array(
 				array(
 					'name'			 => 'store_settings',
@@ -179,8 +180,7 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 					'field_description'	 => __( 'Show Ticket Owner fields on the Cart page. If this option is not selected, owner info fields will not be collected and shown on the ticket.', 'tc' ),
 					'section'			 => 'store_settings'
 				),
-                            
-                                array(
+				array(
 					'field_name'		 => 'show_owner_email_field',
 					'field_title'		 => __( 'Show E-mail for Option For Ticket Owners', 'tc' ),
 					'field_type'		 => 'function',
@@ -189,7 +189,6 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 					'field_description'	 => __( 'Show / Hide field for owner to write theirs e-mail', 'tc' ),
 					'section'			 => 'store_settings'
 				),
-                            
 				array(
 					'field_name'		 => 'show_discount_field',
 					'field_title'		 => __( 'Show Discount Code', 'tc' ),
