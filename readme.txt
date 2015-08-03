@@ -109,12 +109,25 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.8.8 =
+- Added "Ticketing Store at a Glance" dashboard widget
+
+= 3.1.8.7 =
+- Added toggle controls for event and ticket visibility
+- Added delete pending orders functionality
+- Removed uppercase from buttons
+- Fixed Ipay label
+- Removed align right from credit card tables
+
 = 3.1.8.6 =
 - Added toggle controls for event and ticket visibility
 - Added delete pending orders functionality
 - Removed uppercase from buttons
 - Fixed Ipay label
 - Removed align right from credit card tables
+
+= 3.1.8.5 =
+- Added new plugin updater
 
 = 3.1.8.4 =
 - Added missing div

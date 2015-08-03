@@ -5,7 +5,7 @@
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.1.8.7
+  Version: 3.1.8.8
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.1.8.7';
+		var $version			 = '3.1.8.8';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -199,7 +199,7 @@ if ( !class_exists( 'TC' ) ) {
 
 			add_action( 'wp_ajax_update_cart_widget', array( &$this, 'update_cart_widget' ) );
 
-			add_action( 'wp_ajax_nopriv_change_order_status', array( &$this, 'change_order_status_ajax' ) );
+			add_action( 'wp_ajax_change_order_status', array( &$this, 'change_order_status_ajax' ) );
 
 			add_action( 'wp_ajax_change_event_status', array( &$this, 'change_event_status' ) );
 			add_action( 'wp_ajax_change_ticket_status', array( &$this, 'change_ticket_status' ) );
@@ -2144,6 +2144,7 @@ if ( !class_exists( 'TC' ) ) {
 		}
 
 		function change_order_status_ajax() {
+
 			if ( isset( $_POST[ 'order_id' ] ) ) {
 				$order_id	 = $_POST[ 'order_id' ];
 				$post_status = $_POST[ 'new_status' ];
@@ -2155,8 +2156,6 @@ if ( !class_exists( 'TC' ) ) {
 
 				$order = get_post( $order_id );
 
-				ob_end_clean();
-				ob_start();
 				if ( $post_status == 'order_paid' ) {
 					//echo 'calling function to send an notification email for order:'.$order->post_name;
 					tc_order_created_email( $order->post_name, $post_status, false, false, false, false );
@@ -2164,13 +2163,11 @@ if ( !class_exists( 'TC' ) ) {
 					//echo 'post status is not order_paid';
 				}
 
-
 				if ( wp_update_post( $post_data ) ) {
 					echo 'updated';
 				} else {
 					echo 'error';
 				}
-				ob_end_flush();
 				exit;
 			} else {
 				echo 'error';
@@ -2643,6 +2640,4 @@ if ( !class_exists( 'TC' ) ) {
 	global $tc, $license_key;
 	$tc = new TC();
 }
-
-$tc_general_settings = get_option( 'tc_general_setting', false );
 ?>

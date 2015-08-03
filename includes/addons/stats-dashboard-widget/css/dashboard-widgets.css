@@ -1,0 +1,157 @@
+
+#tc_store_report .inside {
+    padding: 0;
+    margin: 0;
+}
+
+#tc_store_report .tc-dashboard-widget-subtitle{
+    width: 100%;
+    display: block;
+    text-transform: uppercase;
+    font-size: 10px;
+}
+
+#tc_store_report .peity{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    margin-top: 2px;
+}
+
+#tc_store_report .tc-bar{
+    display: none;
+}
+
+.tc-status-list li.sales-this-month {
+    width: 100%;
+}
+
+.tc-status-list {
+    overflow: hidden;
+    margin: 0;
+}
+
+.tc-status-list li:first-child {
+    border-top: 0;
+}
+
+.tc-status-list li a {
+    display: block;
+    color: #aaa;
+    padding: 9px 12px;
+    -webkit-transition: all ease .5s;
+    position: relative;
+    font-size: 12px;
+}
+
+.tc-status-list li a .wc_sparkline {
+    width: 4em;
+    height: 2em;
+    display: block;
+    float: right;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-right: 12px;
+    margin-top: -1.25em;
+}
+
+.tc-status-list li a strong {
+    font-size: 16px;
+    line-height: 1.2em;
+    font-weight: 400;
+    display: inline-block;
+    color: #21759b;
+}
+
+.tc-status-list li.completed-orders {
+
+}
+
+.tc-status-list li {
+    width: 50%;
+    float: left;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    border-top: 1px solid #ececec;
+    color: #aaa;
+}
+
+.tc-status-list li.completed-orders a:before {
+    color: #7ad03a;
+}
+
+.tc-status-list li {
+    width: 50%;
+    float: left;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    border-top: 1px solid #ececec;
+    color: #aaa;
+}
+
+.tc-status-list li.pending-orders a:before {
+    color: #999;
+}
+
+.tc-status-list li.todays-earnings, .tc-status-list li.completed-orders {
+    border-right: 1px solid #ececec;
+}
+
+.tc-status-list li.sold-tickets a:before {
+    color: #ffba00;
+}
+
+.tc-status-list li {
+    width: 50%;
+    float: left;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    border-top: 1px solid #ececec;
+    color: #aaa;
+}
+
+.tc-status-list li.todays-earnings a:before {
+    color: #a00;
+}
+
+.tc-icon{
+    display: inline-block;
+    float: left;
+    color:#21759b;
+}
+
+.tc-icon-dashboard-completed{
+    color: #7ad03a;
+}
+
+.tc-icon-dashboard-pending{
+    color: #ffba00;
+}
+
+.tc-icon-dashboard-sold{
+    color: #ff6600;
+}
+
+.tc-icon-dashboard-todays-earnings{
+    color: #000;
+}
+
+.tc-icon:before{
+    display: inline-block;
+    float: left;
+    font-size: 18px;
+    line-height: 1.30em;
+    font-weight: 400;
+    margin-right: 10px;
+    margin-top: 1px;
+}

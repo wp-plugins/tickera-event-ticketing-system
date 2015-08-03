@@ -323,7 +323,7 @@ function tc_ticket_instance_field_value( $value = false, $field_value = false, $
 		$parent_post = get_post_ancestors( $value );
 		$order		 = new TC_Order( $parent_post[ 0 ] );
 		if ( current_user_can( 'manage_orders_cap' ) ) {
-			$value = '<a target="_blank" href="' . admin_url( 'admin.php?page=tc_orders&&action=details&ID=' . $order->details->ID ) . '">' . $order->details->post_title . '</a>';
+			$value = '<a target="_blank" href="' . admin_url( 'admin.php?page=tc_orders&action=details&ID=' . $order->details->ID ) . '">' . $order->details->post_title . '</a>';
 		} else {
 			$value = $order->details->post_title;
 		}
