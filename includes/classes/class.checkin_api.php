@@ -306,7 +306,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 				if ( $available_checkins > $num_of_check_ins ) {
 					$check_in_status		 = apply_filters( 'tc_checkin_status_name', true );
 					$check_in_status_bool	 = true;
-                                        do_action('tc_check_in_notification', $ticket_id);
+					do_action( 'tc_check_in_notification', $ticket_id );
 				} else {
 					$check_in_status		 = apply_filters( 'tc_checkin_status_name', false );
 					$check_in_status_bool	 = false;
@@ -404,12 +404,34 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 
 		function tickets_info( $echo = true ) {
 			if ( $this->get_api_key_id() ) {
+				global $wpdb;
 
 				$event_id = $this->get_api_event();
 
-				$ticket_search = new TC_Tickets_Instances_Search( $this->keyword, $this->page_number, $this->results_per_page, false, true, ($event_id == 'all' ? '' : 'event_id' ), ($event_id == 'all' ? '' : $event_id ), 'publish', true );
+				/*
+				  SELECT tcp.ID, tcp.post_type, tco.post_status
+				  FROM wp_posts tcp
+				  LEFT JOIN wp_posts tco ON tcp.post_parent = tco.ID
+				  WHERE tcp.post_type =  'tc_tickets_instances'
+				  AND tco.post_status =  'order_paid'
+				 */
 
-				$results = $ticket_search->get_results();
+				$results = $wpdb->get_results(
+				$wpdb->prepare(
+				"SELECT tcp.ID, tcp.post_type, tco.post_status
+				  FROM $wpdb->posts tcp
+				  LEFT JOIN $wpdb->posts tco ON tcp.post_parent = tco.ID
+				  WHERE tcp.post_type =  %s
+				  AND tco.post_status =  'order_paid'
+				  ORDER BY tco.post_date
+				  DESC LIMIT %d
+				  OFFSET %d
+				", 'tc_tickets_instances', $this->results_per_page, (( $this->page_number - 1 ) * $this->results_per_page ) )
+				, OBJECT );
+
+				/* $ticket_search = new TC_Tickets_Instances_Search( $this->keyword, $this->page_number, $this->results_per_page, false, true, ($event_id == 'all' ? '' : 'event_id' ), ($event_id == 'all' ? '' : $event_id ), 'publish', true );
+
+				  $results = $ticket_search->get_results(); */
 
 				$results_count = 0;
 
@@ -418,7 +440,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 					$ticket_type	 = new TC_Ticket( $ticket_instance->details->ticket_type_id );
 
 					$order = new TC_Order( $ticket_instance->details->post_parent );
-					
+
 					if ( $order->details->post_status == 'order_paid' ) {
 						/* OLD */
 						$check_ins		 = get_post_meta( $ticket_instance->details->ID, 'tc_checkins', true );

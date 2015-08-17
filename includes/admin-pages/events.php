@@ -122,6 +122,8 @@ $columns			 = $events->get_columns();
 										} else {
 											$editor_content = ( $event->details->{$field[ 'post_field_type' ]} );
 										}
+									} else {
+										$editor_content = '';
 									}
 									wp_editor( html_entity_decode( stripcslashes( $editor_content ) ), $field[ 'field_name' ], array( 'textarea_name' => $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ], 'textarea_rows' => 5 ) );
 									?>

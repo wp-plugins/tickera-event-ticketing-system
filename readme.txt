@@ -109,6 +109,12 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.8.9 =
+- Added shortcode builder
+- Fixed issues with attendee list in the mobile apps / check-in API
+- Fixed admin notices on the event and ticket type page
+- Added message when order id is not specified on the order details page
+
 = 3.1.8.8 =
 - Added "Ticketing Store at a Glance" dashboard widget
 

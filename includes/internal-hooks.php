@@ -60,11 +60,12 @@ function tc_cart_col_value_before_total_price_total( $total ) {
 	do_action( 'tc_cart_col_value_before_total_price_fees' );
 	add_filter( 'tc_cart_total', 'tc_cart_total_with_fees', 10, 1 );
 
-	function tc_cart_total_with_fees( $total_price ) {
-		global $total_fees;
-		//return apply_filters( 'tc_discounted_total', $total_price );
-		return $total_price + apply_filters( 'tc_discounted_fees_total', $total_fees );
-	}
+		function tc_cart_total_with_fees( $total_price ) {
+			global $total_fees;
+			//return apply_filters( 'tc_discounted_total', $total_price );
+			return $total_price + apply_filters( 'tc_discounted_fees_total', $total_fees );
+		}
+
 
 	if ( !isset( $tc_general_settings[ 'show_fees' ] ) || (isset( $tc_general_settings[ 'show_fees' ] ) && $tc_general_settings[ 'show_fees' ] == 'yes') ) {
 		?>
@@ -310,7 +311,7 @@ function my_custom_tc_ticket_object_details( $object_details ) {
 	$ticket_status					 = get_post_status( $object_details->ID );
 	$on								 = $ticket_status == 'publish' ? 'tc-on' : '';
 	$object_details->ticket_active	 = '<div class="tc-control ' . $on . '" ticket_id="' . esc_attr( $object_details->ID ) . '"><div class="tc-toggle"></div></div>';
-	
+
 	$object_details->quantity_sold = $sold_count;
 	return $object_details;
 }

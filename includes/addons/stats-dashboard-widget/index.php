@@ -98,7 +98,7 @@ if ( !class_exists( 'TC_Stats_Dashboard_Widget' ) ) {
 
 				$createDate	 = new DateTime( $order_object->details->post_date );
 				$strip_date	 = $createDate->format( 'Y-m-d' );
-
+				$range_dates_earnings[ $strip_date ] = 0;
 				$range_dates_earnings[ $strip_date ] = $range_dates_earnings[ $strip_date ] + $order_object->details->tc_payment_info[ 'total' ];
 
 				$paid_orders_count++;

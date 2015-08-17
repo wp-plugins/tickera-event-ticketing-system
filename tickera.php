@@ -5,7 +5,7 @@
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.1.8.8
+  Version: 3.1.8.9
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.1.8.8';
+		var $version			 = '3.1.8.9';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -120,6 +120,8 @@ if ( !class_exists( 'TC' ) ) {
 
 //load email settings class
 			require_once( $this->plugin_dir . 'includes/classes/class.settings_email.php' );
+
+			require_once ( $this->plugin_dir . 'includes/classes/class.shortcode_builder.php' );
 
 
 //Loading config first

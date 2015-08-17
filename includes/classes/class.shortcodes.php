@@ -194,7 +194,7 @@ class TC_Shortcodes extends TC {
 	function tc_cart_page( $atts ) {
 		global $tc;
 		ob_start();
-		include_once( $tc->plugin_dir . 'includes/templates/shortcode-cart-contents.php' );
+		include( $tc->plugin_dir . 'includes/templates/shortcode-cart-contents.php' );
 		$content = wpautop( ob_get_clean(), true );
 		return $content;
 	}

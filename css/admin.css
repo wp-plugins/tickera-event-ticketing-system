@@ -469,3 +469,97 @@ a.tc_link:hover{
 }
 
 
+/* Colorbox styles */
+
+#tc-shortcode-select {
+    width: 350px;
+    background-position:  95% 15px;
+}
+
+.tc-shortcodes-colorbox #cboxLoadedContent {
+    border: none;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.tc-shortcode-wrap {
+    padding: 30px;
+}
+
+.tc-shortcode-atts {
+    margin-top: 30px;
+}
+
+
+.tc-shortcode-atts .description {
+    float: left;
+    margin-top: 3px;
+}
+
+.shortcode-table tr th {
+    width: 20%;
+    text-align: left;
+    padding: 18px 0;
+}
+
+.tc-shortcode-wrap select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 38px;
+    padding: 0 10px;
+    background: url('../images/arrow-select.png') no-repeat 96% 15px;
+    padding: 0 30px 0 10px;
+    width: 300px;
+}
+
+.shortcode-table {
+    width: 100%;
+}
+
+.shortcode-table input {
+    padding: 8px 10px;
+    width: 300px;
+}
+
+.tc-title-wrap {
+    color: #fff;
+    background: #0893CA;
+    width: 100%;
+    padding: 15px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.tc-title-wrap h3 {
+    color: #fff;
+    margin: 0;
+    font-weight: bold;
+}
+
+.tc-shortcodes-colorbox #cboxClose {
+    background: url('../images/close-button.png') no-repeat center;
+    color: #fff;
+    top: 13px;
+}
+
+
+@media only screen and (max-width : 500px) {
+    .shortcode-table tr th {
+        width: 100%;
+        display: block;
+    }
+    
+    .shortcode-table tr td {
+        width: 100%;
+        display: block;
+    }
+    
+    .shortcode-table input,
+    .shortcode-table select,
+    #tc-shortcode-select {
+        width: 100%;
+    } 
+}
