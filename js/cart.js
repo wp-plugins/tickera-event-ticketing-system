@@ -176,7 +176,7 @@ jQuery( document ).ready( function( $ ) {
     //payment method choice
     $( '.tickera-payment-gateways input.tc_choose_gateway' ).change( function() {
         var gid = $( 'input.tc_choose_gateway:checked' ).val();
-
+       
         $( 'div.tc_gateway_form' ).removeClass( 'tickera-height' );
         $( 'div#' + gid ).addClass( 'tickera-height' );
     } );

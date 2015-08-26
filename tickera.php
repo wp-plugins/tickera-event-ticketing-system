@@ -5,7 +5,7 @@
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.1.8.9
+  Version: 3.1.9.1
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.1.8.9';
+		var $version			 = '3.1.9.1';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -33,6 +33,8 @@ if ( !class_exists( 'TC' ) ) {
 
 			$this->init_vars();
 
+
+			require_once($this->plugin_dir . 'includes/classes/class.form_fields_api.php');
 
 //load checkin api class
 			require_once( $this->plugin_dir . 'includes/classes/class.checkin_api.php' );
@@ -1876,7 +1878,6 @@ if ( !class_exists( 'TC' ) ) {
 		//called by payment gateways to update order statuses
 		function update_order_payment_status( $order_id, $paid ) {
 			//get the order
-			$current_payment_status = $this->get_order_payment_status( $order_id );
 
 			$order = $this->get_order( $order_id );
 			if ( !$order ) {
@@ -1884,7 +1885,10 @@ if ( !class_exists( 'TC' ) ) {
 			}
 
 			if ( $paid ) {
+
+				$current_payment_status = $this->get_order_payment_status( $order_id );
 				$this->update_order_status( $order->ID, 'order_paid' );
+
 				if ( $current_payment_status !== 'order_paid' ) {
 					$cart_contents	 = get_post_meta( $order->ID, 'tc_cart_contents', false );
 					$cart_info		 = get_post_meta( $order->ID, 'tc_cart_info', false );
@@ -2104,7 +2108,6 @@ if ( !class_exists( 'TC' ) ) {
 
 			$payment_gateway = new $payment_class_name;
 
-			//$this->send_order_confirmation_email( $order_id, $order[ 'post_status' ] );
 			do_action( 'tc_order_created', $order_id, $status, $cart_contents, $cart_info, $payment_info );
 			return $order_id;
 		}

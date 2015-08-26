@@ -2,7 +2,12 @@ Plugin Name: Tickera
 Author: Tickera.com
 
 
- 3.1.8.9 - 17/AVG/2015
+3.1.9.1 - 26/AUG/2015 
+- Revamp of the payment gateway API and all payment gateways code (IMPORTANT: if you're using payment gateway add-ons, please update them)
+- Added Form Field API (beta)
+- Fixed issues with WordPress 4.3 (construct for Widgets)
+ 
+3.1.8.9 - 17/AUG/2015
 - Added shortcode builder
 - Fixed issues with attendee list in the mobile apps / check-in API
 - Fixed admin notices on the event and ticket type page

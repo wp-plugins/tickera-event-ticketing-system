@@ -13,7 +13,7 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 	if ( !empty( $cart_contents ) ) {
 		?>
 		<form id="tickera_cart" method="post" class="tickera" name="tickera_cart">
-			<input type='hidden' name='cart_action' id='cart_action' value="update_cart" />
+			<input type="hidden" name="cart_action" id="cart_action" value="update_cart" />
 			<div class="tc-container">
 				<div class="tickera-checkout">
 					<table cellspacing="0" class="tickera_table" cellpadding="10">
@@ -342,7 +342,7 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 
 				</div><!-- tickera_owner_info -->
 				<?php do_action( 'before_cart_submit' ); ?>
-				<p><input type="submit" id="proceed_to_checkout" name='proceed_to_checkout' value="<?php _e( "Proceed to Checkout", "tc" ); ?>" class="tickera_checkout tickera-button"></p>
+				<p><input type="submit" id="proceed_to_checkout" name="proceed_to_checkout" value="<?php _e( "Proceed to Checkout", "tc" ); ?>" class="tickera_checkout tickera-button"></p>
 			</div><!-- tickera_additional_info -->
 			<?php
 		} else {

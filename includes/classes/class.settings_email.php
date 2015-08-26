@@ -78,7 +78,7 @@ if ( !class_exists( 'TC_Settings_Email' ) ) {
 					'field_type'		 => 'function',
 					'function'			 => 'tc_client_send_order_messages',
 					'default_value'		 => 'yes',
-					'field_description'	 => __( 'Whether to send or not e-mail uppon each completed order)', 'tc' ),
+					'field_description'	 => __( 'Whether to send or not e-mail upon each completed order)', 'tc' ),
 					'section'			 => 'client_order_completed_email'
 				),
 			);
@@ -123,7 +123,7 @@ if ( !class_exists( 'TC_Settings_Email' ) ) {
 					'field_type'		 => 'function',
 					'function'			 => 'tc_admin_send_order_messages',
 					'default_value'		 => 'yes',
-					'field_description'	 => __( 'Whether to send or not e-mail uppon each completed order)', 'tc' ),
+					'field_description'	 => __( 'Whether to send or not e-mail upon each completed order)', 'tc' ),
 					'section'			 => 'admin_order_completed_email'
 				),
 			);

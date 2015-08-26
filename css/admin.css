@@ -551,15 +551,20 @@ a.tc_link:hover{
         width: 100%;
         display: block;
     }
-    
+
     .shortcode-table tr td {
         width: 100%;
         display: block;
     }
-    
+
     .shortcode-table input,
     .shortcode-table select,
     #tc-shortcode-select {
         width: 100%;
     } 
+}
+
+label.tc_checkboxes_label{
+    width: 100%;
+    display: block;
 }
