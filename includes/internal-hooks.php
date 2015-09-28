@@ -143,7 +143,7 @@ function tc_event_date_time_element( $date ) {
 add_filter( 'tc_checkins_date_checked', 'tc_checkins_date_checked', 10, 1 );
 
 function tc_checkins_date_checked( $date ) {
-	return date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $date, false );
+	return tc_format_date($date);//date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $date, false );
 }
 
 add_filter( 'tc_checkins_status', 'tc_checkins_status', 10, 1 );
@@ -186,7 +186,7 @@ function tc_order_field_value( $order_id, $value, $meta_key, $field_type, $field
 
 		return sprintf( __( '%1$s %2$s %3$s', 'tc' ), '<font color="' . $color . '">', __( ucwords( $new_value ), 'tc' ), '</font>' );
 	} else if ( $field_id == 'order_date' ) {
-		return date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $value, false );
+		return tc_format_date($value);//date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $value, false );
 	} else if ( $field_id == 'customer' ) {
 		return $value[ 'buyer_data' ][ 'first_name_post_meta' ] . ' ' . $value[ 'buyer_data' ][ 'last_name_post_meta' ];
 	} elseif ( $field_id == 'parent_event' ) {

@@ -249,7 +249,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 				$check_ins		 = apply_filters( 'tc_ticket_checkins_array', $check_ins );
 
 				foreach ( $check_ins as $check_in ) {
-					$r[ 'date_checked' ] = date( 'Y-m-d H:i:s', $check_in[ 'date_checked' ] );
+					$r[ 'date_checked' ] = tc_format_date( $check_in[ 'date_checked' ] );
 					$r[ 'status' ]		 = apply_filters( 'tc_check_in_status_title', $check_in[ 'status' ] );
 					$rows[]				 = array( 'data' => $r );
 				}
@@ -321,7 +321,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 				}
 
 				$new_checkin = array(
-					"date_checked"	 => current_time( 'timestamp' ),
+					"date_checked"	 => time(),
 					"status"		 => $check_in_status ? apply_filters( 'tc_checkin_status_name', 'Pass' ) : apply_filters( 'tc_checkin_status_name', 'Fail' ),
 					"api_key_id"	 => $api_key_id
 				);
@@ -334,7 +334,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 
 				do_action( 'tc_after_checkin_array_update' );
 
-				$payment_date = apply_filters( 'tc_checkin_payment_date', date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $order->details->tc_order_date, false ) );
+				$payment_date = apply_filters( 'tc_checkin_payment_date', tc_format_date( $order->details->tc_order_date ) ); //date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $order->details->tc_order_date, false )
 
 				if ( $payment_date == '' ) {
 					$payment_date = 'N/A';
@@ -448,13 +448,13 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 
 						if ( !empty( $check_ins ) ) {
 							foreach ( $check_ins as $check_in ) {
-								$checkin_date = date( 'Y-m-d H:i:s', $check_in[ 'date_checked' ] );
+								$checkin_date = tc_format_date( $check_in[ 'date_checked' ] );
 							}
 						}
 
 						$r[ 'date_checked' ] = $checkin_date;
 
-						$r[ 'payment_date' ]	 = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $order->details->post_modified ), false );
+						$r[ 'payment_date' ]	 = tc_format_date( strtotime( $order->details->post_modified ) ); //date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $order->details->post_modified ), false )
 						$r[ 'transaction_id' ]	 = $ticket_instance->details->ticket_code;
 						$r[ 'checksum' ]		 = $ticket_instance->details->ticket_code;
 

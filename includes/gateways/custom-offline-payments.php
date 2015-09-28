@@ -125,7 +125,8 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 		$content .= '<br /><br />' . $tc->get_setting( 'gateways->custom_offline_payments->instructions' );
 
 		$tc->remove_order_session_data();
-
+		$tc->maybe_skip_confirmation_screen( $this, $order );
+		
 		return $content;
 	}
 
@@ -190,7 +191,7 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 				$form = new TC_Form_Fields_API( $fields, 'tc', 'gateways', $this->plugin_name );
 				?>
 				<table class="form-table">
-					<?php $form->admin_options(); ?>
+		<?php $form->admin_options(); ?>
 				</table>
 
 			</div>

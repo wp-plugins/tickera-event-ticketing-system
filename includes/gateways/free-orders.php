@@ -13,7 +13,7 @@ class TC_Gateway_Free_Orders extends TC_Gateway_API {
 	var $force_ssl				 = false;
 	var $ipn_url;
 	var $automatically_activated	 = true;
-	var $skip_payment_screen		 = false;
+	var $skip_payment_screen		 = true;
 
 	//Support for older payment gateway API
 	function on_creation() {
@@ -28,6 +28,12 @@ class TC_Gateway_Free_Orders extends TC_Gateway_API {
 
 		$this->method_img_url	 = $tc->plugin_url . 'images/gateways/free-orders.png';
 		$this->admin_img_url	 = $tc->plugin_url . 'images/gateways/small-free-orders.png';
+
+		add_filter( 'tc_redirect_gateway_message', array( &$this, 'custom_redirect_message' ), 10, 1 );
+	}
+
+	function custom_redirect_message( $message ) {
+		return __( 'Redirecting to the confirmation page...', 'tc' );
 	}
 
 	function payment_form( $cart ) {
@@ -103,7 +109,7 @@ class TC_Gateway_Free_Orders extends TC_Gateway_API {
 		$content .= '<br /><br />' . $tc->get_setting( 'gateways->free_orders->instructions' );
 
 		$tc->remove_order_session_data();
-
+		$tc->maybe_skip_confirmation_screen( $this, $order );
 		return $content;
 	}
 

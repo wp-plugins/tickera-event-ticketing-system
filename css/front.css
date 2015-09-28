@@ -1,3 +1,8 @@
+#tickera_cart label.error{
+    color: red;
+    padding-top: 5px;
+}
+
 .tickera-payment-gateways {
     border: 1px solid #f1f1f1;
     padding: 6px 10px;
@@ -388,7 +393,7 @@ html[xmlns] .tc-clearfix {
 }
 
 .tc_choose_gateway {
-   margin-right: 7px;
+    margin-right: 7px;
 }
 
 
@@ -416,6 +421,10 @@ html[xmlns] .tc-clearfix {
 }
 
 .tc_redirect_message{
+    display: none;
+}
+
+.tickera-payment-gateways .free_orders.plugin-title{
     display: none;
 }
 

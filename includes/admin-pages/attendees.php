@@ -67,7 +67,7 @@ $columns = $tickets_instances->get_columns();
 		$ticket_checkins = $ticket_instance->get_ticket_checkins();
 
 
-		if ( isset( $_GET[ 'checkin_action' ] ) && $_GET[ 'checkin_action' ] == 'delete_checkin' && check_admin_referer( 'delete_checkin' ) && !isset( $_POST[ 'api_key' ]) ) {
+		if ( isset( $_GET[ 'checkin_action' ] ) && $_GET[ 'checkin_action' ] == 'delete_checkin' && check_admin_referer( 'delete_checkin' ) && !isset( $_POST[ 'api_key' ] ) ) {
 			$entry_to_delate = $_GET[ 'checkin_entry' ];
 
 			$checkin_row = 0;
@@ -114,7 +114,7 @@ $columns = $tickets_instances->get_columns();
 						$style = ( ' class="alternate"' == $style ) ? '' : ' class="alternate"';
 						?>  
 						<tr <?php echo $style; ?>>
-							<td><?php echo apply_filters( 'tc_checkins_date_checked', $ticket_checkin[ 'date_checked' ] ); ?></td>
+							<td><?php echo tc_format_date($ticket_checkin[ 'date_checked' ]); ?></td>
 							<td><?php echo apply_filters( 'tc_checkins_status', $ticket_checkin[ 'status' ] ); ?></td>
 							<td><?php echo apply_filters( 'tc_checkins_api_key_id', $ticket_checkin[ 'api_key_id' ] ); ?></td>
 							<?php if ( current_user_can( 'manage_options' ) || current_user_can( 'delete_checkins_cap' ) ) { ?>
@@ -199,7 +199,7 @@ $columns = $tickets_instances->get_columns();
 		<table cellspacing="0" class="widefat shadow-table">
 			<thead>
 				<tr>
-					<!--<th style="" class="manage-column column-cb check-column" id="cb" scope="col" width="<?php //echo (isset($col_sizes[0]) ? $col_sizes[0] . '%' : '');                                   ?>"><input type="checkbox"></th>-->
+					<!--<th style="" class="manage-column column-cb check-column" id="cb" scope="col" width="<?php //echo (isset($col_sizes[0]) ? $col_sizes[0] . '%' : '');                                    ?>"><input type="checkbox"></th>-->
 					<?php
 					$n = 1;
 					foreach ( $columns as $col ) {
@@ -250,9 +250,9 @@ $columns = $tickets_instances->get_columns();
 
 									if ( isset( $post_field_type ) && $post_field_type == 'post_meta' ) {
 										if ( isset( $field_id ) ) {
-											echo apply_filters( 'tc_ticket_instance_field_value', $ticket_instance_object->ID, $ticket_instance_object->$col[ 'field_name' ], $post_field_type, (isset($col[ 'field_id' ]) ? $col[ 'field_id' ] : ''), $field_id );
+											echo apply_filters( 'tc_ticket_instance_field_value', $ticket_instance_object->ID, $ticket_instance_object->$col[ 'field_name' ], $post_field_type, (isset( $col[ 'field_id' ] ) ? $col[ 'field_id' ] : '' ), $field_id );
 										} else {
-											echo apply_filters( 'tc_ticket_instance_field_value', $ticket_instance_object->ID, $ticket_instance_object->$col[ 'field_name' ], $post_field_type, (isset($col[ 'field_id' ]) ? $col[ 'field_id' ] : '') );
+											echo apply_filters( 'tc_ticket_instance_field_value', $ticket_instance_object->ID, $ticket_instance_object->$col[ 'field_name' ], $post_field_type, (isset( $col[ 'field_id' ] ) ? $col[ 'field_id' ] : '' ) );
 										}
 									} else {
 										if ( isset( $field_id ) ) {

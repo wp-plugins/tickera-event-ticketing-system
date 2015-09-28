@@ -253,5 +253,64 @@ jQuery( document ).ready( function( $ ) {
 
 
     $( ".tc_wrap select" ).chosen( { disable_search_threshold: 5 } );
+
+
+    /* INLINE EDIT */
+    $.fn.inlineEdit = function( replaceWith, connectWith ) {
+
+        $( this ).hover( function( ) {
+            $( this ).addClass( 'inline_hover' );
+        }, function() {
+            $( this ).removeClass( 'inline_hover' );
+        }
+        );
+        $( this ).click( function() {
+
+            var orig_val = $( this ).html();
+            $( replaceWith ).val( $.trim( orig_val ) );
+
+            var elem = $( this );
+
+            elem.hide();
+            elem.after( replaceWith );
+            replaceWith.focus();
+
+            replaceWith.blur( function() {
+
+                if ( $( this ).val() != "" ) {
+                    connectWith.val( $( this ).val() ).change();
+                    elem.text( $( this ).val() );
+                }
+
+                elem.text( $( this ).val( ) );
+
+                var ticket_id = $( this ).parent( 'tr' ).find( '.ID' );
+                ticket_id = ticket_id.attr( 'data-id' );
+
+                save_attendee_info( ticket_id, $( this ).prev().attr( 'class' ), $( this ).val() );
+
+                $( this ).remove();
+                elem.show();
+               
+            } );
+        } );
+    };
+    
+     $( ".tc_temp_value" ).live( 'keyup', function( e ) {
+        if ( e.keyCode == 13 ) {
+            $( this ).blur( );
+        }
+        e.preventDefault( );
+    } );
+
+    function save_attendee_info( ticket_id, meta_name, meta_value ) {
+        var data = {
+            action: 'save_attendee_info',
+            post_id: ticket_id,
+            meta_name: meta_name,
+            meta_value: meta_value
+        }
+        $.post( tc_vars.ajaxUrl, data );
+    }
 } );
 

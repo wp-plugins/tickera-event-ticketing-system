@@ -2,7 +2,7 @@
 Contributors: tickera
 Tags: event ticketing, ticketing, ticket, e-tickets, sell tickets, event, event management, event registration, wordpress events, booking, events, venue, e-commerce, payment, registration, concert, conference
 Requires at least: 4.1
-Tested up to: 4.3
+Tested up to: 4.2.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -39,6 +39,8 @@ If you need more payment options, you can download [Tickera Premium](http://tick
 * PayUMoney
 * PayTabs
 * White Payments
+* PayU Latam
+* Komoju
 * Custom Offline Payments
 * Free Orders.
 
@@ -109,10 +111,35 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.9.6 =
+- Change Free Order gateway (redirect to the confirmation page automatically and skip the payment page)
+- Added option for controlling "Order Details Pretty Links" in order to avoid conflicts (404 not found order details pages) with some third-party plugins and themes
+- Added "Skip Payment Confirmation Page" option in each payment gateway settings
+- Fixed issue with not clearing "Delete Pending Orders" cron job correctly
+
+= 3.1.9.4 =
+- Fixed issue with display date and time based on different time zones
+- Fixed issue with extra slashes added to the payment gateway fields
+- Fixed issue not being able to click bottom pallete of color picker
+- Ticket code not aligning fixed
+- Fixed issues with clearing session and cookie data after confirmation
+
+= 3.1.9.2 =
+- Added PayU Latam Payment Gateway integration
+- Added Komoju Payment Gateway integration
+- Added inline edit option for the attendee info (First Name, Last Name and E-mail fields) on the order details page (admin side)
+- Added Malaysia locale for PayPal standard and additional filters for developers
+- Added JavaScript validation for buyer email field on the front-end
+- Added option to control sending of Stripe Receipt automatically after completed purchase (receipt_email)
+- Fixed issues with white-labeling of "Tickera" in the shortcode builder (when TICKET_PLUGIN_TITLE is defined)
+- Fixed issues with open comments (in some themes) on the tickera pages
+
 = 3.1.9.1 =
 - Revamp of the payment gateway API and all payment gateways code (IMPORTANT: if you're using payment gateway add-ons, please update them)
 - Added Form Field API (beta)
+- Added Simplify Payment Gateway
 - Fixed issues with WordPress 4.3 (construct for Widgets)
+- Removed White Payments payment gateways (their service is discontinued)
 
 = 3.1.8.9 =
 - Added shortcode builder

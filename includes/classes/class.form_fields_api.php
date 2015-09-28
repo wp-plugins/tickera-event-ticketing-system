@@ -17,6 +17,23 @@ if ( !class_exists( 'TC_Form_Fields_API' ) ) {
 			$this->setting_name	 = $setting_name;
 			$this->setting_key	 = $setting_key;
 			$this->sub_key		 = $sub_key;
+			$this->add_common_fields();
+		}
+
+		function add_common_fields() {
+			$fields								 = $this->form_fields;
+			$fields[ 'skip_confirmation_page' ]	 = array(
+				'title'			 => __( 'Skip Payment Confirmation Page', 'tc' ),
+				'type'			 => 'select',
+				'options'		 => array(
+					'yes'	 => __( 'Yes', 'tc' ),
+					'no'	 => __( 'No', 'tc' )
+				),
+				'default'		 => 'no',
+				'description'	 => __( 'Select wheter you want to skip payment confirmation page screen and redirect buyers to the Order Details page after purchase.', 'tc' )
+			);
+
+			$this->form_fields = apply_filters( 'tc_common_payment_gateway_fields', $fields );
 		}
 
 		public function admin_options() {
@@ -247,7 +264,7 @@ if ( !class_exists( 'TC_Form_Fields_API' ) ) {
 						<?php foreach ( $data[ 'options' ] as $option => $value ) { ?>
 							<label class="tc_checkboxes_label">
 								<input type="checkbox" name="<?php echo $field; ?>[]" value="<?php echo esc_attr( $option ); ?>" <?php
-								if ( in_array( $option, (array)$this->get_option( $key, $data ) ) ) {
+								if ( in_array( $option, (array) $this->get_option( $key, $data ) ) ) {
 									echo 'checked';
 								}
 								?> /> <?php echo $value; ?>

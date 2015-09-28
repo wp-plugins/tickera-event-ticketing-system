@@ -1,6 +1,20 @@
 <?php
 add_filter( 'tc_the_content', 'tc_the_content' );
 
+if ( !function_exists( 'tc_format_date' ) ) :
+
+	function tc_format_date( $timestamp, $date_only = false ) {
+		$format = get_option( 'date_format' );
+		if ( !$date_only ) {
+			$format .= ' - ' . get_option( 'time_format' );
+		}
+
+		$date = get_date_from_gmt( date( 'Y-m-d H:i:s', $timestamp ), $format );
+		return $date;
+	}
+
+endif;
+
 function tc_quantity_selector( $ticket_id ) {
 	$quantity = 10;
 
@@ -687,86 +701,6 @@ function tc_get_global_currencies( $field_name, $default_value = '' ) {
 	<?php
 }
 
-function tc_add_additional_schedule_intervals( $schedules ) {
-	$schedules[ 'half_hour' ] = array(
-		'interval'	 => 30 * 60,
-		'display'	 => __( 'Half Hour' )
-	);
-	return $schedules;
-}
-
-add_filter( 'cron_schedules', 'tc_add_additional_schedule_intervals' );
-
-function tc_show_delete_pending_orders_times( $field_name, $default_value = '' ) {
-	global $tc_general_settings;
-	$settings	 = get_option( 'tc_settings' );
-	$schedules	 = array(
-		__( 'Never', 'tc' )		 => '',
-		__( '30 Minutes', 'tc' ) => 30 * 60,
-		__( '45 Minutes', 'tc' ) => 45 * 60,
-		__( '1 Hour', 'tc' )	 => 60 * 60,
-		__( '2 Hours', 'tc' )	 => 2 * 60 * 60,
-		__( '3 Hours', 'tc' )	 => 3 * 60 * 60,
-		__( '4 Hours', 'tc' )	 => 4 * 60 * 60,
-		__( '5 Hours', 'tc' )	 => 5 * 60 * 60,
-		__( '6 Hours', 'tc' )	 => 6 * 60 * 60,
-		__( '12 Hours', 'tc' )	 => 12 * 60 * 60,
-		__( '1 Day', 'tc' )		 => 24 * 60 * 60,
-		__( '2 Days', 'tc' )	 => 2 * 24 * 60 * 60,
-		__( '3 Days', 'tc' )	 => 3 * 24 * 60 * 60,
-		__( '7 Days', 'tc' )	 => 7 * 24 * 60 * 60,
-		__( '14 Days', 'tc' )	 => 14 * 24 * 60 * 60,
-		__( '30 Days', 'tc' )	 => 30 * 24 * 60 * 60
-	);
-
-	$schedules = apply_filters( 'tc_delete_pending_orders_schedule_times', $schedules );
-
-	if ( isset( $tc_general_settings[ $field_name ] ) ) {
-		$checked = $tc_general_settings[ $field_name ];
-	} else {
-		if ( $default_value !== '' ) {
-			$checked = $default_value;
-		} else {
-			$checked = 'never';
-		}
-	}
-	?>
-	<select name="tc_general_setting[<?php echo $field_name; ?>]">
-		<?php
-		foreach ( $schedules as $display => $interval ) {
-			?>
-			<option value="<?php echo $interval; ?>" <?php selected( $checked, $interval, true ); ?>><?php echo $display; ?></option>
-			<?php
-		}
-		?>
-	</select>
-	<?php
-}
-
-add_action( 'tcmaybedeletependingorders', 'tc_check_maybe_delete_pending_orders' );
-
-function tc_check_maybe_delete_pending_orders() {
-	global $wpdb;
-
-	$tc_general_settings = get_option( 'tc_general_setting', false );
-
-	if ( isset( $tc_general_settings[ 'delete_pending_orders' ] ) && is_numeric( $tc_general_settings[ 'delete_pending_orders' ] ) ) {
-
-		$max_unpaid_time = $tc_general_settings[ 'delete_pending_orders' ];
-
-		$current_time	 = gmdate( 'Y-m-d H:i:s', time() );
-		$pending_orders	 = $wpdb->get_results( "SELECT ID, post_date_gmt FROM " . $wpdb->prefix . "posts WHERE post_status = 'order_received'", OBJECT );
-
-		foreach ( $pending_orders as $pending_order ) {
-			$delete_time = strtotime( $pending_order->post_date_gmt ) + $max_unpaid_time;
-			if ( strtotime( $current_time ) > $delete_time ) {
-				$order = new TC_Order( $pending_order->ID );
-				$order->delete_order( true );
-			}
-		}
-	}
-}
-
 function tc_global_admin_per_page( $value ) {
 	global $tc_general_settings;
 	$settings	 = get_option( 'tc_settings' );
@@ -1259,10 +1193,20 @@ function tc_get_ticket_instance_type( $field_name, $field_id, $ticket_instance_i
 
 function tc_get_ticket_download_link( $field_name, $field_id, $ticket_id ) {
 	global $tc, $wp;
-	$ticket		 = new TC_Ticket( $ticket_id );
-	$order		 = new TC_Order( $ticket->details->post_parent );
-	$order_key	 = $wp->query_vars[ 'tc_order_key' ];
-	echo '<a href="' . wp_nonce_url( trailingslashit( $tc->get_order_slug( true ) ) . $order->details->post_title . '/' . $order_key . '/?download_ticket=' . $ticket_id . '&order_key=' . $order_key, 'download_ticket_' . $ticket_id . '_' . $order_key, 'download_ticket_nonce' ) . '">' . __( 'Download', 'tc' ) . '</a>';
+
+	$tc_general_settings			 = get_option( 'tc_general_setting', false );
+	$use_order_details_pretty_links	 = isset( $tc_general_settings[ 'use_order_details_pretty_links' ] ) ? $tc_general_settings[ 'use_order_details_pretty_links' ] : 'yes';
+
+	$ticket	 = new TC_Ticket( $ticket_id );
+	$order	 = new TC_Order( $ticket->details->post_parent );
+
+	if ( $use_order_details_pretty_links == 'yes' ) {
+		$order_key = $wp->query_vars[ 'tc_order_key' ];
+		echo '<a href="' . wp_nonce_url( trailingslashit( $tc->get_order_slug( true ) ) . $order->details->post_title . '/' . $order_key . '/?download_ticket=' . $ticket_id . '&order_key=' . $order_key, 'download_ticket_' . $ticket_id . '_' . $order_key, 'download_ticket_nonce' ) . '">' . __( 'Download', 'tc' ) . '</a>';
+	} else {
+		$order_key = $_GET[ 'tc_order_key' ];
+		echo '<a href="' . wp_nonce_url( trailingslashit( $tc->get_order_slug( true ) ) . '?tc_order=' . $order->details->post_title . '&tc_order_key=' . $order_key . '&download_ticket=' . $ticket_id . '&order_key=' . $order_key, 'download_ticket_' . $ticket_id . '_' . $order_key, 'download_ticket_nonce' ) . '">' . __( 'Download', 'tc' ) . '</a>';
+	}
 }
 
 function tc_get_order_details_front( $order_id = '', $order_key = '' ) {
@@ -1271,13 +1215,6 @@ function tc_get_order_details_front( $order_id = '', $order_key = '' ) {
 	$tc_general_settings = get_option( 'tc_general_setting', false );
 
 	$order = new TC_Order( $order_id );
-
-	/* if ( isset( $_GET[ 'download_ticket' ] ) && $order->details->post_status == 'order_paid' ) {
-	  if ( isset( $_GET[ 'download_ticket_nonce' ] ) && wp_verify_nonce( $_GET[ 'download_ticket_nonce' ], 'download_ticket_' . (int) $_GET[ 'download_ticket' ] . '_' . $order_key ) ) {
-	  $templates = new TC_Ticket_Templates();
-	  $templates->generate_preview( (int) $_GET[ 'download_ticket' ], true );
-	  }
-	  } */
 
 	if ( $order->details->tc_order_date == $order_key ) {//key must match order creation date for security reasons
 		if ( $order->details->post_status == 'order_received' ) {
@@ -1294,7 +1231,7 @@ function tc_get_order_details_front( $order_id = '', $order_key = '' ) {
 		$total			 = apply_filters( 'tc_cart_currency_and_format', $order->details->tc_payment_info[ 'total' ] );
 		$transaction_id	 = isset( $order->details->tc_payment_info[ 'transaction_id' ] ) ? $order->details->tc_payment_info[ 'transaction_id' ] : '';
 		$order_id		 = strtoupper( $order->details->post_name );
-		$order_date		 = $payment_date	 = apply_filters( 'tc_order_date', date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $order->details->tc_order_date, false ) );
+		$order_date		 = $payment_date	 = apply_filters( 'tc_order_date', tc_format_date( $order->details->tc_order_date, true ) ); //date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $order->details->tc_order_date, false )
 		?>
 
 		<label><span class="order_details_title"><?php _e( 'Order: ', 'tc' ); ?></span> <?php echo $order_id; ?></label>
@@ -1414,7 +1351,7 @@ function tc_get_order_event( $field_name = '', $post_id = '' ) {
 				<?php
 				foreach ( $columns as $column ) {
 					?>
-					<td>
+					<td class="<?php echo esc_attr( $column[ 'field_name' ] ); ?>" data-id="<?php echo $column[ 'field_name' ] == 'ID' ? $ticket->ID : ''; ?>">
 						<?php
 						if ( $column[ 'field_type' ] == 'function' ) {
 							eval( $column[ 'function' ] . '("' . $column[ 'field_name' ] . '", "' . (isset( $column[ 'field_id' ] ) ? $column[ 'field_id' ] : '') . '", "' . $ticket->ID . '");' );
@@ -1445,7 +1382,7 @@ function tc_get_order_event( $field_name = '', $post_id = '' ) {
 
 function tc_get_order_date( $field_name = '', $post_id = '' ) {
 	$value = get_post_meta( $post_id, $field_name, true );
-	echo date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $value, false );
+	echo tc_format_date( $value ); //date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $value, false );
 }
 
 function tc_get_order_tickets_info( $field_name = '', $post_id = '' ) {

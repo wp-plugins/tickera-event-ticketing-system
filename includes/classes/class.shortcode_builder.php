@@ -30,34 +30,34 @@ class TC_Shortcode_Builder {
 		?>
 		<div id="tc-shortcode-builder-wrap" style="display:none">
 			<form id="tc-shortcode-builder">
-                            <div class="tc-title-wrap">
-				<h3><?php _e( 'Add Short Code', 'tc' ); ?></h3>
-                            </div><!-- .tc-title-wrap -->
-                            
-                            <div class="tc-shortcode-wrap">
-				<select name="shortcode-select" id="tc-shortcode-select">					
-					<?php foreach ( $shortcodes as $shortcode => $label ) : ?>
-						<option value="<?php echo esc_attr( $shortcode ); ?>"><?php echo $label; ?></option>
-					<?php endforeach; ?>
-				</select>
+				<div class="tc-title-wrap">
+					<h3><?php _e( 'Add Short Code', 'tc' ); ?></h3>
+				</div><!-- .tc-title-wrap -->
 
-				<div class="tc-shortcode-atts">
-					<h3><?php _e( 'Shortcode Attributes', 'tc' ); ?></h3>
-					<?php
-					foreach ( $shortcodes as $shortcode => $label ) {
-						$func = 'show_' . $shortcode . '_attributes';
+				<div class="tc-shortcode-wrap">
+					<select name="shortcode-select" id="tc-shortcode-select">					
+						<?php foreach ( $shortcodes as $shortcode => $label ) : ?>
+							<option value="<?php echo esc_attr( $shortcode ); ?>"><?php echo $label; ?></option>
+						<?php endforeach; ?>
+					</select>
 
-						if ( method_exists( $this, $func ) ) {
-							call_user_func( array( &$this, $func ) );
+					<div class="tc-shortcode-atts">
+						<h3><?php _e( 'Shortcode Attributes', 'tc' ); ?></h3>
+						<?php
+						foreach ( $shortcodes as $shortcode => $label ) {
+							$func = 'show_' . $shortcode . '_attributes';
+
+							if ( method_exists( $this, $func ) ) {
+								call_user_func( array( &$this, $func ) );
+							}
 						}
-					}
-					?>
-				</div>
-				<p class="submit">
-					<input class="button-primary" type="submit" value="<?php _e( 'Insert Short Code', 'tc' ); ?>" />
-				</p>                                
-                            </div><!-- .tc-shortcode-wrap -->
-                            
+						?>
+					</div>
+					<p class="submit">
+						<input class="button-primary" type="submit" value="<?php _e( 'Insert Short Code', 'tc' ); ?>" />
+					</p>                                
+				</div><!-- .tc-shortcode-wrap -->
+
 			</form>
 		</div>
 		<?php
@@ -291,8 +291,9 @@ class TC_Shortcode_Builder {
 	}
 
 	public function media_buttons() {
+		global $tc;
 		?>
-		<a href="javascript:;" class="button tc-shortcode-builder-button" title="<?php _e( 'Tickera Shortcodes', 'tc' ); ?>"><span class="wp-media-buttons-icon dashicons dashicons-tickets-alt"></span> <?php _e( 'Tickera', 'tc' ); ?></a>
+		<a href="javascript:;" class="button tc-shortcode-builder-button" title="<?php echo $tc->title . ' ' . __( 'Shortcodes', 'tc' ); ?>"><span class="wp-media-buttons-icon dashicons dashicons-tickets-alt"></span> <?php echo $tc->title; ?></a>
 		<?php
 	}
 

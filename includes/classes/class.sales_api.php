@@ -118,7 +118,7 @@ if ( !class_exists( 'TC_Sales_API' ) ) {
 				 */
 
 				// Get revenue and number of orders for the selected period
-				
+
 				$cache_name_revenue			 = 'tc_stats_general_revenue_' . $this->period . '_' . $this->results_per_page . '_' . $this->page_number;
 				$cache_name_number_of_orders = 'tc_stats_general_number_of_orders_' . $this->period . '_' . $this->results_per_page . '_' . $this->page_number;
 
@@ -229,7 +229,7 @@ if ( !class_exists( 'TC_Sales_API' ) ) {
 
 				$data = array(
 					'event_name'			 => stripslashes( $event->details->post_title ),
-					'event_date_time'		 => date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $event->details->event_date_time ), false ),
+					'event_date_time'		 => tc_format_date( strtotime( $event->details->event_date_time ) ), //date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $event->details->event_date_time ), false )
 					'event_location'		 => stripslashes( $event->details->event_location ),
 					'event_logo'			 => stripslashes( $event->details->event_logo_file_url ),
 					'event_sponsors_logos'	 => stripslashes( $event->details->sponsors_logo_file_url ),
@@ -327,7 +327,7 @@ if ( !class_exists( 'TC_Sales_API' ) ) {
 				}
 
 				$new_checkin = array(
-					"date_checked"	 => current_time( 'timestamp' ),
+					"date_checked"	 => time(),
 					"status"		 => $check_in_status ? apply_filters( 'tc_checkin_status_name', 'Pass' ) : apply_filters( 'tc_checkin_status_name', 'Fail' ),
 					"api_key_id"	 => $api_key_id
 				);
@@ -340,7 +340,7 @@ if ( !class_exists( 'TC_Sales_API' ) ) {
 
 				do_action( 'tc_after_checkin_array_update' );
 
-				$payment_date = apply_filters( 'tc_checkin_payment_date', date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $order->details->tc_order_date, false ) );
+				$payment_date = apply_filters( 'tc_checkin_payment_date', tc_format_date( $order->details->tc_order_date ) ); //date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $order->details->tc_order_date, false )
 
 				if ( $payment_date == '' ) {
 					$payment_date = 'N/A';
@@ -438,7 +438,7 @@ if ( !class_exists( 'TC_Sales_API' ) ) {
 
 						$r[ 'date_checked' ] = $checkin_date;
 
-						$r[ 'payment_date' ]	 = date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $order->details->post_modified ), false );
+						$r[ 'payment_date' ]	 = tc_format_date( strtotime( $order->details->post_modified ) ); ////date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), strtotime( $order->details->post_modified ), false );
 						$r[ 'transaction_id' ]	 = $ticket_instance->details->ticket_code;
 						$r[ 'checksum' ]		 = $ticket_instance->details->ticket_code;
 

@@ -116,6 +116,7 @@
 
 .rows li.ui-state-default.cols div{
     //padding: 5px;
+    z-index: 9;
 }
 
 .rows .element_title, 
@@ -567,4 +568,8 @@ a.tc_link:hover{
 label.tc_checkboxes_label{
     width: 100%;
     display: block;
+}
+
+.inline_hover{
+    text-decoration: underline;
 }

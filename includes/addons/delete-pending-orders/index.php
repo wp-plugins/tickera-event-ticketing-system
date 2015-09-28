@@ -44,10 +44,19 @@ if ( !class_exists( 'TC_Delete_Pending_Orders' ) ) {
 		}
 
 		function schedule_delete_pending_orders_event() {
-			if ( !wp_next_scheduled( 'tc_maybe_delete_pending_posts_hook' ) ) {
-				wp_schedule_event( time(), 'hourly', 'tc_maybe_delete_pending_posts_hook' );
+			$tc_general_settings = get_option( 'tc_general_setting', false );
+
+			$delete_pending_orders = isset( $tc_general_settings[ 'delete_pending_orders' ] ) ? $tc_general_settings[ 'delete_pending_orders' ] : 'no';
+
+			if ( $delete_pending_orders == 'yes' ) {
+				if ( !wp_next_scheduled( 'tc_maybe_delete_pending_posts_hook' ) ) {
+					wp_schedule_event( time(), 'hourly', 'tc_maybe_delete_pending_posts_hook' );
+				}
+				$this->tc_maybe_delete_pending_posts();
+			} else {
+				//delete cron hook
+				wp_clear_scheduled_hook( 'tc_maybe_delete_pending_posts_hook' );
 			}
-			$this->tc_maybe_delete_pending_posts();
 		}
 
 		function tc_maybe_delete_pending_posts() {

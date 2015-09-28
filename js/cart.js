@@ -176,7 +176,7 @@ jQuery( document ).ready( function( $ ) {
     //payment method choice
     $( '.tickera-payment-gateways input.tc_choose_gateway' ).change( function() {
         var gid = $( 'input.tc_choose_gateway:checked' ).val();
-       
+
         $( 'div.tc_gateway_form' ).removeClass( 'tickera-height' );
         $( 'div#' + gid ).addClass( 'tickera-height' );
     } );
@@ -211,5 +211,26 @@ jQuery( document ).ready( function( $ ) {
 
 
 
+
+} );
+
+/* Validation */
+jQuery( document ).ready( function( $ ) {
+
+    $( '#tickera_cart' ).validate( {
+        // your other plugin options
+    } );
+
+    $( '.tc_validate_field_type_email' ).each( function() {
+        $( this ).rules( 'add', {
+            email: true,
+        } );
+    } );
+
+    $( '.required' ).each( function() {
+        $( this ).rules( 'add', {
+            required: true
+        } );
+    } );
 
 } );

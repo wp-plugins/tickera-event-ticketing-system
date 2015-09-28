@@ -5,7 +5,7 @@
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.1.9.1
+  Version: 3.1.9.6
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.1.9.1';
+		var $version			 = '3.1.9.6';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -208,6 +208,11 @@ if ( !class_exists( 'TC' ) ) {
 			add_action( 'wp_ajax_change_event_status', array( &$this, 'change_event_status' ) );
 			add_action( 'wp_ajax_change_ticket_status', array( &$this, 'change_ticket_status' ) );
 
+			add_action( 'wp_ajax_save_attendee_info', array( &$this, 'save_attendee_info' ) );
+
+			add_action( 'wp_ajax_tc_remove_order_session_data', array( &$this, 'ajax_remove_order_session_data' ) );
+			add_action( 'wp_ajax_nopriv_tc_remove_order_session_data', array( &$this, 'ajax_remove_order_session_data' ) );
+
 			add_filter( 'tc_cart_currency_and_format', array( &$this, 'get_cart_currency_and_format' ) );
 
 			register_activation_hook( __FILE__, array( $this, 'activation' ) );
@@ -262,6 +267,12 @@ if ( !class_exists( 'TC' ) ) {
 
 			add_filter( 'wp_get_nav_menu_items', array( &$this, 'remove_unnecessary_plugin_menu_items' ), 10, 1 );
 			add_filter( 'wp_page_menu_args', array( &$this, 'remove_unnecessary_plugin_menu_items_wp_page_menu_args' ), 10, 1 );
+		}
+
+		function save_attendee_info() {
+			if ( isset( $_POST[ 'post_id' ] ) && isset( $_POST[ 'meta_name' ] ) && isset( $_POST[ 'meta_value' ] ) ) {
+				update_post_meta( (int) $_POST[ 'post_id' ], sanitize_text_field( $_POST[ 'meta_name' ] ), sanitize_text_field( $_POST[ 'meta_value' ] ) );
+			}
 		}
 
 		/**
@@ -372,9 +383,15 @@ if ( !class_exists( 'TC' ) ) {
 		function comments_open( $open, $post_id ) {
 			global $wp;
 
+
+			$cart_page_id			 = get_option( 'tc_cart_page_id', false );
+			$payment_page_id		 = get_option( 'tc_payment_page_id', false );
+			$confirmation_page_id	 = get_option( 'tc_confirmation_page_id', false );
+			$order_page_id			 = get_option( 'tc_order_page_id', false );
+
 			$current_post = get_post( $post_id );
 
-			if ( $current_post && $current_post->post_type == 'virtual_page' ) {
+			if ( $current_post && ($current_post->post_type == 'virtual_page' || $post_id == $cart_page_id || $post_id == $payment_page_id || $post_id == $confirmation_page_id || $post_id == $order_page_id) ) {
 				$open = false;
 			}
 
@@ -693,24 +710,33 @@ if ( !class_exists( 'TC' ) ) {
 //Get currency and set amount format in cart form
 		function get_cart_currency_and_format( $amount ) {
 			$tc_general_settings = get_option( 'tc_general_setting', false );
-			$decimals			 = apply_filters( 'tc_cart_amount_decimals', 2 );
+
+			if ( (int) ( $amount ) == (float) $amount ) {
+				$int_decimals = 0;
+			} else {
+				$int_decimals = 2;
+			}
+
+			$decimals = apply_filters( 'tc_cart_amount_decimals', $int_decimals );
+
+
 			$price_format		 = (isset( $tc_general_settings[ 'price_format' ] ) ? $tc_general_settings[ 'price_format' ] : 'us');
 			$currency_position	 = (isset( $tc_general_settings[ 'currency_position' ] ) ? $tc_general_settings[ 'currency_position' ] : 'pre_nospace');
 
 			if ( $price_format == 'us' ) {
-				$price			 = number_format( $amount, $decimals		 = 2, $dec_point		 = ".", $thousands_sep	 = "," );
+				$price			 = number_format( $amount, $decimals, $dec_point		 = ".", $thousands_sep	 = "," );
 			}
 
 			if ( $price_format == 'eu' ) {
-				$price			 = number_format( $amount, $decimals		 = 2, $dec_point		 = ",", $thousands_sep	 = "." );
+				$price			 = number_format( $amount, $decimals, $dec_point		 = ",", $thousands_sep	 = "." );
 			}
 
 			if ( $price_format == 'french_comma' ) {
-				$price			 = number_format( $amount, $decimals		 = 2, $dec_point		 = ",", $thousands_sep	 = " " );
+				$price			 = number_format( $amount, $decimals, $dec_point		 = ",", $thousands_sep	 = " " );
 			}
 
 			if ( $price_format == 'french_dot' ) {
-				$price			 = number_format( $amount, $decimals		 = 2, $dec_point		 = ".", $thousands_sep	 = " " );
+				$price			 = number_format( $amount, $decimals, $dec_point		 = ".", $thousands_sep	 = " " );
 			}
 
 			do_action( 'price_format_check' );
@@ -883,7 +909,7 @@ if ( !class_exists( 'TC' ) ) {
 						$content .= $gateway->payment_form( $cart );
 						$content .= '<p class="tc_cart_direct_checkout">';
 
-						$content .= '<div class="tc_redirect_message">' . sprintf( __( 'Redirecting to %s payment page...', 'tc' ), $gateway->public_name ) . '</div>';
+						$content .= '<div class="tc_redirect_message">' . apply_filters( 'tc_redirect_gateway_message', sprintf( __( 'Redirecting to %s payment page...', 'tc' ), $gateway->public_name ), $gateway->public_name ) . '</div>';
 						if ( $gateway->plugin_name == 'free_orders' ) {
 							$content .= '<input type="submit" name="tc_payment_submit" id="tc_payment_confirm" class="tickera-button" value="' . __( 'Continue &raquo;', 'tc' ) . '" />';
 						} else {
@@ -1433,11 +1459,41 @@ if ( !class_exists( 'TC' ) ) {
 			return $tuid;
 		}
 
+		function maybe_skip_confirmation_screen( $gateway_class, $order ) {
+			$settings					 = get_option( 'tc_settings' );
+			$skip_confirmation_screen	 = isset( $settings[ 'gateways' ][ $gateway_class->plugin_name ][ 'skip_confirmation_page' ] ) ? $settings[ 'gateways' ][ $gateway_class->plugin_name ][ 'skip_confirmation_page' ] : 'no';
+
+			if ( $skip_confirmation_screen == 'yes' ) {
+				//Fallback to JS redirection if headers are already sent
+				?>
+				<script type="text/javascript">
+					jQuery( document ).ready( function( $ ) {
+						jQuery( 'body' ).hide();
+					} );
+					window.location = "<?php echo $this->tc_order_status_url( $order, $order->details->tc_order_date, '', false ); ?>";</script>
+				<?php
+				ob_start();
+				wp_redirect( $this->tc_order_status_url( $order, $order->details->tc_order_date, '', false ) );
+				ob_end_clean();
+			}
+		}
+
 		function tc_order_status_url( $order, $order_key, $link_title, $link = true ) {
+			$tc_general_settings			 = get_option( 'tc_general_setting', false );
+			$use_order_details_pretty_links	 = isset( $tc_general_settings[ 'use_order_details_pretty_links' ] ) ? $tc_general_settings[ 'use_order_details_pretty_links' ] : 'yes';
+
 			if ( $link ) {
-				return '<a href="' . trailingslashit( $this->get_order_slug( true ) ) . $order->details->post_title . '/' . get_post_meta( $order->details->ID, 'tc_order_date', true ) . '/">' . $link_title . '</a>';
+				if ( $use_order_details_pretty_links == 'no' ) {
+					return '<a href="' . trailingslashit( $this->get_order_slug( true ) ) . '?tc_order=' . $order->details->post_title . '&tc_order_key=' . get_post_meta( $order->details->ID, 'tc_order_date', true ) . '">' . $link_title . '</a>';
+				} else {
+					return '<a href="' . trailingslashit( $this->get_order_slug( true ) ) . $order->details->post_title . '/' . get_post_meta( $order->details->ID, 'tc_order_date', true ) . '/">' . $link_title . '</a>';
+				}
 			} else {
-				return trailingslashit( $this->get_order_slug( true ) ) . $order->details->post_title . '/' . get_post_meta( $order->details->ID, 'tc_order_date', true ) . '/';
+				if ( $use_order_details_pretty_links == 'no' ) {
+					return trailingslashit( $this->get_order_slug( true ) ) . '?tc_order=' . $order->details->post_title . '&tc_order_key=' . get_post_meta( $order->details->ID, 'tc_order_date', true );
+				} else {
+					return trailingslashit( $this->get_order_slug( true ) ) . $order->details->post_title . '/' . get_post_meta( $order->details->ID, 'tc_order_date', true ) . '/';
+				}
 			}
 		}
 
@@ -1499,6 +1555,7 @@ if ( !class_exists( 'TC' ) ) {
 		function front_scripts_and_styles() {
 			if ( apply_filters( 'tc_use_default_front_css', true ) ) {
 				wp_enqueue_style( $this->name . '-front', $this->plugin_url . 'css/front.css', array(), $this->version );
+				wp_enqueue_script( 'tc-jquery-validate', $this->plugin_url . 'js/jquery.validate.min.js', array( 'jquery' ), $this->version );
 			}
 		}
 
@@ -2251,6 +2308,28 @@ if ( !class_exists( 'TC' ) ) {
 			}
 		}
 
+		function ajax_remove_order_session_data() {
+			ob_start();
+			unset( $_SESSION[ 'tc_discount_code' ] );
+			unset( $_SESSION[ 'discounted_total' ] );
+			unset( $_SESSION[ 'tc_payment_method' ] );
+			unset( $_SESSION[ 'cart_info' ] );
+			unset( $_SESSION[ 'tc_order' ] );
+			unset( $_SESSION[ 'tc_payment_info' ] );
+			unset( $_SESSION[ 'cart_subtotal_pre' ] );
+			unset( $_SESSION[ 'tc_total_fees' ] );
+			unset( $_SESSION[ 'discount_value_total' ] );
+			unset( $_SESSION[ 'tc_cart_subtotal' ] );
+			unset( $_SESSION[ 'tc_cart_total' ] );
+			unset( $_SESSION[ 'tc_tax_value' ] );
+			unset( $_SESSION[ 'tc_gateway_error' ] );
+			$cookie_id = 'tc_cart_' . COOKIEHASH;
+			@setcookie( $cookie_id, null, time() - 1, COOKIEPATH, COOKIE_DOMAIN );
+			@setcookie( 'cart_info_' . COOKIEHASH, null, time() - 1, COOKIEPATH, COOKIE_DOMAIN );
+			@setcookie( 'tc_order_' . COOKIEHASH, null, time() - 1, COOKIEPATH, COOKIE_DOMAIN );
+			ob_end_flush();
+		}
+
 		function remove_order_session_data() {
 			ob_start();
 			unset( $_SESSION[ 'tc_discount_code' ] );
@@ -2271,6 +2350,15 @@ if ( !class_exists( 'TC' ) ) {
 			@setcookie( 'cart_info_' . COOKIEHASH, null, time() - 1, COOKIEPATH, COOKIE_DOMAIN );
 			@setcookie( 'tc_order_' . COOKIEHASH, null, time() - 1, COOKIEPATH, COOKIE_DOMAIN );
 			ob_end_flush();
+			?>
+			<script type="text/javascript">
+				jQuery( document ).ready( function( $ ) {
+					$.post( tc_ajax.ajaxUrl, { action: "tc_remove_order_session_data" }, function( data ) {
+						console.log( data );
+					} );
+				} );
+			</script>
+			<?php
 		}
 
 		function update_order_status( $order_id, $new_status ) {
@@ -2426,9 +2514,15 @@ if ( !class_exists( 'TC' ) ) {
 				$default_slug_value = 'confirmation';
 			}
 
+			$use_order_details_pretty_links = isset( $tc_general_settings[ 'use_order_details_pretty_links' ] ) ? $tc_general_settings[ 'use_order_details_pretty_links' ] : 'yes';
+
 			if ( $url ) {
 				if ( $this->get_confirmation_page() ) {
-					return trailingslashit( $this->get_confirmation_page( true ) ) . trailingslashit( $order_id );
+					if ( $use_order_details_pretty_links == 'yes' ) {
+						return trailingslashit( $this->get_confirmation_page( true ) ) . trailingslashit( $order_id );
+					} else {
+						return trailingslashit( $this->get_confirmation_page( true ) ) . '?tc_order_return=' . $order_id;
+					}
 				} else {
 					return trailingslashit( home_url() ) . trailingslashit( get_option( 'ticket_confirmation_slug', $default_slug_value ) ) . trailingslashit( $order_id );
 				}

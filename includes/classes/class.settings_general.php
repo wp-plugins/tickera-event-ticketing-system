@@ -198,15 +198,6 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 					'field_description'	 => __( 'Show / Hide discount code field on the cart page', 'tc' ),
 					'section'			 => 'store_settings'
 				),
-			/* array(
-			  'field_name'		 => 'delete_pending_orders',
-			  'field_title'		 => __( 'Delete Pending Orders (if order is not paid for)', 'tc' ),
-			  'field_type'		 => 'function',
-			  'function'			 => 'tc_show_delete_pending_orders_times',
-			  'default_value'		 => 'never',
-			  'field_description'	 => __( 'Delete order and associated tickets / attendees if order is not paid for a specific time set', 'tc' ),
-			  'section'			 => 'store_settings'
-			  ), */
 			);
 
 			$store_settings_default_fields = apply_filters( 'tc_general_settings_store_fields', $store_settings_default_fields );
@@ -286,6 +277,15 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 					'function'			 => 'tc_get_global_admin_per_page',
 					'default_value'		 => '10',
 					'field_description'	 => __( 'Set number of result rows show in the admin tables of the plugin', 'tc' ),
+					'section'			 => 'miscellaneous_settings'
+				),
+				array(
+					'field_name'		 => 'use_order_details_pretty_links',
+					'field_title'		 => __( 'Order Details Pretty Links', 'tc' ),
+					'field_type'		 => 'function',
+					'function'			 => 'tc_yes_no',
+					'default_value'		 => 'yes',
+					'field_description'	 => __( 'Choose whether you want to use pretty permalinks for order details page or not. Set it to "No" in case that you see 404 page for order details (this could be caused by a third-party plugin or a theme). ', 'tc' ),
 					'section'			 => 'miscellaneous_settings'
 				)
 			);

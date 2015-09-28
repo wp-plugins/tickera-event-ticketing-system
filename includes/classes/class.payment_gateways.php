@@ -33,6 +33,14 @@ if ( !class_exists( 'TC_Gateway_API' ) ) {
 			return $currencies;
 		}
 
+		function add_error( $error = '', $place = '' ) {
+			global $tc;
+			$this->maybe_start_session();
+			$_SESSION[ 'tc_gateway_error' ] = $error;
+			wp_redirect( $tc->get_payment_slug( true ) );
+			exit;
+		}
+
 		function field_name( $field_name = '', $gateway_name = false ) {
 			if ( $gateway_name == false ) {
 				$gateway_name = $this->plugin_name;
@@ -75,7 +83,7 @@ if ( !class_exists( 'TC_Gateway_API' ) ) {
 			$content = apply_filters( 'tc_order_confirmation_message_content', $content, $order );
 
 			$tc->remove_order_session_data();
-
+			$tc->maybe_skip_confirmation_screen( $this, $order );
 			return $content;
 		}
 
@@ -92,7 +100,6 @@ if ( !class_exists( 'TC_Gateway_API' ) ) {
 		function is_payment_page() {
 			global $wp;
 
-			//var_dump($wp->query_vars);
 			if ( array_key_exists( 'page_payment', $wp->query_vars ) || (isset( $wp->query_vars[ 'pagename' ] ) && preg_match( '/' . tc_get_payment_page_slug() . '/', $wp->query_vars[ 'pagename' ], $matches, PREG_OFFSET_CAPTURE, 3 )) || (isset( $wp->query_vars[ 'pagename' ] ) && $wp->query_vars[ 'pagename' ] == tc_get_payment_page_slug()) ) {
 				return true;
 			} else {
@@ -126,12 +133,12 @@ if ( !class_exists( 'TC_Gateway_API' ) ) {
 		function buyer_info( $part ) {
 			$this->maybe_start_session();
 			if ( $part == 'full_name' ) {
-				$buyer_first_name	 = isset( $_SESSION[ 'cart_info' ][ 'buyer_data' ][ 'first_name_post_meta' ] ) ? $_SESSION[ 'cart_info' ][ 'buyer_data' ][ 'first_name_post_meta' ] : '';
-				$buyer_last_name	 = isset( $_SESSION[ 'cart_info' ][ 'buyer_data' ][ 'last_name_post_meta' ] ) ? $_SESSION[ 'cart_info' ][ 'buyer_data' ][ 'last_name_post_meta' ] : '';
+				$buyer_first_name	 = isset( $_SESSION[ 'cart_info' ][ 'buyer_data' ][ 'first_name_post_meta' ] ) ? stripcslashes( $_SESSION[ 'cart_info' ][ 'buyer_data' ][ 'first_name_post_meta' ] ) : '';
+				$buyer_last_name	 = isset( $_SESSION[ 'cart_info' ][ 'buyer_data' ][ 'last_name_post_meta' ] ) ? stripcslashes( $_SESSION[ 'cart_info' ][ 'buyer_data' ][ 'last_name_post_meta' ] ) : '';
 				$buyer_full_name	 = $buyer_first_name . ' ' . $buyer_last_name;
 				return $buyer_full_name;
 			} else {
-				return isset( $_SESSION[ 'cart_info' ][ 'buyer_data' ][ $part . '_post_meta' ] ) ? $_SESSION[ 'cart_info' ][ 'buyer_data' ][ $part . '_post_meta' ] : '';
+				return isset( $_SESSION[ 'cart_info' ][ 'buyer_data' ][ $part . '_post_meta' ] ) ? stripcslashes( $_SESSION[ 'cart_info' ][ 'buyer_data' ][ $part . '_post_meta' ] ) : '';
 			}
 		}
 

@@ -2,7 +2,7 @@
 
 class tc_ticket_code_element extends TC_Ticket_Template_Elements {
 
-	var $element_name	 = 'tc_ticket_buyer_name_element';
+	var $element_name	 = 'tc_ticket_code_element';
 	var $element_title	 = 'Ticket Buyer Name';
 
 	function on_creation() {

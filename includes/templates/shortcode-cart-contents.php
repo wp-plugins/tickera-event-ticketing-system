@@ -100,16 +100,26 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 							if ( isset( $field[ 'field_class' ] ) ) {
 								echo $field[ 'field_class' ];
 							}
+							if ( isset( $field[ 'validation_type' ] ) ) {
+								$validation_class = 'tc_validate_field_type_' . $field[ 'validation_type' ];
+							} else {
+								$validation_class = '';
+							}
 							?>"><label><span><?php echo ($field[ 'required' ] ? '*' : ''); ?><?php echo $field[ 'field_title' ]; ?></span><input type="<?php echo $field[ 'field_type' ]; ?>" <?php
 										 if ( isset( $field[ 'field_placeholder' ] ) ) {
 											 echo 'placeholder="' . esc_attr( $field[ 'field_placeholder' ] ) . '"';
 										 }
-										 ?> class="buyer-field-<?php echo $field[ 'field_type' ]; ?> tickera-input-field" value="<?php echo (isset( $_POST[ 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ] ] ) ? $_POST[ 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ] ] : ''); ?>" name="<?php echo 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>"></label><span class="description"><?php echo $field[ 'field_description' ]; ?></span></div><!-- fields-wrap --><?php } ?>
+										 ?> class="buyer-field-<?php echo $field[ 'field_type' ] . ' ' . $validation_class; ?> tickera-input-field" value="<?php echo (isset( $_POST[ 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ] ] ) ? $_POST[ 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ] ] : ''); ?>" name="<?php echo 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>"></label><span class="description"><?php echo $field[ 'field_description' ]; ?></span></div><!-- fields-wrap --><?php } ?>
 						<?php if ( $field[ 'field_type' ] == 'textarea' ) { ?><div class="fields-wrap <?php
 							if ( isset( $field[ 'field_class' ] ) ) {
 								echo $field[ 'field_class' ];
 							}
-							?>"><label><span><?php echo ($field[ 'required' ] ? '*' : ''); ?><?php echo $field[ 'field_title' ]; ?></span><textarea class="buyer-field-<?php echo $field[ 'field_type' ]; ?> tickera-input-field" <?php
+							if ( isset( $field[ 'validation_type' ] ) ) {
+								$validation_class = 'tc_validate_field_type_' . $field[ 'validation_type' ];
+							} else {
+								$validation_class = '';
+							}
+							?>"><label><span><?php echo ($field[ 'required' ] ? '*' : ''); ?><?php echo $field[ 'field_title' ]; ?></span><textarea class="buyer-field-<?php echo $field[ 'field_type' ] . ' ' . $validation_class; ?> tickera-input-field" <?php
 								 if ( isset( $field[ 'field_placeholder' ] ) ) {
 									 echo 'placeholder="' . esc_attr( $field[ 'field_placeholder' ] ) . '"';
 								 }
@@ -119,13 +129,18 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 							if ( isset( $field[ 'field_class' ] ) ) {
 								echo $field[ 'field_class' ];
 							}
+							if ( isset( $field[ 'validation_type' ] ) ) {
+								$validation_class = 'tc_validate_field_type_' . $field[ 'validation_type' ];
+							} else {
+								$validation_class = '';
+							}
 							?>"><span><?php echo ($field[ 'required' ] ? '*' : ''); ?><?php echo $field[ 'field_title' ]; ?></span>
 									 <?php
 									 if ( isset( $field[ 'field_values' ] ) ) {
 										 $field_values = explode( ',', $field[ 'field_values' ] );
 										 foreach ( $field_values as $field_value ) {
 											 ?>
-										<label><input type="<?php echo $field[ 'field_type' ]; ?>" class="buyer-field-<?php echo $field[ 'field_type' ]; ?> tickera-input-field" value="<?php echo trim( $field_value ); ?>" name="<?php echo 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>" <?php
+										<label><input type="<?php echo $field[ 'field_type' ]; ?>" class="buyer-field-<?php echo $field[ 'field_type' ] . ' ' . $validation_class; ?> tickera-input-field" value="<?php echo trim( $field_value ); ?>" name="<?php echo 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>" <?php
 											if ( isset( $field[ 'field_default_value' ] ) && $field[ 'field_default_value' ] == trim( $field_value ) ) {
 												echo 'checked';
 											}
@@ -140,12 +155,17 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 							if ( isset( $field[ 'field_class' ] ) ) {
 								echo $field[ 'field_class' ];
 							}
+							if ( isset( $field[ 'validation_type' ] ) ) {
+								$validation_class = 'tc_validate_field_type_' . $field[ 'validation_type' ];
+							} else {
+								$validation_class = '';
+							}
 							?>"><span><?php echo ($field[ 'required' ] ? '*' : ''); ?><?php echo $field[ 'field_title' ]; ?></span>
 									 <?php
 									 if ( isset( $field[ 'field_values' ] ) ) {
 										 $field_values = explode( ',', $field[ 'field_values' ] );
 										 foreach ( $field_values as $field_value ) {
-											 ?><label><input type="<?php echo $field[ 'field_type' ]; ?>" class="buyer-field-<?php echo $field[ 'field_type' ]; ?> tickera-input-field" value="<?php echo trim( $field_value ); ?>" <?php
+											 ?><label><input type="<?php echo $field[ 'field_type' ]; ?>" class="buyer-field-<?php echo $field[ 'field_type' ] . ' ' . $validation_class; ?> tickera-input-field" value="<?php echo trim( $field_value ); ?>" <?php
 											if ( isset( $field[ 'field_default_value' ] ) && $field[ 'field_default_value' ] == trim( $field_value ) ) {
 												echo 'checked';
 											}
@@ -163,8 +183,13 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 							if ( isset( $field[ 'field_class' ] ) ) {
 								echo $field[ 'field_class' ];
 							}
+							if ( isset( $field[ 'validation_type' ] ) ) {
+								$validation_class = 'tc_validate_field_type_' . $field[ 'validation_type' ];
+							} else {
+								$validation_class = '';
+							}
 							?>"><label><span><?php echo ($field[ 'required' ] ? '*' : ''); ?><?php echo $field[ 'field_title' ]; ?></span>
-									<select class="buyer-field-<?php echo $field[ 'field_type' ]; ?> tickera-input-field" name="<?php echo 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>">	 
+									<select class="buyer-field-<?php echo $field[ 'field_type' ] . ' ' . $validation_class; ?> tickera-input-field" name="<?php echo 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>">	 
 										<?php
 										if ( isset( $field[ 'field_values' ] ) ) {
 											$field_values = explode( ',', $field[ 'field_values' ] );
@@ -226,33 +251,48 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 									<?php
 									if ( $field[ 'field_type' ] == 'function' ) {
 										eval( $field[ 'function' ] . '("' . $field[ 'field_name' ] . '"' . (isset( $field[ 'post_field_type' ] ) ? ', "' . $field[ 'post_field_type' ] . '"' : '') . (isset( $ticket_type ) ? ',' . $ticket_type : '') . (isset( $ordered_count ) ? ',' . $ordered_count : '') . ');' );
-									} 
+									}
 									if ( $show_owner_fields ) {
 										?>
 										<?php if ( $field[ 'field_type' ] == 'text' ) { ?>
-                                                                                            <?php if ( (isset( $tc_general_settings[ 'show_owner_email_field' ] ) && $tc_general_settings[ 'show_owner_email_field' ] == 'yes' && $field['field_name'] == 'owner_email' ) || $field['field_name'] !== 'owner_email'  ) { ?><div class="fields-wrap <?php
-											if ( isset( $field[ 'field_class' ] ) ) {
-												echo $field[ 'field_class' ];
-											}
-											?>"><label><span><?php echo ($field[ 'required' ] ? '*' : ''); ?><?php echo $field[ 'field_title' ]; ?></span><input type="<?php echo $field[ 'field_type' ]; ?>" <?php
-														 if ( isset( $field[ 'field_placeholder' ] ) ) {
-															 echo 'placeholder="' . esc_attr( $field[ 'field_placeholder' ] ) . '"';
-														 }
-                                                                                ?> class="owner-field-<?php echo $field[ 'field_type' ]; ?> tickera-input-field" value="" name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][<?php echo $owner_index;?>]"></label><span class="description"><?php echo $field[ 'field_description' ]; ?></span></div><!-- fields-wrap --><?php } ?><?php } ?>
+											<?php if ( (isset( $tc_general_settings[ 'show_owner_email_field' ] ) && $tc_general_settings[ 'show_owner_email_field' ] == 'yes' && $field[ 'field_name' ] == 'owner_email' ) || $field[ 'field_name' ] !== 'owner_email' ) { ?><div class="fields-wrap <?php
+												if ( isset( $field[ 'field_class' ] ) ) {
+													echo $field[ 'field_class' ];
+												}
+												if ( isset( $field[ 'validation_type' ] ) ) {
+													$validation_class = 'tc_validate_field_type_' . $field[ 'validation_type' ];
+												} else {
+													$validation_class = '';
+												}
+												?>"><label><span><?php echo ($field[ 'required' ] ? '*' : ''); ?><?php echo $field[ 'field_title' ]; ?></span><input type="<?php echo $field[ 'field_type' ]; ?>" <?php
+															 if ( isset( $field[ 'field_placeholder' ] ) ) {
+																 echo 'placeholder="' . esc_attr( $field[ 'field_placeholder' ] ) . '"';
+															 }
+															 ?> class="owner-field-<?php echo $field[ 'field_type' ] . ' ' . $validation_class; ?> tickera-input-field" value="" name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][<?php echo $owner_index; ?>]"></label><span class="description"><?php echo $field[ 'field_description' ]; ?></span></div><!-- fields-wrap --><?php } ?><?php } ?>
 
 										<?php if ( $field[ 'field_type' ] == 'textarea' ) { ?><div class="fields-wrap <?php
 											if ( isset( $field[ 'field_class' ] ) ) {
 												echo $field[ 'field_class' ];
 											}
-											?>"><label><span><?php echo ($field[ 'required' ] ? '*' : ''); ?><?php echo $field[ 'field_title' ]; ?></span><textarea class="owner-field-<?php echo $field[ 'field_type' ]; ?> tickera-input-field" <?php
+											if ( isset( $field[ 'validation_type' ] ) ) {
+												$validation_class = 'tc_validate_field_type_' . $field[ 'validation_type' ];
+											} else {
+												$validation_class = '';
+											}
+											?>"><label><span><?php echo ($field[ 'required' ] ? '*' : ''); ?><?php echo $field[ 'field_title' ]; ?></span><textarea class="owner-field-<?php echo $field[ 'field_type' ] . ' ' . $validation_class; ?> tickera-input-field" <?php
 												 if ( isset( $field[ 'field_placeholder' ] ) ) {
 													 echo 'placeholder="' . esc_attr( $field[ 'field_placeholder' ] ) . '"';
 												 }
-												 ?> name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][<?php echo $owner_index;?>]"></textarea></label><span class="description"><?php echo $field[ 'field_description' ]; ?></span></div><!-- fields-wrap --><?php } ?>
+												 ?> name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][<?php echo $owner_index; ?>]"></textarea></label><span class="description"><?php echo $field[ 'field_description' ]; ?></span></div><!-- fields-wrap --><?php } ?>
 
 										<?php if ( $field[ 'field_type' ] == 'radio' ) { ?><div class="fields-wrap <?php
 											if ( isset( $field[ 'field_class' ] ) ) {
 												echo $field[ 'field_class' ];
+											}
+											if ( isset( $field[ 'validation_type' ] ) ) {
+												$validation_class = 'tc_validate_field_type_' . $field[ 'validation_type' ];
+											} else {
+												$validation_class = '';
 											}
 											?>"><span><?php echo ($field[ 'required' ] ? '*' : ''); ?><?php echo $field[ 'field_title' ]; ?></span>
 													 <?php
@@ -260,7 +300,7 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 														 $field_values = explode( ',', $field[ 'field_values' ] );
 														 foreach ( $field_values as $field_value ) {
 															 ?>
-														<label><input type="<?php echo $field[ 'field_type' ]; ?>" class="owner-field-<?php echo $field[ 'field_type' ]; ?> tickera-input-field" value="<?php echo esc_attr( trim( $field_value ) ); ?>" name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][<?php echo $owner_index;?>]" <?php
+														<label><input type="<?php echo $field[ 'field_type' ]; ?>" class="owner-field-<?php echo $field[ 'field_type' ] . ' ' . $validation_class; ?> tickera-input-field" value="<?php echo esc_attr( trim( $field_value ) ); ?>" name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][<?php echo $owner_index; ?>]" <?php
 															if ( isset( $field[ 'field_default_value' ] ) && $field[ 'field_default_value' ] == trim( $field_value ) ) {
 																echo 'checked';
 															}
@@ -275,12 +315,17 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 											if ( isset( $field[ 'field_class' ] ) ) {
 												echo $field[ 'field_class' ];
 											}
+											if ( isset( $field[ 'validation_type' ] ) ) {
+												$validation_class = 'tc_validate_field_type_' . $field[ 'validation_type' ];
+											} else {
+												$validation_class = '';
+											}
 											?>"><span><?php echo ($field[ 'required' ] ? '*' : ''); ?><?php echo $field[ 'field_title' ]; ?></span>
 													 <?php
 													 if ( isset( $field[ 'field_values' ] ) ) {
 														 $field_values = explode( ',', $field[ 'field_values' ] );
 														 foreach ( $field_values as $field_value ) {
-															 ?><label><input type="<?php echo $field[ 'field_type' ]; ?>" class="owner-field-<?php echo $field[ 'field_type' ]; ?> tickera-input-field" value="<?php echo esc_attr( trim( $field_value ) ); ?>" <?php
+															 ?><label><input type="<?php echo $field[ 'field_type' ]; ?>" class="owner-field-<?php echo $field[ 'field_type' ] . ' ' . $validation_class; ?> tickera-input-field" value="<?php echo esc_attr( trim( $field_value ) ); ?>" <?php
 															if ( isset( $field[ 'field_default_value' ] ) && $field[ 'field_default_value' ] == trim( $field_value ) ) {
 																echo 'checked';
 															}
@@ -288,7 +333,7 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 															<?php
 														}
 														?>
-													<input type="hidden" class="checkbox_values" name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][<?php echo $owner_index;?>]" value="" />
+													<input type="hidden" class="checkbox_values" name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][<?php echo $owner_index; ?>]" value="" />
 													<?php
 												}
 												?>
@@ -298,8 +343,13 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 											if ( isset( $field[ 'field_class' ] ) ) {
 												echo $field[ 'field_class' ];
 											}
+											if ( isset( $field[ 'validation_type' ] ) ) {
+												$validation_class = 'tc_validate_field_type_' . $field[ 'validation_type' ];
+											} else {
+												$validation_class = '';
+											}
 											?>"><label><span><?php echo ($field[ 'required' ] ? '*' : ''); ?><?php echo $field[ 'field_title' ]; ?></span>
-													<select class="owner-field-<?php echo $field[ 'field_type' ]; ?> tickera-input-field" name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][<?php echo $owner_index;?>]">	 
+													<select class="owner-field-<?php echo $field[ 'field_type' ] . ' ' . $validation_class; ?> tickera-input-field" name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][<?php echo $owner_index; ?>]">	 
 														<?php
 														if ( isset( $field[ 'field_values' ] ) ) {
 															$field_values = explode( ',', $field[ 'field_values' ] );
