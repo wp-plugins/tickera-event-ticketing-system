@@ -124,12 +124,14 @@ if ( !class_exists( 'TC_Orders_Search' ) ) {
 				'post_type'		 => $this->post_type,
 				'post_mime_type' => '',
 				'post_parent'	 => '',
-				'post_status'	 => 'any'
+				'post_status'	 => isset( $_GET[ 'post_status' ] ) ? $_GET[ 'post_status' ] : 'any'
 			);
 			return count( get_posts( $args ) );
 		}
 
 		function page_links() {
+			$current_post_status = isset( $_GET[ 'post_status' ] ) ? $_GET[ 'post_status' ] : 'any';
+
 			$pagination					 = new TC_Pagination();
 			$pagination->Items( $this->get_count_of_all() );
 			$pagination->limit( $this->per_page );
@@ -137,7 +139,7 @@ if ( !class_exists( 'TC_Orders_Search' ) ) {
 			if ( $this->search_term != '' ) {
 				$pagination->target( "admin.php?page=" . $this->page_name . "&s=" . $this->search_term );
 			} else {
-				$pagination->target( "admin.php?page=" . $this->page_name );
+				$pagination->target( "admin.php?page=" . $this->page_name . "&post_status=" . $current_post_status );
 			}
 			$pagination->currentPage( $this->page_num );
 			$pagination->nextIcon( ' & #9658;' );

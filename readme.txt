@@ -111,6 +111,11 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.1.9.7 =
+- Added additional order status: trash
+- Added order status filters in the admin area
+- Fixed issue with event date and time shown on the ticket
+
 = 3.1.9.6 =
 - Change Free Order gateway (redirect to the confirmation page automatically and skip the payment page)
 - Added option for controlling "Order Details Pretty Links" in order to avoid conflicts (404 not found order details pages) with some third-party plugins and themes

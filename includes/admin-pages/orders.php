@@ -58,7 +58,9 @@ if ( isset( $_GET[ 's' ] ) ) {
 	$orderssearch = '';
 }
 
-$wp_orders_search = new TC_Orders_Search( $orderssearch, $page_num );
+$current_status = isset( $_GET[ 'post_status' ] ) ? $_GET[ 'post_status' ] : 'any';
+
+$wp_orders_search = new TC_Orders_Search( $orderssearch, $page_num, '', $current_status );
 
 $fields	 = $orders->get_order_fields();
 $columns = $orders->get_columns();
@@ -130,25 +132,55 @@ $columns = $orders->get_columns();
 				?>
 			</tbody>
 		</table>
-	<?php } else { ?>
-		<div class="tablenav">
-			<div class="alignright actions new-actions">
-				<form method="get" action="?page=<?php echo esc_attr( $page ); ?>" class="search-form">
-					<p class="search-box">
-						<input type='hidden' name='page' value='<?php echo esc_attr( $page ); ?>' />
-						<label class="screen-reader-text"><?php _e( 'Search Orders', 'tc' ); ?>:</label>
-						<input type="text" value="<?php echo esc_attr( $orderssearch ); ?>" name="s">
-						<input type="submit" class="button" value="<?php _e( 'Search Orders', 'tc' ); ?>">
-					</p>
-				</form>
-			</div><!--/alignright-->
+		<?php
+	} else {
+		$order_statuses = apply_filters( 'tc_order_admin_filter_statuses', array(
+			'order_paid'	 => __( 'Paid', 'tc' ),
+			'order_received' => __( 'Received', 'tc' ),
+			'trash'			 => __( 'Trash', 'tc' ),
+		) );
 
-		</div><!--/tablenav-->
+		$count_orders							 = wp_count_posts( 'tc_orders' );
+		$count_orders_status[ 'trash' ]			 = (int) $count_orders->trash;
+		$count_orders_status[ 'order_received' ] = (int) $count_orders->order_received;
+		$count_orders_status[ 'order_paid' ]	 = (int) $count_orders->order_paid;
+		$count_orders_status[ 'order_fraud' ]	 = (int) $count_orders->order_fraud;
+		$count_orders_status[ 'all' ]			 = (int) $count_orders->order_received + (int) $count_orders->order_paid + (int) $count_orders->order_fraud;
+		?>
+		<ul class="subsubsub">
+			<li class="all"><a href="<?php echo esc_attr( admin_url( 'admin.php?page=tc_orders&post_status=any' ) ); ?>" class="<?php echo $current_status == 'any' ? 'current' : ''; ?>"><?php _e( 'All', 'tc' ); ?> <span class="count">(<?php echo $count_orders_status[ 'all' ]; ?>)</span></a> |</li>
+			<?php
+			$order_statuses_count					 = count( $order_statuses );
+			$i										 = 0;
+			foreach ( $order_statuses as $order_status => $order_status_title ) {
+				$i++;
+				?>
+				<li class="<?php echo esc_attr( $order_status ); ?>"><a href="<?php echo esc_attr( admin_url( 'admin.php?page=tc_orders&post_status=' . $order_status ) ); ?>" class="<?php echo $current_status == $order_status ? 'current' : ''; ?>"><?php echo esc_attr( $order_status_title ); ?> <span class="count">(<?php echo $count_orders_status[ $order_status ]; ?>)</span></a> <?php
+					if ( $i == $order_statuses_count ) {
+						
+					} else {
+						echo '|';
+					}
+					?></li>
+				<?php
+			}
+			?>
+
+		</ul>
+
+		<form method="get" action="?page=<?php echo esc_attr( $page ); ?>" class="search-form">
+			<p class="search-box">
+				<input type='hidden' name='page' value='<?php echo esc_attr( $page ); ?>' />
+				<label class="screen-reader-text"><?php _e( 'Search Orders', 'tc' ); ?>:</label>
+				<input type="text" value="<?php echo esc_attr( $orderssearch ); ?>" name="s">
+				<input type="submit" class="button" value="<?php _e( 'Search Orders', 'tc' ); ?>">
+			</p>
+		</form>
 
 		<table cellspacing="0" class="widefat shadow-table">
 			<thead>
 				<tr>
-						<!--<th style="" class="manage-column column-cb check-column" id="cb" scope="col" width="<?php //echo (isset($col_sizes[0]) ? $col_sizes[0] . '%' : '');                      ?>"><input type="checkbox"></th>-->
+						<!--<th style="" class="manage-column column-cb check-column" id="cb" scope="col" width="<?php //echo (isset($col_sizes[0]) ? $col_sizes[0] . '%' : '');                                          ?>"><input type="checkbox"></th>-->
 					<?php
 					$n = 1;
 					foreach ( $columns as $col ) {

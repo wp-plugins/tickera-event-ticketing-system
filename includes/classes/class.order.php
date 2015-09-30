@@ -41,23 +41,42 @@ if ( !class_exists( 'TC_Order' ) ) {
 		function delete_order( $force_delete = true, $id = false ) {
 			$id = $id ? $id : $this->id;
 			if ( $force_delete ) {
-				wp_delete_post( $this->id );
+				wp_delete_post( $id );
 			} else {
-				wp_trash_post( $this->id );
+				wp_trash_post( $id );
 			}
 
 			//Delete associated ticket instances
 			$args = array(
 				'post_type'		 => 'tc_tickets_instances',
 				'post_status'	 => 'any',
-				'post_parent'	 => $this->id
+				'post_parent'	 => $id
 			);
 
 			$ticket_instances = get_posts( $args );
 
 			foreach ( $ticket_instances as $ticket_instance ) {
 				$ticket_instance_instance = new TC_Ticket_Instance( $ticket_instance->ID );
-				$ticket_instance_instance->delete_ticket_instance();
+				$ticket_instance_instance->delete_ticket_instance( $force_delete );
+			}
+		}
+
+		function untrash_order( $id = false ) {
+			$id = $id ? $id : $this->id;
+
+			wp_untrash_post( $id );
+
+			//Delete associated ticket instances
+			$args = array(
+				'post_type'		 => 'tc_tickets_instances',
+				'post_status'	 => 'trash',
+				'post_parent'	 => $id
+			);
+
+			$ticket_instances = get_posts( $args );
+
+			foreach ( $ticket_instances as $ticket_instance ) {
+				wp_untrash_post( $ticket_instance->ID );
 			}
 		}
 

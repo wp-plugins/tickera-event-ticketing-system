@@ -1163,6 +1163,7 @@ function tc_get_order_status_select( $field_name = '', $post_id = '' ) {
 		<option value='order_received' <?php selected( $value, 'order_received', true ); ?>><?php _e( 'Order Received', 'tc' ); ?></option>
 		<option value='order_paid' <?php selected( $value, 'order_paid', true ); ?>><?php _e( 'Order Paid', 'tc' ); ?></option>
 		<option value='order_fraud' <?php selected( $value, 'order_fraud', true ); ?>><?php _e( 'Order Fraud', 'tc' ); ?></option>
+		<option value='trash' <?php selected( $value, 'trash', true ); ?>><?php _e( 'Trash', 'tc' ); ?></option>
 	</select>
 	<?php
 }
@@ -1223,6 +1224,10 @@ function tc_get_order_details_front( $order_id = '', $order_key = '' ) {
 			$order_status = __( 'Under Review', 'tc' );
 		} else if ( $order->details->post_status == 'order_paid' ) {
 			$order_status = __( 'Payment Completed', 'tc' );
+		} else if ( $order->details->post_status == 'trash' ) {
+			$order_status = __( 'Order Deleted', 'tc' );
+		} else {
+			$order_status = $order->details->post_status;
 		}
 
 		$fees_total		 = apply_filters( 'tc_cart_currency_and_format', $order->details->tc_payment_info[ 'fees_total' ] );

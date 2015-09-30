@@ -546,6 +546,12 @@ a.tc_link:hover{
     top: 13px;
 }
 
+.tc_wrap .tablenav .displaying-num {
+    margin-right: 7px;
+    padding-top: 7px;
+    display: inline-block;
+}
+
 
 @media only screen and (max-width : 500px) {
     .shortcode-table tr th {

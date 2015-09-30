@@ -2,7 +2,7 @@
 
 /*
   Addon Name: Delete Pending Orders
-  Description: Delete pending orders (which are not paid for 12 hours or more). Note: all pending orders will be deleted made via all payment gateways except Free Orders and Offline Payments
+  Description: Delete pending orders (which are not paid for 24 hours or more). Note: all pending orders will be deleted made via all payment gateways except Free Orders and Offline Payments
  */
 
 if ( !defined( 'ABSPATH' ) )
@@ -35,7 +35,7 @@ if ( !class_exists( 'TC_Delete_Pending_Orders' ) ) {
 					'field_type'		 => 'function',
 					'function'			 => 'tc_radio_checkbox',
 					'default_value'		 => 'no',
-					'field_description'	 => __( 'Delete pending orders (which are not paid for 12 hours or more). Note: all pending orders will be deleted made via all payment gateways except Free Orders and Offline Payments', 'tc' ),
+					'field_description'	 => __( 'Delete pending orders (which are not paid for 24 hours or more). Note: all pending orders will be deleted made via all payment gateways except Free Orders and Offline Payments', 'tc' ),
 					'section'			 => 'miscellaneous_settings'
 				),
 			);
@@ -44,6 +44,8 @@ if ( !class_exists( 'TC_Delete_Pending_Orders' ) ) {
 		}
 
 		function schedule_delete_pending_orders_event() {
+			global $wpdb;
+
 			$tc_general_settings = get_option( 'tc_general_setting', false );
 
 			$delete_pending_orders = isset( $tc_general_settings[ 'delete_pending_orders' ] ) ? $tc_general_settings[ 'delete_pending_orders' ] : 'no';
@@ -54,14 +56,17 @@ if ( !class_exists( 'TC_Delete_Pending_Orders' ) ) {
 				}
 				$this->tc_maybe_delete_pending_posts();
 			} else {
-				//delete cron hook
+				if ( apply_filters( 'tc_delete_trash_metas', true ) == true ) {
+					$wpdb->query( 'DELETE FROM ' . $wpdb->postmeta . ' WHERE meta_key = "_wp_trash_meta_status" OR meta_key = "_wp_trash_meta_time"' );
+				}
+//delete cron hook
 				wp_clear_scheduled_hook( 'tc_maybe_delete_pending_posts_hook' );
 			}
 		}
 
 		function tc_maybe_delete_pending_posts() {
 			global $wpdb;
-			$pending_orders = $wpdb->get_results( 'SELECT ID FROM ' . $wpdb->posts . '  WHERE post_date < (NOW() - INTERVAL 12 HOUR) AND post_type = "tc_orders" AND post_status = "order_received"', OBJECT );
+			$pending_orders = $wpdb->get_results( 'SELECT ID FROM ' . $wpdb->posts . '  WHERE post_date < (NOW() - INTERVAL 24 HOUR) AND post_type = "tc_orders" AND post_status = "order_received"', OBJECT );
 
 			foreach ( $pending_orders as $pending_order ) {
 

@@ -182,6 +182,8 @@ function tc_order_field_value( $order_id, $value, $meta_key, $field_type, $field
 			$color = "#ff6600"; //yellow
 		} else if ( $value == 'order_paid' ) {
 			$color = "green";
+		}else{
+			$color = "black";
 		}
 
 		return sprintf( __( '%1$s %2$s %3$s', 'tc' ), '<font color="' . $color . '">', __( ucwords( $new_value ), 'tc' ), '</font>' );

@@ -5,7 +5,7 @@
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.1.9.6
+  Version: 3.1.9.7
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.1.9.6';
+		var $version			 = '3.1.9.7';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -597,7 +597,7 @@ if ( !class_exists( 'TC' ) ) {
 				if ( $args->theme_location == $theme_location ) {//put extra menu items only in primary menu
 					$cart_link = new stdClass;
 
-					$cart_link->title			 = __( 'Cart', 'tc' );
+					$cart_link->title			 = apply_filters( 'tc_cart_page_link_title', __( 'Cart', 'tc' ) );
 					$cart_link->menu_item_parent = 0;
 					$cart_link->ID				 = 'tc_cart';
 					$cart_link->db_id			 = '';
@@ -620,7 +620,7 @@ if ( !class_exists( 'TC' ) ) {
 
 				$cart_link = new stdClass;
 
-				$cart_link->title			 = __( 'Cart', 'tc' );
+				$cart_link->title			 = apply_filters( 'tc_cart_page_link_title', __( 'Cart', 'tc' ) );
 				$cart_link->menu_item_parent = 0;
 				$cart_link->ID				 = 'tc_cart';
 				$cart_link->db_id			 = '';
@@ -2225,10 +2225,17 @@ if ( !class_exists( 'TC' ) ) {
 					//echo 'post status is not order_paid';
 				}
 
-				if ( wp_update_post( $post_data ) ) {
-					echo 'updated';
+				$order = new TC_Order( $order_id );
+				
+				if ( $post_status == 'trash' ) {
+					$order->delete_order( false );
 				} else {
-					echo 'error';
+					$order->untrash_order();
+					if ( wp_update_post( $post_data ) ) {
+						echo 'updated';
+					} else {
+						echo 'error';
+					}
 				}
 				exit;
 			} else {
@@ -2366,6 +2373,11 @@ if ( !class_exists( 'TC' ) ) {
 				'ID'			 => $order_id,
 				'post_status'	 => $new_status
 			);
+			
+			$order_object = new TC_Order($order_id);
+			
+			$order_object->untrash_order();//untrash order if it's in trash
+			
 			wp_update_post( $order );
 		}
 
@@ -2652,6 +2664,25 @@ if ( !class_exists( 'TC' ) ) {
 				'rewrite'		 => false,
 				'query_var'		 => false,
 				'supports'		 => array()
+			) );
+
+			register_post_status( 'order_received', array(
+				'label'			 => __( 'Received', 'mp' ),
+				'label_count'	 => _n_noop( 'Received <span class="count">(%s)</span>', 'Received <span class="count">(%s)</span>', 'mp' ),
+				'post_type'		 => 'tc_orders',
+				'public'		 => true
+			) );
+			register_post_status( 'order_paid', array(
+				'label'			 => __( 'Paid', 'mp' ),
+				'label_count'	 => _n_noop( 'Paid <span class="count">(%s)</span>', 'Paid <span class="count">(%s)</span>', 'mp' ),
+				'post_type'		 => 'tc_orders',
+				'public'		 => true
+			) );
+			register_post_status( 'order_fraud', array(
+				'label'			 => __( 'Shipped', 'mp' ),
+				'label_count'	 => _n_noop( 'Shipped <span class="count">(%s)</span>', 'Shipped <span class="count">(%s)</span>', 'mp' ),
+				'post_type'		 => 'tc_orders',
+				'public'		 => true
 			) );
 
 			$args = array(
