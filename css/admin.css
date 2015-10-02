@@ -272,6 +272,13 @@ table.order-details{
     color: red;
 }
 
+.tc_order_tickets_warning{
+    padding: 10px;
+    display: block;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+}
+
 .checkin-table{
     margin-top: 20px;
 }

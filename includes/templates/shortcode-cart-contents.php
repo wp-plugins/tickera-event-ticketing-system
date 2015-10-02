@@ -109,7 +109,7 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 										 if ( isset( $field[ 'field_placeholder' ] ) ) {
 											 echo 'placeholder="' . esc_attr( $field[ 'field_placeholder' ] ) . '"';
 										 }
-										 ?> class="buyer-field-<?php echo $field[ 'field_type' ] . ' ' . $validation_class; ?> tickera-input-field" value="<?php echo (isset( $_POST[ 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ] ] ) ? $_POST[ 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ] ] : ''); ?>" name="<?php echo 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>"></label><span class="description"><?php echo $field[ 'field_description' ]; ?></span></div><!-- fields-wrap --><?php } ?>
+										 ?> class="buyer-field-<?php echo $field[ 'field_type' ] . ' ' . $validation_class; ?> tickera-input-field" value="<?php echo (isset( $_POST[ 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ] ] ) ? $_POST[ 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ] ] : $buyer_form->get_default_value( $field )); ?>" name="<?php echo 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>"></label><span class="description"><?php echo $field[ 'field_description' ]; ?></span></div><!-- fields-wrap --><?php } ?>
 						<?php if ( $field[ 'field_type' ] == 'textarea' ) { ?><div class="fields-wrap <?php
 							if ( isset( $field[ 'field_class' ] ) ) {
 								echo $field[ 'field_class' ];
@@ -123,7 +123,7 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 								 if ( isset( $field[ 'field_placeholder' ] ) ) {
 									 echo 'placeholder="' . esc_attr( $field[ 'field_placeholder' ] ) . '"';
 								 }
-								 ?> name="<?php echo 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>"><?php echo (isset( $_POST[ 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ] ] ) ? $_POST[ 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ] ] : ''); ?></textarea></label><span class="description"><?php echo $field[ 'field_description' ]; ?></span></div><!-- fields-wrap --><?php } ?>
+								 ?> name="<?php echo 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>"><?php echo (isset( $_POST[ 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ] ] ) ? $_POST[ 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ] ] : $buyer_form->get_default_value( $field )); ?></textarea></label><span class="description"><?php echo $field[ 'field_description' ]; ?></span></div><!-- fields-wrap --><?php } ?>
 
 						<?php if ( $field[ 'field_type' ] == 'radio' ) { ?><div class="fields-wrap <?php
 							if ( isset( $field[ 'field_class' ] ) ) {
@@ -268,7 +268,7 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 															 if ( isset( $field[ 'field_placeholder' ] ) ) {
 																 echo 'placeholder="' . esc_attr( $field[ 'field_placeholder' ] ) . '"';
 															 }
-															 ?> class="owner-field-<?php echo $field[ 'field_type' ] . ' ' . $validation_class; ?> tickera-input-field" value="" name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][<?php echo $owner_index; ?>]"></label><span class="description"><?php echo $field[ 'field_description' ]; ?></span></div><!-- fields-wrap --><?php } ?><?php } ?>
+															 ?> class="owner-field-<?php echo $field[ 'field_type' ] . ' ' . $validation_class; ?> tickera-input-field tc-owner-field <?php if($field[ 'field_name' ] == 'owner_email' ){ ?>tc_owner_email<?php } ?>" value="" name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][<?php echo $owner_index; ?>]"></label><span class="description"><?php echo $field[ 'field_description' ]; ?></span></div><!-- fields-wrap --><?php } ?><?php } ?>
 
 										<?php if ( $field[ 'field_type' ] == 'textarea' ) { ?><div class="fields-wrap <?php
 											if ( isset( $field[ 'field_class' ] ) ) {

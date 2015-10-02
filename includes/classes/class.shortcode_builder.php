@@ -26,6 +26,7 @@ class TC_Shortcode_Builder {
 			'event_tickets_left' => __( 'Display a number of tickets left for an event', 'tc' ),
 			'tickets_sold'		 => __( 'Display a number of sold tickets', 'tc' ),
 			'tickets_left'		 => __( 'Display a number of available tickets', 'tc' ),
+			'tc_order_history'	 => __( 'Display order history for a user', 'tc' ),
 		);
 		?>
 		<div id="tc-shortcode-builder-wrap" style="display:none">
@@ -60,6 +61,19 @@ class TC_Shortcode_Builder {
 
 			</form>
 		</div>
+		<?php
+	}
+
+	public function show_tc_order_history_attributes() {
+		?>
+		<table id="tc-order-history-shortcode" class="shortcode-table" style="display:none">
+			<tr>
+				<th scope="row"><?php _e( 'Without extra attributes', 'tc' ); ?></th>
+				<td>
+					<?php _e( 'Just insert a shortcode in the post / page and it will show order history of the current logged in user.', 'tc' ); ?>
+				</td>
+			</tr>
+		</table>	
 		<?php
 	}
 

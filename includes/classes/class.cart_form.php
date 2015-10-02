@@ -22,6 +22,8 @@ if ( !class_exists( 'TC_Cart_Form' ) ) {
 
 		function get_buyer_info_fields() {
 
+			$user_info = get_userdata( get_current_user_id() );
+
 			$default_fields = array(
 				array(
 					'field_name'		 => 'first_name',
@@ -30,6 +32,7 @@ if ( !class_exists( 'TC_Cart_Form' ) ) {
 					'field_description'	 => '',
 					'post_field_type'	 => 'post_meta',
 					'required'			 => true,
+					'default_value'		 => isset( $user_info->first_name ) ? $user_info->first_name : ''
 				),
 				array(
 					'field_name'		 => 'last_name',
@@ -37,7 +40,8 @@ if ( !class_exists( 'TC_Cart_Form' ) ) {
 					'field_type'		 => 'text',
 					'field_description'	 => '',
 					'post_field_type'	 => 'post_meta',
-					'required'			 => true
+					'required'			 => true,
+					'default_value'		 => isset( $user_info->last_name ) ? $user_info->last_name : ''
 				),
 				array(
 					'field_name'		 => 'email',
@@ -46,11 +50,17 @@ if ( !class_exists( 'TC_Cart_Form' ) ) {
 					'field_description'	 => '',
 					'post_field_type'	 => 'post_meta',
 					'required'			 => true,
-					'validation_type'	 => 'email'
+					'validation_type'	 => 'email',
+					'default_value'		 => isset( $user_info->user_email ) ? $user_info->user_email : ''
 				),
 			);
 
 			return apply_filters( 'tc_buyer_info_fields', $default_fields, isset( $ticket_type_id ) ? $ticket_type_id : ''  );
+		}
+
+		//Get default value for input text or text area
+		function get_default_value( $field ) {
+			return isset( $field[ 'default_value' ] ) ? $field[ 'default_value' ] : '';
 		}
 
 		function get_owner_info_fields( $ticket_type_id = '' ) {

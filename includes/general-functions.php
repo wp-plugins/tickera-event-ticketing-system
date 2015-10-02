@@ -42,7 +42,8 @@ function tc_quantity_selector( $ticket_id ) {
 	if ( $quantity_left > 0 ) {
 		?>
 		<select class="tc_quantity_selector">
-			<?php for ( $i = $i_val; $i <= $quantity; $i++ ) {
+			<?php
+			for ( $i = $i_val; $i <= $quantity; $i++ ) {
 				?>
 				<option value="<?php echo esc_attr( $i ); ?>"><?php echo esc_attr( $i ); ?></option>
 				<?php
@@ -181,10 +182,10 @@ function tc_create_page( $slug, $option = '', $page_title = '', $page_content = 
 	$page_found = null;
 
 	if ( strlen( $page_content ) > 0 ) {
-		// Search for an existing page with the specified page content (typically a shortcode)
+// Search for an existing page with the specified page content (typically a shortcode)
 		$page_found = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM " . $wpdb->posts . " WHERE post_type='page' AND post_content LIKE %s LIMIT 1;", "%{$page_content}%" ) );
 	} else {
-		// Search for an existing page with the specified page slug
+// Search for an existing page with the specified page slug
 		$page_found = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM " . $wpdb->posts . " WHERE post_type='page' AND post_name = %s LIMIT 1;", $slug ) );
 	}
 
@@ -270,6 +271,8 @@ function tc_order_created_email( $order_id, $status, $cart_contents = false, $ca
 
 	$tc_email_settings = get_option( 'tc_email_setting', false );
 
+	$email_send_type = isset( $tc_email_settings[ 'email_send_type' ] ) ? $tc_email_settings[ 'email_send_type' ] : 'wp_mail';
+
 	$order_id = strtoupper( $order_id );
 
 	$order = tc_get_order_id_by_name( $order_id );
@@ -296,7 +299,7 @@ function tc_order_created_email( $order_id, $status, $cart_contents = false, $ca
 	do_action( 'tc_before_order_created_email' );
 
 	if ( $status == 'order_paid' ) {
-		//Send e-mail to the client
+//Send e-mail to the client
 
 		if ( !isset( $tc_email_settings[ 'client_send_message' ] ) || (isset( $tc_email_settings[ 'client_send_message' ] ) && $tc_email_settings[ 'client_send_message' ] == 'yes') ) {
 			add_filter( 'wp_mail_from', 'client_email_from_email', 999 );
@@ -319,12 +322,23 @@ function tc_order_created_email( $order_id, $status, $cart_contents = false, $ca
 
 			$client_headers = ''; //'From: ' . client_email_from_name( '' ) . ' <' . client_email_from_email( '' ) . '>' . "\r\n";
 
-			wp_mail( $to, $subject, html_entity_decode( stripcslashes( apply_filters( 'tc_order_completed_admin_email_message', wpautop( $message ) ) ) ), apply_filters( 'tc_order_completed_client_email_headers', $client_headers ) );
+			if ( $email_send_type == 'wp_mail' ) {
+				wp_mail( $to, $subject, html_entity_decode( stripcslashes( apply_filters( 'tc_order_completed_admin_email_message', wpautop( $message ) ) ) ), apply_filters( 'tc_order_completed_client_email_headers', $client_headers ) );
+			} else {
+				$headers = 'MIME-Version: 1.0' . "\r\n";
+				$headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+				$headers .= 'From: ' . client_email_from_email( '' ) . "\r\n" .
+				'Reply-To: ' . client_email_from_email( '' ) . "\r\n" .
+				'X-Mailer: PHP/' . phpversion();
+
+
+				mail( $to, $subject, stripcslashes( wpautop( $message ) ), apply_filters( 'tc_order_completed_client_email_headers', $headers ) );
+			}
 		}
 
 		/* --------------------------------------------------------------------- */
 
-		//Send e-mail to the admin
+//Send e-mail to the admin
 
 		if ( (!isset( $tc_email_settings[ 'admin_send_message' ] ) || (isset( $tc_email_settings[ 'admin_send_message' ] ) && $tc_email_settings[ 'admin_send_message' ] == 'yes')) && $send_email_to_admin ) {
 
@@ -350,7 +364,18 @@ function tc_order_created_email( $order_id, $status, $cart_contents = false, $ca
 
 			$admin_headers = ''; //'From: ' . admin_email_from_name( '' ) . ' <' . admin_email_from_email( '' ) . '>' . "\r\n";
 
-			wp_mail( $to, $subject, html_entity_decode( stripcslashes( apply_filters( 'tc_order_completed_admin_email_message', wpautop( $message ) ) ) ), apply_filters( 'tc_order_completed_admin_email_headers', $admin_headers ) );
+			if ( $email_send_type == 'wp_mail' ) {
+				wp_mail( $to, $subject, html_entity_decode( stripcslashes( apply_filters( 'tc_order_completed_admin_email_message', wpautop( $message ) ) ) ), apply_filters( 'tc_order_completed_admin_email_headers', $admin_headers ) );
+			} else {
+				$headers = 'MIME-Version: 1.0' . "\r\n";
+				$headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+				$headers .= 'From: ' . admin_email_from_email( '' ) . "\r\n" .
+				'Reply-To: ' . admin_email_from_email( '' ) . "\r\n" .
+				'X-Mailer: PHP/' . phpversion();
+
+
+				mail( $to, $subject, stripcslashes( wpautop( $message ) ), apply_filters( 'tc_order_completed_admin_email_headers', $headers ) );
+			}
 		}
 	}
 
@@ -542,6 +567,27 @@ function tc_client_send_order_messages( $field_name, $default_value = '' ) {
 	<?php
 }
 
+function tc_email_send_type( $field_name, $default_value = '' ) {
+	global $tc_email_settings;
+	if ( isset( $tc_email_settings[ $field_name ] ) ) {
+		$checked = $tc_email_settings[ $field_name ];
+	} else {
+		if ( $default_value !== '' ) {
+			$checked = $default_value;
+		} else {
+			$checked = 'wp_mail';
+		}
+	}
+	?>
+	<label>
+		<input type="radio" name="tc_email_setting[<?php echo esc_attr( $field_name ); ?>]" value="wp_mail" <?php checked( $checked, 'wp_mail', true ); ?>  /><?php _e( 'WP Mail (default)', 'tc' ); ?>
+	</label>
+	<label>
+		<input type="radio" name="tc_email_setting[<?php echo esc_attr( $field_name ); ?>]" value="mail" <?php checked( $checked, 'mail', true ); ?> /><?php _e( 'PHP Mail', 'tc' ); ?>
+	</label>
+	<?php
+}
+
 function tc_admin_send_order_messages( $field_name, $default_value = '' ) {
 	global $tc_email_settings;
 	if ( isset( $tc_email_settings[ $field_name ] ) ) {
@@ -706,7 +752,7 @@ function tc_global_admin_per_page( $value ) {
 	$settings	 = get_option( 'tc_settings' );
 	$global_rows = isset( $tc_general_settings[ 'global_admin_per_page' ] ) ? $tc_general_settings[ 'global_admin_per_page' ] : $value;
 	return $global_rows;
-	//
+//
 }
 
 function tc_get_global_admin_per_page( $field_name, $default_value = '' ) {
@@ -1169,8 +1215,17 @@ function tc_get_order_status_select( $field_name = '', $post_id = '' ) {
 }
 
 function tc_get_order_customer( $field_name = '', $post_id = '' ) {
-	$value = get_post_meta( $post_id, $field_name, true );
-	echo $value[ 'buyer_data' ][ 'first_name_post_meta' ] . ' ' . $value[ 'buyer_data' ][ 'last_name_post_meta' ];
+	$value		 = get_post_meta( $post_id, $field_name, true );
+	$order		 = new TC_Order( $post_id );
+	$author_id	 = $order->details->post_author;
+
+	if ( !user_can( $author_id, 'manage_options' ) ) {
+		$buyer_info = '<a href="' . admin_url( 'user-edit.php?user_id=' . $author_id ) . '">' . $value[ 'buyer_data' ][ 'first_name_post_meta' ] . ' ' . $value[ 'buyer_data' ][ 'last_name_post_meta' ] . '</a>';
+	} else {
+		$buyer_info = $value[ 'buyer_data' ][ 'first_name_post_meta' ] . ' ' . $value[ 'buyer_data' ][ 'last_name_post_meta' ];
+	}
+
+	echo $buyer_info;
 }
 
 function tc_get_order_customer_email( $field_name = '', $post_id = '' ) {
@@ -1321,16 +1376,105 @@ function tc_get_order_details_front( $order_id = '', $order_key = '' ) {
 
 function tc_get_order_event( $field_name = '', $post_id = '' ) {
 
+	$order_status	 = get_post_status( $post_id );
+	$order_status	 = $order_status == 'trash' ? 'trash' : 'publish';
+
 	$orders = new TC_Orders();
 
-	$args	 = array(
+	$user_id		 = get_current_user_id();
+	$order_id		 = get_the_title( $post_id );
+	$cart_contents	 = get_post_meta( $post_id, 'tc_cart_contents', true );
+	$cart_info		 = get_post_meta( $post_id, 'tc_cart_info', true );
+	$owner_data		 = $cart_info[ 'owner_data' ];
+	$tickets		 = count( $cart_contents );
+
+	if ( isset( $_POST[ 'recreate_tickets' ] ) ) {
+		//recreating tickets
+		//Save Ticket Owner(s) data
+		//$owner_data		 = $_SESSION[ 'cart_info' ][ 'owner_data' ];
+		$owner_records = array();
+
+		$different_ticket_types = array_keys( $owner_data[ 'ticket_type_id_post_meta' ] );
+
+		$n	 = 0;
+		$i	 = 1;
+
+		foreach ( $different_ticket_types as $different_ticket_type ) {
+			$i = $i + 10;
+			foreach ( $owner_data as $field_name => $field_values ) {
+
+				$inner_count = count( $field_values[ $different_ticket_type ] );
+
+				foreach ( $field_values[ $different_ticket_type ] as $field_value ) {
+					$owner_records[ ((int) $n + (int) $inner_count) * (int) $i ][ $field_name ]	 = $field_value;
+					$inner_count																 = $inner_count + 1;
+				}
+			}
+			$n = $n++;
+		}
+
+		$owner_record_num = 1;
+
+		foreach ( $owner_records as $owner_record ) {
+
+			foreach ( $owner_record as $owner_field_name => $owner_field_value ) {
+
+				if ( preg_match( '/_post_title/', $owner_field_name ) ) {
+					$title = $owner_field_value;
+				}
+
+				if ( preg_match( '/_post_excerpt/', $owner_field_name ) ) {
+					$excerpt = $owner_field_value;
+				}
+
+				if ( preg_match( '/_post_content/', $owner_field_name ) ) {
+					$content = $owner_field_value;
+				}
+
+				if ( preg_match( '/_post_meta/', $owner_field_name ) ) {
+					$metas[ str_replace( '_post_meta', '', $owner_field_name ) ] = $owner_field_value;
+				}
+			}
+
+			$metas[ 'ticket_code' ] = apply_filters( 'tc_ticket_code', $order_id . '-' . $owner_record_num );
+
+			$arg = array(
+				'post_author'	 => isset( $user_id ) ? $user_id : '',
+				'post_parent'	 => $post_id,
+				'post_excerpt'	 => (isset( $excerpt ) ? $excerpt : ''),
+				'post_content'	 => (isset( $content ) ? $content : ''),
+				'post_status'	 => $order_status,
+				'post_title'	 => (isset( $title ) ? $title : ''),
+				'post_type'		 => 'tc_tickets_instances',
+			);
+
+			$owner_record_id = @wp_insert_post( $arg, true );
+
+			foreach ( $metas as $meta_name => $mata_value ) {
+				update_post_meta( $owner_record_id, $meta_name, $mata_value );
+			}
+
+			$ticket_type_id	 = get_post_meta( $owner_record_id, 'ticket_type_id', true );
+			$ticket_type	 = new TC_Ticket( $ticket_type_id );
+			$event_id		 = $ticket_type->get_ticket_event();
+
+			update_post_meta( $owner_record_id, 'event_id', $event_id );
+
+			$owner_record_num++;
+		}
+	}//END recreating tickets
+
+	$args = array(
 		'posts_per_page' => -1,
 		'orderby'		 => 'post_date',
 		'order'			 => 'ASC',
 		'post_type'		 => 'tc_tickets_instances',
+		'post_status'	 => array( 'trash', 'publish' ),
 		'post_parent'	 => $post_id
 	);
+
 	$tickets = get_posts( $args );
+
 	$columns = $orders->get_owner_info_fields();
 
 	$columns = apply_filters( 'tc_order_details_owner_columns', $columns );
@@ -1383,6 +1527,18 @@ function tc_get_order_event( $field_name = '', $post_id = '' ) {
 		?>
 	</table>
 	<?php
+	if ( count( $tickets ) == 0 && count( $cart_contents ) > 0 ) {
+		?>
+		<div class="status_red tc_order_tickets_warning">
+			<?php
+			_e( 'There are not any tickets. Would you like to try to recreate them? ', 'tc' );
+			?>
+			<form name="tc_recreate_tickets" method="POST">
+				<input type="submit" name="recreate_tickets" value="<?php echo esc_attr( __( 'Recrete Tickets', 'tc' ) ); ?>" />
+			</form>
+		</div>
+		<?php
+	}
 }
 
 function tc_get_order_date( $field_name = '', $post_id = '' ) {

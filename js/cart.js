@@ -226,10 +226,16 @@ jQuery( document ).ready( function( $ ) {
             email: true,
         } );
     } );
-
-    $( '.required' ).each( function() {
+    
+    $( '.tc_owner_email' ).each( function() {
         $( this ).rules( 'add', {
-            required: true
+            email: true,
+        } );
+    } );
+
+    $( '#tickera_cart .required' ).each( function() {
+        $( this ).rules( 'add', {
+            required: true,
         } );
     } );
 

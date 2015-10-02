@@ -1,4 +1,120 @@
 <?php
+add_action( 'manage_users_columns', 'tc_modify_user_columns' );
+
+function tc_modify_user_columns( $column_headers ) {
+	$column_headers[ 'tc_number_of_orders' ] = __( 'Ticket Orders', 'tc' );
+	return $column_headers;
+}
+
+add_action( 'manage_users_custom_column', 'tc_add_number_of_orders_value', 10, 3 );
+
+function tc_add_number_of_orders_value( $value, $column_name, $user_id ) {
+	$user = get_userdata( $user_id );
+	if ( 'tc_number_of_orders' == $column_name ) {
+		global $wpdb;
+		if ( user_can( $user_id, 'manage_options' ) ) {
+			$value = '-';
+		} else {
+			$where	 = "WHERE post_author = " . $user_id . " AND post_type = 'tc_orders' AND (post_status = 'order_paid' OR post_status = 'order_received' OR post_status = 'order_fraud')";
+			$count	 = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->posts $where" );
+			$value	 = '<a href="' . admin_url( 'user-edit.php?user_id=' . $user_id . '#tc_order_history' ) . '">' . apply_filters( 'tc_get_user_number_of_orders_value', $count, $user_id ) . '</a>';
+		}
+	}
+	return $value;
+}
+
+add_action( 'edit_user_profile', 'tc_show_extra_profile_fields_order_history' );
+
+//
+
+function tc_show_extra_profile_fields_order_history( $user ) {
+	global $tc;
+	?>
+
+	<h3><?php _e( 'Ticket Order History', 'tc' ); ?><a name="tc_order_history"></a></h3>
+
+	<table class="form-table">
+
+		<tr>
+			<th></th>
+			<td>
+				<?php
+				$user_orders = TC_Orders::get_user_orders( $user->ID );
+
+				if ( count( $user_orders ) == 0 ) {
+					_e( 'No Orders Found', 'tc' );
+				} else {
+					?>
+					<table cellspacing="0" class="widefat shadow-table" cellpadding="10">
+						<tr>
+							<td><?php _e( 'Order ID', 'tc' ); ?></td>
+							<td><?php _e( 'Status', 'tc' ); ?></td>
+							<td><?php _e( 'Date', 'tc' ); ?></td>
+							<td><?php _e( 'Total', 'tc' ); ?></td>
+							<td><?php _e( 'Details', 'tc' ); ?></td>
+						</tr>
+						<?php
+						$style = '';
+						foreach ( $user_orders as $user_order ) {
+							$style				 = ( ' class="alternate"' == $style ) ? '' : ' class="alternate"';
+							$order				 = new TC_Order( $user_order->ID );
+							?>
+							<tr <?php echo $style; ?>> 
+								<td>
+									<?php echo $order->details->post_title; ?>
+								</td>
+								<td>
+									<?php
+									$post_status		 = $order->details->post_status;
+									$init_post_status	 = $post_status;
+
+									if ( $post_status == 'order_fraud' ) {
+										$color = "red";
+									} else if ( $post_status == 'order_received' ) {
+										$color = "#ff6600"; //yellow
+									} else if ( $post_status == 'order_paid' ) {
+										$color = "green";
+									}
+
+									if ( $post_status == 'order_fraud' ) {
+										$post_status = __( 'Held for Review', 'tc' );
+									}
+
+									$post_status		 = ucwords( str_replace( '_', ' ', $post_status ) );
+									echo sprintf( __( '%1$s %2$s %3$s', 'tc' ), '<font color="' . apply_filters( 'tc_order_history_color', $color, $init_post_status ) . '">', __( ucwords( $post_status ), 'tc' ), '</font>' );
+									?>
+								</td>
+								<td>
+									<?php
+									echo tc_format_date( $order->details->tc_order_date, true );
+									?>
+								</td>
+								<td>
+									<?php
+									echo apply_filters( 'tc_cart_currency_and_format', $order->details->tc_payment_info[ 'total' ] );
+									?>
+								</td>
+								<td>
+									<?php
+									$order_status_url	 = admin_url( 'admin.php?page=tc_orders&action=details&ID=' . $order->details->ID );
+									?>
+									<a href="<?php echo $order_status_url; ?>"><?php _e( 'Order Details', 'tc' ); ?></a>
+								</td>
+							</tr>
+							<?php
+						}
+						?>
+					</table>
+					<?php
+				}
+				?>
+			</td>
+		</tr>
+
+	</table>
+	<?php
+}
+
 add_action( 'tc_cart_col_title_before_total_price', 'tc_cart_col_title_before_total_price' );
 
 function tc_cart_col_title_before_total_price() {
@@ -60,12 +176,11 @@ function tc_cart_col_value_before_total_price_total( $total ) {
 	do_action( 'tc_cart_col_value_before_total_price_fees' );
 	add_filter( 'tc_cart_total', 'tc_cart_total_with_fees', 10, 1 );
 
-		function tc_cart_total_with_fees( $total_price ) {
-			global $total_fees;
-			//return apply_filters( 'tc_discounted_total', $total_price );
-			return $total_price + apply_filters( 'tc_discounted_fees_total', $total_fees );
-		}
-
+	function tc_cart_total_with_fees( $total_price ) {
+		global $total_fees;
+		//return apply_filters( 'tc_discounted_total', $total_price );
+		return $total_price + apply_filters( 'tc_discounted_fees_total', $total_fees );
+	}
 
 	if ( !isset( $tc_general_settings[ 'show_fees' ] ) || (isset( $tc_general_settings[ 'show_fees' ] ) && $tc_general_settings[ 'show_fees' ] == 'yes') ) {
 		?>
@@ -143,7 +258,7 @@ function tc_event_date_time_element( $date ) {
 add_filter( 'tc_checkins_date_checked', 'tc_checkins_date_checked', 10, 1 );
 
 function tc_checkins_date_checked( $date ) {
-	return tc_format_date($date);//date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $date, false );
+	return tc_format_date( $date ); //date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $date, false );
 }
 
 add_filter( 'tc_checkins_status', 'tc_checkins_status', 10, 1 );
@@ -182,15 +297,25 @@ function tc_order_field_value( $order_id, $value, $meta_key, $field_type, $field
 			$color = "#ff6600"; //yellow
 		} else if ( $value == 'order_paid' ) {
 			$color = "green";
-		}else{
+		} else {
 			$color = "black";
 		}
 
 		return sprintf( __( '%1$s %2$s %3$s', 'tc' ), '<font color="' . $color . '">', __( ucwords( $new_value ), 'tc' ), '</font>' );
 	} else if ( $field_id == 'order_date' ) {
-		return tc_format_date($value);//date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $value, false );
+		return tc_format_date( $value ); //date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $value, false );
 	} else if ( $field_id == 'customer' ) {
-		return $value[ 'buyer_data' ][ 'first_name_post_meta' ] . ' ' . $value[ 'buyer_data' ][ 'last_name_post_meta' ];
+
+		$order		 = new TC_Order( $order_id );
+		$author_id	 = $order->details->post_author;
+
+		if ( !user_can( $author_id, 'manage_options' ) ) {
+			$buyer_info = '<a href="' . admin_url( 'user-edit.php?user_id=' . $author_id ) . '">' . $value[ 'buyer_data' ][ 'first_name_post_meta' ] . ' ' . $value[ 'buyer_data' ][ 'last_name_post_meta' ] . '</a>';
+		} else {
+			$buyer_info = $value[ 'buyer_data' ][ 'first_name_post_meta' ] . ' ' . $value[ 'buyer_data' ][ 'last_name_post_meta' ];
+		}
+
+		return $buyer_info;
 	} elseif ( $field_id == 'parent_event' ) {
 		$events = $tc->get_cart_events( $value );
 		foreach ( $events as $event_id ) {

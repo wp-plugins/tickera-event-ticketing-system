@@ -216,8 +216,8 @@ if ( !class_exists( 'TC_Orders' ) ) {
 					'field_type'		 => 'text',
 					'field_description'	 => '',
 					'post_field_type'	 => 'post_meta'
-				),				
-                                array(
+				),
+				array(
 					'id'				 => 'owner_email',
 					'field_name'		 => 'owner_email',
 					'field_title'		 => __( 'Owner E-Mail', 'tc' ),
@@ -297,7 +297,7 @@ if ( !class_exists( 'TC_Orders' ) ) {
 			if ( !$show_owner_fields ) {
 				$i = 0;
 				foreach ( $default_fields as $default_field ) {
-					if ( $default_field['id'] == 'first_name' || $default_field['id'] == 'last_name' ) {
+					if ( $default_field[ 'id' ] == 'first_name' || $default_field[ 'id' ] == 'last_name' ) {
 						unset( $default_fields[ $i ] );
 					}
 					$i++;
@@ -340,6 +340,19 @@ if ( !class_exists( 'TC_Orders' ) ) {
 			$columns[ $index ][ 'field_title' ]	 = __( 'Delete', 'tc' );
 
 			return $columns;
+		}
+
+		public static function get_user_orders( $user_id = false ) {
+			$user_id = $user_id ? $user_id : get_current_user_id();
+			$args	 = array(
+				'author'	 => $user_id,
+				'posts_per_page' => -1,
+				'orderby'		 => 'post_date',
+				'order'			 => 'DESC',
+				'post_type'		 => 'tc_orders',
+				'post_status'	 => array( 'order_paid', 'order_received', 'order_fraud' )
+			);
+			return get_posts( $args );
 		}
 
 		function get_field_id( $field_name, $property ) {

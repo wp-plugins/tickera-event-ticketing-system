@@ -1,6 +1,15 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
+3.1.9.8 - 01/OCT/2015
+- Added option to recreate deleted tickets from order details page
+- Added option for controlling e-mail sending type (wp_mail or PHP mail) under plugin e-mail settings
+- Added additional shortcode [tc_order_history] which shows order / purchase history for logged-in users
+- Added Ticket Order History on the user profile page in the admin
+- Added additional column for ticket orders count on the user list page in the admin
+- Added default fields value to the buyer form (user first name, last name and the email will be automatically pulled and shown in the input fields by default)
+- Fixed JS issues with cart validation (conflict with some themes)
+
 3.1.9.7 - 30/SEP/2015 
 - Added additional order status: trash
 - Added order status filters in the admin area
