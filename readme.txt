@@ -41,6 +41,7 @@ If you need more payment options, you can download [Tickera Premium](http://tick
 * White Payments
 * PayU Latam
 * Komoju
+* Beanstream
 * Custom Offline Payments
 * Free Orders.
 
