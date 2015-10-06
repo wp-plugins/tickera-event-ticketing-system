@@ -5,7 +5,7 @@ if ( isset( $_POST[ 'save_tc_settings' ] ) ) {
 	if ( check_admin_referer( 'save_settings' ) ) {
 		if ( current_user_can( 'manage_options' ) || current_user_can( 'save_settings_cap' ) ) {
 			update_option( 'tc_general_setting', $_POST[ 'tc_general_setting' ] );
-			do_action( 'save_tc_general_settings' );
+			do_action( 'tc_save_tc_general_settings' );
 			tc_save_page_ids();
 
 			$wp_rewrite->flush_rules();
@@ -63,7 +63,7 @@ $tc_general_settings = get_option( 'tc_general_setting', false );
 												?>
 												<span class="description"><?php echo $field[ 'field_description' ]; ?></span>
 											<?php } else { ?>
-												<input type="text" name="tc_general_setting[<?php echo esc_attr( $field[ 'field_name' ] ); ?>]" value="<?php echo (isset( $tc_general_settings[ $field[ 'field_name' ] ] ) ? $tc_general_settings[ $field[ 'field_name' ] ] : (isset( $field[ 'default_value' ] ) ? $field[ 'default_value' ] : '') ) ?>">
+												<input type="text" name="tc_general_setting[<?php echo esc_attr( $field[ 'field_name' ] ); ?>]" value="<?php echo stripslashes( isset( $tc_general_settings[ $field[ 'field_name' ] ] ) ? $tc_general_settings[ $field[ 'field_name' ] ] : (isset( $field[ 'default_value' ] ) ? $field[ 'default_value' ] : '')  ) ?>">
 												<span class="description"><?php echo $field[ 'field_description' ]; ?></span>
 											<?php } ?>
 											<?php do_action( 'tc_after_settings_general_field_type_check' ); ?>

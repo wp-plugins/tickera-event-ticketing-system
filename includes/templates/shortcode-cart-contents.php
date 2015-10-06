@@ -391,7 +391,8 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 					<?php } //foreach ( $cart_contents as $ticket_type => $ordered_count ) ?>
 
 				</div><!-- tickera_owner_info -->
-				<?php do_action( 'before_cart_submit' ); ?>
+				<?php do_action( 'before_cart_submit' );
+				do_action( 'tc_before_cart_submit' );?>
 				<p><input type="submit" id="proceed_to_checkout" name="proceed_to_checkout" value="<?php _e( "Proceed to Checkout", "tc" ); ?>" class="tickera_checkout tickera-button"></p>
 			</div><!-- tickera_additional_info -->
 			<?php

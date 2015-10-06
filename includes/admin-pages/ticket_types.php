@@ -92,23 +92,23 @@ $columns			 = $tickets->get_columns();
 								<?php if ( $field[ 'field_type' ] == 'text' ) { ?>
 									<input type="text" <?php
 									if ( isset( $field[ 'placeholder' ] ) ) {
-										echo 'placeholder="' . esc_attr( $field[ 'placeholder' ] ) . '"';
+										echo 'placeholder="' . stripslashes( esc_attr( $field[ 'placeholder' ] ) ) . '"';
 									}
-									?> class="regular-<?php echo $field[ 'field_type' ]; ?>" value="<?php
+									?> class="regular-<?php echo esc_attr( $field[ 'field_type' ] ); ?>" value="<?php
 										   if ( isset( $ticket ) ) {
 											   if ( $field[ 'post_field_type' ] == 'post_meta' ) {
-												   echo esc_attr( isset( $ticket->details->{$field[ 'field_name' ]} ) ? $ticket->details->{$field[ 'field_name' ]} : ''  );
+												   echo stripslashes( esc_attr( isset( $ticket->details->{$field[ 'field_name' ]} ) ? $ticket->details->{$field[ 'field_name' ]} : ''  ) );
 											   } else {
-												   echo esc_attr( $ticket->details->{$field[ 'post_field_type' ]} );
+												   echo stripslashes( esc_attr( $ticket->details->{$field[ 'post_field_type' ]} ) );
 											   }
 											   ?>" id="<?php
-											   echo $field[ 'field_name' ];
+											   echo esc_attr( $field[ 'field_name' ] );
 										   }
-										   ?>" name="<?php echo $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>">
+										   ?>" name="<?php echo esc_attr( $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ] ); ?>">
 									<span class="description"><?php echo $field[ 'field_description' ]; ?></span>
 								<?php } ?>
 								<?php if ( $field[ 'field_type' ] == 'textarea' ) { ?>
-									<textarea class="regular-<?php echo $field[ 'field_type' ]; ?>" id="<?php echo $field[ 'field_name' ]; ?>" name="<?php echo $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>"><?php
+									<textarea class="regular-<?php echo $field[ 'field_type' ]; ?>" id="<?php echo esc_attr( $field[ 'field_name' ] ); ?>" name="<?php echo esc_attr( $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ] ); ?>"><?php
 										if ( isset( $ticket ) ) {
 											if ( $field[ 'post_field_type' ] == 'post_meta' ) {
 												echo esc_textarea( isset( $ticket->details->{$field[ 'field_name' ]} ) ? $ticket->details->{$field[ 'field_name' ]} : ''  );
@@ -128,7 +128,7 @@ $columns			 = $tickets->get_columns();
 										} else {
 											$editor_content = ( $ticket->details->{$field[ 'post_field_type' ]} );
 										}
-									}else{
+									} else {
 										$editor_content = '';
 									}
 									wp_editor( html_entity_decode( stripcslashes( $editor_content ) ), $field[ 'field_name' ], array( 'textarea_name' => $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ], 'textarea_rows' => 5 ) );
@@ -140,9 +140,9 @@ $columns			 = $tickets->get_columns();
 									?>
 									<div class="file_url_holder">
 										<label>
-											<input class="file_url" type="text" size="36" name="<?php echo $field[ 'field_name' ] . '_file_url_' . $field[ 'post_field_type' ]; ?>" value="<?php
+											<input class="file_url" type="text" size="36" name="<?php echo esc_attr( $field[ 'field_name' ] . '_file_url_' . $field[ 'post_field_type' ] ); ?>" value="<?php
 											if ( isset( $ticket ) ) {
-												echo esc_attr( isset( $ticket->details->{$field[ 'field_name' ] . '_file_url'} ) ? $ticket->details->{$field[ 'field_name' ] . '_file_url'} : ''  );
+												echo stripslashes( esc_attr( isset( $ticket->details->{$field[ 'field_name' ] . '_file_url'} ) ? $ticket->details->{$field[ 'field_name' ] . '_file_url'} : ''  ) );
 											}
 											?>" />
 											<input class="file_url_button button-secondary" type="button" value="<?php _e( 'Browse', 'tc' ); ?>" />
@@ -183,7 +183,7 @@ $columns			 = $tickets->get_columns();
     <table cellspacing="0" class="widefat shadow-table">
         <thead>
             <tr>
-                <!--<th style="" class="manage-column column-cb check-column" id="cb" scope="col" width="<?php //echo (isset($col_sizes[0]) ? $col_sizes[0] . '%' : '');            ?>"><input type="checkbox"></th>-->
+                <!--<th style="" class="manage-column column-cb check-column" id="cb" scope="col" width="<?php //echo (isset($col_sizes[0]) ? $col_sizes[0] . '%' : '');              ?>"><input type="checkbox"></th>-->
 				<?php
 				$n = 1;
 				foreach ( $columns as $key => $col ) {

@@ -74,7 +74,7 @@ if ( !class_exists( 'TC_Settings_Email' ) ) {
 					'field_type'		 => 'function',
 					'function'			 => 'tc_get_client_order_message',
 					'default_value'		 => 'Hello, <br /><br />Your order (ORDER_ID) totalling <strong>ORDER_TOTAL</strong> is completed. <br /><br />You can download your tickets DOWNLOAD_URL',
-					'field_description'	 => __( 'Body of the e-mail. You can use following placeholders (ORDER_ID, ORDER_TOTAL, DOWNLOAD_URL, BUYER_NAME)', 'tc' ),
+					'field_description'	 => __( 'Body of the e-mail. You can use following placeholders (ORDER_ID, ORDER_TOTAL, DOWNLOAD_URL, BUYER_NAME, ORDER_DETAILS)', 'tc' ),
 					'section'			 => 'client_order_completed_email'
 				),
 				array(

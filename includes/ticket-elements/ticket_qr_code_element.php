@@ -50,11 +50,11 @@ class tc_ticket_qr_code_element extends TC_Ticket_Template_Elements {
 		}
 
 		$style = array(
-			'position'	 => apply_filters( 'qr_code_cell_alignment', $cell_alignment ),
+			'position'	 => apply_filters( 'tc_qr_code_cell_alignment', $cell_alignment ),
 			'border'	 => apply_filters( 'tc_show_qr_code_border', true ),
 			'padding'	 => apply_filters( 'tc_qr_code_padding', 1 ),
-			'fgcolor'	 => tc_hex2rgb( apply_filters( 'qr_code_fg_color', '#000000' ) ),
-			'bgcolor'	 => tc_hex2rgb( apply_filters( 'qr_code_bg_color', '#FFFFFF' ) ),
+			'fgcolor'	 => tc_hex2rgb( apply_filters( 'tc_qr_code_fg_color', '#000000' ) ),
+			'bgcolor'	 => tc_hex2rgb( apply_filters( 'tc_qr_code_bg_color', '#FFFFFF' ) ),
 		);
 
 		$params_array = array(

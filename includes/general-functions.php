@@ -189,7 +189,7 @@ function tc_create_page( $slug, $option = '', $page_title = '', $page_content = 
 		$page_found = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM " . $wpdb->posts . " WHERE post_type='page' AND post_name = %s LIMIT 1;", $slug ) );
 	}
 
-	$page_found = apply_filters( 'woocommerce_create_page_id', $page_found, $slug, $page_content );
+	$page_found = apply_filters( 'tc_create_page_id', $page_found, $slug, $page_content );
 
 	if ( $page_found ) {
 		if ( !$option_value ) {
@@ -313,14 +313,14 @@ function tc_order_created_email( $order_id, $status, $cart_contents = false, $ca
 			$order				 = new TC_Order( $order->ID );
 			$order_status_url	 = $tc->tc_order_status_url( $order, $order->details->tc_order_date, '', false );
 
-			$placeholders		 = array( 'ORDER_ID', 'ORDER_TOTAL', 'DOWNLOAD_URL', 'BUYER_NAME' );
-			$placeholder_values	 = array( $order_id, apply_filters( 'tc_cart_currency_and_format', $payment_info[ 'total' ] ), $order_status_url, $buyer_name );
+			$placeholders		 = array( 'ORDER_ID', 'ORDER_TOTAL', 'DOWNLOAD_URL', 'BUYER_NAME', 'ORDER_DETAILS' );
+			$placeholder_values	 = array( $order_id, apply_filters( 'tc_cart_currency_and_format', $payment_info[ 'total' ] ), $order_status_url, $buyer_name, tc_get_order_details_email( $order->details->ID, $order->details->tc_order_date, true ) );
 
 			$to = $cart_info[ 'buyer_data' ][ 'email_post_meta' ];
 
 			$message = str_replace( apply_filters( 'tc_order_completed_client_email_placeholders', $placeholders ), apply_filters( 'tc_order_completed_client_email_placeholder_values', $placeholder_values ), $message );
 
-			$client_headers = ''; //'From: ' . client_email_from_name( '' ) . ' <' . client_email_from_email( '' ) . '>' . "\r\n";
+			$client_headers = '';
 
 			if ( $email_send_type == 'wp_mail' ) {
 				wp_mail( $to, $subject, html_entity_decode( stripcslashes( apply_filters( 'tc_order_completed_admin_email_message', wpautop( $message ) ) ) ), apply_filters( 'tc_order_completed_client_email_headers', $client_headers ) );
@@ -330,7 +330,6 @@ function tc_order_created_email( $order_id, $status, $cart_contents = false, $ca
 				$headers .= 'From: ' . client_email_from_email( '' ) . "\r\n" .
 				'Reply-To: ' . client_email_from_email( '' ) . "\r\n" .
 				'X-Mailer: PHP/' . phpversion();
-
 
 				mail( $to, $subject, stripcslashes( wpautop( $message ) ), apply_filters( 'tc_order_completed_client_email_headers', $headers ) );
 			}
@@ -799,6 +798,14 @@ function tc_save_page_ids() {
 	if ( isset( $_POST[ 'tc_order_page_id' ] ) ) {
 		update_option( 'tc_order_page_id', $_POST[ 'tc_order_page_id' ] );
 	}
+
+	if ( isset( $_POST[ 'tc_process_payment_page_id' ] ) ) {
+		update_option( 'tc_process_payment_page_id', $_POST[ 'tc_process_payment_page_id' ] );
+	}
+
+	if ( isset( $_POST[ 'tc_process_payment_use_virtual' ] ) ) {
+		update_option( 'tc_process_payment_use_virtual', $_POST[ 'tc_process_payment_use_virtual' ] );
+	}
 }
 
 function tc_get_cart_page_settings( $field_name, $default_value = '' ) {
@@ -827,6 +834,17 @@ function tc_get_confirmation_page_settings( $field_name, $default_value = '' ) {
 		'selected'	 => get_option( 'tc_confirmation_page_id', -1 ),
 		'echo'		 => 1,
 		'name'		 => 'tc_confirmation_page_id',
+	);
+
+	wp_dropdown_pages( $args );
+}
+
+function tc_get_process_payment_page_settings( $field_name, $default_value = '' ) {
+
+	$args = array(
+		'selected'	 => get_option( 'tc_process_payment_page_id', -1 ),
+		'echo'		 => 1,
+		'name'		 => 'tc_process_payment_page_id',
 	);
 
 	wp_dropdown_pages( $args );
@@ -1257,16 +1275,135 @@ function tc_get_ticket_download_link( $field_name, $field_id, $ticket_id ) {
 	$order	 = new TC_Order( $ticket->details->post_parent );
 
 	if ( $use_order_details_pretty_links == 'yes' ) {
-		$order_key = $wp->query_vars[ 'tc_order_key' ];
+		$order_key = isset( $wp->query_vars[ 'tc_order_key' ] ) ? $wp->query_vars[ 'tc_order_key' ] : '';
 		echo '<a href="' . wp_nonce_url( trailingslashit( $tc->get_order_slug( true ) ) . $order->details->post_title . '/' . $order_key . '/?download_ticket=' . $ticket_id . '&order_key=' . $order_key, 'download_ticket_' . $ticket_id . '_' . $order_key, 'download_ticket_nonce' ) . '">' . __( 'Download', 'tc' ) . '</a>';
 	} else {
-		$order_key = $_GET[ 'tc_order_key' ];
+		$order_key = isset( $_GET[ 'tc_order_key' ] ) ? $_GET[ 'tc_order_key' ] : '';
 		echo '<a href="' . wp_nonce_url( trailingslashit( $tc->get_order_slug( true ) ) . '?tc_order=' . $order->details->post_title . '&tc_order_key=' . $order_key . '&download_ticket=' . $ticket_id . '&order_key=' . $order_key, 'download_ticket_' . $ticket_id . '_' . $order_key, 'download_ticket_nonce' ) . '">' . __( 'Download', 'tc' ) . '</a>';
 	}
 }
 
-function tc_get_order_details_front( $order_id = '', $order_key = '' ) {
+function tc_get_order_details_email( $order_id = '', $order_key = '', $return = false ) {
 	global $tc;
+
+	if ( $return ) {
+		ob_start();
+	}
+
+	$tc_general_settings = get_option( 'tc_general_setting', false );
+
+	$order = new TC_Order( $order_id );
+
+	if ( $order->details->tc_order_date == $order_key ) {//key must match order creation date for security reasons
+		if ( $order->details->post_status == 'order_received' ) {
+			$order_status = __( 'Pending Payment', 'tc' );
+		} else if ( $order->details->post_status == 'order_fraud' ) {
+			$order_status = __( 'Under Review', 'tc' );
+		} else if ( $order->details->post_status == 'order_paid' ) {
+			$order_status = __( 'Payment Completed', 'tc' );
+		} else if ( $order->details->post_status == 'trash' ) {
+			$order_status = __( 'Order Deleted', 'tc' );
+		} else {
+			$order_status = $order->details->post_status;
+		}
+
+		$fees_total		 = apply_filters( 'tc_cart_currency_and_format', $order->details->tc_payment_info[ 'fees_total' ] );
+		$tax_total		 = apply_filters( 'tc_cart_currency_and_format', $order->details->tc_payment_info[ 'tax_total' ] );
+		$subtotal		 = apply_filters( 'tc_cart_currency_and_format', $order->details->tc_payment_info[ 'subtotal' ] );
+		$total			 = apply_filters( 'tc_cart_currency_and_format', $order->details->tc_payment_info[ 'total' ] );
+		$transaction_id	 = isset( $order->details->tc_payment_info[ 'transaction_id' ] ) ? $order->details->tc_payment_info[ 'transaction_id' ] : '';
+		$order_id		 = strtoupper( $order->details->post_name );
+		$order_date		 = $payment_date	 = apply_filters( 'tc_order_date', tc_format_date( $order->details->tc_order_date, true ) ); //date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), $order->details->tc_order_date, false )
+		?>
+
+		<label><span class="order_details_title"><?php _e( 'Order: ', 'tc' ); ?></span> <?php echo $order_id; ?></label>
+		<label><span class="order_details_title"><?php _e( 'Order date: ', 'tc' ); ?></span> <?php echo $order_date; ?></label>
+		<label><span class="order_details_title"><?php _e( 'Order status: ', 'tc' ); ?></span> <?php echo $order_status; ?></label>
+		<?php if ( isset( $transaction_id ) && $transaction_id !== '' ) { ?>
+			<label><span class="order_details_title"><?php _e( 'Transaction ID: ', 'tc' ); ?></span> <?php echo $transaction_id; ?></label>
+		<?php } ?>
+		<label><span class="order_details_title"><?php _e( 'Subtotal: ', 'tc' ); ?></span> <?php echo $subtotal; ?></label>
+		<?php if ( !isset( $tc_general_settings[ 'show_fees' ] ) || isset( $tc_general_settings[ 'show_fees' ] ) && $tc_general_settings[ 'show_fees' ] == 'yes' ) { ?>
+			<label><span class="order_details_title"><?php echo $tc_general_settings[ 'fees_label' ]; ?></span> <?php echo $fees_total; ?></label>
+		<?php } ?>
+		<?php if ( !isset( $tc_general_settings[ 'show_tax_rate' ] ) || isset( $tc_general_settings[ 'show_tax_rate' ] ) && $tc_general_settings[ 'show_tax_rate' ] == 'yes' ) { ?>
+			<label><span class="order_details_title"><?php echo $tc_general_settings[ 'tax_label' ]; ?></span> <?php echo $tax_total; ?></label>
+		<?php } ?>
+		<label><span class="order_details_title"><?php _e( 'Total: ', 'tc' ); ?></span> <?php echo $total; ?></label>
+
+		<?php
+		if ( $order->details->post_status == 'order_paid' ) {
+			$orders = new TC_Orders();
+
+			$args = array(
+				'posts_per_page' => -1,
+				'orderby'		 => 'post_date',
+				'order'			 => 'ASC',
+				'post_type'		 => 'tc_tickets_instances',
+				'post_parent'	 => $order->details->ID
+			);
+
+			$tickets = get_posts( $args );
+			$columns = $orders->get_owner_info_fields_front();
+			$style	 = '';
+			?>
+
+			<table class="order-details widefat shadow-table">
+				<tr>
+					<?php
+					foreach ( $columns as $column ) {
+						?>
+						<th><?php echo $column[ 'field_title' ]; ?></th>
+						<?php
+					}
+					?>
+				</tr>
+
+				<?php
+				foreach ( $tickets as $ticket ) {
+					$style = ( ' class="alternate"' == $style ) ? '' : ' class="alternate"';
+					?>
+					<tr <?php echo $style; ?>>
+						<?php
+						foreach ( $columns as $column ) {
+							?>
+							<td>
+								<?php
+								if ( $column[ 'field_type' ] == 'function' ) {
+									eval( $column[ 'function' ] . '("' . $column[ 'field_name' ] . '", "' . (isset( $column[ 'field_id' ] ) ? $column[ 'field_id' ] : '') . '", "' . $ticket->ID . '");' );
+								} else {
+									if ( $column[ 'post_field_type' ] == 'post_meta' ) {
+										echo get_post_meta( $ticket->ID, $column[ 'field_name' ], true );
+									}
+									if ( $column[ 'post_field_type' ] == 'ID' ) {
+										echo $ticket->ID;
+									}
+								}
+								?>
+							</td>
+						<?php }
+						?>
+					</tr>
+					<?php
+				}
+				?>
+			</table>
+			<?php
+		}
+	}
+
+	if ( $return ) {
+		$content = wpautop( ob_get_clean(), true );
+		return $content;
+	}
+}
+
+function tc_get_order_details_front( $order_id = '', $order_key = '', $return = false ) {
+	global $tc;
+
+	if ( $return ) {
+		ob_start();
+	}
 
 	$tc_general_settings = get_option( 'tc_general_setting', false );
 
@@ -1371,6 +1508,10 @@ function tc_get_order_details_front( $order_id = '', $order_key = '' ) {
 		}
 	} else {
 		_e( "You don't have required permissions to access this page.", 'tc' );
+	}
+	if ( $return ) {
+		$content = wpautop( ob_get_clean(), true );
+		return $content;
 	}
 }
 
@@ -1649,7 +1790,7 @@ function tc_get_ticket_templates( $field_name = '', $post_id = '' ) {
 		$ticket		 = new TC_Ticket( (int) $_GET[ 'ID' ] );
 		$template_id = $ticket->details->ticket_template;
 		?>
-		<a class="ticket_preview_link" target="_blank" href="<?php echo apply_filters( 'ticket_preview_link', admin_url( 'admin.php?page=tc_ticket_templates&action=preview&ticket_type_id=' . (int) $_GET[ 'ID' ] ) . '&template_id=' . $template_id ); ?>"><?php _e( 'Preview', 'tc' ); ?></a>
+		<a class="ticket_preview_link" target="_blank" href="<?php echo apply_filters( 'tc_ticket_preview_link', admin_url( 'admin.php?page=tc_ticket_templates&action=preview&ticket_type_id=' . (int) $_GET[ 'ID' ] ) . '&template_id=' . $template_id ); ?>"><?php _e( 'Preview', 'tc' ); ?></a>
 		<?php
 	}
 }

@@ -11,6 +11,8 @@ class TC_Shortcodes extends TC {
 	function __construct() {
 //register shortcodes
 		add_shortcode( 'tc_cart', array( &$this, 'tc_cart_page' ) );
+		add_shortcode( 'tc_process_payment', array( &$this, 'tc_process_payment_page' ) );
+		
 		add_shortcode( 'tc_order_history', array( &$this, 'tc_order_history_page' ) );
 		add_shortcode( 'tc_payment', array( &$this, 'tc_payment_page' ) );
 		add_shortcode( 'tc_order_confirmation', array( &$this, 'tc_order_confirmation_page' ) );
@@ -196,6 +198,14 @@ class TC_Shortcodes extends TC {
 		global $tc;
 		ob_start();
 		include( $tc->plugin_dir . 'includes/templates/shortcode-cart-contents.php' );
+		$content = wpautop( ob_get_clean(), true );
+		return $content;
+	}
+	
+	function tc_process_payment_page($atts){
+		global $tc;
+		ob_start();
+		include( $tc->plugin_dir . 'includes/templates/page-process-payment.php' );
 		$content = wpautop( ob_get_clean(), true );
 		return $content;
 	}

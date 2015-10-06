@@ -402,7 +402,7 @@ if ( !class_exists( 'TC_Orders' ) ) {
 					do_action( 'tc_after_order_post_field_type_check' );
 				}
 
-				$metas = apply_filters( 'orders_metas', $metas );
+				$metas = apply_filters( 'tc_orders_metas', $metas );
 
 				$arg = array(
 					'post_author'	 => $user_id,

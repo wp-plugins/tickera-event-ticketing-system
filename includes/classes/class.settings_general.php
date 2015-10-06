@@ -240,6 +240,24 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 					'section'			 => 'page_settings'
 				),
 				array(
+					'field_name'		 => 'tc_process_payment_use_virtual',
+					'field_title'		 => __( 'Use Virtual Process Payment Page', 'tc' ),
+					'field_type'		 => 'function',
+					'function'			 => 'tc_yes_no',
+					'default_value'		 => 'yes',
+					'field_description'	 => __( 'If you\'re experiencing errors with process payment page, set this option to "No" and set "Process Payment Page".', 'tc' ),
+					'section'			 => 'page_settings'
+				),
+				array(
+					'field_name'		 => 'tc_process_payment_page_id',
+					'field_title'		 => __( 'Process Payment Page', 'tc' ),
+					'field_type'		 => 'function',
+					'function'			 => 'tc_get_process_payment_page_settings',
+					'default_value'		 => get_option( 'tc_process_payment_page_id', -1 ),
+					'field_description'	 => __( 'The page used by the plugin internally to process payments. <br /><strong>Do NOT add this page directly to the site menu since it will be automatically used by the plugin.</strong>', 'tc' ),
+					'section'			 => 'page_settings'
+				),
+				array(
 					'field_name'		 => 'tc_pages_id',
 					'field_title'		 => __( 'Pages', 'tc' ),
 					'field_type'		 => 'function',

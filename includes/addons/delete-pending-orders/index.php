@@ -22,7 +22,7 @@ if ( !class_exists( 'TC_Delete_Pending_Orders' ) ) {
 		function __construct() {
 			$this->title = __( 'Delete Pending Orders', 'tc' );
 			add_filter( 'tc_general_settings_miscellaneous_fields', array( &$this, 'delete_pending_orders_misc_settings_field' ) );
-			add_action( 'save_tc_general_settings', array( &$this, 'schedule_delete_pending_orders_event' ) );
+			add_action( 'tc_save_tc_general_settings', array( &$this, 'schedule_delete_pending_orders_event' ) );
 			add_action( 'tc_maybe_delete_pending_posts_hook', array( &$this, 'tc_maybe_delete_pending_posts' ) );
 		}
 

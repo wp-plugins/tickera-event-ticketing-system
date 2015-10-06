@@ -37,8 +37,8 @@ class TC_Cart_Widget extends WP_Widget {
 
 			echo $before_widget;
 
-			$title			 = empty( $instance[ 'title' ] ) ? ' ' : apply_filters( 'widget_title', $instance[ 'title' ] );
-			$button_title	 = empty( $instance[ 'button_title' ] ) ? '' : apply_filters( 'widget_button_title', $instance[ 'button_title' ] );
+			$title			 = empty( $instance[ 'title' ] ) ? ' ' : apply_filters( 'tc_cart_widget_title', $instance[ 'title' ] );
+			$button_title	 = empty( $instance[ 'button_title' ] ) ? '' : apply_filters( 'tc_cart_widget_button_title', $instance[ 'button_title' ] );
 
 			if ( !empty( $title ) ) {
 				echo $before_title . $title . $after_title;

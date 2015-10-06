@@ -61,11 +61,11 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 					$this->ticket_checkins();
 				}
 
-				if ( $request == apply_filters( 'tc_checkin_request_name', 'tickera_scan' ) ) {
+				if ( $request == apply_filters( 'tc_scan_request_name', 'tickera_scan' ) ) {
 					$this->ticket_checkin( $return_method );
 				}
 
-				if ( $request == apply_filters( 'tc_checkin_request_name', 'tickera_tickets_info' ) ) {
+				if ( $request == apply_filters( 'tc_tickets_info_request_name', 'tickera_tickets_info' ) ) {
 					$this->tickets_info();
 				}
 			}
@@ -439,9 +439,22 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 					$ticket_instance = new TC_Ticket_Instance( $result->ID );
 					$ticket_type	 = new TC_Ticket( $ticket_instance->details->ticket_type_id );
 
+					$ticket_type_event_id = get_post_meta( $ticket_type->details->ID, 'event_name', true );
+
 					$order = new TC_Order( $ticket_instance->details->post_parent );
 
-					if ( $order->details->post_status == 'order_paid' ) {
+					$continue = false;
+					if ( $event_id == 'all' ) {
+						$continue = true;
+					} else {
+						if ( $ticket_type_event_id == $event_id ) {
+							$continue = true;
+						} else {
+							$continue = false;
+						}
+					}
+
+					if ( $order->details->post_status == 'order_paid' && $continue ) {
 						/* OLD */
 						$check_ins		 = get_post_meta( $ticket_instance->details->ID, 'tc_checkins', true );
 						$checkin_date	 = '';

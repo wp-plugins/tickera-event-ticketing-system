@@ -1,6 +1,14 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
+3.1.9.9 - 06/OCT/2015
+- Added Order Details placeholder for order completed client email
+- Added ORDER_ID placeholder to the offline payments
+- Add option for process payment page to be created as physical page
+- Consolidated hooks & filters names and added basic documentation (https://tickera.com/tickera-documentation/hooks-and-filters/)
+- Fixed issues with slashes in some input fields in the admin
+- Fixed issues with check-in API when API Key is limited to a single event
+
 3.1.9.8 - 01/OCT/2015
 - Added option to recreate deleted tickets from order details page
 - Added option for controlling e-mail sending type (wp_mail or PHP mail) under plugin e-mail settings

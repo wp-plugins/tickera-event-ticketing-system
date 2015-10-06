@@ -29,11 +29,25 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 		$this->method_img_url		 = $tc->plugin_url . 'images/gateways/custom-offline-payments.png';
 		$this->admin_img_url		 = $tc->plugin_url . 'images/gateways/small-custom-offline-payments.png';
 		add_action( 'tc_order_created', array( &$this, 'send_payment_instructions' ), 10, 5 );
+		add_filter( $this->plugin_name . '_instructions', array( &$this, 'modify_instruction_message' ), 10, 2 );
 	}
 
 	function payment_form( $cart ) {
 		global $tc;
 		return $this->get_option( 'info' );
+	}
+
+	function modify_instruction_message( $message, $order_id ) {
+		if ( !is_int( $order_id ) ) {
+			$order = tc_get_order_id_by_name( $order_id );
+			$order = new TC_Order( $order->ID );
+		} else {
+			$order = new TC_Order( $order_id );
+		}
+		$placeholders		 = array( 'ORDER_ID' );
+		$placeholder_values	 = array( strtoupper( $order->details->post_title ) );
+		$message			 = str_replace( $placeholders, $placeholder_values, $message );
+		return $message;
 	}
 
 	function send_payment_instructions( $order_id, $status, $cart_contents, $cart_info, $payment_info ) {
@@ -49,7 +63,7 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 
 				$client_headers	 = '';
 				$to				 = $this->buyer_info( 'email' );
-				$message		 = $this->get_option( 'instructions' );
+				$message		 = apply_filters( $this->plugin_name . '_instructions', $this->get_option( 'instructions' ), $order_id );
 				$subject		 = $this->get_option( 'instructions_email_subject' );
 
 				if ( $order_instructions_sent !== $this->buyer_info( 'email' ) ) {
@@ -122,11 +136,11 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 		$content = apply_filters( 'tc_order_confirmation_message_content_' . $this->plugin_name, $content );
 		$content = apply_filters( 'tc_order_confirmation_message_content', $content, $order );
 
-		$content .= '<br /><br />' . $tc->get_setting( 'gateways->custom_offline_payments->instructions' );
+		$content .= '<br /><br />' . apply_filters( $this->plugin_name . '_instructions', $tc->get_setting( 'gateways->custom_offline_payments->instructions' ), $order->details->ID );
 
 		$tc->remove_order_session_data();
 		$tc->maybe_skip_confirmation_screen( $this, $order );
-		
+
 		return $content;
 	}
 
@@ -159,7 +173,7 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 					'instructions'				 => array(
 						'title'			 => __( 'Payment Instructions', 'tc' ),
 						'type'			 => 'wp_editor',
-						'description'	 => __( 'Your customers who checkout using the custom offline payment method will be given a set of instructions (set by you) to complete the purchase process immediately after checkout completion.', 'tc' )
+						'description'	 => __( 'Your customers who checkout using the custom offline payment method will be given a set of instructions (set by you) to complete the purchase process immediately after checkout completion. Available placeholders: ORDER_ID', 'tc' )
 					),
 					'instructions_email'		 => array(
 						'title'			 => __( 'E-mail Instructions', 'tc' ),
@@ -191,7 +205,7 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 				$form = new TC_Form_Fields_API( $fields, 'tc', 'gateways', $this->plugin_name );
 				?>
 				<table class="form-table">
-		<?php $form->admin_options(); ?>
+					<?php $form->admin_options(); ?>
 				</table>
 
 			</div>

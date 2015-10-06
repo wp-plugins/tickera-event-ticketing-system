@@ -382,7 +382,7 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 				),
 				array(
 					'field_name'		 => 'expiry_date',
-					'field_title'		 => __( 'Expiry Date', 'tc' ),
+					'field_title'		 => __( 'Expiration Date', 'tc' ),
 					'field_type'		 => 'text',
 					'field_description'	 => __( 'The date this discount will expire (24 hour format)', 'tc' ),
 					'table_visibility'	 => true,

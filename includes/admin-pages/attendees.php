@@ -114,7 +114,7 @@ $columns = $tickets_instances->get_columns();
 						$style = ( ' class="alternate"' == $style ) ? '' : ' class="alternate"';
 						?>  
 						<tr <?php echo $style; ?>>
-							<td><?php echo tc_format_date($ticket_checkin[ 'date_checked' ]); ?></td>
+							<td><?php echo tc_format_date( $ticket_checkin[ 'date_checked' ] ); ?></td>
 							<td><?php echo apply_filters( 'tc_checkins_status', $ticket_checkin[ 'status' ] ); ?></td>
 							<td><?php echo apply_filters( 'tc_checkins_api_key_id', $ticket_checkin[ 'api_key_id' ] ); ?></td>
 							<?php if ( current_user_can( 'manage_options' ) || current_user_can( 'delete_checkins_cap' ) ) { ?>
@@ -166,7 +166,7 @@ $columns = $tickets_instances->get_columns();
 										$api_key_obj = new TC_API_Key( $api_key->ID );
 										if ( current_user_can( 'manage_options' ) || ($api_key_obj->details->api_username == $current_user_name) ) {
 											?>
-											<option value="<?php echo $api_key->ID; ?>"><?php echo $api_key_obj->details->api_key_name; ?></option>
+											<option value="<?php echo esc_attr( $api_key->ID ); ?>"><?php echo $api_key_obj->details->api_key_name; ?></option>
 											<?php
 										}
 									}
@@ -199,7 +199,7 @@ $columns = $tickets_instances->get_columns();
 		<table cellspacing="0" class="widefat shadow-table">
 			<thead>
 				<tr>
-					<!--<th style="" class="manage-column column-cb check-column" id="cb" scope="col" width="<?php //echo (isset($col_sizes[0]) ? $col_sizes[0] . '%' : '');                                    ?>"><input type="checkbox"></th>-->
+					<!--<th style="" class="manage-column column-cb check-column" id="cb" scope="col" width="<?php //echo (isset($col_sizes[0]) ? $col_sizes[0] . '%' : '');                                     ?>"><input type="checkbox"></th>-->
 					<?php
 					$n = 1;
 					foreach ( $columns as $col ) {

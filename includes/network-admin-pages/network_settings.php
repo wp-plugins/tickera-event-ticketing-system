@@ -48,7 +48,7 @@ if (empty($tab)) {
             $tc->show_network_page_tab('gateways');
             break;
 
-            do_action('case_' . $tab);
+            do_action('tc_tab_case_' . $tab);
 
         default: do_action('tc_network_settings_menu_' . $tab);
             break;

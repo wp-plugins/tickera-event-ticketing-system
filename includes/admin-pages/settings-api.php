@@ -91,14 +91,14 @@ $columns			 = $api_keys->get_columns();
 									<input type="text" class="regular-<?php echo $field[ 'field_type' ]; ?>" value="<?php
 									if ( isset( $api_key ) ) {
 										if ( $field[ 'post_field_type' ] == 'post_meta' ) {
-											echo esc_attr( isset( $api_key->details->{$field[ 'field_name' ]} ) ? $api_key->details->{$field[ 'field_name' ]} : ''  );
+											echo stripslashes( esc_attr( isset( $api_key->details->{$field[ 'field_name' ]} ) ? $api_key->details->{$field[ 'field_name' ]} : ''  ) );
 										} else {
-											echo esc_attr( $api_key->details->{$field[ 'post_field_type' ]} );
+											echo stripslashes( esc_attr( $api_key->details->{$field[ 'post_field_type' ]} ) );
 										}
 									} else {
-										echo esc_attr( isset( $field[ 'default_value' ] ) ? $field[ 'default_value' ] : ''  );
+										echo stripslashes( esc_attr( isset( $field[ 'default_value' ] ) ? $field[ 'default_value' ] : ''  ) );
 									}
-									?>" id="<?php echo $field[ 'field_name' ]; ?>" name="<?php echo $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>">
+									?>" id="<?php echo esc_attr( $field[ 'field_name' ] ); ?>" name="<?php echo esc_attr( $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ] ); ?>">
 									<span class="description"><?php echo $field[ 'field_description' ]; ?></span>
 								<?php } ?>
 								<?php if ( $field[ 'field_type' ] == 'textarea' ) { ?>

@@ -145,7 +145,7 @@ if ( !class_exists( 'TC_API_Keys' ) ) {
 					do_action( 'tc_after_api_key_post_field_type_check' );
 				}
 
-				$metas = apply_filters( 'api_keys_metas', $metas );
+				$metas = apply_filters( 'tc_api_keys_metas', $metas );
 
 				$arg = array(
 					'post_author'	 => $user_id,

@@ -5,7 +5,7 @@
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.1.9.8
+  Version: 3.1.9.9
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.1.9.8';
+		var $version			 = '3.1.9.9';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -290,41 +290,35 @@ if ( !class_exists( 'TC' ) ) {
 				// Settings redirect
 				wp_redirect( admin_url( 'admin.php?page=tc_settings' ) );
 				exit;
-
-				// Skip button
 			}
-			/* if ( !empty( $_GET[ 'skip_install_tickera_pages' ] ) ) {
-
-			  // We no longer need to install pages
-			  update_option( 'tc_needs_pages', 0 );
-
-			  // Settings redirect
-			  wp_redirect( admin_url( 'admin.php?page=tc_settings' ) );
-			  exit;
-			  } */
 		}
 
 		function create_pages() {
-			$pages = apply_filters( 'tickera_create_pages', array(
-				'cart'			 => array(
+			$pages = apply_filters( 'tc_create_pages', array(
+				'cart'				 => array(
 					'name'		 => _x( 'tickets-cart', 'Page slug', 'tc' ),
 					'title'		 => _x( 'Cart', 'Page title', 'tc' ),
 					'content'	 => '[' . apply_filters( 'tc_cart_shortcode_tag', 'tc_cart' ) . ']'
 				),
-				'payment'		 => array(
+				'payment'			 => array(
 					'name'		 => _x( 'tickets-payment', 'Page slug', 'tc' ),
 					'title'		 => _x( 'Payment', 'Page title', 'tc' ),
 					'content'	 => '[' . apply_filters( 'tc_payment_shortcode_tag', 'tc_payment' ) . ']'
 				),
-				'confirmation'	 => array(
+				'confirmation'		 => array(
 					'name'		 => _x( 'tickets-order-confirmation', 'Page slug', 'tc' ),
 					'title'		 => _x( 'Payment Confirmation', 'Page title', 'tc' ),
 					'content'	 => '[' . apply_filters( 'tc_order_confirmation_shortcode_tag', 'tc_order_confirmation' ) . ']'
 				),
-				'order'			 => array(
+				'order'				 => array(
 					'name'		 => _x( 'tickets-order-details', 'Page slug', 'tc' ),
 					'title'		 => _x( 'Order Details', 'Page title', 'tc' ),
 					'content'	 => '[' . apply_filters( 'tc_order_details_shortcode_tag', 'tc_order_details' ) . ']'
+				),
+				'process_payment'	 => array(
+					'name'		 => _x( 'tickets-process-payment', 'Page slug', 'tc' ),
+					'title'		 => _x( 'Process Payment', 'Page title', 'tc' ),
+					'content'	 => '[' . apply_filters( 'tc_process_payment_shortcode_tag', 'tc_process_payment' ) . ']'
 				),
 			) );
 
@@ -565,16 +559,16 @@ if ( !class_exists( 'TC' ) ) {
 
 		function staff_capabilities() {
 			$capabilities = array(
-				'read'							 => apply_filters( 'staff_capability_read', 1 ),
-				'manage_events_cap'				 => apply_filters( 'staff_capability_manage_events', 0 ),
-				'manage_ticket_types_cap'		 => apply_filters( 'staff_capability_manage_ticket_types', 0 ),
-				'manage_discount_codes_cap'		 => apply_filters( 'staff_capability_manage_discount_codes', 0 ),
-				'manage_orders_cap'				 => apply_filters( 'staff_capability_manage_orders', 0 ),
-				'manage_attendees_cap'			 => apply_filters( 'staff_capability_manage_attendees', 1 ),
-				'delete_checkins_cap'			 => apply_filters( 'staff_capability_delete_checkins', 1 ),
-				'delete_attendees_cap'			 => apply_filters( 'staff_capability_delete_attendees', 0 ),
-				'manage_ticket_templates_cap'	 => apply_filters( 'staff_capability_manage_ticket_templates', 0 ),
-				'manage_settings_cap'			 => apply_filters( 'staff_capability_manage_settings', 0 ),
+				'read'							 => apply_filters( 'tc_staff_capability_read', 1 ),
+				'manage_events_cap'				 => apply_filters( 'tc_staff_capability_manage_events', 0 ),
+				'manage_ticket_types_cap'		 => apply_filters( 'tc_staff_capability_manage_ticket_types', 0 ),
+				'manage_discount_codes_cap'		 => apply_filters( 'tc_staff_capability_manage_discount_codes', 0 ),
+				'manage_orders_cap'				 => apply_filters( 'tc_staff_capability_manage_orders', 0 ),
+				'manage_attendees_cap'			 => apply_filters( 'tc_staff_capability_manage_attendees', 1 ),
+				'delete_checkins_cap'			 => apply_filters( 'tc_staff_capability_delete_checkins', 1 ),
+				'delete_attendees_cap'			 => apply_filters( 'tc_staff_capability_delete_attendees', 0 ),
+				'manage_ticket_templates_cap'	 => apply_filters( 'tc_staff_capability_manage_ticket_templates', 0 ),
+				'manage_settings_cap'			 => apply_filters( 'tc_staff_capability_manage_settings', 0 ),
 			);
 
 			return apply_filters( 'tc_staff_capabilities', $capabilities );
@@ -739,7 +733,7 @@ if ( !class_exists( 'TC' ) ) {
 				$price			 = number_format( $amount, $decimals, $dec_point		 = ".", $thousands_sep	 = " " );
 			}
 
-			do_action( 'price_format_check' );
+			do_action( 'tc_price_format_check' );
 
 			if ( $currency_position == 'pre_space' ) {
 				return $this->get_cart_currency() . ' ' . $price;
@@ -757,7 +751,7 @@ if ( !class_exists( 'TC' ) ) {
 				return $price . ' ' . $this->get_cart_currency();
 			}
 
-			do_action( 'currency_position_check' );
+			do_action( 'tc_currency_position_check' );
 		}
 
 		function save_cart_post_data() {
@@ -817,7 +811,7 @@ if ( !class_exists( 'TC' ) ) {
 
 			$content = '';
 
-			$content = '<div class="tickera"><form id="tc_payment_form" method="post" action="' . home_url( trailingslashit( $this->get_process_payment_slug() ) ) . '">';
+			$content = '<div class="tickera"><form id="tc_payment_form" method="post" action="' . $this->get_process_payment_slug( true ) . '">';
 
 			if ( $cart_total == 0 ) {
 				$tc_gateway_active_plugins		 = array();
@@ -1227,7 +1221,7 @@ if ( !class_exists( 'TC' ) ) {
 			setcookie( $cookie_id, null, -1, '/' );
 
 //set cookie
-			$expire = time() + apply_filters( 'cart_cookie_expiration', 172800 ); //72 hrs expire by default
+			$expire = time() + apply_filters( 'tc_cart_cookie_expiration', 172800 ); //72 hrs expire by default
 			setcookie( $cookie_id, serialize( $cart ), $expire, COOKIEPATH, COOKIE_DOMAIN );
 
 			$_COOKIE[ $cookie_id ] = serialize( $cart );
@@ -1537,7 +1531,7 @@ if ( !class_exists( 'TC' ) ) {
 			$cookie_id = 'tc_discount_code_' . COOKIEHASH;
 
 //put discount code in a cookie
-			$expire = time() + apply_filters( 'discount_cookie_expiration', 172800 ); //72 hrs expire by default
+			$expire = time() + apply_filters( 'tc_discount_cookie_expiration', 172800 ); //72 hrs expire by default
 			setcookie( $cookie_id, $discount_code, $expire, COOKIEPATH, COOKIE_DOMAIN );
 		}
 
@@ -1545,7 +1539,7 @@ if ( !class_exists( 'TC' ) ) {
 			$cookie_id = 'tc_cart_' . COOKIEHASH;
 
 //set cookie
-			$expire = time() + apply_filters( 'cart_cookie_expiration', 172800 ); //72 hrs expire by default
+			$expire = time() + apply_filters( 'tc_cart_cookie_expiration', 172800 ); //72 hrs expire by default
 			setcookie( $cookie_id, serialize( $cart ), $expire, COOKIEPATH, COOKIE_DOMAIN );
 
 // Set the cookie variable as well, just in case something goes wrong ;)
@@ -2226,7 +2220,7 @@ if ( !class_exists( 'TC' ) ) {
 				}
 
 				$order = new TC_Order( $order_id );
-				
+
 				if ( $post_status == 'trash' ) {
 					$order->delete_order( false );
 				} else {
@@ -2252,7 +2246,7 @@ if ( !class_exists( 'TC' ) ) {
 			setcookie( $cookie_id, null, -1, '/' );
 
 //set cookie
-			$expire = time() + apply_filters( 'cart_cookie_expiration', 172800 ); //72 hrs expire by default
+			$expire = time() + apply_filters( 'tc_cart_cookie_expiration', 172800 ); //72 hrs expire by default
 			setcookie( $cookie_id, $order, $expire, COOKIEPATH, COOKIE_DOMAIN );
 
 			$_COOKIE[ $cookie_id ] = $order;
@@ -2287,7 +2281,7 @@ if ( !class_exists( 'TC' ) ) {
 			setcookie( $cookie_id, null, -1, '/' );
 
 //set cookie
-			$expire = time() + apply_filters( 'cart_cookie_expiration', 172800 ); //72 hrs expire by default
+			$expire = time() + apply_filters( 'tc_cart_cookie_expiration', 172800 ); //72 hrs expire by default
 			setcookie( $cookie_id, serialize( $cart_info ), $expire, COOKIEPATH, COOKIE_DOMAIN );
 
 			$_COOKIE[ $cookie_id ] = serialize( $cart_info );
@@ -2373,11 +2367,11 @@ if ( !class_exists( 'TC' ) ) {
 				'ID'			 => $order_id,
 				'post_status'	 => $new_status
 			);
-			
-			$order_object = new TC_Order($order_id);
-			
-			$order_object->untrash_order();//untrash order if it's in trash
-			
+
+			$order_object = new TC_Order( $order_id );
+
+			$order_object->untrash_order(); //untrash order if it's in trash
+
 			wp_update_post( $order );
 		}
 
@@ -2430,6 +2424,19 @@ if ( !class_exists( 'TC' ) ) {
 
 		function get_payment_page( $url = false ) {
 			$page = get_option( 'tc_payment_page_id', false );
+			if ( $page ) {
+				if ( $url ) {
+					return get_permalink( $page );
+				} else {
+					return $page;
+				}
+			} else {
+				return false;
+			}
+		}
+
+		function get_process_payment_page( $url = false ) {
+			$page = get_option( 'tc_process_payment_page_id', false );
 			if ( $page ) {
 				if ( $url ) {
 					return get_permalink( $page );
@@ -2508,13 +2515,24 @@ if ( !class_exists( 'TC' ) ) {
 			return $default_slug_value;
 		}
 
-		function get_process_payment_slug() {
+		function get_process_payment_slug( $url = false ) {
 			$tc_general_settings = get_option( 'tc_general_setting', false );
+
 			if ( isset( $tc_general_settings[ 'ticket_payment_process_slug' ] ) ) {
 				$default_slug_value = $tc_general_settings[ 'ticket_payment_process_slug' ];
 			} else {
 				$default_slug_value = 'process-payment';
 			}
+
+			if ( $url ) {
+				$tc_process_payment_use_virtual = isset( $tc_general_settings[ 'tc_process_payment_use_virtual' ] ) ? $tc_general_settings[ 'tc_process_payment_use_virtual' ] : 'no';
+				if ( $this->get_process_payment_page() && $tc_process_payment_use_virtual == 'no' ) {
+					return trailingslashit( $this->get_process_payment_page( true ) );
+				} else {
+					return trailingslashit( home_url() ) . get_option( 'ticket_payment_process_slug', $default_slug_value );
+				}
+			}
+
 			return $default_slug_value;
 		}
 
