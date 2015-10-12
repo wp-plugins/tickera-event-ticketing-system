@@ -28,6 +28,8 @@ class TC_Shortcode_Builder {
 			'tickets_left'		 => __( 'Display a number of available tickets', 'tc' ),
 			'tc_order_history'	 => __( 'Display order history for a user', 'tc' ),
 		);
+
+		$shortcodes = apply_filters( 'tc_shortcodes', $shortcodes );
 		?>
 		<div id="tc-shortcode-builder-wrap" style="display:none">
 			<form id="tc-shortcode-builder">
@@ -50,6 +52,9 @@ class TC_Shortcode_Builder {
 
 							if ( method_exists( $this, $func ) ) {
 								call_user_func( array( &$this, $func ) );
+							}
+							if ( function_exists( $func ) ) {
+								call_user_func( $func );
 							}
 						}
 						?>

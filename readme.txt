@@ -35,13 +35,13 @@ If you need more payment options, you can download [Tickera Premium](http://tick
 * Vogue Pay
 * iPay88
 * PayGate
+* OptimalPayments / Netbanx payment gateway
 * Braintree
 * PayUMoney
 * PayTabs
 * White Payments
 * PayU Latam
 * Komoju
-* Beanstream
 * Custom Offline Payments
 * Free Orders.
 
@@ -111,6 +111,11 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 
 Plugin Name: Tickera
 Author: Tickera.com
+
+= 3.2 =
+- Added event end date
+- Added new hooks and filters for developers
+- Added login link to the order history shortcode / page
 
 = 3.1.9.9 =
 - Added Order Details placeholder for order completed client email

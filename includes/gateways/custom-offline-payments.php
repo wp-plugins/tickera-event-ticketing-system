@@ -26,8 +26,10 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 		$this->skip_payment_screen	 = apply_filters( $this->plugin_name . '_skip_payment_screen', $this->skip_payment_screen );
 		$this->admin_name			 = $this->get_option( 'admin_name', __( 'Offline Payment', 'tc' ) );
 		$this->public_name			 = $this->get_option( 'public_name', __( 'Cash on Delivery', 'tc' ) );
-		$this->method_img_url		 = $tc->plugin_url . 'images/gateways/custom-offline-payments.png';
-		$this->admin_img_url		 = $tc->plugin_url . 'images/gateways/small-custom-offline-payments.png';
+
+		$this->method_img_url	 = apply_filters( 'tc_gateway_method_img_url', $tc->plugin_url . 'images/gateways/custom-offline-payments.png', $this->plugin_name );
+		$this->admin_img_url	 = apply_filters( 'tc_gateway_admin_img_url', $tc->plugin_url . 'images/gateways/small-custom-offline-payments.png', $this->plugin_name );
+
 		add_action( 'tc_order_created', array( &$this, 'send_payment_instructions' ), 10, 5 );
 		add_filter( $this->plugin_name . '_instructions', array( &$this, 'modify_instruction_message' ), 10, 2 );
 	}
@@ -39,8 +41,8 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 
 	function modify_instruction_message( $message, $order_id ) {
 		if ( !is_int( $order_id ) ) {
-			$order = tc_get_order_id_by_name( $order_id );
-			$order = new TC_Order( $order->ID );
+			$order	 = tc_get_order_id_by_name( $order_id );
+			$order	 = new TC_Order( $order->ID );
 		} else {
 			$order = new TC_Order( $order_id );
 		}

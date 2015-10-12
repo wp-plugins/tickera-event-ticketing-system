@@ -1,6 +1,6 @@
 <?php
 if ( !is_user_logged_in() ) {
-	_e( 'Please log in to see your order history.', 'tc' );
+	printf( __( 'Please %s to see your order history.', 'tc' ), '<a href="' . wp_login_url() . '">' . __( 'log in', 'tc' ) . '</a>' );
 } else {
 	$user_orders = TC_Orders::get_user_orders();
 	?>

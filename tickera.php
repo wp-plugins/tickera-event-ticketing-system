@@ -5,7 +5,7 @@
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.1.9.9
+  Version: 3.2
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.1.9.9';
+		var $version			 = '3.2';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -1450,6 +1450,14 @@ if ( !class_exists( 'TC' ) ) {
 
 			$tuid = substr( strtoupper( hash( 'ripemd128', $uid . md5( $data ) ) ), 0, apply_filters( 'tc_unique_id_length', 10 ) );
 
+			if ( apply_filters( 'tc_use_only_digit_order_number', false ) == true ) {
+				$tuid_array	 = tc_unistr_to_ords( $tuid );
+				$tuid		 = '';
+				foreach ( $tuid_array as $tuid_array_key => $val ) {
+					$tuid = $tuid .= $val;
+				}
+			}
+
 			return $tuid;
 		}
 
@@ -2120,7 +2128,11 @@ if ( !class_exists( 'TC' ) ) {
 					}
 				}
 
-				$metas[ 'ticket_code' ] = apply_filters( 'tc_ticket_code', $order_id . '-' . $owner_record_num );
+				if ( apply_filters( 'tc_use_only_digit_order_number', false ) == true ) {
+					$metas[ 'ticket_code' ] = apply_filters( 'tc_ticket_code', $order_id . '' . $owner_record_num );
+				} else {
+					$metas[ 'ticket_code' ] = apply_filters( 'tc_ticket_code', $order_id . '-' . $owner_record_num );
+				}
 
 				do_action( 'tc_after_owner_post_field_type_check' );
 

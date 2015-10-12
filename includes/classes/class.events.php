@@ -40,9 +40,17 @@ if ( !class_exists( 'TC_Events' ) ) {
 				),
 				array(
 					'field_name'		 => 'event_date_time',
-					'field_title'		 => __( 'Event Date and Time', 'tc' ),
+					'field_title'		 => __( 'Start Date & Time', 'tc' ),
 					'field_type'		 => 'text',
 					'field_description'	 => __( 'Example: 2016-09-20 17:30 (it will be displayed in format as per WordPress settings)', 'tc' ),
+					'table_visibility'	 => true,
+					'post_field_type'	 => 'post_meta'
+				),
+				array(
+					'field_name'		 => 'event_end_date_time',
+					'field_title'		 => __( 'End Date & Time', 'tc' ),
+					'field_type'		 => 'text',
+					'field_description'	 => __( 'Optional', 'tc' ),
 					'table_visibility'	 => true,
 					'post_field_type'	 => 'post_meta'
 				),

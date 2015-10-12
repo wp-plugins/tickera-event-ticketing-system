@@ -26,8 +26,8 @@ class TC_Gateway_Free_Orders extends TC_Gateway_API {
 		$this->admin_name			 = $this->get_option( 'admin_name', __( 'Free Orders', 'tc' ) );
 		$this->public_name			 = $this->get_option( 'public_name', __( 'Free Orders', 'tc' ) );
 
-		$this->method_img_url	 = $tc->plugin_url . 'images/gateways/free-orders.png';
-		$this->admin_img_url	 = $tc->plugin_url . 'images/gateways/small-free-orders.png';
+		$this->method_img_url	 = apply_filters( 'tc_gateway_method_img_url', $tc->plugin_url . 'images/gateways/free-orders.png', $this->plugin_name );
+		$this->admin_img_url	 = apply_filters( 'tc_gateway_admin_img_url', $tc->plugin_url . 'images/gateways/small-free-orders.png', $this->plugin_name );
 
 		add_filter( 'tc_redirect_gateway_message', array( &$this, 'custom_redirect_message' ), 10, 1 );
 	}

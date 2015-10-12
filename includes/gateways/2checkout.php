@@ -21,15 +21,15 @@ class TC_Gateway_2Checkout extends TC_Gateway_API {
 	function on_creation() {
 		$this->init();
 	}
-	
+
 	function init() {
 		global $tc;
 
 		$this->admin_name	 = __( '2Checkout', 'tc' );
 		$this->public_name	 = __( '2Checkout', 'tc' );
 
-		$this->method_img_url	 = $tc->plugin_url . 'images/gateways/2checkout.png';
-		$this->admin_img_url	 = $tc->plugin_url . 'images/gateways/small-2checkout.png';
+		$this->method_img_url	 = apply_filters( 'tc_gateway_method_img_url', $tc->plugin_url . 'images/gateways/2checkout.png', $this->plugin_name );
+		$this->admin_img_url	 = apply_filters( 'tc_gateway_admin_img_url', $tc->plugin_url . 'images/gateways/small-2checkout.png', $this->plugin_name );
 
 		$this->currency		 = $this->get_option( 'currency', 'USD', '2checkout' );
 		$this->API_Username	 = $this->get_option( 'sid', '', '2checkout' );
