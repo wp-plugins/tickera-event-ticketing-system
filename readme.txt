@@ -112,6 +112,12 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.2.0.1 =
+- Added new hooks and filters for developers
+- Compatibility with Event Calendar add-on (https://tickera.com/addons/tickera-event-calendar/) 
+- Compatibility with Event Role Based Prices add-on (https://tickera.com/addons/role-based-prices/)
+
+
 = 3.2 =
 - Added event end date
 - Added new hooks and filters for developers

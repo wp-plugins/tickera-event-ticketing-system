@@ -58,7 +58,7 @@ class TC_Cart_Widget extends WP_Widget {
 							$ticket = new TC_Ticket( $ticket_type );
 							?>
 							<li id='tc_ticket_type_<?php echo $ticket_type; ?>'>
-								<?php echo apply_filters( 'tc_cart_widget_item', ($ordered_count . ' x ' . $ticket->details->post_title . ' (' . apply_filters( 'tc_cart_currency_and_format', $ticket->details->price_per_ticket * $ordered_count ) . ')' ), $ordered_count, $ticket->details->post_title, $ticket->details->price_per_ticket ); ?>
+								<?php echo apply_filters( 'tc_cart_widget_item', ($ordered_count . ' x ' . $ticket->details->post_title . ' (' . apply_filters( 'tc_cart_currency_and_format', tc_get_ticket_price( $ticket->details->ID ) * $ordered_count ) . ')' ), $ordered_count, $ticket->details->post_title, tc_get_ticket_price( $ticket->details->ID ) ); ?>
 							</li>
 							<?php
 						}

@@ -12,7 +12,7 @@ class TC_Shortcodes extends TC {
 //register shortcodes
 		add_shortcode( 'tc_cart', array( &$this, 'tc_cart_page' ) );
 		add_shortcode( 'tc_process_payment', array( &$this, 'tc_process_payment_page' ) );
-		
+
 		add_shortcode( 'tc_order_history', array( &$this, 'tc_order_history_page' ) );
 		add_shortcode( 'tc_payment', array( &$this, 'tc_payment_page' ) );
 		add_shortcode( 'tc_order_confirmation', array( &$this, 'tc_order_confirmation_page' ) );
@@ -162,8 +162,8 @@ class TC_Shortcodes extends TC {
 			'id' => ''
 		), $atts ) );
 
-		$ticket_type = new TC_Ticket( $id, 'publish' );
-		return apply_filters( 'tc_cart_currency_and_format', $ticket_type->details->price_per_ticket );
+		$ticket = new TC_Ticket( $id, 'publish' );
+		return apply_filters( 'tc_cart_currency_and_format', tc_get_ticket_price( $ticket->details->ID ) );
 	}
 
 	function event_tickets_sold( $atts ) {
@@ -201,15 +201,15 @@ class TC_Shortcodes extends TC {
 		$content = wpautop( ob_get_clean(), true );
 		return $content;
 	}
-	
-	function tc_process_payment_page($atts){
+
+	function tc_process_payment_page( $atts ) {
 		global $tc;
 		ob_start();
 		include( $tc->plugin_dir . 'includes/templates/page-process-payment.php' );
 		$content = wpautop( ob_get_clean(), true );
 		return $content;
 	}
-	
+
 	function tc_order_history_page( $atts ) {
 		global $tc;
 		ob_start();

@@ -32,9 +32,11 @@ if ( !class_exists( 'TC_Ticket' ) ) {
 				$fields	 = $tickets->get_ticket_fields();
 
 				if ( isset( $this->details ) ) {
-					foreach ( $fields as $field ) {
-						if ( !isset( $this->details->{$field[ 'field_name' ]} ) ) {
-							$this->details->{$field[ 'field_name' ]} = get_post_meta( $this->id, $field[ 'field_name' ], true );
+					if ( !empty( $fields ) ) {
+						foreach ( $fields as $field ) {
+							if ( !isset( $this->details->{$field[ 'field_name' ]} ) ) {
+								$this->details->{$field[ 'field_name' ]} = get_post_meta( $this->id, $field[ 'field_name' ], true );
+							}
 						}
 					}
 				}

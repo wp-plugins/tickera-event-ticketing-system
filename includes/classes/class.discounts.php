@@ -55,7 +55,7 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 							foreach ( $cart_contents as $ticket_type_id => $ordered_count ) {
 
 								$ticket			 = new TC_Ticket( $ticket_type_id );
-								$ticket_price	 = $ticket->details->price_per_ticket;
+								$ticket_price	 = tc_get_ticket_price( $ticket->details->ID );
 								$total_cart		 = $total_cart + ($ticket_price * $ordered_count);
 
 								$discount_value_per_each = ($discount_object->details->discount_type == 1 ? $discount_object->details->discount_value : (($ticket_price / 100) * $discount_object->details->discount_value));
@@ -79,7 +79,7 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 							foreach ( $cart_contents as $ticket_type_id => $ordered_count ) {
 
 								$ticket			 = new TC_Ticket( $ticket_type_id );
-								$ticket_price	 = $ticket->details->price_per_ticket;
+								$ticket_price	 = tc_get_ticket_price( $ticket->details->ID );
 								$total_cart		 = $total_cart + ($ticket_price * $ordered_count);
 
 								if ( $ticket_type_id == $discount_object->details->discount_availability ) {
@@ -91,7 +91,7 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 							if ( $is_in_cart ) {
 
 								$ticket			 = new TC_Ticket( $discount_object->details->discount_availability );
-								$ticket_price	 = $ticket->details->price_per_ticket;
+								$ticket_price	 = tc_get_ticket_price( $ticket->details->ID );
 
 								$discount_value_per_each = ($discount_object->details->discount_type == 1 ? $discount_object->details->discount_value : (($ticket_price / 100) * $discount_object->details->discount_value));
 
@@ -141,7 +141,7 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 
 				foreach ( $cart_contents as $ticket_type => $ordered_count ) {
 					$ticket			 = new TC_Ticket( $ticket_type );
-					$cart_subtotal	 = $cart_subtotal + ($ticket->details->price_per_ticket * $ordered_count);
+					$cart_subtotal	 = $cart_subtotal + (tc_get_ticket_price( $ticket->details->ID ) * $ordered_count);
 				}
 
 				if ( !isset( $_SESSION ) ) {
@@ -181,7 +181,7 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 							foreach ( $cart_contents as $ticket_type_id => $ordered_count ) {
 
 								$ticket			 = new TC_Ticket( $ticket_type_id );
-								$ticket_price	 = $ticket->details->price_per_ticket;
+								$ticket_price	 = tc_get_ticket_price( $ticket->details->ID );
 
 								$discount_value_per_each = ($discount_object->details->discount_type == 1 ? $discount_object->details->discount_value : (($ticket_price / 100) * $discount_object->details->discount_value));
 
@@ -215,7 +215,7 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 							if ( $is_in_cart ) {
 
 								$ticket			 = new TC_Ticket( $discount_object->details->discount_availability );
-								$ticket_price	 = $ticket->details->price_per_ticket;
+								$ticket_price	 = tc_get_ticket_price( $ticket->details->ID );
 
 								$discount_value_per_each = ($discount_object->details->discount_type == 1 ? $discount_object->details->discount_value : (($ticket_price / 100) * $discount_object->details->discount_value));
 
@@ -337,14 +337,14 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 		function get_discount_fields( $bulk = false ) {
 
 			$default_fields = array(
-				/*array(
-					'field_name'		 => 'post_title',
-					'field_title'		 => __( 'Discount Code', 'tc' ),
-					'field_type'		 => 'text',
-					'field_description'	 => __( 'Discount Code, e.g. ABC123', 'tc' ),
-					'table_visibility'	 => true,
-					'post_field_type'	 => 'post_title'
-				),*/
+				/* array(
+				  'field_name'		 => 'post_title',
+				  'field_title'		 => __( 'Discount Code', 'tc' ),
+				  'field_type'		 => 'text',
+				  'field_description'	 => __( 'Discount Code, e.g. ABC123', 'tc' ),
+				  'table_visibility'	 => true,
+				  'post_field_type'	 => 'post_title'
+				  ), */
 				array(
 					'field_name'		 => 'discount_type',
 					'field_title'		 => __( 'Discount Type', 'tc' ),
@@ -409,8 +409,8 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 					'post_field_type'	 => 'post_title'
 				);
 			}
-			
-			array_unshift($default_fields, $first_field);
+
+			array_unshift( $default_fields, $first_field );
 
 			return apply_filters( 'tc_discount_fields', $default_fields );
 		}

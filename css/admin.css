@@ -526,7 +526,7 @@ a.tc_link:hover{
     width: 100%;
 }
 
-.shortcode-table input {
+.shortcode-table input[type="text"] {
     padding: 8px 10px;
     width: 300px;
 }
