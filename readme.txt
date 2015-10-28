@@ -11,7 +11,7 @@ Transform your WordPress site into a full-featured event ticketing system
 
 == Description ==
 
-If you want to sell tickets on your site and deliver them to your buyers digitally, Tickera is exactly what you need. When you use the Tickera plugin to sell and send tickets, you are essentially setting up your own hosted solution wherein you control the profits with no requirement to send a cut to a third party. Tickera allows you to check in attendees easily by using a simple and free [iPhone](https://itunes.apple.com/us/app/ticket-checkin/id958838933?ls=1&mt=8 "Tickera iPhone check-in app") and [Android](https://play.google.com/store/apps/details?id=com.tickera.android&hl=en "Tickera Android check-in app") applications as well as [Barcode readers](http://tickera.com/addons/barcode-reader/ "Tickera Barcode Reader Add-on") to speed up the whole check-in process.
+If you want to sell tickets on your site and deliver them to your buyers digitally, Tickera is exactly what you need. When you use the Tickera plugin to sell and send tickets, you are essentially setting up your own hosted solution wherein you control the profits with no requirement to send a cut to a third party. Tickera allows you to check in attendees easily by using a simple and free [iPhone](https://itunes.apple.com/us/app/ticket-checkin/id958838933?ls=1&mt=8 "Tickera iPhone check-in app") and [Android](https://play.google.com/store/apps/details?id=com.tickera.android&hl=en "Tickera Android check-in app") applications as well as [Barcode readers](http://tickera.com/addons/barcode-reader/?utm_source=wordpress.org&utm_medium=plugin-page&utm_campaign=barcode-reader "Tickera Barcode Reader Add-on") to speed up the whole check-in process.
 
 = The easy way to sell, deliver and check in tickets in WordPress. =
 
@@ -62,7 +62,7 @@ Purchase form includes info from each ticket owner. New hooks allows you to add 
 Check [Custom Forms](http://tickera.com/addons/custom-forms/?utm_source=wordpress.org&utm_medium=plugin-page&utm_campaign=custom-forms "PayPal Chained Payments gateway for Tickera") add-on and create beautiful forms which will fit into your theme's design. Control order of the elements, number of columns, set required and optional fields in an easy way.
 
 = TAKE A CUT =
-Check out [Stripe Connect](http://tickera.com/addons/stripe-connect/?utm_source=wordpress.org&utm_medium=plugin-page&utm_campaign=stripe-connect "Stripe Connect gateway for Tickera") and [PayPal Chained Payments](http://tickera.com/addons/paypal-chained-payments/ "PayPal Chained Payments gateway for Tickera") Tickera add-ons which will allow you to take a percentage per each sale on your WordPress multisite network
+Check out [Stripe Connect](http://tickera.com/addons/stripe-connect/?utm_source=wordpress.org&utm_medium=plugin-page&utm_campaign=stripe-connect "Stripe Connect gateway for Tickera") and [PayPal Chained Payments](http://tickera.com/addons/paypal-chained-payments/?utm_source=wordpress.org&utm_medium=plugin-page&utm_campaign=paypal-chained-payments "PayPal Chained Payments gateway for Tickera") Tickera add-ons which will allow you to take a percentage per each sale on your WordPress multisite network
 
 = TRANSLATION READY =
 You’ll be able to translate every possible word in a [WordPress way](http://www.tickera.com/blog/translating-tickera-plugin/?utm_source=wordpress.org&utm_medium=plugin-page&utm_campaign=blog "Translate Tickera plugin").
