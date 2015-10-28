@@ -132,6 +132,8 @@ add_action( 'tc_cart_col_value_before_total_price', 'tc_cart_col_value_before_to
 function tc_cart_col_value_before_total_price( $ticket_type, $ordered_count, $ticket_price ) {
 	global $tc, $total_fees;
 
+	$tc_general_settings = get_option( 'tc_general_setting', false );
+
 	if ( !isset( $total_fees ) || !is_numeric( $total_fees ) ) {
 		$total_fees = 0;
 	}
@@ -147,6 +149,23 @@ function tc_cart_col_value_before_total_price( $ticket_type, $ordered_count, $ti
 			$fee = round( ($ordered_count * $fee ), 2 );
 		} else {
 			$fee = round( (($ticket_price * $ordered_count) / 100) * $fee, 2 );
+		}
+	}
+
+	$use_global_fees = isset( $tc_general_settings[ 'use_global_fees' ] ) ? $tc_general_settings[ 'use_global_fees' ] : 'no';
+
+	if ( $use_global_fees == 'yes' ) {
+		$global_fee_type	 = $tc_general_settings[ 'global_fee_type' ];
+		$global_fee_value	 = $tc_general_settings[ 'global_fee_value' ];
+
+		if ( $global_fee_value == '' || !isset( $global_fee_value ) ) {
+			$fee = 0;
+		} else {
+			if ( $global_fee_type == 'fixed' ) {
+				$fee = round( ($ordered_count * $global_fee_value ), 2 );
+			} else {
+				$fee = round( (($ticket_price * $ordered_count) / 100) * $global_fee_value, 2 );
+			}
 		}
 	}
 
@@ -362,7 +381,8 @@ function my_custom_events_admin_fields( $event_fields ) {
 		'field_name'		 => 'event_shortcode',
 		'field_title'		 => __( 'Shortcode', 'tc' ),
 		'field_type'		 => 'read-only',
-		'table_visibility'	 => true
+		'table_visibility'	 => true,
+		'show_in_post_type'	 => false
 	);
 
 	$event_fields[] = array(
@@ -370,7 +390,8 @@ function my_custom_events_admin_fields( $event_fields ) {
 		'field_title'			 => __( 'Active', 'tc' ),
 		'field_type'			 => 'read-only',
 		'table_visibility'		 => true,
-		'table_edit_invisible'	 => true
+		'table_edit_invisible'	 => true,
+		'show_in_post_type'		 => false
 	);
 
 	return $event_fields;

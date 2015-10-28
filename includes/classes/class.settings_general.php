@@ -146,6 +146,32 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 					'section'			 => 'store_settings'
 				),
 				array(
+					'field_name'		 => 'use_global_fees',
+					'field_title'		 => __( 'Use Global Fees', 'tc' ),
+					'field_type'		 => 'function',
+					'function'			 => 'tc_yes_no',
+					'default_value'		 => 'no',
+					'field_description'	 => __( 'If set to Yes, each ticket type will have the same ticket fees. If set to No, ticket fees could be defined on the ticket type level.', 'tc' ),
+					'section'			 => 'store_settings'
+				),
+				array(
+					'field_name'		 => 'global_fee_type',
+					'field_title'		 => __( 'Global Fee Type', 'tc' ),
+					'field_type'		 => 'function',
+					'function'			 => 'tc_global_fee_type',
+					'default_value'		 => 'percentage',
+					'field_description'	 => __( 'Set type of global fees.', 'tc' ),
+					'section'			 => 'store_settings'
+				),
+				array(
+					'field_name'		 => 'global_fee_value',
+					'field_title'		 => __( 'Global Fee (value)', 'tc' ),
+					'field_type'		 => 'option',
+					'default_value'		 => '0',
+					'field_description'	 => __( 'Example: 10. Value would be percentage of fixed based on the above selected option.' ),
+					'section'			 => 'store_settings'
+				),
+				array(
 					'field_name'		 => 'show_fees',
 					'field_title'		 => __( 'Show Fees', 'tc' ),
 					'field_type'		 => 'function',
@@ -258,6 +284,24 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 					'section'			 => 'page_settings'
 				),
 				array(
+					'field_name'		 => 'tc_ipn_page_use_virtual',
+					'field_title'		 => __( 'Use Virtual IPN (instant payment notification) Page', 'tc' ),
+					'field_type'		 => 'function',
+					'function'			 => 'tc_yes_no',
+					'default_value'		 => 'yes',
+					'field_description'	 => __( 'If you\'re experiencing errors with IPN page, set this option to "No" and set the "IPN Payment Page".', 'tc' ),
+					'section'			 => 'page_settings'
+				),
+				array(
+					'field_name'		 => 'tc_ipn_page_id',
+					'field_title'		 => __( 'IPN (instant payment notification) Page', 'tc' ),
+					'field_type'		 => 'function',
+					'function'			 => 'tc_get_ipn_page_settings',
+					'default_value'		 => get_option( 'tc_process_payment_page_id', -1 ),
+					'field_description'	 => __( 'The page used by the plugin internally to receive payment statuses from various payment gateways like PayPal Standard, VoguePay, 2Checkout. <br /><strong>Do NOT add this page directly to the site menu since it will be automatically used by the plugin.</strong>', 'tc' ),
+					'section'			 => 'page_settings'
+				),
+				array(
 					'field_name'		 => 'tc_pages_id',
 					'field_title'		 => __( 'Pages', 'tc' ),
 					'field_type'		 => 'function',
@@ -266,9 +310,6 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 					'field_description'	 => __( 'Create pages required by the plugin', 'tc' ),
 					'section'			 => 'page_settings'
 				),
-				//
-				array(
-				)
 			);
 
 			$pages_settings_default_fields = apply_filters( 'tc_general_settings_page_fields', $pages_settings_default_fields );

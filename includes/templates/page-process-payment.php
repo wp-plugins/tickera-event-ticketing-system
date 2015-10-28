@@ -22,7 +22,8 @@ if ( $tc->checkout_error == false ) {
 	$payment_gateway->process_payment( $cart_contents );
 	exit;
 } else {
-	wp_safe_redirect( $this->get_payment_slug( true ) );
+	wp_redirect( $this->get_payment_slug( true ) );
+	tc_js_redirect( $this->get_payment_slug( true ) );
 	exit;
 }
 ?>

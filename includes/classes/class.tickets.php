@@ -20,6 +20,7 @@ if ( !class_exists( 'TC_Tickets' ) ) {
 		}
 
 		function get_ticket_fields() {
+			$tc_general_settings = get_option( 'tc_general_setting', false );
 
 			$default_fields = array(
 				array(
@@ -115,24 +116,6 @@ if ( !class_exists( 'TC_Tickets' ) ) {
 					'post_field_type'	 => 'post_meta'
 				),
 				array(
-					'field_name'		 => 'ticket_fee',
-					'field_title'		 => __( 'Ticket Fee', 'tc' ),
-					'placeholder'		 => __( 'No Fees', 'tc' ),
-					'field_type'		 => 'text',
-					'field_description'	 => __( 'Ticket / Service Fee (you can add additional fee per ticket in order to cover payment gateway, service or any other type of cost) - 0 or empty for no service fee.', 'tc' ),
-					'table_visibility'	 => true,
-					'post_field_type'	 => 'post_meta'
-				),
-				array(
-					'field_name'		 => 'ticket_fee_type',
-					'field_title'		 => __( 'Ticket Fee Type', 'tc' ),
-					'field_type'		 => 'function',
-					'function'			 => 'tc_get_ticket_fee_type',
-					'field_description'	 => '',
-					'table_visibility'	 => true,
-					'post_field_type'	 => 'post_meta'
-				),
-				array(
 					'field_name'		 => 'ticket_template',
 					'field_title'		 => __( 'Ticket Template', 'tc' ),
 					'field_type'		 => 'function',
@@ -152,6 +135,30 @@ if ( !class_exists( 'TC_Tickets' ) ) {
 					'table_edit_invisible'	 => true
 				),
 			);
+
+			$use_global_fees = isset( $tc_general_settings[ 'use_global_fees' ] ) ? $tc_general_settings[ 'use_global_fees' ] : 'no';
+
+			if ( $use_global_fees == 'no' ) {
+				$default_fields[] = array(
+					'field_name'		 => 'ticket_fee',
+					'field_title'		 => __( 'Ticket Fee', 'tc' ),
+					'placeholder'		 => __( 'No Fees', 'tc' ),
+					'field_type'		 => 'text',
+					'field_description'	 => __( 'Ticket / Service Fee (you can add additional fee per ticket in order to cover payment gateway, service or any other type of cost) - 0 or empty for no service fee.', 'tc' ),
+					'table_visibility'	 => true,
+					'post_field_type'	 => 'post_meta'
+				);
+
+				$default_fields[] = array(
+					'field_name'		 => 'ticket_fee_type',
+					'field_title'		 => __( 'Ticket Fee Type', 'tc' ),
+					'field_type'		 => 'function',
+					'function'			 => 'tc_get_ticket_fee_type',
+					'field_description'	 => '',
+					'table_visibility'	 => true,
+					'post_field_type'	 => 'post_meta'
+				);
+			}
 
 			return apply_filters( 'tc_ticket_fields', $default_fields );
 		}

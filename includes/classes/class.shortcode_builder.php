@@ -20,12 +20,12 @@ class TC_Shortcode_Builder {
 		}
 
 		$shortcodes = array(
-			'tc_ticket'			 => __( 'Display a ticket / add to cart button', 'tc' ),
-			'tc_event'			 => __( 'Display a list of tickets for an event', 'tc' ),
-			'event_tickets_sold' => __( 'Display a number of tickets sold for an event', 'tc' ),
-			'event_tickets_left' => __( 'Display a number of tickets left for an event', 'tc' ),
-			'tickets_sold'		 => __( 'Display a number of sold tickets', 'tc' ),
-			'tickets_left'		 => __( 'Display a number of available tickets', 'tc' ),
+			'tc_ticket'			 => __( 'Ticket / Add to cart button', 'tc' ),
+			'tc_event'			 => __( 'List of tickets for an event', 'tc' ),
+			'event_tickets_sold' => __( 'Number of tickets sold for an event', 'tc' ),
+			'event_tickets_left' => __( 'Number of tickets left for an event', 'tc' ),
+			'tickets_sold'		 => __( 'Number of sold tickets', 'tc' ),
+			'tickets_left'		 => __( 'Number of available tickets', 'tc' ),
 			'tc_order_history'	 => __( 'Display order history for a user', 'tc' ),
 		);
 
@@ -34,7 +34,7 @@ class TC_Shortcode_Builder {
 		<div id="tc-shortcode-builder-wrap" style="display:none">
 			<form id="tc-shortcode-builder">
 				<div class="tc-title-wrap">
-					<h3><?php _e( 'Add Short Code', 'tc' ); ?></h3>
+					<h3><?php _e( 'Add Shortcode', 'tc' ); ?></h3>
 				</div><!-- .tc-title-wrap -->
 
 				<div class="tc-shortcode-wrap">
@@ -60,7 +60,7 @@ class TC_Shortcode_Builder {
 						?>
 					</div>
 					<p class="submit">
-						<input class="button-primary" type="submit" value="<?php _e( 'Insert Short Code', 'tc' ); ?>" />
+						<input class="button-primary" type="submit" value="<?php _e( 'Insert Shortcode', 'tc' ); ?>" />
 					</p>                                
 				</div><!-- .tc-shortcode-wrap -->
 
@@ -165,6 +165,14 @@ class TC_Shortcode_Builder {
 					</select>
 				</td>
 			</tr>
+
+			<tr>
+				<th scope="row"><?php _e( 'Link Title', 'tc' ); ?></th>
+				<td>
+					<input type="text" name="title" value="" placeholder="<?php echo esc_attr( __( 'Add to Cart', 'tc' ) ); ?>" />
+				</td>
+			</tr>
+
 			<tr>
 				<th scope="row"><?php _e( 'Ticket Type Column Title', 'tc' ); ?></th>
 				<td>
@@ -203,6 +211,17 @@ class TC_Shortcode_Builder {
 						<option value=""><?php _e( 'No', 'tc' ); ?></option>
 						<option value="true"><?php _e( 'Yes', 'tc' ); ?></option>
 					</select>
+				</td>
+			</tr>
+
+			<tr>
+				<th scope="row"><?php _e( 'Link Type', 'tc' ); ?></th>
+				<td>
+					<select name="type" data-default-value="cart">
+						<option value="cart"><?php _e( 'Cart', 'tc' ); ?></option>
+						<option value="buynow"><?php _e( 'Buy Now', 'tc' ); ?></option>
+					</select>
+					<span class="description"><?php _e( 'If Buy Now is selected, after clicking on the link, user will be redirected automatically to the cart page.', 'tc' ); ?></span>
 				</td>
 			</tr>
 

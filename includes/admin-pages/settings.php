@@ -20,6 +20,11 @@ if ( empty( $tab ) ) {
 		<div id="message" class="updated fade"><p><?php _e( 'Settings saved successfully.', 'tc' ); ?></p></div>
 		<?php
 	}
+	if ( version_compare( phpversion(), '5.3', '<' ) ) {
+		?>
+		<div id="tc_php_53_version_error" class="error" style=""><p><?php echo sprintf( __( 'Your current version of PHP is %s and recommended version is at least 5.3. You should contact your hosting company and %sask for upgrade%s.', 'tc' ), phpversion(), '<a href="https://wordpress.org/about/requirements/">', '</a>' ) ?></p></div>
+		<?php
+	}
 	?>
 
 	<?php

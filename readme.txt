@@ -21,10 +21,10 @@ If you want to sell tickets on your site and deliver them to your buyers digital
 
 Tickera plugin comes with [2Checkout payment gateway](https://www.2checkout.com/referral?r=95d26f72d1 "2Checkout payment gateway"), Custom Offline Payments and Free Orders.
 
-If you need more payment options, you can download [Tickera Premium](http://tickera.com/?wp "WordPress Event Ticketing system") version which includes:
+If you need more payment options, you can download [Tickera Premium](http://tickera.com/?utm_source=wordpress.org&utm_medium=plugin-page&utm_campaign=premium "WordPress Event Ticketing system") version which includes:
 
-* [Mijireh](http://tickera.com/addons/mijireh-checkout/ "Mijireh payment gateway for Tickera") (80+ Gateways included)
-* [Mollie](http://tickera.com/addons/mollie-payment-gateway/ "Mollie payment gateway for Tickera") (iDeal, Credit Card, Bancontact / Mister Cash, SOFORT Banking, Overbooking, Bitcoin, PayPal, paysafecard and   AcceptEmail)
+* [Mijireh](http://tickera.com/addons/mijireh-checkout/?utm_source=wordpress.org&utm_medium=plugin-page&utm_campaign=mijireh "Mijireh payment gateway for Tickera") (80+ Gateways included)
+* [Mollie](http://tickera.com/addons/mollie-payment-gateway/?utm_source=wordpress.org&utm_medium=plugin-page&utm_campaign=mollie "Mollie payment gateway for Tickera") (iDeal, Credit Card, Bancontact / Mister Cash, SOFORT Banking, Overbooking, Bitcoin, PayPal, paysafecard and   AcceptEmail)
 * PayPal Standard
 * PayPal PRO
 * 2Checkout
@@ -59,13 +59,13 @@ Do you have WordPress multisite installed with a number of subsites and clients?
 
 = PURCHASE FORM =
 Purchase form includes info from each ticket owner. New hooks allows you to add new fields for buyer or ticket owners. It would be useful if you want to add, for instance, additional field where your customers may choose food preference, set their age, sex, etc. In addition, buyers are able to download tickets directly from a purchase confirmation page – no more lost emails which have to be sent manually, lost attachments or server issues which prevent tickets to reach your clients.
-Check [Custom Forms](http://tickera.com/addons/custom-forms/ "PayPal Chained Payments gateway for Tickera") add-on and create beautiful forms which will fit into your theme's design. Control order of the elements, number of columns, set required and optional fields in an easy way.
+Check [Custom Forms](http://tickera.com/addons/custom-forms/?utm_source=wordpress.org&utm_medium=plugin-page&utm_campaign=custom-forms "PayPal Chained Payments gateway for Tickera") add-on and create beautiful forms which will fit into your theme's design. Control order of the elements, number of columns, set required and optional fields in an easy way.
 
 = TAKE A CUT =
-Check out [Stripe Connect](http://tickera.com/addons/stripe-connect/ "Stripe Connect gateway for Tickera") and [PayPal Chained Payments](http://tickera.com/addons/paypal-chained-payments/ "PayPal Chained Payments gateway for Tickera") Tickera add-ons which will allow you to take a percentage per each sale on your WordPress multisite network
+Check out [Stripe Connect](http://tickera.com/addons/stripe-connect/?utm_source=wordpress.org&utm_medium=plugin-page&utm_campaign=stripe-connect "Stripe Connect gateway for Tickera") and [PayPal Chained Payments](http://tickera.com/addons/paypal-chained-payments/ "PayPal Chained Payments gateway for Tickera") Tickera add-ons which will allow you to take a percentage per each sale on your WordPress multisite network
 
 = TRANSLATION READY =
-You’ll be able to translate every possible word in a [WordPress way](http://www.tickera.com/blog/translating-tickera-plugin/ "Translate Tickera plugin").
+You’ll be able to translate every possible word in a [WordPress way](http://www.tickera.com/blog/translating-tickera-plugin/?utm_source=wordpress.org&utm_medium=plugin-page&utm_campaign=blog "Translate Tickera plugin").
 
 = TAX ADMINISTRATION =
 Collect taxes with Tickera. Administrators can set up and manage tax rate easily!
@@ -87,10 +87,10 @@ Tickera is developer friendly. Customize any aspect of Tickera with actions and 
 
 = ADD-ONS & EXTENSTIONS =
 
-[Extend Tickera](http://tickera.com/tickera-events-add-ons/ "Tickera Add-ons and Extensions") with a number of add-ons.
+[Extend Tickera](http://tickera.com/tickera-events-add-ons/?utm_source=wordpress.org&utm_medium=plugin-page&utm_campaign=addons "Tickera Add-ons and Extensions") with a number of add-ons.
 
 = DOCUMENTATION =
-Stuck? Check out the [plugin documentation](http://tickera.com/documentation-category/tickera/ "Tickera Documentation") 
+Stuck? Check out the [plugin documentation](http://tickera.com/documentation-category/tickera/?utm_source=wordpress.org&utm_medium=plugin-page&utm_campaign=documentation "Tickera Documentation") 
 
 == Installation ==
 
@@ -103,7 +103,7 @@ Stuck? Check out the [plugin documentation](http://tickera.com/documentation-cat
 
 = To Set Up And Configure Tickera = 
 
-You can find [setup instructions here »](http://tickera.com/documentation-category/tickera/ "Tickera plugin installation and usage help")
+You can find [setup instructions here »](http://tickera.com/documentation-category/tickera/?utm_source=wordpress.org&utm_medium=plugin-page&utm_campaign=documentation "Tickera plugin installation and usage help")
 
 == Screenshots ==
 
@@ -111,6 +111,16 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 
 Plugin Name: Tickera
 Author: Tickera.com
+
+= 3.2.0.2 =
+- Optimized PDF library and removed unused fonts
+- Added additional shortcode arguments (added button type for tc_event shortcode)
+- Fixed issue with API Keys pagination in the admin
+- Fixed issue with discounts display (when discount value is greater than total)
+- Added option for IPN page to be a physical page (instead of virtual)
+- Added notice in the settings for servers which don't support at least 5.3 version of PHP
+- Automatically disable certain payment gateways (Optimal Payments / Netbanx and Beanstream) on servers which has PHP version bellow 5.3 
+- Added additional hooks and filters for developers
 
 = 3.2.0.1 =
 - Added new hooks and filters for developers

@@ -55,6 +55,7 @@ class TC_Gateway_Free_Orders extends TC_Gateway_API {
 		$order = $tc->create_order( $order_id, $this->cart_contents(), $this->cart_info(), $payment_info, false );
 
 		wp_redirect( $tc->get_confirmation_slug( true, $order_id ) );
+		tc_js_redirect( $tc->get_confirmation_slug( true, $order_id ) );
 		exit;
 	}
 

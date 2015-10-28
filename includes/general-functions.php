@@ -1,6 +1,14 @@
 <?php
 add_filter( 'tc_the_content', 'tc_the_content' );
 
+function tc_js_redirect( $url ) {
+	?>
+	<script type="text/javascript">
+		window.location = "<?php echo $url; ?>";
+	</script>
+	<?php
+}
+
 function tc_get_ticket_price( $id ) {
 	//$ticket				 = new TC_Ticket( $id );
 	$price_per_ticket = get_post_meta( $id, 'price_per_ticket', true );
@@ -652,6 +660,23 @@ function tc_show_fees( $field_name, $default_value = '' ) {
 	<?php
 }
 
+function tc_global_fee_type( $field_name, $default_value = '' ) {
+	global $tc_general_settings;
+	if ( isset( $tc_general_settings[ $field_name ] ) ) {
+		$checked = $tc_general_settings[ $field_name ];
+	} else {
+		$checked = $default_value;
+	}
+	?>
+	<label>
+		<input type="radio" name="tc_general_setting[<?php echo esc_attr( $field_name ); ?>]" value="percentage" <?php checked( $checked, 'percentage', true ); ?> /><?php _e( 'Percentage', 'tc' ); ?>
+	</label>
+	<label>
+		<input type="radio" name="tc_general_setting[<?php echo esc_attr( $field_name ); ?>]" value="fixed" <?php checked( $checked, 'fixed', true ); ?> /><?php _e( 'Fixed', 'tc' ); ?>
+	</label>
+	<?php
+}
+
 function tc_show_cart( $field_name, $default_value = '' ) {
 	global $tc_general_settings;
 	if ( isset( $tc_general_settings[ $field_name ] ) ) {
@@ -829,6 +854,14 @@ function tc_save_page_ids() {
 	if ( isset( $_POST[ 'tc_process_payment_use_virtual' ] ) ) {
 		update_option( 'tc_process_payment_use_virtual', $_POST[ 'tc_process_payment_use_virtual' ] );
 	}
+
+	if ( isset( $_POST[ 'tc_ipn_page_id' ] ) ) {
+		update_option( 'tc_ipn_page_id', $_POST[ 'tc_ipn_page_id' ] );
+	}
+
+	if ( isset( $_POST[ 'tc_ipn_use_virtual' ] ) ) {
+		update_option( 'tc_ipn_use_virtual', $_POST[ 'tc_ipn_use_virtual' ] );
+	}
 }
 
 function tc_get_cart_page_settings( $field_name, $default_value = '' ) {
@@ -868,6 +901,17 @@ function tc_get_process_payment_page_settings( $field_name, $default_value = '' 
 		'selected'	 => get_option( 'tc_process_payment_page_id', -1 ),
 		'echo'		 => 1,
 		'name'		 => 'tc_process_payment_page_id',
+	);
+
+	wp_dropdown_pages( $args );
+}
+
+function tc_get_ipn_page_settings( $field_name, $default_value = '' ) {
+
+	$args = array(
+		'selected'	 => get_option( 'tc_ipn_page_id', -1 ),
+		'echo'		 => 1,
+		'name'		 => 'tc_ipn_page_id',
 	);
 
 	wp_dropdown_pages( $args );

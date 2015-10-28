@@ -70,9 +70,10 @@ class TC_Gateway_2Checkout extends TC_Gateway_API {
 
 	function payment_form( $cart ) {
 		global $tc;
-		if ( isset( $_GET[ '2checkout_cancel' ] ) ) {
+		if ( isset( $_GET[ $this->cancel_slug ] ) ) {
 			$_SESSION[ 'tc_gateway_error' ] = __( 'Your transaction has been canceled.', 'tc' );
 			wp_redirect( $tc->get_payment_slug( true ) );
+			tc_js_redirect( $tc->get_payment_slug( true ) );
 			exit;
 		}
 	}
@@ -129,6 +130,7 @@ class TC_Gateway_2Checkout extends TC_Gateway_API {
 		$tc->create_order( $order_id, $this->cart_contents(), $this->cart_info(), $payment_info, $paid );
 
 		wp_redirect( "{$url}?{$param_str}" );
+		tc_js_redirect( "{$url}?{$param_str}" );
 		exit( 0 );
 	}
 

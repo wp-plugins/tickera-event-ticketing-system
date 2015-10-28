@@ -100,7 +100,7 @@ if ( !class_exists( 'TC_Gateway_API' ) ) {
 		function is_payment_page() {
 			global $wp;
 
-			if ( array_key_exists( 'page_payment', $wp->query_vars ) || (isset( $wp->query_vars[ 'pagename' ] ) && preg_match( '/' . tc_get_payment_page_slug() . '/', $wp->query_vars[ 'pagename' ], $matches, PREG_OFFSET_CAPTURE, 3 )) || (isset( $wp->query_vars[ 'pagename' ] ) && $wp->query_vars[ 'pagename' ] == tc_get_payment_page_slug()) ) {
+			if ( isset( $wp->query_vars ) && (array_key_exists( 'page_payment', $wp->query_vars ) || (isset( $wp->query_vars[ 'pagename' ] ) && preg_match( '/' . tc_get_payment_page_slug() . '/', $wp->query_vars[ 'pagename' ], $matches, PREG_OFFSET_CAPTURE, 3 )) || (isset( $wp->query_vars[ 'pagename' ] ) && $wp->query_vars[ 'pagename' ] == tc_get_payment_page_slug())) ) {
 				return true;
 			} else {
 				return false;
@@ -221,7 +221,37 @@ if ( !class_exists( 'TC_Gateway_API' ) ) {
 
 		function _generate_ipn_url() {
 			global $tc;
-			$this->ipn_url = home_url( trailingslashit( $tc->get_payment_gateway_return_slug() ) . $this->plugin_name );
+			if ( empty( $GLOBALS[ 'wp_rewrite' ] ) ) {
+				$GLOBALS[ 'wp_rewrite' ] = new WP_Rewrite();
+			}
+			$this->ipn_url = trailingslashit( $tc->get_payment_gateway_return_slug( true ) ) . '?payment_gateway_return=' . $this->plugin_name;
+		}
+
+		function _generate_cancel_url() {
+			global $tc;
+			if ( empty( $GLOBALS[ 'wp_rewrite' ] ) ) {
+				$GLOBALS[ 'wp_rewrite' ] = new WP_Rewrite();
+			}
+
+			if ( $tc->active_payment_gateways() == 1 && $this->skip_payment_screen == true ) {
+				$this->cancel_url = $tc->get_cart_slug( true ) . '?' . $this->plugin_name . '_cancel'; //$tc->get_cart_slug( true ) . '?' . $this->plugin_name . '_cancel';
+			} else {
+				$this->cancel_url = $tc->get_payment_slug( true ) . '?' . $this->plugin_name . '_cancel';
+			}
+			$this->cancel_slug = $this->plugin_name . '_cancel';
+		}
+
+		function _generate_failed_url() {
+			global $tc;
+			if ( empty( $GLOBALS[ 'wp_rewrite' ] ) ) {
+				$GLOBALS[ 'wp_rewrite' ] = new WP_Rewrite();
+			}
+			if ( $tc->active_payment_gateways() == 1 && $this->skip_payment_screen == true ) {
+				$this->failed_url = $tc->get_cart_slug( true ) . '?' . $this->plugin_name . '_failed';
+			} else {
+				$this->failed_url = $tc->get_payment_slug( true ) . '?' . $this->plugin_name . '_failed';
+			}
+			$this->failed_slug = $this->plugin_name . '_failed';
 		}
 
 		function _checkout_confirmation_hook() {
@@ -240,9 +270,22 @@ if ( !class_exists( 'TC_Gateway_API' ) ) {
 			}
 		}
 
+		function show_cart_errors() {
+			if ( isset( $_GET[ $this->cancel_slug ] ) || isset( $_GET[ $this->failed_slug ] ) ) {
+				add_filter( 'tc_cart_errors', array( &$this, 'cart_error_content' ) );
+			}
+		}
+
+		function cart_error_content( $content ) {
+			$content = __( 'Your transaction has been canceled.', 'tc' );
+			return $content;
+		}
+
 		function __construct() {
 
 			$this->_generate_ipn_url();
+			$this->_generate_cancel_url();
+			$this->_generate_failed_url();
 
 			$this->on_creation();
 			$this->init();
@@ -261,6 +304,7 @@ if ( !class_exists( 'TC_Gateway_API' ) ) {
 			add_filter( 'tc_checkout_payment_confirmation_' . $this->plugin_name, array( &$this, 'order_confirmation_message' ), 10, 2 );
 
 			add_action( 'template_redirect', array( &$this, 'force_ssl' ) );
+			add_action( 'init', array( &$this, 'show_cart_errors' ) );
 		}
 
 	}

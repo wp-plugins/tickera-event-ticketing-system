@@ -20,6 +20,13 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 			$this->__construct();
 		}
 
+		public static function max_discount( $value, $total ) {
+			if ( $value > $total ) {
+				$value = $total;
+			}
+			return $value;
+		}
+
 		function get_discount_total_by_order( $order_id ) {
 			global $tc;
 
@@ -69,7 +76,6 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 //$max_discount = ($ordered_count >= $discount_codes_available ? $discount_codes_available : $ordered_count);
 								}
 
-
 								$i = 1;
 							}
 						} else {
@@ -109,9 +115,9 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 				}
 			}
 
-			$new_total = $total_cart - $discount_value;
+			$new_total = $total_cart - $this->max_discount( $discount_value, $total_cart );
 
-			return $discount_value;
+			return TC_Discounts::max_discount($discount_value, $total_cart);
 		}
 
 		function discount_used_times( $discount_code ) {
@@ -254,9 +260,11 @@ if ( !class_exists( 'TC_Discounts' ) ) {
 						session_start();
 					}
 
-					$_SESSION[ 'discount_value_total' ] = tc_minimum_total( $discount_value_total );
+					$total = $_SESSION[ 'tc_cart_subtotal' ];
+					
+					$_SESSION[ 'discount_value_total' ] = TC_Discounts::max_discount( tc_minimum_total( $discount_value_total ), $total );
 
-					return $discount_value_total;
+					return TC_Discounts::max_discount( $discount_value_total, $total );
 				}
 
 			}

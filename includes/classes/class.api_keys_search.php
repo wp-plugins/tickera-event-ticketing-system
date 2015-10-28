@@ -10,14 +10,14 @@ if ( !class_exists( 'TC_API_Keys_Search' ) ) {
 		var $per_page	 = 10;
 		var $args		 = array();
 		var $post_type	 = 'tc_api_keys';
-		var $page_name	 = 'tc_api_keys';
+		var $page_name	 = 'api';
 		var $items_title	 = 'API Keys';
 
 		function __construct( $search_term = '', $page_num = '', $valid_for_event_id = false ) {
 			global $tc;
 
 			//$this->per_page		 = empty($per_page) ? tc_global_admin_per_page( $this->per_page ) : $per_page;
-			$this->page_name	 = $tc->name . '_api_keys';
+			//$this->page_name	 = $tc->name . '_api_keys';
 			$this->search_term	 = $search_term;
 			$this->raw_page		 = ( '' == $page_num ) ? false : (int) $page_num;
 			$this->page_num		 = (int) ( '' == $page_num ) ? 1 : $page_num;
@@ -79,9 +79,9 @@ if ( !class_exists( 'TC_API_Keys_Search' ) ) {
 			$pagination->limit( $this->per_page );
 			$pagination->parameterName	 = 'page_num';
 			if ( $this->search_term != '' ) {
-				$pagination->target( "admin.php?page=" . $this->page_name . "&s=" . $this->search_term );
+				$pagination->target( "admin.php?page=tc_settings&tab=" . $this->page_name . "&s=" . $this->search_term );
 			} else {
-				$pagination->target( "admin.php?page=" . $this->page_name );
+				$pagination->target( "admin.php?page=tc_settings&tab=" . $this->page_name );
 			}
 			$pagination->currentPage( $this->page_num );
 			$pagination->nextIcon( '&#9658;' );

@@ -5,7 +5,7 @@
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.2.0.1
+  Version: 3.2.0.2
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.2.0.1';
+		var $version			 = '3.2.0.2';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -39,7 +39,7 @@ if ( !class_exists( 'TC' ) ) {
 //load checkin api class
 			require_once( $this->plugin_dir . 'includes/classes/class.checkin_api.php' );
 
-			//load sales api class
+//load sales api class
 			require_once( $this->plugin_dir . 'includes/classes/class.sales_api.php' );
 
 //load event class
@@ -51,7 +51,7 @@ if ( !class_exists( 'TC' ) ) {
 //load events class
 			require_once( $this->plugin_dir . 'includes/classes/class.events.php' );
 
-			//load general functions
+//load general functions
 			require_once( $this->plugin_dir . 'includes/general-functions.php' );
 
 //load events search class
@@ -151,7 +151,7 @@ if ( !class_exists( 'TC' ) ) {
 //Add plugin admin menu
 			add_action( 'admin_menu', array( &$this, 'add_admin_menu' ) );
 
-			//Add plugin newtork admin menu
+//Add plugin newtork admin menu
 			add_action( 'network_admin_menu', array( &$this, 'add_network_admin_menu' ) );
 
 //Add plugin Settings link
@@ -279,15 +279,15 @@ if ( !class_exists( 'TC' ) ) {
 		 * Install actions such as installing pages when a button is clicked.
 		 */
 		function install_actions() {
-			// Install - Add pages button
+// Install - Add pages button
 			if ( !empty( $_GET[ 'install_tickera_pages' ] ) ) {
 
 				self::create_pages();
 
-				// We no longer need to install pages
+// We no longer need to install pages
 				update_option( 'tc_needs_pages', 0 );
 
-				// Settings redirect
+// Settings redirect
 				wp_redirect( admin_url( 'admin.php?page=tc_settings' ) );
 				exit;
 			}
@@ -320,6 +320,11 @@ if ( !class_exists( 'TC' ) ) {
 					'title'		 => _x( 'Process Payment', 'Page title', 'tc' ),
 					'content'	 => '[' . apply_filters( 'tc_process_payment_shortcode_tag', 'tc_process_payment' ) . ']'
 				),
+				'ipn'				 => array(
+					'name'		 => _x( 'tickets-ipn-payment', 'Page slug', 'tc' ),
+					'title'		 => _x( 'IPN', 'Page title', 'tc' ),
+					'content'	 => '[' . apply_filters( 'tc_ipn_shortcode_tag', 'tc_ipn' ) . ']'
+				),
 			) );
 
 			foreach ( $pages as $key => $page ) {
@@ -337,7 +342,7 @@ if ( !class_exists( 'TC' ) ) {
 
 		function install_notice() {
 			global $tc;
-			// If we have just installed, show a message with the install pages button
+// If we have just installed, show a message with the install pages button
 			if ( get_option( 'tc_needs_pages', 1 ) == 1 ) {
 				include( 'includes/install-notice.php' );
 			}
@@ -834,6 +839,11 @@ if ( !class_exists( 'TC' ) ) {
 			}
 		}
 
+		function active_payment_gateways() {
+			global $tc, $tc_gateway_active_plugins, $tc_gateway_plugins;
+			return count( $tc_gateway_active_plugins );
+		}
+
 		function tc_checkout_payment_form( $content, $cart ) {
 			global $tc, $tc_gateway_active_plugins, $tc_gateway_plugins;
 			$settings = get_option( 'tc_settings' );
@@ -854,6 +864,7 @@ if ( !class_exists( 'TC' ) ) {
 			$skip_payment_screen = false;
 
 			foreach ( (array) $tc_gateway_plugins as $code => $plugin ) {
+
 				if ( $this->gateway_is_network_allowed( $code ) ) {
 					if ( $cart_total == 0 ) {
 						$gateway = new $plugin;
@@ -882,7 +893,6 @@ if ( !class_exists( 'TC' ) ) {
 						} else {
 							$tickera_max_height = '';
 						}
-
 
 						$skip_payment_screen = $gateway->skip_payment_screen;
 						$content .= '<div class="tickera tickera-payment-gateways">'
@@ -995,7 +1005,7 @@ if ( !class_exists( 'TC' ) ) {
 
 				$settings = get_option( 'tc_settings' );
 
-				// Redirect to https if force SSL is choosen
+// Redirect to https if force SSL is choosen
 				$gateway_force_ssl = false;
 
 				foreach ( (array) $tc_gateway_plugins as $code => $plugin ) {
@@ -1136,7 +1146,7 @@ if ( !class_exists( 'TC' ) ) {
 			$new_rules[ '^' . $this->get_payment_gateway_return_slug() . '/(.+)' ] = 'index.php?page_id=-1&payment_gateway_return=$matches[1]';
 
 			if ( !$this->cart_has_custom_url() ) {
-				//$new_rules[ '^' . $this->get_cart_slug() ] = 'index.php?page_id=-1&page_cart';
+//$new_rules[ '^' . $this->get_cart_slug() ] = 'index.php?page_id=-1&page_cart';
 			}
 
 			if ( !$this->get_payment_page() ) {
@@ -1368,7 +1378,7 @@ if ( !class_exists( 'TC' ) ) {
 						$discount->discounted_cart_total();
 
 						if ( empty( $cart ) ) {
-							$this->remove_order_session_data();
+							$this->remove_order_session_data( false );
 						}
 					}
 
@@ -1400,10 +1410,10 @@ if ( !class_exists( 'TC' ) ) {
 													$required_fields_error_count++;
 												}
 											} else {
-												//var_dump($_POST[ $key ]);
-												//var_dump($val);
+//var_dump($_POST[ $key ]);
+//var_dump($val);
 												foreach ( $val as $val_str ) {
-													//echo 'val:'.$val_str.'<br />';
+//echo 'val:'.$val_str.'<br />';
 													if ( trim( $val_str ) == '' ) {
 														$required_fields_error_count++;
 													}
@@ -1466,7 +1476,7 @@ if ( !class_exists( 'TC' ) ) {
 			$skip_confirmation_screen	 = isset( $settings[ 'gateways' ][ $gateway_class->plugin_name ][ 'skip_confirmation_page' ] ) ? $settings[ 'gateways' ][ $gateway_class->plugin_name ][ 'skip_confirmation_page' ] : 'no';
 
 			if ( $skip_confirmation_screen == 'yes' ) {
-				//Fallback to JS redirection if headers are already sent
+//Fallback to JS redirection if headers are already sent
 				?>
 				<script type="text/javascript">
 					jQuery( document ).ready( function( $ ) {
@@ -1625,7 +1635,7 @@ if ( !class_exists( 'TC' ) ) {
 				'settings'			 => 'Settings',
 			);
 
-			apply_filters( 'tc_plugin_admin_menu_items', $plugin_admin_menu_items );
+			$plugin_admin_menu_items = apply_filters( 'tc_plugin_admin_menu_items', $plugin_admin_menu_items );
 
 // Add the sub menu items
 			$number_of_sub_menu_items	 = 0;
@@ -1634,19 +1644,21 @@ if ( !class_exists( 'TC' ) ) {
 			foreach ( $plugin_admin_menu_items as $handler => $value ) {
 				if ( $number_of_sub_menu_items == 0 ) {
 
-					$first_tc_menu_handler = $this->name . '_' . $handler;
+					$first_tc_menu_handler = apply_filters( 'first_tc_menu_handler', $this->name . '_' . $handler );
 
 					eval( "function " . $this->name . "_" . $handler . "_admin() {require_once( '" . $this->plugin_dir . "includes/admin-pages/" . $handler . ".php');}" );
 
-					add_menu_page( $this->name, $this->title, 'manage_' . $handler . '_cap', $this->name . '_' . $handler, $this->name . '_' . $handler . '_admin' ); //, $this->plugin_url . 'images/plugin-admin-icon.png'
+					if ( apply_filters( 'tc_add_admin_menu_page', true ) == true ) {
+						add_menu_page( $this->name, $this->title, 'manage_' . $handler . '_cap', $this->name . '_' . $handler, $this->name . '_' . $handler . '_admin' ); //, $this->plugin_url . 'images/plugin-admin-icon.png'
+					}
 					do_action( $this->name . '_add_menu_items_up' );
 
-					add_submenu_page( $this->name . '_' . $handler, __( $value, 'tc' ), __( $value, 'tc' ), 'manage_' . $handler . '_cap', $this->name . '_' . $handler, $this->name . '_' . $handler . '_admin' );
+					add_submenu_page( $this->name . '_' . $handler, $value, $value, 'manage_' . $handler . '_cap', $this->name . '_' . $handler, $this->name . '_' . $handler . '_admin' );
 					do_action( $this->name . '_add_menu_items_after_' . $handler );
 				} else {
 					eval( "function " . $this->name . "_" . $handler . "_admin() {require_once( '" . $this->plugin_dir . "includes/admin-pages/" . $handler . ".php');}" );
 
-					add_submenu_page( $first_tc_menu_handler, __( $value, 'tc' ), __( $value, 'tc' ), 'manage_' . $handler . '_cap', $this->name . '_' . $handler, $this->name . '_' . $handler . '_admin' );
+					add_submenu_page( $first_tc_menu_handler, $value, $value, 'manage_' . $handler . '_cap', $this->name . '_' . $handler, $this->name . '_' . $handler . '_admin' );
 					do_action( $this->name . '_add_menu_items_after_' . $handler );
 				}
 
@@ -1711,7 +1723,7 @@ if ( !class_exists( 'TC' ) ) {
 			if ( $this->location == 'mu-plugins' ) {
 				load_muplugin_textdomain( 'tc', 'languages/' );
 			} else if ( $this->location == 'subfolder-plugins' ) {
-				//load_plugin_textdomain( 'tc', false, $this->plugin_dir . '/languages/' );
+//load_plugin_textdomain( 'tc', false, $this->plugin_dir . '/languages/' );
 				load_plugin_textdomain( 'tc', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 			} else if ( $this->location == 'plugins' ) {
 				load_plugin_textdomain( 'tc', false, 'languages/' );
@@ -1775,6 +1787,15 @@ if ( !class_exists( 'TC' ) ) {
 			}
 		}
 
+		function gateways_require_53php() {
+			$gateways = apply_filters( 'tc_gateways_require_53php', array(
+				'beanstream.php',
+				'netbanx.php'
+			) );
+
+			return $gateways;
+		}
+
 		function load_payment_gateway_addons() {
 			global $tc_gateways_currencies;
 
@@ -1805,6 +1826,11 @@ if ( !class_exists( 'TC' ) ) {
 			if ( !$dh		 = opendir( $dir ) )
 				return;
 			while ( ( $plugin	 = readdir( $dh ) ) !== false ) {
+				if ( version_compare( phpversion(), '5.3', '<' ) ) {
+					if ( in_array( $plugin, $this->gateways_require_53php() ) ) {
+						$plugin = str_replace( '.php', '.53', $plugin );
+					}
+				}
 				if ( substr( $plugin, -4 ) == '.php' ) {
 					$gateway_plugins[]			 = trailingslashit( $dir ) . $plugin;
 					$gateway_plugins_originals[] = $plugin;
@@ -1898,11 +1924,12 @@ if ( !class_exists( 'TC' ) ) {
 		}
 
 		function handle_gateway_returns( $wp_query ) {
+
 			global $wp;
 			if ( is_admin() )
 				return;
 
-			//listen for gateway IPN returns and tie them in to proper gateway plugin
+//listen for gateway IPN returns and tie them in to proper gateway plugin
 			if ( !empty( $wp_query->query_vars[ 'payment_gateway_return' ] ) ) {
 				$vars		 = array();
 				$theme_file	 = locate_template( array( 'page-ipn.php' ) );
@@ -1924,8 +1951,17 @@ if ( !class_exists( 'TC' ) ) {
 
 					$page = new Virtual_Page( $args );
 				}
+			}
 
-				do_action( 'tc_handle_payment_return_' . $wp_query->query_vars[ 'payment_gateway_return' ] );
+			if ( isset( $wp_query->query_vars[ 'payment_gateway_return' ] ) && isset( $_GET[ 'payment_gateway_return' ] ) ) {
+				if ( isset( $wp_query->query_vars[ 'payment_gateway_return' ] ) ) {
+					$payment_gateway = $wp_query->query_vars[ 'payment_gateway_return' ];
+				}
+				if ( isset( $_GET[ 'payment_gateway_return' ] ) ) {
+					$payment_gateway = $_GET[ 'payment_gateway_return' ];
+				}
+
+				do_action( 'tc_handle_payment_return_' . $payment_gateway );
 			}
 		}
 
@@ -1934,9 +1970,9 @@ if ( !class_exists( 'TC' ) ) {
 			return $order->post_status;
 		}
 
-		//called by payment gateways to update order statuses
+//called by payment gateways to update order statuses
 		function update_order_payment_status( $order_id, $paid ) {
-			//get the order
+//get the order
 
 			$order = $this->get_order( $order_id );
 			if ( !$order ) {
@@ -1958,7 +1994,7 @@ if ( !class_exists( 'TC' ) ) {
 			}
 		}
 
-		//returns the full order details as an object
+//returns the full order details as an object
 		function get_order( $order_id ) {
 			$id = (is_int( $order_id )) ? $order_id : $this->order_to_post_id( $order_id );
 
@@ -1989,7 +2025,7 @@ if ( !class_exists( 'TC' ) ) {
 			return $ticket_count_global;
 		}
 
-		//returns all event ids based on the cart contents
+//returns all event ids based on the cart contents
 		function get_cart_events( $cart_contents ) {
 			$event_ids = array();
 			foreach ( $cart_contents as $ticket_type => $ordered_count ) {
@@ -2012,7 +2048,7 @@ if ( !class_exists( 'TC' ) ) {
 			}
 		}
 
-		//called on checkout to create a new order
+//called on checkout to create a new order
 		function create_order( $order_id, $cart_contents, $cart_info, $payment_info, $paid ) {
 			global $wpdb;
 
@@ -2041,7 +2077,7 @@ if ( !class_exists( 'TC' ) ) {
 
 			$user_id = get_current_user_id();
 
-			//insert post type
+//insert post type
 			$status = ($paid ? ($fraud ? 'order_fraud' : 'order_paid') : 'order_received');
 
 			$order					 = array();
@@ -2059,30 +2095,30 @@ if ( !class_exists( 'TC' ) ) {
 
 			/* add post meta */
 
-			//Cart Contents
+//Cart Contents
 			add_post_meta( $post_id, 'tc_cart_contents', $cart_contents );
 
-			//Cart Info
+//Cart Info
 			add_post_meta( $post_id, 'tc_cart_info', $cart_info ); //save row data - buyer and ticket owners data, gateway, total, currency, coupon code, etc.
-			//Payment Info
+//Payment Info
 			add_post_meta( $post_id, 'tc_payment_info', $payment_info ); //transaction_id, total, currency, method
-			//Order Date & Time
+//Order Date & Time
 			add_post_meta( $post_id, 'tc_order_date', time() );
 
-			//Discount code
+//Discount code
 			if ( isset( $_SESSION[ 'tc_discount_code' ] ) ) {
 				add_post_meta( $post_id, 'tc_discount_code', $_SESSION[ 'tc_discount_code' ] );
 			}
 
-			//Order Paid Time
+//Order Paid Time
 			add_post_meta( $post_id, 'tc_paid_date', ($paid) ? time() : ''  ); //empty means not yet paid
-			//Event(s) - could be more events at once since customer may have tickets from more than one event in the cart
+//Event(s) - could be more events at once since customer may have tickets from more than one event in the cart
 			add_post_meta( $post_id, 'tc_parent_event', $this->get_cart_events( $cart_contents ) );
 
-			//Discount Code
+//Discount Code
 			add_post_meta( $post_id, 'tc_paid_date', ($paid) ? time() : ''  );
 
-			//Save Ticket Owner(s) data
+//Save Ticket Owner(s) data
 			$owner_data		 = $_SESSION[ 'cart_info' ][ 'owner_data' ];
 			$owner_records	 = array();
 
@@ -2165,7 +2201,7 @@ if ( !class_exists( 'TC' ) ) {
 				update_post_meta( $owner_record_id, $meta_name, $mata_value );
 			}
 
-			//Send order status email to the customer
+//Send order status email to the customer
 
 			$payment_class_name = $_SESSION[ 'cart_info' ][ 'gateway_class' ];
 
@@ -2225,10 +2261,10 @@ if ( !class_exists( 'TC' ) ) {
 				$order = get_post( $order_id );
 
 				if ( $post_status == 'order_paid' ) {
-					//echo 'calling function to send an notification email for order:'.$order->post_name;
+//echo 'calling function to send an notification email for order:'.$order->post_name;
 					tc_order_created_email( $order->post_name, $post_status, false, false, false, false );
 				} else {
-					//echo 'post status is not order_paid';
+//echo 'post status is not order_paid';
 				}
 
 				$order = new TC_Order( $order_id );
@@ -2250,16 +2286,16 @@ if ( !class_exists( 'TC' ) ) {
 			}
 		}
 
-		//saves cart info array to cookie
+//saves cart info array to cookie
 		function set_order_cookie( $order ) {
 			$cookie_id = 'tc_order_' . COOKIEHASH;
 
 			unset( $_COOKIE[ $cookie_id ] );
-			setcookie( $cookie_id, null, -1, '/' );
+			@setcookie( $cookie_id, null, -1, '/' );
 
 //set cookie
 			$expire = time() + apply_filters( 'tc_cart_cookie_expiration', 172800 ); //72 hrs expire by default
-			setcookie( $cookie_id, $order, $expire, COOKIEPATH, COOKIE_DOMAIN );
+			@setcookie( $cookie_id, $order, $expire, COOKIEPATH, COOKIE_DOMAIN );
 
 			$_COOKIE[ $cookie_id ] = $order;
 		}
@@ -2284,17 +2320,17 @@ if ( !class_exists( 'TC' ) ) {
 			ob_end_flush();
 		}
 
-		//saves cart info array to cookie
+//saves cart info array to cookie
 		function set_cart_info_cookie( $cart_info ) {
 			ob_start();
 			$cookie_id = 'cart_info_' . COOKIEHASH;
 
 			unset( $_COOKIE[ $cookie_id ] );
-			setcookie( $cookie_id, null, -1, '/' );
+			@setcookie( $cookie_id, null, -1, '/' );
 
 //set cookie
 			$expire = time() + apply_filters( 'tc_cart_cookie_expiration', 172800 ); //72 hrs expire by default
-			setcookie( $cookie_id, serialize( $cart_info ), $expire, COOKIEPATH, COOKIE_DOMAIN );
+			@setcookie( $cookie_id, serialize( $cart_info ), $expire, COOKIEPATH, COOKIE_DOMAIN );
 
 			$_COOKIE[ $cookie_id ] = serialize( $cart_info );
 			ob_end_flush();
@@ -2343,7 +2379,7 @@ if ( !class_exists( 'TC' ) ) {
 			ob_end_flush();
 		}
 
-		function remove_order_session_data() {
+		function remove_order_session_data( $js_fallback = true ) {
 			ob_start();
 			unset( $_SESSION[ 'tc_discount_code' ] );
 			unset( $_SESSION[ 'discounted_total' ] );
@@ -2363,15 +2399,17 @@ if ( !class_exists( 'TC' ) ) {
 			@setcookie( 'cart_info_' . COOKIEHASH, null, time() - 1, COOKIEPATH, COOKIE_DOMAIN );
 			@setcookie( 'tc_order_' . COOKIEHASH, null, time() - 1, COOKIEPATH, COOKIE_DOMAIN );
 			ob_end_flush();
-			?>
-			<script type="text/javascript">
-				jQuery( document ).ready( function( $ ) {
-					$.post( tc_ajax.ajaxUrl, { action: "tc_remove_order_session_data" }, function( data ) {
-						console.log( data );
+			if ( $js_fallback ) {
+				?>
+				<script type="text/javascript">
+					jQuery( document ).ready( function( $ ) {
+						$.post( tc_ajax.ajaxUrl, { action: "tc_remove_order_session_data" }, function( data ) {
+							console.log( data );
+						} );
 					} );
-				} );
-			</script>
-			<?php
+				</script>
+				<?php
+			}
 		}
 
 		function update_order_status( $order_id, $new_status ) {
@@ -2452,6 +2490,21 @@ if ( !class_exists( 'TC' ) ) {
 			if ( $page ) {
 				if ( $url ) {
 					return get_permalink( $page );
+				} else {
+					return $page;
+				}
+			} else {
+				return false;
+			}
+		}
+
+		function get_ipn_page( $url = false ) {
+			global $wp_rewrite;
+			$page = get_option( 'tc_ipn_page_id', false );
+
+			if ( $page ) {
+				if ( $url && isset( $wp_rewrite ) ) {
+					return get_permalink( (int) $page );
 				} else {
 					return $page;
 				}
@@ -2573,13 +2626,23 @@ if ( !class_exists( 'TC' ) ) {
 			return $default_slug_value;
 		}
 
-		function get_payment_gateway_return_slug() {
+		function get_payment_gateway_return_slug( $url = false ) {
 			$tc_general_settings = get_option( 'tc_general_setting', false );
 			if ( isset( $tc_general_settings[ 'ticket_payment_gateway_return_slug' ] ) ) {
 				$default_slug_value = $tc_general_settings[ 'ticket_payment_gateway_return_slug' ];
 			} else {
 				$default_slug_value = 'payment-gateway-ipn';
 			}
+
+			if ( $url ) {
+				$tc_ipn_use_virtual = isset( $tc_general_settings[ 'tc_ipn_use_virtual' ] ) ? $tc_general_settings[ 'tc_ipn_use_virtual' ] : 'no';
+				if ( $this->get_ipn_page() && $tc_ipn_use_virtual == 'no' ) {
+					return trailingslashit( $this->get_ipn_page( true ) );
+				} else {
+					return trailingslashit( home_url() ) . get_option( 'ticket_payment_gateway_return_slug', $default_slug_value );
+				}
+			}
+
 			return $default_slug_value;
 		}
 
@@ -2606,7 +2669,7 @@ if ( !class_exists( 'TC' ) ) {
 				'query_var'			 => true,
 			);
 
-			register_post_type( 'tc_events', $args );
+			register_post_type( 'tc_events', apply_filters( 'tc_events_post_type_args', $args ) );
 
 			$args = array(
 				'labels'			 => array( 'name'				 => __( 'API Keys', 'tc' ),

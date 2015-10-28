@@ -19,7 +19,7 @@ if ( !class_exists( 'TC_Events' ) ) {
 			$this->__construct();
 		}
 
-		function get_event_fields() {
+		public static function get_event_fields() {
 
 			$default_fields = array(
 				array(
@@ -28,7 +28,8 @@ if ( !class_exists( 'TC_Events' ) ) {
 					'field_type'		 => 'text',
 					'field_description'	 => '',
 					'table_visibility'	 => true,
-					'post_field_type'	 => 'post_title'
+					'post_field_type'	 => 'post_title',
+					'show_in_post_type'	 => false
 				),
 				array(
 					'field_name'		 => 'event_location',
@@ -36,7 +37,8 @@ if ( !class_exists( 'TC_Events' ) ) {
 					'field_type'		 => 'text',
 					'field_description'	 => __( 'Example: Grosvenor Square, Mayfair, London', 'tc' ),
 					'table_visibility'	 => true,
-					'post_field_type'	 => 'post_meta'
+					'post_field_type'	 => 'post_meta',
+					'show_in_post_type'	 => true
 				),
 				array(
 					'field_name'		 => 'event_date_time',
@@ -44,7 +46,9 @@ if ( !class_exists( 'TC_Events' ) ) {
 					'field_type'		 => 'text',
 					'field_description'	 => __( 'Example: 2016-09-20 17:30 (it will be displayed in format as per WordPress settings)', 'tc' ),
 					'table_visibility'	 => true,
-					'post_field_type'	 => 'post_meta'
+					'post_field_type'	 => 'post_meta',
+					'show_in_post_type'	 => true,
+					'post_type_position' => 'publish_box'
 				),
 				array(
 					'field_name'		 => 'event_end_date_time',
@@ -52,7 +56,9 @@ if ( !class_exists( 'TC_Events' ) ) {
 					'field_type'		 => 'text',
 					'field_description'	 => __( 'Optional', 'tc' ),
 					'table_visibility'	 => true,
-					'post_field_type'	 => 'post_meta'
+					'post_field_type'	 => 'post_meta',
+					'show_in_post_type'	 => true,
+					'post_type_position' => 'publish_box'
 				),
 				array(
 					'field_name'		 => 'event_terms',
@@ -60,7 +66,8 @@ if ( !class_exists( 'TC_Events' ) ) {
 					'field_type'		 => 'textarea_editor',
 					'field_description'	 => '',
 					'table_visibility'	 => false,
-					'post_field_type'	 => 'post_meta'
+					'post_field_type'	 => 'post_meta',
+					'show_in_post_type'	 => true
 				),
 				array(
 					'field_name'		 => 'event_logo',
@@ -68,7 +75,8 @@ if ( !class_exists( 'TC_Events' ) ) {
 					'field_type'		 => 'image',
 					'field_description'	 => __( '300 DPI recommended', 'tc' ),
 					'table_visibility'	 => false,
-					'post_field_type'	 => 'post_meta'
+					'post_field_type'	 => 'post_meta',
+					'show_in_post_type'	 => true
 				),
 				array(
 					'field_name'		 => 'sponsors_logo',
@@ -76,7 +84,8 @@ if ( !class_exists( 'TC_Events' ) ) {
 					'field_type'		 => 'image',
 					'field_description'	 => __( '300 DPI recommended', 'tc' ),
 					'table_visibility'	 => false,
-					'post_field_type'	 => 'post_meta'
+					'post_field_type'	 => 'post_meta',
+					'show_in_post_type'	 => true
 				),
 			);
 

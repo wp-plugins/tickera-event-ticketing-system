@@ -73,13 +73,10 @@
 											<option value='msungstdlight'><?php _e( 'MSung Light (Traditional Chinese)', 'tc' ); ?></option>
 											<option value='pdfacourier'><?php _e( 'PDFA Courier', 'tc' ); ?></option>
 											<option value='pdfahelvetica'><?php _e( 'PDFA Helvetica', 'tc' ); ?></option>
-											<option value='pdfasymbol'><?php _e( 'PDFA Symbol', 'tc' ); ?></option>
 											<option value='pdfatimes'><?php _e( 'PDFA Times', 'tc' ); ?></option>
-											<option value='pdfazapfdingbats'><?php _e( 'PDFA Zapfdingbats', 'tc' ); ?></option>
 											<option value='stsongstdlight'><?php _e( 'STSong Light (Simplified Chinese)', 'tc' ); ?></option>
 											<option value='symbol'><?php _e( 'Symbol', 'tc' ); ?></option>
 											<option value='times'><?php _e( 'Times-Roman', 'tc' ); ?></option>
-											<option value='zapfdingbats'><?php _e( 'ZapfDingbats', 'tc' ); ?></option>
 										</select>
 									</label>
 								</td>

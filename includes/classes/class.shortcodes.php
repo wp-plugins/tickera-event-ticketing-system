@@ -12,6 +12,8 @@ class TC_Shortcodes extends TC {
 //register shortcodes
 		add_shortcode( 'tc_cart', array( &$this, 'tc_cart_page' ) );
 		add_shortcode( 'tc_process_payment', array( &$this, 'tc_process_payment_page' ) );
+		
+		add_shortcode( 'tc_ipn', array( &$this, 'tc_ipn_page' ) );
 
 		add_shortcode( 'tc_order_history', array( &$this, 'tc_order_history_page' ) );
 		add_shortcode( 'tc_payment', array( &$this, 'tc_payment_page' ) );
@@ -46,6 +48,8 @@ class TC_Shortcodes extends TC {
 			'soldout_message'	 => __( 'Tickets are sold out.', 'tc' ),
 			'quantity_title'	 => __( 'Qty.', 'tc' ),
 			'quantity'			 => false,
+                        'type'                           => 'cart',
+                        'title'					 => __( 'Add to Cart', 'tc' ),
 			'wrapper'			 => '' ), $atts ) );
 
 		$event			 = new TC_Event( $id );
@@ -81,7 +85,7 @@ class TC_Shortcodes extends TC {
 							<?php if ( $quantity ) { ?>
 								<td><?php tc_quantity_selector( $event_ticket->details->ID ); ?></td>
 							<?php } ?>
-							<td><?php echo do_shortcode( '[ticket id="' . $event_ticket->details->ID . '" soldout_message="' . $soldout_message . '"]' ); ?></td>
+							<td><?php echo do_shortcode( '[ticket id="' . $event_ticket->details->ID . '" type="' .$type. '" title="' .$title. '" soldout_message="' . $soldout_message . '"]' ); ?></td>
 						</tr>
 					<?php } ?>
 				</table>
@@ -206,6 +210,14 @@ class TC_Shortcodes extends TC {
 		global $tc;
 		ob_start();
 		include( $tc->plugin_dir . 'includes/templates/page-process-payment.php' );
+		$content = wpautop( ob_get_clean(), true );
+		return $content;
+	}
+	
+	function tc_ipn_page( $atts ) {
+		global $tc;
+		ob_start();
+		include( $tc->plugin_dir . 'includes/templates/page-ipn.php' );
 		$content = wpautop( ob_get_clean(), true );
 		return $content;
 	}
