@@ -48,7 +48,6 @@ jQuery( document ).ready( function( $ ) {
         jQuery( '#cart_action' ).val( 'apply_coupon' );//when user click on the proceed to checkout button
     } );
 
-
     jQuery( '.add_to_cart' ).on( 'click', function( event ) {
         event.preventDefault();
         var button_type = $( this ).attr( 'data-button-type' );
@@ -226,7 +225,7 @@ jQuery( document ).ready( function( $ ) {
             email: true,
         } );
     } );
-    
+
     $( '.tc_owner_email' ).each( function() {
         $( this ).rules( 'add', {
             email: true,

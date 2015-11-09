@@ -4,6 +4,8 @@ class tc_ticket_owner_name_element extends TC_Ticket_Template_Elements {
 
 	var $element_name	 = 'tc_ticket_owner_name_element';
 	var $element_title	 = 'Ticket Owner Name';
+        var $font_awesome_icon = '<i class="fa fa-users"></i>';
+
 
 	function on_creation() {
 		$this->element_title = apply_filters( 'tc_ticket_owner_name_element_title', __( 'Ticket Owner Name', 'tc' ) );

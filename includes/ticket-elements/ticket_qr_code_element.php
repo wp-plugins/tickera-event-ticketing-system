@@ -2,8 +2,9 @@
 
 class tc_ticket_qr_code_element extends TC_Ticket_Template_Elements {
 
-	var $element_name	 = 'tc_ticket_qr_code_element';
-	var $element_title	 = 'QR Code';
+	var $element_name		 = 'tc_ticket_qr_code_element';
+	var $element_title		 = 'QR Code';
+	var $font_awesome_icon	 = '<i class="fa fa-qrcode"></i>';
 
 	function on_creation() {
 		$this->element_title = apply_filters( 'tc_ticket_qr_code_element_title', __( 'QR Code', 'tc' ) );
@@ -38,8 +39,8 @@ class tc_ticket_qr_code_element extends TC_Ticket_Template_Elements {
 
 		$cell_alignment	 = $this->template_metas[ $this->element_name . '_cell_alignment' ];
 		$code_size		 = $this->template_metas[ $this->element_name . '_qr_code_size' ];
-                
-                if ( isset( $cell_alignment ) && $cell_alignment == 'right' ) {
+
+		if ( isset( $cell_alignment ) && $cell_alignment == 'right' ) {
 			$cell_alignment = 'R';
 		} elseif ( isset( $cell_alignment ) && $cell_alignment == 'left' ) {
 			$cell_alignment = 'L';

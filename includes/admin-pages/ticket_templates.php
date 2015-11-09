@@ -60,10 +60,10 @@ $fields				 = $templates->get_template_col_fields();
 $columns			 = $templates->get_columns();
 ?>
 <div class="wrap tc_wrap">
-	<h2><?php _e( 'Ticket Templates', 'tc' ); ?><?php if ( isset( $_GET[ 'action' ] ) && ($_GET[ 'action' ] == 'edit' || $_GET[ 'action' ] == 'add_new') ) { ?><a href="admin.php?page=<?php echo $_GET[ 'page' ]; ?>" class="add-new-h2"><?php _e( 'Back', 'tc' ); ?></a><?php
+	<h2><?php _e( 'Ticket Templates', 'tc' ); ?><?php if ( isset( $_GET[ 'action' ] ) && ($_GET[ 'action' ] == 'edit' || $_GET[ 'action' ] == 'add_new') ) { ?><a href="edit.php?post_type=tc_events&page=<?php echo $_GET[ 'page' ]; ?>" class="add-new-h2"><?php _e( 'Back', 'tc' ); ?></a><?php
 		} else {
 			if ( $an ) {
-				?><a href="admin.php?page=<?php echo $_GET[ 'page' ]; ?>&action=add_new" class="add-new-h2"><?php _e( 'Add New', 'tc' ); ?></a><?php
+				?><a href="edit.php?post_type=tc_events&page=<?php echo $_GET[ 'page' ]; ?>&action=add_new" class="add-new-h2"><?php _e( 'Add New', 'tc' ); ?></a><?php
 			}
 		}
 		?></h2>
@@ -79,9 +79,10 @@ $columns			 = $templates->get_columns();
 	<?php if ( !isset( $_GET[ 'action' ] ) || (isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'delete') || (isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'add_new' && isset( $_POST[ 'add_new_template' ] )) ) { ?>
 		<div class="tablenav">
 			<div class="alignright actions new-actions">
-				<form method="get" action="?page=<?php echo esc_attr( $page ); ?>" class="search-form">
+				<form method="get" action="edit.php?post_type=tc_events&page=<?php echo esc_attr( $page ); ?>" class="search-form">
 					<p class="search-box">
 						<input type='hidden' name='page' value='<?php echo esc_attr( $page ); ?>' />
+                                                <input type="hidden" name="post_type" value="tc_events" />
 						<label class="screen-reader-text"><?php _e( 'Search Templates', 'tc' ); ?>:</label>
 						<input type="text" value="<?php echo esc_attr( $templatessearch ); ?>" name="s">
 						<input type="submit" class="button" value="<?php _e( 'Search Templates', 'tc' ); ?>">
@@ -124,12 +125,12 @@ $columns			 = $templates->get_columns();
 							if ( $key == 'edit' ) {
 								?>
 								<td>                    
-									<a class="templates_edit_link" href="<?php echo admin_url( 'admin.php?page=' . $page . '&action=' . $key . '&ID=' . $template_object->ID, 'save_template' ); ?>"><?php _e( 'Edit', 'tc' ); ?></a>
+									<a class="templates_edit_link" href="<?php echo admin_url( 'edit.php?post_type=tc_events&page=' . $page . '&action=' . $key . '&ID=' . $template_object->ID, 'save_template' ); ?>"><?php _e( 'Edit', 'tc' ); ?></a>
 								</td>
 							<?php } elseif ( $key == 'delete' ) {
 								?>
 								<td>
-									<a class="templates_edit_link tc_delete_link" href="<?php echo wp_nonce_url( 'admin.php?page=' . $page . '&action=' . $key . '&ID=' . $template_object->ID, 'delete_' . $template_object->ID ); ?>"><?php _e( 'Delete', 'tc' ); ?></a>
+									<a class="templates_edit_link tc_delete_link" href="<?php echo wp_nonce_url( 'edit.php?post_type=tc_events&page=' . $page . '&action=' . $key . '&ID=' . $template_object->ID, 'delete_' . $template_object->ID ); ?>"><?php _e( 'Delete', 'tc' ); ?></a>
 								</td>
 								<?php
 							} else {
@@ -192,13 +193,26 @@ $columns			 = $templates->get_columns();
 					<ul class="sortables droptrue" id="ticket_elements">
 						<?php
 						foreach ( $tc_template_elements as $element ) {
-							$element_class = new $element[ 0 ];
-
+							$element_class = new $element[ 0 ];                                                        
 							if ( !in_array( $element[ 0 ], $template_elements_set ) ) {
 								?>
 								<li class="ui-state-default" data-class="<?php echo $element[ 0 ]; ?>">
-									<div class="element_title"><?php echo $element[ 1 ]; ?></div>
-									<div class="element_content">
+									
+                                                                    <div class="elements-wrap">
+                                                                        <div class="element_title"><?php echo $element[ 1 ]; ?><a class="close-this" href="#"><i class="fa fa-times"></i></a></div>
+                                                                        
+                                                        
+                                                                        <div class="element-icon">
+                                                                            <?php if(empty($element_class->font_awesome_icon)){ ?>
+                                                                                <i class="fa fa-plus-circle"></i>
+                                                                            <?php } else { ?>
+                                                                                <?php echo $element_class->font_awesome_icon; ?>
+                                                                            <?php } ?>
+                                                                        </div><!-- .element-icon -->
+                                                                    </div><!-- .elements-wrap -->
+                                                                        
+                                                                        
+									<div class="element_content">                                                                           
 										<?php echo $element_class->admin_content(); ?>
 									</div>
 								</li>
@@ -210,12 +224,12 @@ $columns			 = $templates->get_columns();
 
 					<br clear="all" />
 					<h4><?php _e( 'Ticket', 'tc' ); ?></h4>
-					<div class="rows">
+					<div class="rows ticket-elements-drop-area">
 						<?php for ( $i = 1; $i <= apply_filters( 'tc_ticket_template_row_number', 10 ); $i++ ) { ?>
 							<ul id="row_<?php echo $i; ?>" class="sortables droptrue"><span class="row_num_info"><?php _e( 'Row', 'tc' ); ?> <?php echo $i; ?></span><input type="hidden" class="rows_classes" name="rows_<?php echo $i; ?>_post_meta" value="" />
 								<?php
 								if ( isset( $post_id ) ) {
-									$rows_elements = get_post_meta( $post_id, 'rows_' . $i, true );
+									$rows_elements = get_post_meta( $post_id, 'rows_' . $i, true );                                                                        
 									if ( isset( $rows_elements ) && $rows_elements !== '' ) {
 										$element_class_names = explode( ',', $rows_elements );
 										foreach ( $element_class_names as $element_class_name ) {
@@ -227,7 +241,22 @@ $columns			 = $templates->get_columns();
 												}
 												?>
 												<li class="ui-state-default cols" data-class="<?php echo $element_class_name; ?>">
-													<div class="element_title"><?php echo $element->element_title; ?></div>
+												
+                                                                                                    
+                                                                                                        <div class="elements-wrap">
+                                                                                                            <div class="element_title"><?php echo $element->element_title; ?><a class="close-this" href="#"><i class="fa fa-times"></i></a></div>
+                                                                                                            
+
+
+                                                                                                            <div class="element-icon">
+                                                                                                                <?php if(empty($element->font_awesome_icon)){ ?>
+                                                                                                                    <i class="fa fa-plus-circle"></i>
+                                                                                                                <?php } else { ?>
+                                                                                                                    <?php echo $element->font_awesome_icon; ?>
+                                                                                                                <?php } ?>
+                                                                                                            </div><!-- .element-icon -->
+                                                                                                        </div><!-- .elements-wrap -->
+                                                                                                                                                                                                       
 													<div class="element_content"><?php $element->admin_content(); ?></div>
 												</li>
 												<?php
@@ -265,7 +294,7 @@ $columns			 = $templates->get_columns();
 						<p><?php _e( 'NOTE: After saving, you will have an option to see a preview of the ticket.', 'tc' ); ?></p>
 					<?php } else { ?>
 						<p><?php _e( 'NOTE: Save changes first, then check the preview.', 'tc' ); ?></p>
-						<a href="<?php echo admin_url( 'admin.php?page=' . $_GET[ 'page' ] . '&action=preview&ID=' . (int) $_GET[ 'ID' ] ); ?>" class="button button-secondary" target="_blank"><?php _e( 'Preview', 'tc' ); ?></a>
+						<a href="<?php echo admin_url( 'edit.php?post_type=tc_events&page=' . $_GET[ 'page' ] . '&action=preview&ID=' . (int) $_GET[ 'ID' ] ); ?>" class="button button-secondary" target="_blank"><?php _e( 'Preview', 'tc' ); ?></a>
 					<?php } ?>
 				</div>
 			</form>

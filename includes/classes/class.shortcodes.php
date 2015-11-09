@@ -11,8 +11,10 @@ class TC_Shortcodes extends TC {
 	function __construct() {
 //register shortcodes
 		add_shortcode( 'tc_cart', array( &$this, 'tc_cart_page' ) );
-		add_shortcode( 'tc_process_payment', array( &$this, 'tc_process_payment_page' ) );
+		add_shortcode( 'tc_additional_fields', array( &$this, 'tc_additional_fields' ) );
 		
+		add_shortcode( 'tc_process_payment', array( &$this, 'tc_process_payment_page' ) );
+
 		add_shortcode( 'tc_ipn', array( &$this, 'tc_ipn_page' ) );
 
 		add_shortcode( 'tc_order_history', array( &$this, 'tc_order_history_page' ) );
@@ -22,23 +24,26 @@ class TC_Shortcodes extends TC {
 
 		add_shortcode( 'ticket', array( &$this, 'ticket_cart_button' ) );
 		add_shortcode( 'tc_ticket', array( &$this, 'ticket_cart_button' ) );
-
 		add_shortcode( 'ticket_price', array( &$this, 'ticket_price' ) );
 		add_shortcode( 'tc_ticket_price', array( &$this, 'ticket_price' ) );
-
-		add_shortcode( 'event_tickets_sold', array( &$this, 'event_tickets_sold' ) );
-		add_shortcode( 'event_tickets_left', array( &$this, 'event_tickets_left' ) );
-
 		add_shortcode( 'tickets_sold', array( &$this, 'tickets_sold' ) );
 		add_shortcode( 'tickets_left', array( &$this, 'tickets_left' ) );
 
 		add_shortcode( 'event', array( &$this, 'event' ) );
 		add_shortcode( 'tc_event', array( &$this, 'event' ) );
+		add_shortcode( 'event_tickets_sold', array( &$this, 'event_tickets_sold' ) );
+		add_shortcode( 'event_tickets_left', array( &$this, 'event_tickets_left' ) );
+		add_shortcode( 'tc_event_date', array( &$this, 'event_date' ) );
+		add_shortcode( 'tc_event_location', array( &$this, 'event_location' ) );
+		add_shortcode( 'tc_event_terms', array( &$this, 'event_terms' ) );
+		add_shortcode( 'tc_event_sponsors_logo', array( &$this, 'event_sponsors_logo' ) );
+		add_shortcode( 'tc_event_logo', array( &$this, 'event_logo' ) );
 	}
 
 	function event( $atts ) {
 		ob_start();
-		global $tc;
+		global $tc, $post;
+
 		extract( shortcode_atts( array(
 			'id'				 => false,
 			'event_table_class'	 => 'event_tickets tickera',
@@ -48,9 +53,13 @@ class TC_Shortcodes extends TC {
 			'soldout_message'	 => __( 'Tickets are sold out.', 'tc' ),
 			'quantity_title'	 => __( 'Qty.', 'tc' ),
 			'quantity'			 => false,
-                        'type'                           => 'cart',
-                        'title'					 => __( 'Add to Cart', 'tc' ),
+			'type'				 => 'cart',
+			'title'				 => __( 'Add to Cart', 'tc' ),
 			'wrapper'			 => '' ), $atts ) );
+
+		if ( empty( $id ) || !$id ) {
+			$id = $post->ID;
+		}
 
 		$event			 = new TC_Event( $id );
 		$event_tickets	 = $event->get_event_ticket_types( 'publish' );
@@ -85,7 +94,7 @@ class TC_Shortcodes extends TC {
 							<?php if ( $quantity ) { ?>
 								<td><?php tc_quantity_selector( $event_ticket->details->ID ); ?></td>
 							<?php } ?>
-							<td><?php echo do_shortcode( '[ticket id="' . $event_ticket->details->ID . '" type="' .$type. '" title="' .$title. '" soldout_message="' . $soldout_message . '"]' ); ?></td>
+							<td><?php echo do_shortcode( '[ticket id="' . $event_ticket->details->ID . '" type="' . $type . '" title="' . $title . '" soldout_message="' . $soldout_message . '"]' ); ?></td>
 						</tr>
 					<?php } ?>
 				</table>
@@ -174,13 +183,112 @@ class TC_Shortcodes extends TC {
 		extract( shortcode_atts( array(
 			'event_id' => ''
 		), $atts ) );
+
+		if ( empty( $event_id ) ) {
+			$event_id = $post->ID;
+		}
 		return tc_get_event_tickets_count_sold( $event_id );
+	}
+
+	function event_date( $atts ) {
+		global $post;
+		extract( shortcode_atts( array(
+			'id' => ''
+		), $atts ) );
+
+		if ( empty( $id ) ) {
+			$id = $post->ID;
+		}
+
+		$event = new TC_Event( $id );
+
+		return $event->get_event_date();
+	}
+
+	function event_location( $atts ) {
+		global $post;
+		extract( shortcode_atts( array(
+			'id' => ''
+		), $atts ) );
+
+		if ( empty( $id ) ) {
+			$id = $post->ID;
+		}
+
+		$event = new TC_Event( $id );
+
+		return $event->details->event_location;
+	}
+
+	function event_terms( $atts ) {
+		global $post;
+		extract( shortcode_atts( array(
+			'id' => ''
+		), $atts ) );
+
+		if ( empty( $id ) ) {
+			$id = $post->ID;
+		}
+
+		$event = new TC_Event( $id );
+
+		return apply_filters( 'tc_shortcode_event_terms', wpautop( $event->details->event_terms ), $event->details->event_terms );
+	}
+
+	function event_sponsors_logo( $atts ) {
+		global $post;
+		extract( shortcode_atts( array(
+			'id'	 => '',
+			'class'	 => 'event_sponsors_logo',
+			'width'	 => 'auto',
+			'height' => 'auto'
+		), $atts ) );
+
+		if ( empty( $id ) ) {
+			$id = $post->ID;
+		}
+
+		$event	 = new TC_Event( $id );
+		$img_scr = $event->details->sponsors_logo_file_url;
+
+		if ( !empty( $img_scr ) ) {
+			return '<img src="' . esc_attr( $img_scr ) . '" width="' . esc_attr( $width ) . '" height="' . esc_attr( $height ) . '" class="' . esc_attr( $class ) . '" />';
+		} else {
+			return '';
+		}
+	}
+
+	function event_logo( $atts ) {
+		global $post;
+		extract( shortcode_atts( array(
+			'id'	 => '',
+			'class'	 => 'event_logo',
+			'width'	 => 'auto',
+			'height' => 'auto'
+		), $atts ) );
+
+		if ( empty( $id ) ) {
+			$id = $post->ID;
+		}
+
+		$event	 = new TC_Event( $id );
+		$img_scr = $event->details->event_logo_file_url;
+
+		if ( !empty( $img_scr ) ) {
+			return '<img src="' . esc_attr( $img_scr ) . '" width="' . esc_attr( $width ) . '" height="' . esc_attr( $height ) . '" class="' . esc_attr( $class ) . '" />';
+		} else {
+			return '';
+		}
 	}
 
 	function event_tickets_left( $atts ) {
 		extract( shortcode_atts( array(
 			'event_id' => ''
 		), $atts ) );
+
+		if ( empty( $event_id ) ) {
+			$event_id = $post->ID;
+		}
 		return tc_get_event_tickets_count_left( $event_id );
 	}
 
@@ -206,6 +314,14 @@ class TC_Shortcodes extends TC {
 		return $content;
 	}
 
+	function tc_additional_fields( $atts ) {
+		global $tc;
+		ob_start();
+		include( $tc->plugin_dir . 'includes/templates/shortcode-cart-additional-info-fields.php' );
+		$content = wpautop( ob_get_clean(), true );
+		return $content;
+	}
+
 	function tc_process_payment_page( $atts ) {
 		global $tc;
 		ob_start();
@@ -213,7 +329,7 @@ class TC_Shortcodes extends TC {
 		$content = wpautop( ob_get_clean(), true );
 		return $content;
 	}
-	
+
 	function tc_ipn_page( $atts ) {
 		global $tc;
 		ob_start();

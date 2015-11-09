@@ -21,8 +21,6 @@ if ( !class_exists( 'TC_Ticket_Templates' ) ) {
 
 			require_once($tc->plugin_dir . 'includes/tcpdf/examples/tcpdf_include.php');
 
-			//include_once( $tc->plugin_dir . 'includes/tcpdf/config/lang/eng.php' );
-			//require_once( $tc->plugin_dir . 'includes/tcpdf/tcpdf.php' );
 			$output_buffering = ini_get( 'output_buffering' );
 
 			ob_start();
@@ -34,26 +32,21 @@ if ( !class_exists( 'TC_Ticket_Templates' ) ) {
 			}
 			//use $template_id only if you preview the ticket
 
-			/* if (ini_get('output_buffering') == 0) {
-			  echo 'Output buffering is turned off on this server and that\'s the reason why PDF tickets cannot be generated.<br />';
-			  echo 'You can turn on the output buffering by adding this line to your .htaccess file: <br /><br />
-			  <strong>php_flag output_buffering on</strong><br /><br />';
-			  echo 'In case that above line does not work, try adding this one:<br /><br />
-			  <strong>php_value output_buffering 1</strong><br /><br />';
-			  exit;
-			  } */
-
-			//use $template_id only if you preview the ticket
-
 			if ( $ticket_instance_id ) {
 				$ticket_instance = new TC_Ticket( $ticket_instance_id );
 			}
-			//require_once($tc->plugin_dir . 'includes/tcpdf/examples/tcpdf_include.php');
 
 			if ( $template_id ) {
 				$post_id = $template_id;
 			} else {
-				$post_id = get_post_meta( $ticket_instance->details->ticket_type_id, 'ticket_template', true );
+
+				$ticket_template = get_post_meta( $ticket_instance->details->ticket_type_id, 'ticket_template', true );
+				
+				$ticket_template_alternative = get_post_meta( apply_filters( 'tc_ticket_type_id', $ticket_instance->details->ticket_type_id ), apply_filters( 'tc_ticket_template_field_name', '_ticket_template' ), true );
+
+				$ticket_template = !empty( $ticket_template ) ? $ticket_template : $ticket_template_alternative;
+
+				$post_id = $ticket_template;
 			}
 
 			if ( $post_id ) {//post id = template id
@@ -65,23 +58,58 @@ if ( !class_exists( 'TC_Ticket_Templates' ) ) {
 			$margin_right	 = $metas[ 'document_ticket_right_margin' ];
 			// create new PDF document
 
-
 			$pdf = new TCPDF( $metas[ 'document_ticket_orientation' ], PDF_UNIT, apply_filters( 'tc_additional_ticket_document_size_output', apply_filters( 'tc_document_paper_size', $metas[ "document_ticket_size" ] ) ), true, apply_filters( 'tc_ticket_document_encoding', get_bloginfo( 'charset' ) ), false );
 			$pdf->setPrintHeader( false );
 			$pdf->setPrintFooter( false );
+
 			$pdf->SetFont( $metas[ 'document_font' ], '', 14 );
 			// set margins
 			$pdf->SetMargins( $margin_left, $margin_top, $margin_right );
 			// set auto page breaks
 			$pdf->SetAutoPageBreak( false, PDF_MARGIN_BOTTOM );
+
+
+
+
+
 			// set font
 			//$pdf->SetFont($metas->document_font_post_meta, '', 20);
 			$pdf->AddPage();
-			//error_reporting(0); //Don't show errors in the PDF 
+			error_reporting( 1 ); //Don't show errors in the PDF 
 
 			if ( isset( $metas[ 'document_ticket_background_image' ] ) && $metas[ 'document_ticket_background_image' ] !== '' ) {
-				$pdf->Image( $metas[ 'document_ticket_background_image' ], 0, 0, '', '', '', '', '', false, 300, '', false, false, 0 );
+				if ( $metas[ 'document_ticket_orientation' ] == 'P' ) {
+
+					if ( $metas[ 'document_ticket_size' ] == 'A4' ) {
+						$pdf->Image( $metas[ 'document_ticket_background_image' ], 0, 0, 210, 297, '', '', '', true, 300, '', false, false, 0, false );
+					} elseif ( $metas[ 'document_ticket_size' ] == 'A5' ) {
+						$pdf->Image( $metas[ 'document_ticket_background_image' ], 0, 0, 148, 210, '', '', '', true, 300, '', false, false, 0, false );
+					} elseif ( $metas[ 'document_ticket_size' ] == 'A6' ) {
+						$pdf->Image( $metas[ 'document_ticket_background_image' ], 0, 0, 105, 148, '', '', '', true, 300, '', false, false, 0, false );
+					} elseif ( $metas[ 'document_ticket_size' ] == 'A7' ) {
+						$pdf->Image( $metas[ 'document_ticket_background_image' ], 0, 0, 74, 105, '', '', '', true, 300, '', false, false, 0, false );
+					} elseif ( $metas[ 'document_ticket_size' ] == 'A8' ) {
+						$pdf->Image( $metas[ 'document_ticket_background_image' ], 0, 0, 52, 74, '', '', '', true, 300, '', false, false, 0, false );
+					} elseif ( ($metas[ 'document_ticket_size' ] == 'ANSI_A' ) ) {
+						$pdf->Image( $metas[ 'document_ticket_background_image' ], 0, 0, 216, 279, '', '', '', true, 300, '', false, false, 0, false );
+					}
+				} elseif ( $metas[ 'document_ticket_orientation' ] == 'L' ) {
+					if ( $metas[ 'document_ticket_size' ] == 'A4' ) {
+						$pdf->Image( $metas[ 'document_ticket_background_image' ], 0, 0, 297, 210, '', '', '', true, 300, '', false, false, 0, false );
+					} elseif ( $metas[ 'document_ticket_size' ] == 'A5' ) {
+						$pdf->Image( $metas[ 'document_ticket_background_image' ], 0, 0, 210, 148, '', '', '', true, 300, '', false, false, 0, false );
+					} elseif ( $metas[ 'document_ticket_size' ] == 'A6' ) {
+						$pdf->Image( $metas[ 'document_ticket_background_image' ], 0, 0, 148, 105, '', '', '', true, 300, '', false, false, 0, false );
+					} elseif ( $metas[ 'document_ticket_size' ] == 'A7' ) {
+						$pdf->Image( $metas[ 'document_ticket_background_image' ], 0, 0, 105, 74, '', '', '', true, 300, '', false, false, 0, false );
+					} elseif ( $metas[ 'document_ticket_size' ] == 'A8' ) {
+						$pdf->Image( $metas[ 'document_ticket_background_image' ], 0, 0, 74, 52, '', '', '', true, 300, '', false, false, 0, false );
+					} elseif ( ($metas[ 'document_ticket_size' ] == 'ANSI_A' ) ) {
+						$pdf->Image( $metas[ 'document_ticket_background_image' ], 0, 0, 279, 216, '', '', '', true, 300, '', false, false, 0, false );
+					}
+				}
 			}
+
 
 			$col_1		 = 'width: 100%;';
 			$col_1_width = '100%';

@@ -1384,7 +1384,7 @@
 
 jQuery( document ).ready( function( $ )
 {
-    $( '#event_date_time, #event_end_date_time, #expiry_date' ).appendDtpicker( {
+    $( '#event_date_time, #event_end_date_time, .tc_wrap #expiry_date' ).appendDtpicker( {
         "inline": false,
         "minuteInterval": 15,
         "futureOnly": false,

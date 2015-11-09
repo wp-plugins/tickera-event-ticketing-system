@@ -188,6 +188,16 @@ jQuery( document ).ready( function( $ ) {
         update_li();
         tc_fix_template_elements_sizes();
     }
+    
+    
+    jQuery('.close-this').click(function(){
+        event.preventDefault();
+        jQuery(this).closest('.ui-state-default').appendTo('#ticket_elements');
+        update_li();
+        tc_fix_template_elements_sizes();
+    });
+    
+    
 
     function fix_chosen() {
         $( ".tc_wrap select" ).css( 'width', '25em' );

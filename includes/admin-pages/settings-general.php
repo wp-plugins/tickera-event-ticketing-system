@@ -29,7 +29,7 @@ $tc_general_settings = get_option( 'tc_general_setting', false );
 
     <div id="poststuff" class="metabox-holder tc-settings">
 
-        <form id="tc-general-settings" method="post" action="admin.php?page=<?php echo $_GET[ 'page' ]; ?>&tab=<?php echo isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : ''; ?>">
+        <form id="tc-general-settings" method="post" action="edit.php?post_type=tc_events&page=<?php echo $_GET[ 'page' ]; ?>&tab=<?php echo isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : ''; ?>">
 			<?php wp_nonce_field( 'save_settings' ); ?>
 
 			<?php

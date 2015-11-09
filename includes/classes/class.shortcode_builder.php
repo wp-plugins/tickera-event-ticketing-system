@@ -20,13 +20,18 @@ class TC_Shortcode_Builder {
 		}
 
 		$shortcodes = array(
-			'tc_ticket'			 => __( 'Ticket / Add to cart button', 'tc' ),
-			'tc_event'			 => __( 'List of tickets for an event', 'tc' ),
-			'event_tickets_sold' => __( 'Number of tickets sold for an event', 'tc' ),
-			'event_tickets_left' => __( 'Number of tickets left for an event', 'tc' ),
-			'tickets_sold'		 => __( 'Number of sold tickets', 'tc' ),
-			'tickets_left'		 => __( 'Number of available tickets', 'tc' ),
-			'tc_order_history'	 => __( 'Display order history for a user', 'tc' ),
+			'tc_ticket'				 => __( 'Ticket / Add to cart button', 'tc' ),
+			'tc_event'				 => __( 'Event Tickets', 'tc' ),
+			'tc_event_date'			 => __( 'Event Date & Time', 'tc' ),
+			'tc_event_location'		 => __( 'Event Location', 'tc' ),
+			'tc_event_terms'		 => __( 'Event Terms & Conditions', 'tc' ),
+			'tc_event_logo'			 => __( 'Event Logo', 'tc' ),
+			'tc_event_sponsors_logo' => __( 'Event Sponsors Logo', 'tc' ),
+			'event_tickets_sold'	 => __( 'Number of tickets sold for an event', 'tc' ),
+			'event_tickets_left'	 => __( 'Number of tickets left for an event', 'tc' ),
+			'tickets_sold'			 => __( 'Number of sold tickets', 'tc' ),
+			'tickets_left'			 => __( 'Number of available tickets', 'tc' ),
+			'tc_order_history'		 => __( 'Display order history for a user', 'tc' ),
 		);
 
 		$shortcodes = apply_filters( 'tc_shortcodes', $shortcodes );
@@ -147,25 +152,38 @@ class TC_Shortcode_Builder {
 	}
 
 	public function show_tc_event_attributes() {
+		global $post;
 		?>
 		<table id="tc-event-shortcode" class="shortcode-table" style="display:none">
-			<tr>
-				<th scope="row"><?php _e( 'Event', 'tc' ); ?></th>
-				<td>
-					<select name="id">
-						<?php
-						$wp_events_search = new TC_Events_Search( '', '', -1 );
-						foreach ( $wp_events_search->get_results() as $event ) {
-							$event = new TC_Event( $event->ID );
-							?>
-							<option value="<?php echo esc_attr( $event->details->ID ); ?>"><?php echo $event->details->post_title; ?></option>
+			<?php
+			if ( $post->post_type !== 'tc_events' ) {
+				?>
+				<tr>
+					<th scope="row"><?php _e( 'Event', 'tc' ); ?></th>
+					<td>
+						<select name="id">
 							<?php
-						}
-						?>
-					</select>
-				</td>
-			</tr>
-
+							$wp_events_search = new TC_Events_Search( '', '', -1 );
+							foreach ( $wp_events_search->get_results() as $event ) {
+								$event = new TC_Event( $event->ID );
+								?>
+								<option value="<?php echo esc_attr( $event->details->ID ); ?>"><?php echo $event->details->post_title; ?></option>
+								<?php
+							}
+							?>
+						</select>
+					</td>
+				</tr>
+				<?php
+			} else {
+				?>
+				<tr>
+					<th scope="row"><?php _e( 'Event', 'tc' ); ?></th>
+					<td><?php _e( 'Current Event', 'tc' ); ?></td>
+				</tr>
+				<?php
+			}
+			?>
 			<tr>
 				<th scope="row"><?php _e( 'Link Title', 'tc' ); ?></th>
 				<td>
@@ -230,47 +248,258 @@ class TC_Shortcode_Builder {
 	}
 
 	public function show_event_tickets_sold_attributes() {
+		global $post;
 		?>
 		<table id="event-tickets-sold-shortcode" class="shortcode-table" style="display:none">
-			<tr>
-				<th scope="row"><?php _e( 'Event', 'tc' ); ?></th>
-				<td>
-					<select name="event_id">
-						<?php
-						$wp_events_search = new TC_Events_Search( '', '', -1 );
-						foreach ( $wp_events_search->get_results() as $event ) {
-							$event = new TC_Event( $event->ID );
-							?>
-							<option value="<?php echo esc_attr( $event->details->ID ); ?>"><?php echo $event->details->post_title; ?></option>
+			<?php
+			if ( $post->post_type !== 'tc_events' ) {
+				?>
+				<tr>
+					<th scope="row"><?php _e( 'Event', 'tc' ); ?></th>
+					<td>
+						<select name="event_id">
 							<?php
-						}
-						?>
-					</select>
-				</td>
-			</tr>
+							$wp_events_search = new TC_Events_Search( '', '', -1 );
+							foreach ( $wp_events_search->get_results() as $event ) {
+								$event = new TC_Event( $event->ID );
+								?>
+								<option value="<?php echo esc_attr( $event->details->ID ); ?>"><?php echo $event->details->post_title; ?></option>
+								<?php
+							}
+							?>
+						</select>
+					</td>
+				</tr>
+				<?php
+			} else {
+				?>
+				<tr>
+					<th scope="row"><?php _e( 'Event', 'tc' ); ?></th>
+					<td><?php _e( 'Current Event', 'tc' ); ?></td>
+				</tr>
+				<?php
+			}
+			?>
+		</table>	
+		<?php
+	}
+
+	public function show_tc_event_date_attributes() {
+		global $post;
+		?>
+		<table id="tc-event-date-shortcode" class="shortcode-table" style="display:none">
+			<?php
+			if ( $post->post_type !== 'tc_events' ) {
+				?>
+				<tr>
+					<th scope="row"><?php _e( 'Event', 'tc' ); ?></th>
+					<td>
+						<select name="event_id">
+							<?php
+							$wp_events_search = new TC_Events_Search( '', '', -1 );
+							foreach ( $wp_events_search->get_results() as $event ) {
+								$event = new TC_Event( $event->ID );
+								?>
+								<option value="<?php echo esc_attr( $event->details->ID ); ?>"><?php echo $event->details->post_title; ?></option>
+								<?php
+							}
+							?>
+						</select>
+					</td>
+				</tr>
+				<?php
+			} else {
+				?>
+				<tr>
+					<th scope="row"><?php _e( 'Event', 'tc' ); ?></th>
+					<td><?php _e( 'Current Event', 'tc' ); ?></td>
+				</tr>
+				<?php
+			}
+			?>
+		</table>	
+		<?php
+	}
+
+	public function show_tc_event_location_attributes() {
+		global $post;
+		?>
+		<table id="tc-event-location-shortcode" class="shortcode-table" style="display:none">
+			<?php
+			if ( $post->post_type !== 'tc_events' ) {
+				?>
+				<tr>
+					<th scope="row"><?php _e( 'Event', 'tc' ); ?></th>
+					<td>
+						<select name="id">
+							<?php
+							$wp_events_search = new TC_Events_Search( '', '', -1 );
+							foreach ( $wp_events_search->get_results() as $event ) {
+								$event = new TC_Event( $event->ID );
+								?>
+								<option value="<?php echo esc_attr( $event->details->ID ); ?>"><?php echo $event->details->post_title; ?></option>
+								<?php
+							}
+							?>
+						</select>
+					</td>
+				</tr>
+				<?php
+			} else {
+				?>
+				<tr>
+					<th scope="row"><?php _e( 'Event', 'tc' ); ?></th>
+					<td><?php _e( 'Current Event', 'tc' ); ?></td>
+				</tr>
+				<?php
+			}
+			?>
+		</table>	
+		<?php
+	}
+
+	public function show_tc_event_terms_attributes() {
+		global $post;
+		?>
+		<table id="tc-event-terms-shortcode" class="shortcode-table" style="display:none">
+			<?php
+			if ( $post->post_type !== 'tc_events' ) {
+				?>
+				<tr>
+					<th scope="row"><?php _e( 'Event', 'tc' ); ?></th>
+					<td>
+						<select name="id">
+							<?php
+							$wp_events_search = new TC_Events_Search( '', '', -1 );
+							foreach ( $wp_events_search->get_results() as $event ) {
+								$event = new TC_Event( $event->ID );
+								?>
+								<option value="<?php echo esc_attr( $event->details->ID ); ?>"><?php echo $event->details->post_title; ?></option>
+								<?php
+							}
+							?>
+						</select>
+					</td>
+				</tr>
+				<?php
+			} else {
+				?>
+				<tr>
+					<th scope="row"><?php _e( 'Event', 'tc' ); ?></th>
+					<td><?php _e( 'Current Event', 'tc' ); ?></td>
+				</tr>
+				<?php
+			}
+			?>
+		</table>	
+		<?php
+	}
+
+	public function show_tc_event_logo_attributes() {
+		global $post;
+		?>
+		<table id="tc-event-logo-shortcode" class="shortcode-table" style="display:none">
+			<?php
+			if ( $post->post_type !== 'tc_events' ) {
+				?>
+				<tr>
+					<th scope="row"><?php _e( 'Event', 'tc' ); ?></th>
+					<td>
+						<select name="id">
+							<?php
+							$wp_events_search = new TC_Events_Search( '', '', -1 );
+							foreach ( $wp_events_search->get_results() as $event ) {
+								$event = new TC_Event( $event->ID );
+								?>
+								<option value="<?php echo esc_attr( $event->details->ID ); ?>"><?php echo $event->details->post_title; ?></option>
+								<?php
+							}
+							?>
+						</select>
+					</td>
+				</tr>
+				<?php
+			} else {
+				?>
+				<tr>
+					<th scope="row"><?php _e( 'Event', 'tc' ); ?></th>
+					<td><?php _e( 'Current Event', 'tc' ); ?></td>
+				</tr>
+				<?php
+			}
+			?>
+		</table>	
+		<?php
+	}
+
+	public function show_tc_event_sponsors_logo_attributes() {
+		global $post;
+		?>
+		<table id="tc-event-sponsors-logo-shortcode" class="shortcode-table" style="display:none">
+			<?php
+			if ( $post->post_type !== 'tc_events' ) {
+				?>
+				<tr>
+					<th scope="row"><?php _e( 'Event', 'tc' ); ?></th>
+					<td>
+						<select name="id">
+							<?php
+							$wp_events_search = new TC_Events_Search( '', '', -1 );
+							foreach ( $wp_events_search->get_results() as $event ) {
+								$event = new TC_Event( $event->ID );
+								?>
+								<option value="<?php echo esc_attr( $event->details->ID ); ?>"><?php echo $event->details->post_title; ?></option>
+								<?php
+							}
+							?>
+						</select>
+					</td>
+				</tr>
+				<?php
+			} else {
+				?>
+				<tr>
+					<th scope="row"><?php _e( 'Event', 'tc' ); ?></th>
+					<td><?php _e( 'Current Event', 'tc' ); ?></td>
+				</tr>
+				<?php
+			}
+			?>
 		</table>	
 		<?php
 	}
 
 	public function show_event_tickets_left_attributes() {
+		global $post;
 		?>
 		<table id="event-tickets-left-shortcode" class="shortcode-table" style="display:none">
-			<tr>
-				<th scope="row"><?php _e( 'Event', 'tc' ); ?></th>
-				<td>
-					<select name="event_id">
-						<?php
-						$wp_events_search = new TC_Events_Search( '', '', -1 );
-						foreach ( $wp_events_search->get_results() as $event ) {
-							$event = new TC_Event( $event->ID );
-							?>
-							<option value="<?php echo esc_attr( $event->details->ID ); ?>"><?php echo $event->details->post_title; ?></option>
+			<?php if ( $post->post_type !== 'tc_events' ) { ?>
+				<tr>
+					<th scope="row"><?php _e( 'Event', 'tc' ); ?></th>
+					<td>
+						<select name="event_id">
 							<?php
-						}
-						?>
-					</select>
-				</td>
-			</tr>
+							$wp_events_search = new TC_Events_Search( '', '', -1 );
+							foreach ( $wp_events_search->get_results() as $event ) {
+								$event = new TC_Event( $event->ID );
+								?>
+								<option value="<?php echo esc_attr( $event->details->ID ); ?>"><?php echo $event->details->post_title; ?></option>
+								<?php
+							}
+							?>
+						</select>
+					</td>
+				</tr>
+				<?php
+			} else {
+				?>
+				<tr>
+					<th scope="row"><?php _e( 'Event', 'tc' ); ?></th>
+					<td><?php _e( 'Current Event', 'tc' ); ?></td>
+				</tr>
+				<?php
+			}
+			?>
 		</table>	
 		<?php
 	}

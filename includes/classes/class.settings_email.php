@@ -34,7 +34,7 @@ if ( !class_exists( 'TC_Settings_Email' ) ) {
 				),
 			);
 
-			apply_filters( 'tc_settings_email_sections', $sections );
+			$sections = apply_filters( 'tc_settings_email_sections', $sections );
 
 			return $sections;
 		}

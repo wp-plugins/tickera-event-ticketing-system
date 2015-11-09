@@ -36,8 +36,10 @@ if ( !class_exists( 'TC_Event' ) ) {
 			return $event;
 		}
 
-		function get_event_ticket_types( $post_status = 'any' ) {
+		function get_event_ticket_types( $post_status = 'any', $event_id = false ) {
 
+			$event_id = $event_id ? $event_id : $this->id; 
+			
 			$ticket_ids = array();
 
 			$args = array(
@@ -48,7 +50,7 @@ if ( !class_exists( 'TC_Event' ) ) {
 				'meta_value'	 => (string) $this->id
 			);
 
-			$ticket_types = get_posts( $args );
+			$ticket_types = apply_filters( 'tc_get_event_ticket_types', get_posts( $args ), $event_id );
 
 			foreach ( $ticket_types as $ticket_type ) {
 				$ticket_ids[] = (int) $ticket_type->ID;
@@ -76,6 +78,40 @@ if ( !class_exists( 'TC_Event' ) ) {
 				$ticket_type_instance = new TC_Ticket( $ticket_type->ID );
 				$ticket_type_instance->delete_ticket();
 			}
+		}
+
+		function get_event_date( $event_id = false ) {
+			if ( !$event_id ) {
+				$event_id = $this->id;
+			}
+			$event_start_date	 = get_post_meta( $event_id, 'event_date_time', true );
+			$event_end_date		 = get_post_meta( $event_id, 'event_end_date_time', true );
+
+			$start_date	 = date_i18n( get_option( 'date_format' ), strtotime( $event_start_date ) );
+			$start_time	 = date_i18n( get_option( 'time_format' ), strtotime( $event_start_date ) );
+
+			$end_date	 = date_i18n( get_option( 'date_format' ), strtotime( $event_end_date ) );
+			$end_time	 = date_i18n( get_option( 'time_format' ), strtotime( $event_end_date ) );
+
+			if ( !empty( $event_end_date ) ) {
+				if ( $start_date == $end_date ) {
+					if ( $start_time == $end_time ) {
+						$event_date = $start_date . ' ' . $start_time;
+					} else {
+						$event_date = $start_date . ' ' . $start_time . ' - ' . $end_time;
+					}
+				} else {
+					if ( $start_time == $end_time ) {
+						$event_date = $start_date . ' - ' . $end_date . ' ' . $start_time;
+					} else {
+						$event_date = $start_date . ' ' . $start_time . ' - ' . $end_date . ' ' . $end_time;
+					}
+				}
+			} else {
+				$event_date = $start_date . ' ' . $start_time;
+			}
+
+			return $event_date;
 		}
 
 		function restore_event( $event_id ) {

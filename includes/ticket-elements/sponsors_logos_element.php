@@ -2,8 +2,9 @@
 
 class tc_sponsors_logos_element extends TC_Ticket_Template_Elements {
 
-	var $element_name	 = 'tc_sponsors_logos_element';
-	var $element_title	 = 'Sponsors Logos';
+	var $element_name		 = 'tc_sponsors_logos_element';
+	var $element_title		 = 'Sponsors Logos';
+	var $font_awesome_icon	 = '<i class="fa fa-money"></i>';
 
 	function on_creation() {
 		$this->element_title = apply_filters( 'tc_sponsors_logos_element_title', __( 'Sponsors Logos', 'tc' ) );
@@ -19,7 +20,7 @@ class tc_sponsors_logos_element extends TC_Ticket_Template_Elements {
 		if ( $ticket_instance_id ) {
 			$ticket_instance = new TC_Ticket( (int) $ticket_instance_id );
 			$ticket			 = new TC_Ticket();
-			$event_id		 = $ticket->get_ticket_event( $ticket_instance->details->ticket_type_id );
+			$event_id		 = $ticket->get_ticket_event( apply_filters( 'tc_ticket_type_id', $ticket_instance->details->ticket_type_id ) );
 			$sponsors_logo	 = apply_filters( 'tc_sponsors_logos_element', get_post_meta( $event_id, 'sponsors_logo_file_url', true ) );
 
 			if ( $sponsors_logo ) {

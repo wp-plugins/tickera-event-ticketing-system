@@ -2,8 +2,9 @@
 
 class tc_event_name_element extends TC_Ticket_Template_Elements {
 
-	var $element_name	 = 'tc_event_name_element';
-	var $element_title	 = 'Event Name';
+	var $element_name		 = 'tc_event_name_element';
+	var $element_title		 = 'Event Name';
+	var $font_awesome_icon	 = '<i class="fa fa-font"></i>';
 
 	function on_creation() {
 		$this->element_title = apply_filters( 'tc_event_name_element_title', __( 'Event Name', 'tc' ) );
@@ -13,7 +14,7 @@ class tc_event_name_element extends TC_Ticket_Template_Elements {
 		if ( $ticket_instance_id ) {
 			$ticket_instance = new TC_Ticket( (int) $ticket_instance_id );
 			$ticket			 = new TC_Ticket();
-			$event_id		 = $ticket->get_ticket_event( $ticket_instance->details->ticket_type_id );
+			$event_id		 = $ticket->get_ticket_event( apply_filters( 'tc_ticket_type_id', $ticket_instance->details->ticket_type_id ) );
 			$event_name		 = get_the_title( $event_id ); //, 'event_name', true);
 			return apply_filters( 'tc_event_name_element', $event_name );
 		} else {

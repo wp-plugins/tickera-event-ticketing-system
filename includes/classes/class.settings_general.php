@@ -20,27 +20,22 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 			$sections = array(
 				array(
 					'name'			 => 'store_settings',
-					'title'			 => __( 'Store Settings' ),
+					'title'			 => __( 'Store Settings', 'tc' ),
 					'description'	 => '',
 				),
-				/* array(
-				  'name'			 => 'slug_settings',
-				  'title'			 => __( 'Slugs' ),
-				  'description'	 => '',
-				  ), */
 				array(
 					'name'			 => 'page_settings',
-					'title'			 => __( 'Pages' ),
+					'title'			 => __( 'Pages', 'tc' ),
 					'description'	 => '',
 				),
 				array(
 					'name'			 => 'menu_settings',
-					'title'			 => __( 'Menu' ),
+					'title'			 => __( 'Menu', 'tc' ),
 					'description'	 => '',
 				),
 				array(
 					'name'			 => 'miscellaneous_settings',
-					'title'			 => __( 'Miscellaneous' ),
+					'title'			 => __( 'Miscellaneous', 'tc' ),
 					'description'	 => '',
 				)
 			);
@@ -49,13 +44,13 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 				if ( !defined( 'TC_LCK' ) && !defined( 'TC_NU' ) ) {
 					$sections[] = array(
 						'name'			 => 'license',
-						'title'			 => __( 'License Key' ),
+						'title'			 => __( 'License Key', 'tc' ),
 						'description'	 => '',
 					);
 				}
 			}
 
-			apply_filters( 'tc_settings_general_sections', $sections );
+			$sections = apply_filters( 'tc_settings_general_sections', $sections );
 
 			return $sections;
 		}

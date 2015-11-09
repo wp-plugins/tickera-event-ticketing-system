@@ -96,7 +96,7 @@ function tc_show_extra_profile_fields_order_history( $user ) {
 								</td>
 								<td>
 									<?php
-									$order_status_url	 = admin_url( 'admin.php?page=tc_orders&action=details&ID=' . $order->details->ID );
+									$order_status_url	 = admin_url( 'edit.php?post_type=tc_events&page=tc_orders&action=details&ID=' . $order->details->ID );
 									?>
 									<a href="<?php echo $order_status_url; ?>"><?php _e( 'Order Details', 'tc' ); ?></a>
 								</td>
@@ -296,7 +296,7 @@ add_filter( 'tc_checkins_api_key_id', 'tc_checkins_api_key_id', 10, 1 );
 
 function tc_checkins_api_key_id( $api_key_id ) {
 	$api_key		 = new TC_API_Key( $api_key_id );
-	$api_key_name	 = '<a target="_blank" href="' . admin_url( 'admin.php?page=tc_settings&tab=api&action=edit&ID=' . $api_key_id ) . '">' . $api_key->details->api_key_name . '</a>';
+	$api_key_name	 = '<a target="_blank" href="' . admin_url( 'edit.php?post_type=tc_events&page=tc_settings&tab=api&action=edit&ID=' . $api_key_id ) . '">' . $api_key->details->api_key_name . '</a>';
 	return $api_key_name;
 }
 
@@ -339,7 +339,7 @@ function tc_order_field_value( $order_id, $value, $meta_key, $field_type, $field
 		$events = $tc->get_cart_events( $value );
 		foreach ( $events as $event_id ) {
 			$event = new TC_Event( $event_id );
-			echo '<a href="admin.php?page=tc_events&action=edit&ID=' . $event->details->ID . '">' . $event->details->post_title . '</a> x ' . $tc->get_cart_event_tickets( $value, $event->details->ID ) . '<br />';
+			echo '<a href="edit.php?post_type=tc_events&page=tc_events&action=edit&ID=' . $event->details->ID . '">' . $event->details->post_title . '</a> x ' . $tc->get_cart_event_tickets( $value, $event->details->ID ) . '<br />';
 		}
 	} elseif ( $field_id == 'gateway' ) {
 		return $value[ 'gateway' ];
@@ -351,7 +351,7 @@ function tc_order_field_value( $order_id, $value, $meta_key, $field_type, $field
 		$discount_object = get_page_by_title( $value[ 'coupon_code' ], OBJECT, 'tc_discounts' );
 
 		if ( $discount_total > 0 ) {
-			$discount_total = apply_filters( 'tc_cart_currency_and_format', $discount_total ) . '<br />' . __( 'Code: ', 'tc' ) . '<a href="admin.php?page=tc_discount_codes&action=edit&ID=' . $discount_object->ID . '">' . $value[ 'coupon_code' ] . '</a>';
+			$discount_total = apply_filters( 'tc_cart_currency_and_format', $discount_total ) . '<br />' . __( 'Code: ', 'tc' ) . '<a href="edit.php?post_type=tc_events&page=tc_discount_codes&action=edit&ID=' . $discount_object->ID . '">' . $value[ 'coupon_code' ] . '</a>';
 		} else {
 			$discount_total = '-';
 		}
@@ -469,10 +469,14 @@ add_filter( 'tc_ticket_instance_field_value', 'tc_ticket_instance_field_value', 
 function tc_ticket_instance_field_value( $value = false, $field_value = false, $post_field_type = false,
 										 $col_field_id = false, $field_id = false ) {//$value, $post_field_type, $var_name
 	if ( $field_id == 'order' ) {
+
 		$parent_post = get_post_ancestors( $value );
-		$order		 = new TC_Order( $parent_post[ 0 ] );
+		$parent_post = isset( $parent_post[ 0 ] ) ? $parent_post[ 0 ] : 0;
+
+		$order = new TC_Order( $parent_post );
+
 		if ( current_user_can( 'manage_orders_cap' ) ) {
-			$value = '<a target="_blank" href="' . admin_url( 'admin.php?page=tc_orders&action=details&ID=' . $order->details->ID ) . '">' . $order->details->post_title . '</a>';
+			$value = apply_filters( 'tc_ticket_instance_order_admin_url', '<a target="_blank" href="' . admin_url( 'edit.php?post_type=tc_events&page=tc_orders&action=details&ID=' . $order->details->ID ) . '">' . $order->details->post_title . '</a>', $parent_post, $order->details->post_title );
 		} else {
 			$value = $order->details->post_title;
 		}
@@ -488,18 +492,18 @@ function tc_ticket_instance_field_value( $value = false, $field_value = false, $
 
 	if ( $field_id == 'ticket_type_id' ) {
 		$ticket_type = new TC_Ticket( $field_value );
-		$value		 = $ticket_type->details->post_title;
+		$value		 = apply_filters( 'tc_checkout_owner_info_ticket_title', $ticket_type->details->post_title, $field_value );
 	}
 
 	if ( $field_id == 'ticket' ) {
-		$value = '<a target="_blank" href="' . admin_url( 'admin.php?page=' . $_GET[ 'page' ] . '&tc_preview&ticket_instance_id=' . $field_value ) . '">' . __( 'View', 'tc' ) . '</a> | <a target="_top" href="' . admin_url( 'admin.php?page=' . $_GET[ 'page' ] . '&tc_download&ticket_instance_id=' . $field_value ) . '">' . __( 'Download', 'tc' ) . '</a>';
+		$value = '<a target="_blank" href="' . admin_url( 'edit.php?post_type=tc_events&page=' . $_GET[ 'page' ] . '&tc_preview&ticket_instance_id=' . $field_value ) . '">' . __( 'View', 'tc' ) . '</a> | <a target="_top" href="' . admin_url( 'edit.php?post_type=tc_events&page=' . $_GET[ 'page' ] . '&tc_download&ticket_instance_id=' . $field_value ) . '">' . __( 'Download', 'tc' ) . '</a>';
 	}
 
 	if ( $field_id == 'checkins' ) {
 		$ticket_instance = new TC_Ticket_Instance( $field_value );
 		$checkins_pass	 = $ticket_instance->get_number_of_checkins( 'pass' );
 		$checkins_fail	 = $ticket_instance->get_number_of_checkins( 'fail' );
-		$value			 = '<a href="' . admin_url( 'admin.php?page=tc_attendees&&action=details&ID=' . $field_value ) . '">';
+		$value			 = '<a href="' . admin_url( 'edit.php?post_type=tc_events&page=tc_attendees&action=details&ID=' . $field_value ) . '">';
 		$value .= '<span class="' . ($checkins_pass > 0 ? 'status_green' : '') . '">' . $checkins_pass . '</span>';
 
 		if ( $checkins_fail > 0 ) {

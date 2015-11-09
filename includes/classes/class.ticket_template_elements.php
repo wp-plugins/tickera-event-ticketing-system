@@ -115,8 +115,8 @@ if ( !class_exists( 'TC_Ticket_Template_Elements' ) ) {
 		function get_element_margins() {
 			?>
 			<label><?php _e( 'Element Break Lines', 'tc' ); ?></label>
-			<?php _e( 'Top', 'tc' ); ?> <input class="ticket_element_padding" type="text" name="<?php echo $this->element_name; ?>_top_padding_post_meta" value="<?php echo esc_attr( isset( $this->template_metas[ $this->element_name . '_top_padding' ] ) ? $this->template_metas[ $this->element_name . '_top_padding' ] : '0'  ); ?>" />
-			<?php _e( 'Bottom', 'tc' ); ?> <input class="ticket_element_padding" type="text" name="<?php echo $this->element_name; ?>_bottom_padding_post_meta" value="<?php echo esc_attr( isset( $this->template_metas[ $this->element_name . '_bottom_padding' ] ) ? $this->template_metas[ $this->element_name . '_bottom_padding' ] : '0'  ); ?>" />
+			<?php _e( 'Top', 'tc' ); ?> <input class="ticket_element_padding" type="text" name="<?php echo $this->element_name; ?>_top_padding_post_meta" value="<?php echo esc_attr( isset( $this->template_metas[ $this->element_name . '_top_padding' ] ) ? $this->template_metas[ $this->element_name . '_top_padding' ] : 1 ); ?>" />
+			<?php _e( 'Bottom', 'tc' ); ?> <input class="ticket_element_padding" type="text" name="<?php echo $this->element_name; ?>_bottom_padding_post_meta" value="<?php echo esc_attr( isset( $this->template_metas[ $this->element_name . '_bottom_padding' ] ) ? $this->template_metas[ $this->element_name . '_bottom_padding' ] : 1  ); ?>" />
 			</p>
 			<?php
 		}
@@ -181,7 +181,7 @@ if ( !class_exists( 'TC_Ticket_Template_Elements' ) ) {
 				<option value='stsongstdlight' <?php selected( isset( $this->template_metas[ $prefix . '_font' ] ) ? $this->template_metas[ $prefix . '_font' ] : $default_font, 'stsongstdlight', true ); ?>><?php _e( 'STSong Light (Simplified Chinese)', 'tc' ); ?></option>
 				<option value='symbol' <?php selected( isset( $this->template_metas[ $prefix . '_font' ] ) ? $this->template_metas[ $prefix . '_font' ] : $default_font, 'symbol', true ); ?>><?php _e( 'Symbol', 'tc' ); ?></option>
 				<option value='times' <?php selected( isset( $this->template_metas[ $prefix . '_font' ] ) ? $this->template_metas[ $prefix . '_font' ] : $default_font, 'times', true ); ?>><?php _e( 'Times-Roman', 'tc' ); ?></option>
-				<?php do_action( 'tc_ticket_font' ); ?>
+				<?php do_action( 'tc_ticket_font', isset( $this->template_metas[ $prefix . '_font' ] ) ? $this->template_metas[ $prefix . '_font' ] : '', $default_font ); ?>
 			</select>
 			<?php
 		}

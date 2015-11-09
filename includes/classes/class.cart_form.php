@@ -54,7 +54,7 @@ if ( !class_exists( 'TC_Cart_Form' ) ) {
 					'default_value'		 => isset( $user_info->user_email ) ? $user_info->user_email : ''
 				),
 			);
-
+			
 			return apply_filters( 'tc_buyer_info_fields', $default_fields, isset( $ticket_type_id ) ? $ticket_type_id : ''  );
 		}
 

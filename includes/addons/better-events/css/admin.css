@@ -1,0 +1,58 @@
+#adminmenu #menu-posts-tc_events div.wp-menu-image:before{
+    font-family: 'tck' !important;
+    content: "\e600";
+}
+
+a[href="post-new.php?post_type=tc_events"]{
+    display: none !important;
+}
+
+#post-visibility-display .tc-control{
+    display: inline-block;
+}
+
+.misc-pub-post-status, .misc-pub-visibility{
+    display: none;
+}
+
+.misc-pub-section.event_date_time,
+.misc-pub-section.event_end_date_time{
+    position: relative; 
+}
+
+.misc-pub-section.event_date_time label,
+.misc-pub-section.event_end_date_time label{
+    margin-left: 25px;
+    display: block;
+}
+
+.misc-pub-section.event_date_time:before,
+.misc-pub-section.event_end_date_time:before{
+    content: '\f145';
+    top: 5px;
+    font: 400 20px/1 dashicons;
+    position: absolute;
+    color: #82878c;
+}
+
+.misc-pub-section.event_date_time:before{
+    color: rgb(107,187,26);
+}
+
+.misc-pub-section.event_end_date_time:before{
+    color: #D54E21;
+}
+
+.misc-pub-section .description{
+    display: none;
+}
+
+.misc-pub-section #event_date_time,
+.misc-pub-section #event_end_date_time{
+    width: 100%;
+}
+
+#side-sortables .file_url,
+#side-sortables .regular-text{
+    width: 100%;
+}

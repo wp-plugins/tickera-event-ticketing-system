@@ -1,3 +1,20 @@
+.tc_event_date_title_front,
+.tc_event_location_title_front{
+    color: #8c8c8c;
+    font-size: 12px;
+    text-transform: uppercase;
+    padding-right: 20px;
+}
+
+.tc_event_date_title_front .fa,
+.tc_event_location_title_front .fa{
+    padding-right: 5px;
+}
+
+.tc_the_content_pre{
+    padding-bottom: 10px;
+}
+
 #tickera_cart label.error{
     color: red;
     padding-top: 5px;
@@ -427,8 +444,6 @@ html[xmlns] .tc-clearfix {
 .tickera-payment-gateways .free_orders.plugin-title{
     display: none;
 }
-
-
 
 /* RESPONSIVE */
 

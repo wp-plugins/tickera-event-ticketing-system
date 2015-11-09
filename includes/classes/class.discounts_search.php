@@ -16,7 +16,7 @@ if ( !class_exists( 'TC_Discounts_Search' ) ) {
 		function __construct( $search_term = '', $page_num = '', $per_page = '' ) {
 			global $tc;
 
-			$this->per_page		 = $per_page == '' ? tc_global_admin_per_page($this->per_page) : $per_page;
+			$this->per_page		 = $per_page == '' ? tc_global_admin_per_page( $this->per_page ) : $per_page;
 			$this->page_name	 = $tc->name . '_discount_codes';
 			$this->search_term	 = $search_term;
 			$this->raw_page		 = ( '' == $page_num ) ? false : (int) $page_num;
@@ -79,9 +79,9 @@ if ( !class_exists( 'TC_Discounts_Search' ) ) {
 			$pagination->limit( $this->per_page );
 			$pagination->parameterName	 = 'page_num';
 			if ( $this->search_term != '' ) {
-				$pagination->target( "admin.php?page=" . $this->page_name . "&s=" . $this->search_term );
+				$pagination->target( "edit.php?post_type=tc_events&page=" . $this->page_name . "&s=" . $this->search_term );
 			} else {
-				$pagination->target( "admin.php?page=" . $this->page_name );
+				$pagination->target( "edit.php?post_type=tc_events&page=" . $this->page_name );
 			}
 			$pagination->currentPage( $this->page_num );
 			$pagination->nextIcon( '&#9658;' );

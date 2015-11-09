@@ -54,7 +54,7 @@ $fields				 = $tickets->get_ticket_fields();
 $columns			 = $tickets->get_columns();
 ?>
 <div class="wrap tc_wrap">
-    <h2><?php echo $tickets->form_title; ?><?php if ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'edit' ) { ?><a href="admin.php?page=<?php echo $_GET[ 'page' ]; ?>" class="add-new-h2"><?php _e( 'Add New', 'tc' ); ?></a><?php } ?></h2>
+    <h2><?php echo $tickets->form_title; ?><?php if ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'edit' ) { ?><a href="edit.php?post_type=tc_events&page=<?php echo $_GET[ 'page' ]; ?>" class="add-new-h2"><?php _e( 'Add New', 'tc' ); ?></a><?php } ?></h2>
 
 	<?php
 	if ( isset( $message ) ) {
@@ -218,12 +218,12 @@ $columns			 = $tickets->get_columns();
 						if ( $key == 'edit' ) {
 							?>
 							<td>                    
-								<a class="tickets_edit_link" href="<?php echo admin_url( 'admin.php?page=' . $page . '&action=' . $key . '&ID=' . $ticket_object->ID ); ?>"><?php _e( 'Edit', 'tc' ); ?></a>
+								<a class="tickets_edit_link" href="<?php echo admin_url( 'edit.php?post_type=tc_events&page=' . $page . '&action=' . $key . '&ID=' . $ticket_object->ID ); ?>"><?php _e( 'Edit', 'tc' ); ?></a>
 							</td>
 						<?php } elseif ( $key == 'delete' ) {
 							?>
 							<td>
-								<a class="ticket_edit_link tc_delete_link" href="<?php echo wp_nonce_url( 'admin.php?page=' . $page . '&action=' . $key . '&ID=' . $ticket_object->ID, 'delete_' . $ticket_object->ID ); ?>"><?php _e( 'Delete', 'tc' ); ?></a>
+								<a class="ticket_edit_link tc_delete_link" href="<?php echo wp_nonce_url( 'edit.php?post_type=tc_events&page=' . $page . '&action=' . $key . '&ID=' . $ticket_object->ID, 'delete_' . $ticket_object->ID ); ?>"><?php _e( 'Delete', 'tc' ); ?></a>
 							</td>
 							<?php
 						} else {

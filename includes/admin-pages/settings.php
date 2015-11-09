@@ -44,7 +44,7 @@ if ( empty( $tab ) ) {
 			<a class="nav-tab<?php
 			   if ( $tab == $key )
 				   echo ' nav-tab-active';
-			   ?>" href="admin.php?page=<?php echo $page; ?>&amp;tab=<?php echo $key; ?>"><?php echo $menu; ?></a>
+			   ?>" href="edit.php?post_type=tc_events&page=<?php echo $page; ?>&amp;tab=<?php echo $key; ?>"><?php echo $menu; ?></a>
 			   <?php
 		   }
 		   ?>

@@ -34,7 +34,7 @@ $fields	 = $tickets_instances->get_tickets_instances_fields();
 $columns = $tickets_instances->get_columns();
 ?>
 <div class="wrap tc_wrap">
-    <h2><?php echo $tickets_instances->form_title; ?><?php if ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'details' ) { ?><a href="admin.php?page=<?php echo $_GET[ 'page' ]; ?>" class="add-new-h2"><?php _e( 'Back', 'tc' ); ?></a><?php } ?></h2>
+    <h2><?php echo $tickets_instances->form_title; ?><?php if ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'details' ) { ?><a href="edit.php?post_type=tc_events&page=<?php echo $_GET[ 'page' ]; ?>" class="add-new-h2"><?php _e( 'Back', 'tc' ); ?></a><?php } ?></h2>
 
 	<?php
 	if ( isset( $message ) ) {
@@ -68,13 +68,13 @@ $columns = $tickets_instances->get_columns();
 
 
 		if ( isset( $_GET[ 'checkin_action' ] ) && $_GET[ 'checkin_action' ] == 'delete_checkin' && check_admin_referer( 'delete_checkin' ) && !isset( $_POST[ 'api_key' ] ) ) {
-			$entry_to_delate = $_GET[ 'checkin_entry' ];
+			$entry_to_delete = $_GET[ 'checkin_entry' ];
 
 			$checkin_row = 0;
 
 			if ( $ticket_checkins ) {
 				foreach ( $ticket_checkins as $ticket_key => $ticket_checkin ) {
-					if ( $ticket_checkin[ 'date_checked' ] == $entry_to_delate ) {
+					if ( $ticket_checkin[ 'date_checked' ] == $entry_to_delete ) {
 						unset( $ticket_checkins[ $ticket_key ] );
 					}
 					$checkin_row++;
@@ -118,7 +118,7 @@ $columns = $tickets_instances->get_columns();
 							<td><?php echo apply_filters( 'tc_checkins_status', $ticket_checkin[ 'status' ] ); ?></td>
 							<td><?php echo apply_filters( 'tc_checkins_api_key_id', $ticket_checkin[ 'api_key_id' ] ); ?></td>
 							<?php if ( current_user_can( 'manage_options' ) || current_user_can( 'delete_checkins_cap' ) ) { ?>
-								<td><?php echo '<a class="tc_delete_link" href="' . wp_nonce_url( admin_url( 'admin.php?page=tc_attendees&action=details&ID=' . $_GET[ 'ID' ] . '&checkin_action=delete_checkin&checkin_entry=' . $ticket_checkin[ 'date_checked' ] ), 'delete_checkin' ) . '">' . __( 'Delete', 'tc' ) . '</a>'; ?></td>
+								<td><?php echo '<a class="tc_delete_link" href="' . wp_nonce_url( admin_url( 'edit.php?post_type=tc_events&page=tc_attendees&ID=' . $_GET[ 'ID' ] . '&checkin_action=delete_checkin&action=details&checkin_entry=' . $ticket_checkin[ 'date_checked' ] ), 'delete_checkin' ) . '">' . __( 'Delete', 'tc' ) . '</a>'; ?></td>
 							<?php } ?>
 						</tr>
 						<?php
@@ -184,9 +184,10 @@ $columns = $tickets_instances->get_columns();
 
 		<div class="tablenav">
 			<div class="alignright actions new-actions">
-				<form method="get" action="?page=<?php echo esc_attr( $page ); ?>" class="search-form">
+				<form method="get" action="edit.php?post_type=tc_events" class="search-form">
 					<p class="search-box">
 						<input type='hidden' name='page' value='<?php echo esc_attr( $page ); ?>' />
+						<input type="hidden" name="post_type" value="tc_events" />
 						<label class="screen-reader-text"><?php _e( 'Search Attendees & Tickets', 'tc' ); ?>:</label>
 						<input type="text" value="<?php echo esc_attr( $attendeesearch ); ?>" name="s">
 						<input type="submit" class="button" value="<?php _e( 'Search Attendees & Tickets', 'tc' ); ?>">
@@ -199,7 +200,7 @@ $columns = $tickets_instances->get_columns();
 		<table cellspacing="0" class="widefat shadow-table">
 			<thead>
 				<tr>
-					<!--<th style="" class="manage-column column-cb check-column" id="cb" scope="col" width="<?php //echo (isset($col_sizes[0]) ? $col_sizes[0] . '%' : '');                                     ?>"><input type="checkbox"></th>-->
+					<!--<th style="" class="manage-column column-cb check-column" id="cb" scope="col" width="<?php //echo (isset($col_sizes[0]) ? $col_sizes[0] . '%' : '');                                           ?>"><input type="checkbox"></th>-->
 					<?php
 					$n = 1;
 					foreach ( $columns as $col ) {
@@ -237,7 +238,7 @@ $columns = $tickets_instances->get_columns();
 								if ( current_user_can( 'manage_options' ) || current_user_can( 'delete_attendees_cap' ) ) {
 									?>
 									<td>
-										<a class="order_delete_link tc_delete_link" href="<?php echo wp_nonce_url( 'admin.php?page=' . $page . '&action=' . $col[ 'id' ] . '&ID=' . $ticket_instance_object->ID, 'delete_' . $ticket_instance_object->ID ); ?>"><?php _e( 'Delete', 'tc' ); ?></a>
+										<a class="order_delete_link tc_delete_link" href="<?php echo wp_nonce_url( 'edit.php?post_type=tc_events&page=' . $page . '&action=' . $col[ 'id' ] . '&ID=' . $ticket_instance_object->ID, 'delete_' . $ticket_instance_object->ID ); ?>"><?php _e( 'Delete', 'tc' ); ?></a>
 									</td>
 									<?php
 								}

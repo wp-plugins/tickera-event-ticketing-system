@@ -66,7 +66,7 @@ $fields	 = $orders->get_order_fields();
 $columns = $orders->get_columns();
 ?>
 <div class="wrap tc_wrap">
-    <h2><?php echo $orders->form_title; ?><?php if ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'details' ) { ?><a href="admin.php?page=<?php echo $_GET[ 'page' ]; ?>" class="add-new-h2"><?php _e( 'Back', 'tc' ); ?></a><?php } ?></h2>
+    <h2><?php echo $orders->form_title; ?><?php if ( isset( $_GET[ 'action' ] ) && $_GET[ 'action' ] == 'details' ) { ?><a href="edit.php?post_type=tc_events&page=<?php echo $_GET[ 'page' ]; ?>" class="add-new-h2"><?php _e( 'Back', 'tc' ); ?></a><?php } ?></h2>
 	<?php if ( isset( $post_id ) ) { ?>
 		<input type='hidden' id='order_id' value='<?php echo esc_attr( $post_id ); ?>' />
 	<?php } ?>
@@ -98,10 +98,8 @@ $columns = $orders->get_columns();
 								?>
 								<?php
 								if ( $field[ 'field_type' ] == 'function' ) {
-									//eval( $field[ 'function' ] . '("' . $field[ 'field_name' ] . '"' . (isset( $post_id ) ? ',' . $post_id : '') . ');' );
 									eval( $field[ 'function' ] . '("' . $field[ 'field_name' ] . '"' . (isset( $post_id ) ? ',' . $post_id : '') . (isset( $field[ 'id' ] ) ? ',"' . $field[ 'id' ] . '"' : '') . ');' );
 									?>
-
 								<?php } ?>
 								<?php if ( $field[ 'field_type' ] == 'text' ) { ?>
 									<input type="text" class="regular-<?php echo $field[ 'field_type' ]; ?>" value="<?php
@@ -120,7 +118,6 @@ $columns = $orders->get_columns();
 								<?php if ( $field[ 'field_type' ] == 'separator' ) { ?>
 									<hr />
 								<?php } ?>
-
 
 								<?php do_action( 'tc_after_orders_field_type_check' ); ?>
 							</td>
@@ -148,14 +145,14 @@ $columns = $orders->get_columns();
 		$count_orders_status[ 'all' ]			 = (int) $count_orders->order_received + (int) $count_orders->order_paid + (int) $count_orders->order_fraud;
 		?>
 		<ul class="subsubsub">
-			<li class="all"><a href="<?php echo esc_attr( admin_url( 'admin.php?page=tc_orders&post_status=any' ) ); ?>" class="<?php echo $current_status == 'any' ? 'current' : ''; ?>"><?php _e( 'All', 'tc' ); ?> <span class="count">(<?php echo $count_orders_status[ 'all' ]; ?>)</span></a> |</li>
+			<li class="all"><a href="<?php echo esc_attr( admin_url( 'edit.php?post_type=tc_events&page=tc_orders&post_status=any' ) ); ?>" class="<?php echo $current_status == 'any' ? 'current' : ''; ?>"><?php _e( 'All', 'tc' ); ?> <span class="count">(<?php echo $count_orders_status[ 'all' ]; ?>)</span></a> |</li>
 			<?php
 			$order_statuses_count					 = count( $order_statuses );
 			$i										 = 0;
 			foreach ( $order_statuses as $order_status => $order_status_title ) {
 				$i++;
 				?>
-				<li class="<?php echo esc_attr( $order_status ); ?>"><a href="<?php echo esc_attr( admin_url( 'admin.php?page=tc_orders&post_status=' . $order_status ) ); ?>" class="<?php echo $current_status == $order_status ? 'current' : ''; ?>"><?php echo esc_attr( $order_status_title ); ?> <span class="count">(<?php echo $count_orders_status[ $order_status ]; ?>)</span></a> <?php
+				<li class="<?php echo esc_attr( $order_status ); ?>"><a href="<?php echo esc_attr( admin_url( 'edit.php?post_type=tc_events&page=tc_orders&post_status=' . $order_status ) ); ?>" class="<?php echo $current_status == $order_status ? 'current' : ''; ?>"><?php echo esc_attr( $order_status_title ); ?> <span class="count">(<?php echo $count_orders_status[ $order_status ]; ?>)</span></a> <?php
 					if ( $i == $order_statuses_count ) {
 						
 					} else {
@@ -168,9 +165,10 @@ $columns = $orders->get_columns();
 
 		</ul>
 
-		<form method="get" action="?page=<?php echo esc_attr( $page ); ?>" class="search-form">
+		<form method="get" action="edit.php?post_type=tc_events&page=<?php echo esc_attr( $page ); ?>" class="search-form">
 			<p class="search-box">
 				<input type='hidden' name='page' value='<?php echo esc_attr( $page ); ?>' />
+				<input type='hidden' name='post_type' value='tc_events' />
 				<label class="screen-reader-text"><?php _e( 'Search Orders', 'tc' ); ?>:</label>
 				<input type="text" value="<?php echo esc_attr( $orderssearch ); ?>" name="s">
 				<input type="submit" class="button" value="<?php _e( 'Search Orders', 'tc' ); ?>">
@@ -180,7 +178,7 @@ $columns = $orders->get_columns();
 		<table cellspacing="0" class="widefat shadow-table">
 			<thead>
 				<tr>
-						<!--<th style="" class="manage-column column-cb check-column" id="cb" scope="col" width="<?php //echo (isset($col_sizes[0]) ? $col_sizes[0] . '%' : '');                                          ?>"><input type="checkbox"></th>-->
+						<!--<th style="" class="manage-column column-cb check-column" id="cb" scope="col" width="<?php //echo (isset($col_sizes[0]) ? $col_sizes[0] . '%' : '');                                            ?>"><input type="checkbox"></th>-->
 					<?php
 					$n = 1;
 					foreach ( $columns as $col ) {
@@ -216,12 +214,12 @@ $columns = $orders->get_columns();
 							if ( $col[ 'id' ] == 'details' ) {
 								?>
 								<td>                    
-									<a class="orders_details_link" href="<?php echo admin_url( 'admin.php?page=' . $page . '&action=' . $col[ 'id' ] . '&ID=' . $order_object->ID ); ?>"><?php _e( 'View', 'tc' ); ?></a>
+									<a class="orders_details_link" href="<?php echo admin_url( 'edit.php?post_type=tc_events&page=' . $page . '&action=' . $col[ 'id' ] . '&ID=' . $order_object->ID ); ?>"><?php _e( 'View', 'tc' ); ?></a>
 								</td>
 							<?php } elseif ( $col[ 'id' ] == 'delete' ) {
 								?>
 								<td>
-									<a class="order_delete_link tc_delete_link" href="<?php echo wp_nonce_url( 'admin.php?page=' . $page . '&action=' . $col[ 'id' ] . '&ID=' . $order_object->ID, 'delete_' . $order_object->ID ); ?>"><?php _e( 'Delete', 'tc' ); ?></a>
+									<a class="order_delete_link tc_delete_link" href="<?php echo wp_nonce_url( 'edit.php?post_type=tc_events&page=' . $page . '&action=' . $col[ 'id' ] . '&ID=' . $order_object->ID, 'delete_' . $order_object->ID ); ?>"><?php _e( 'Delete', 'tc' ); ?></a>
 								</td>
 								<?php
 							} else {

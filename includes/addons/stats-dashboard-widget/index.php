@@ -7,6 +7,11 @@
 if ( !defined( 'ABSPATH' ) )
 	exit; // Exit if accessed directly
 
+
+if ( defined( 'TC_HIDE_STATS_WIDGET' ) ) {
+	return;
+}
+
 if ( !class_exists( 'TC_Stats_Dashboard_Widget' ) ) {
 
 	class TC_Stats_Dashboard_Widget {
@@ -96,8 +101,8 @@ if ( !class_exists( 'TC_Stats_Dashboard_Widget' ) ) {
 				$total_revenue	 = $total_revenue + $order_object->details->tc_payment_info[ 'total' ];
 				$paid_orders[]	 = $order_object->details->tc_payment_info[ 'total' ];
 
-				$createDate	 = new DateTime( $order_object->details->post_date );
-				$strip_date	 = $createDate->format( 'Y-m-d' );
+				$createDate							 = new DateTime( $order_object->details->post_date );
+				$strip_date							 = $createDate->format( 'Y-m-d' );
 				$range_dates_earnings[ $strip_date ] = 0;
 				$range_dates_earnings[ $strip_date ] = $range_dates_earnings[ $strip_date ] + $order_object->details->tc_payment_info[ 'total' ];
 

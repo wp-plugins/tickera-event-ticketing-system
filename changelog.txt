@@ -1,6 +1,26 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
+3.2.0.5 - 09/NOV/2015
+- Fixed issue with ticket ID alignment in ticket template 
+- Fixed issue with Buyer Name in the e-mails when payments are processed via on-site payment gateways (like Stripe, PayPal pro, Paymill etc)
+- Fixed issue with order search page permissions
+- Added additional hooks for developers
+- Fixes issues with check-in API
+- Fixed issue with expiry date id (conflict with WooCommerce)
+
+3.2.0.4 - 30/OCT/2015
+- Fixed issues the cart.js
+
+3.2.0.3 - 29/OCT/2015
+- Added better support for Events (added visual part for the front-end, native post type look and functionality)
+- Added additional shortcodes to the shortcode builder
+- Added Ticket ID ticket template element
+- Added new hooks, filters and helpers for developers
+- Redesigned interface for ticket templates
+- Ticket code element bug fix
+- Fixed issue with deleted checkins showing in the stats (in mobile apps)
+
 3.2.0.2 - 19/OCT/2015
 - Optimized PDF library and removed unused fonts
 - Added additional shortcode arguments (added button type for tc_event shortcode)

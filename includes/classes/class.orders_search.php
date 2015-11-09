@@ -137,9 +137,9 @@ if ( !class_exists( 'TC_Orders_Search' ) ) {
 			$pagination->limit( $this->per_page );
 			$pagination->parameterName	 = 'page_num';
 			if ( $this->search_term != '' ) {
-				$pagination->target( "admin.php?page=" . $this->page_name . "&s=" . $this->search_term );
+				$pagination->target( "edit.php?post_type=tc_events&page=" . $this->page_name . "&s=" . $this->search_term );
 			} else {
-				$pagination->target( "admin.php?page=" . $this->page_name . "&post_status=" . $current_post_status );
+				$pagination->target( "edit.php?post_type=tc_events&page=" . $this->page_name . "&post_status=" . $current_post_status );
 			}
 			$pagination->currentPage( $this->page_num );
 			$pagination->nextIcon( ' & #9658;' );

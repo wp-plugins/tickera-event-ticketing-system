@@ -111,12 +111,23 @@ if ( !class_exists( 'TC_Export_Mix' ) ) {
 
 				foreach ( $ticket_instances as $ticket_instance ) {
 					$instance	 = new TC_Ticket_Instance( $ticket_instance->ID );
-					$ticket_type = new TC_Ticket( $instance->details->ticket_type_id );
-					$event_name	 = $ticket_type->details->event_name;
+					$ticket_type = new TC_Ticket( apply_filters( 'tc_ticket_type_id', $instance->details->ticket_type_id ) );
+
+					$event_name_meta = apply_filters( 'tc_event_name_field_name', 'event_name' );
+					$event_name		 = $ticket_type->details->$event_name_meta;
 					if ( $event_name == $event_id ) {
 						$order = new TC_Order( $instance->details->post_parent );
+
 						if ( $order->details->post_status == 'order_paid' ) {
-							$payment_date = date_i18n( get_option( 'date_format' ), $order->details->tc_order_date, false );
+							$order_is_paid = true;
+						} else {
+							$order_is_paid = false;
+						}
+
+						$order_is_paid = apply_filters( 'tc_order_is_paid', $order_is_paid, $order->details->ID );
+
+						if ( $order_is_paid ) {
+							$payment_date = date_i18n( get_option( 'date_format' ), apply_filters( 'tc_ticket_checkin_order_date', $order->details->tc_order_date, $order->details->ID ), false );
 							$rows .= '<tr>';
 							if ( isset( $_POST[ 'col_checkbox' ] ) ) {
 								$rows .= '<td align="center"></td>';
@@ -131,13 +142,15 @@ if ( !class_exists( 'TC_Export_Mix' ) ) {
 								$rows .= '<td>' . $instance->details->ticket_code . '</td>';
 							}
 							if ( isset( $_POST[ 'col_ticket_type' ] ) ) {
-								$rows .= '<td>' . $ticket_type->details->post_title . '</td>';
+								$rows .= '<td>' . apply_filters( 'tc_checkout_owner_info_ticket_title', $ticket_type->details->post_title, $instance->details->ticket_type_id ) . '</td>';
 							}
 							if ( isset( $_POST[ 'col_buyer_name' ] ) ) {
-								$rows .= '<td>' . $order->details->tc_cart_info[ 'buyer_data' ][ 'first_name_post_meta' ] . ' ' . $order->details->tc_cart_info[ 'buyer_data' ][ 'last_name_post_meta' ] . '</td>';
+								$buyer_full_name = $order->details->tc_cart_info[ 'buyer_data' ][ 'first_name_post_meta' ] . ' ' . $order->details->tc_cart_info[ 'buyer_data' ][ 'last_name_post_meta' ];
+								$rows .= '<td>' . apply_filters( 'tc_ticket_checkin_buyer_full_name', $buyer_full_name, $order->details->ID ) . '</td>';
 							}
 							if ( isset( $_POST[ 'col_buyer_email' ] ) ) {
-								$rows .= '<td>' . $order->details->tc_cart_info[ 'buyer_data' ][ 'email_post_meta' ] . '</td>';
+								$buyer_email = $order->details->tc_cart_info[ 'buyer_data' ][ 'email_post_meta' ];
+								$rows .= '<td>' . apply_filters( 'tc_ticket_checkin_buyer_email', $buyer_email, $order->details->ID ) . '</td>';
 							}
 							if ( isset( $_POST[ 'col_barcode' ] ) ) {
 								$rows .= '<td>BARCODE</td>';

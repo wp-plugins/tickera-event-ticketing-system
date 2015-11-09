@@ -18,7 +18,7 @@ if ( isset( $_POST[ 'gateway_settings' ] ) ) {
 ?>
 <div id="poststuff" class="metabox-holder tc-settings">
 
-    <form id="tc-gateways-form" method="post" action="admin.php?page=<?php echo $tc->name; ?>_settings&tab=gateways">
+    <form id="tc-gateways-form" method="post" action="edit.php?post_type=tc_events&page=<?php echo $tc->name; ?>_settings&tab=gateways">
         <input type="hidden" name="gateway_settings" value="1" />
 
         <div id="tc_gateways" class="postbox">
@@ -55,7 +55,7 @@ if ( isset( $_POST[ 'gateway_settings' ] ) ) {
 				<?php
 				if ( count( $tc_gateway_plugins ) < 10 ) {
 					?>
-					<a class="tc_link" target="_blank" href="http://tickera.com/?wp"><?php _e( 'Get premium support, more payment gateways and unlock additional features' ); ?></a>
+					<a class="tc_link" target="_blank" href="http://tickera.com/?utm_source=plugin&utm_medium=upsell&utm_campaign=gateways"><?php _e( 'Get premium support, more payment gateways and unlock additional features' ); ?></a>
 				<?php } ?>
 			</div>
 

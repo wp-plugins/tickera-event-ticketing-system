@@ -96,11 +96,17 @@ if ( !class_exists( 'TC_Ticket' ) ) {
 			}
 		}
 
-		function get_ticket_event( $ticket_id = false ) {
-			if ( $ticket_id == false ) {
-				$ticket_id = $this->id;
+		function get_ticket_event( $ticket_type_id = false ) {
+			if ( $ticket_type_id == false ) {
+				$ticket_type_id = $this->id;
 			}
-			return get_post_meta( $ticket_id, apply_filters( 'tc_event_name_field_name', 'event_name' ), true );
+
+			$event_id			 = get_post_meta( $ticket_type_id, 'event_name', true );
+			$alternate_event_id	 = get_post_meta( $ticket_type_id, apply_filters( 'tc_event_name_field_name', 'event_name' ), true );
+
+			$event_id = !empty( $event_id ) ? $event_id : $alternate_event_id;
+
+			return $event_id;
 		}
 
 		function get_ticket_id_by_name( $slug ) {

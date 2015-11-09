@@ -68,10 +68,14 @@ if ( !class_exists( 'TC_Ticket_Instance' ) ) {
 			$order = get_post_custom( $this->id, $this->output );
 			return $order;
 		}
-		
-		function get_event_id(){
-			$ticket_type_id = $this->details->ticket_type_id;
-			return get_post_meta( $ticket_type_id, apply_filters( 'tc_event_name_field_name', 'event_name' ), true );
+
+		function get_event_id() {
+			$ticket_type_id		 = $this->details->ticket_type_id;
+			$event_id			 = get_post_meta( $ticket_type_id, 'event_name', true );
+			$alternate_event_id	 = get_post_meta( $ticket_type_id, apply_filters( 'tc_event_name_field_name', 'event_name' ), true );
+
+			$event_id = !empty( $event_id ) ? $event_id : $event_id;
+			return $event_id;
 		}
 
 		function delete_ticket_instance( $force_delete = true ) {

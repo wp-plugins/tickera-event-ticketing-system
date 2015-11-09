@@ -2,8 +2,9 @@
 
 class tc_ticket_type_element extends TC_Ticket_Template_Elements {
 
-	var $element_name	 = 'tc_ticket_type_element';
-	var $element_title	 = 'Ticket Type';
+	var $element_name		 = 'tc_ticket_type_element';
+	var $element_title		 = 'Ticket Type';
+	var $font_awesome_icon	 = '<i class="fa fa-ticket"></i>';
 
 	function on_creation() {
 		$this->element_title = apply_filters( 'tc_ticket_type_element_title', __( 'Ticket Type', 'tc' ) );
@@ -13,7 +14,7 @@ class tc_ticket_type_element extends TC_Ticket_Template_Elements {
 		if ( $ticket_instance_id ) {
 			$ticket_instance = new TC_Ticket( (int) $ticket_instance_id );
 			$ticket			 = new TC_Ticket( $ticket_instance->details->ticket_type_id );
-			return apply_filters( 'tc_ticket_type_element', $ticket->details->post_title );
+			return apply_filters( 'tc_ticket_type_element', apply_filters( 'tc_checkout_owner_info_ticket_title', $ticket->details->post_title, $ticket_instance->details->ticket_type_id ) );
 		} else {
 			if ( $ticket_type_id ) {
 				$ticket_type = new TC_Ticket( (int) $ticket_type_id );

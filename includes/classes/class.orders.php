@@ -98,16 +98,6 @@ if ( !class_exists( 'TC_Orders' ) ) {
 					'table_visibility'	 => true,
 					'post_field_type'	 => 'post_meta'
 				),
-				/* array(
-				  'id' => 'transaction_id',
-				  'field_name' => 'tc_cart_info',
-				  'field_title' => __('Transaction ID', 'tc'),
-				  'field_type' => 'function',
-				  'function' => 'tc_get_order_transaction_id',
-				  'field_description' => '',
-				  'table_visibility' => true,
-				  'post_field_type' => 'post_meta'
-				  ), */
 				array(
 					'id'				 => 'discount',
 					'field_name'		 => 'tc_cart_info',
@@ -158,15 +148,6 @@ if ( !class_exists( 'TC_Orders' ) ) {
 					'table_visibility'	 => true,
 					'post_field_type'	 => 'post_meta'
 				),
-			/* array(
-			  'field_name' => 'download',
-			  'field_title' => __('Download', 'tc'),
-			  'field_type' => 'function',
-			  'function' => 'tc_get_order_download_tickets_link',
-			  'field_description' => '',
-			  'table_visibility' => true,
-			  'post_field_type' => 'post_meta'
-			  ), */
 			);
 
 			return apply_filters( 'tc_order_fields', $default_fields );
@@ -345,7 +326,7 @@ if ( !class_exists( 'TC_Orders' ) ) {
 		public static function get_user_orders( $user_id = false ) {
 			$user_id = $user_id ? $user_id : get_current_user_id();
 			$args	 = array(
-				'author'	 => $user_id,
+				'author'		 => $user_id,
 				'posts_per_page' => -1,
 				'orderby'		 => 'post_date',
 				'order'			 => 'DESC',

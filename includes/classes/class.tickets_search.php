@@ -79,9 +79,9 @@ if ( !class_exists( 'TC_Tickets_Search' ) ) {
 			$pagination->limit( $this->per_page );
 			$pagination->parameterName	 = 'page_num';
 			if ( $this->search_term != '' ) {
-				$pagination->target( "admin.php?page=" . $this->page_name . "&s=" . $this->search_term );
+				$pagination->target( "edit.php?post_type=tc_events&page=" . $this->page_name . "&s=" . $this->search_term );
 			} else {
-				$pagination->target( "admin.php?page=" . $this->page_name );
+				$pagination->target( "edit.php?post_type=tc_events&page=" . $this->page_name );
 			}
 			$pagination->currentPage( $this->page_num );
 			$pagination->nextIcon( '&#9658;' );

@@ -5,7 +5,7 @@
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.2.0.2
+  Version: 3.2.0.5
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.2.0.2';
+		var $version			 = '3.2.0.5';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -178,10 +178,12 @@ if ( !class_exists( 'TC' ) ) {
 // Create virtual pages
 			require_once( $this->plugin_dir . 'includes/classes/class.virtualpage.php' );
 
+			// Include Visual Composer shortcode
+			//require_once( $this->plugin_dir . 'includes/classes/class.visual_composer_shortcodes.php' );
 //Register post types
 			add_action( 'init', array( &$this, 'register_custom_posts' ), 0 );
 
-			add_action( 'init', array( &$this, 'generate_ticket_preview' ), 0 );
+			add_action( 'init', array( &$this, 'generate_ticket_preview' ), 11 );
 
 			add_action( 'init', array( &$this, 'checkin_api' ), 0 );
 
@@ -259,7 +261,7 @@ if ( !class_exists( 'TC' ) ) {
 
 			add_action( 'admin_init', array( &$this, 'generate_pdf_ticket' ), 0 );
 
-			add_action( 'init', array( &$this, 'generate_pdf_ticket_front' ), 0 );
+			add_action( 'init', array( &$this, 'generate_pdf_ticket_front' ), 11 );
 
 			add_action( 'admin_print_styles', array( &$this, 'add_notices' ) );
 
@@ -288,7 +290,7 @@ if ( !class_exists( 'TC' ) ) {
 				update_option( 'tc_needs_pages', 0 );
 
 // Settings redirect
-				wp_redirect( admin_url( 'admin.php?page=tc_settings' ) );
+				wp_redirect( admin_url( 'edit.php?post_type=tc_events&page=tc_settings' ) );
 				exit;
 			}
 		}
@@ -349,11 +351,33 @@ if ( !class_exists( 'TC' ) ) {
 		}
 
 		function generate_pdf_ticket_front() {
-			$order_key = isset( $_GET[ 'order_key' ] ) ? $_GET[ 'order_key' ] : '';
-			if ( isset( $_GET[ 'download_ticket_nonce' ] ) && wp_verify_nonce( $_GET[ 'download_ticket_nonce' ], 'download_ticket_' . (int) $_GET[ 'download_ticket' ] . '_' . $order_key ) ) {
-				$templates = new TC_Ticket_Templates();
-				$templates->generate_preview( (int) $_GET[ 'download_ticket' ], true );
+			$order_key	 = isset( $_GET[ 'order_key' ] ) ? $_GET[ 'order_key' ] : '';
+			$ticket		 = isset( $_GET[ 'download_ticket' ] ) ? (int) $_GET[ 'download_ticket' ] : '';
+
+			//if ( isset( $_GET[ 'download_ticket_nonce' ] ) && wp_verify_nonce( $_GET[ 'download_ticket_nonce' ], 'download_ticket_' . (int) $_GET[ 'download_ticket' ] . '_' . $order_key ) ) {
+			if ( !empty( $order_key ) && !empty( $ticket ) ) {
+
+
+
+				$order_id		 = wp_get_post_parent_id( $ticket );
+				$order			 = new TC_Order( $order_id );
+				$order_date		 = strtotime( $order->details->post_date );
+				$order_modified	 = strtotime( $order->details->post_modified );
+				$tc_order_date	 = $order->details->tc_order_date;
+
+				/* echo 'ORDER KEY:'.$order_key.'<br />';
+				  echo 'ORDER MODIFIED:'.$order_modified.'<br />';
+				  echo 'ORDER DATE:'.$order_date.'<br />';
+				  echo 'TC ORDER DATE:'.$tc_order_date.'<br />';
+
+				  exit; */
+
+				if ( $order_key == $order_date || $order_key == $order_modified || $order_key == $tc_order_date ) {
+					$templates = new TC_Ticket_Templates();
+					$templates->generate_preview( (int) $_GET[ 'download_ticket' ], true );
+				}
 			}
+//}
 		}
 
 		function generate_pdf_ticket() {
@@ -690,8 +714,9 @@ if ( !class_exists( 'TC' ) ) {
 
 		function start_session() {
 //start the session
-			if ( !session_id() )
+			if ( !session_id() ) {
 				session_start();
+			}
 		}
 
 		function get_tax_value() {
@@ -703,11 +728,14 @@ if ( !class_exists( 'TC' ) ) {
 //Get currency
 		function get_cart_currency() {
 			$tc_general_settings = get_option( 'tc_general_setting', false );
-			return (isset( $tc_general_settings[ 'currency_symbol' ] ) && $tc_general_settings[ 'currency_symbol' ] != '' ? $tc_general_settings[ 'currency_symbol' ] : (isset( $tc_general_settings[ 'currencies' ] ) ? $tc_general_settings[ 'currencies' ] : 'USD'));
+			return apply_filters( 'tc_cart_currency', (isset( $tc_general_settings[ 'currency_symbol' ] ) && $tc_general_settings[ 'currency_symbol' ] != '' ? $tc_general_settings[ 'currency_symbol' ] : (isset( $tc_general_settings[ 'currencies' ] ) ? $tc_general_settings[ 'currencies' ] : 'USD') ) );
 		}
 
 //Get currency and set amount format in cart form
 		function get_cart_currency_and_format( $amount ) {
+
+			$amount = apply_filters( 'tc_cart_currency_amount', $amount );
+
 			$tc_general_settings = get_option( 'tc_general_setting', false );
 
 			if ( (int) ( $amount ) == (float) $amount ) {
@@ -1410,10 +1438,7 @@ if ( !class_exists( 'TC' ) ) {
 													$required_fields_error_count++;
 												}
 											} else {
-//var_dump($_POST[ $key ]);
-//var_dump($val);
 												foreach ( $val as $val_str ) {
-//echo 'val:'.$val_str.'<br />';
 													if ( trim( $val_str ) == '' ) {
 														$required_fields_error_count++;
 													}
@@ -1568,6 +1593,7 @@ if ( !class_exists( 'TC' ) ) {
 			if ( apply_filters( 'tc_use_default_front_css', true ) ) {
 				wp_enqueue_style( $this->name . '-front', $this->plugin_url . 'css/front.css', array(), $this->version );
 				wp_enqueue_script( 'tc-jquery-validate', $this->plugin_url . 'js/jquery.validate.min.js', array( 'jquery' ), $this->version );
+				wp_enqueue_style( 'font-awesome', $this->plugin_url . '/css/font-awesome.min.css', array(), $this->version );
 			}
 		}
 
@@ -1626,14 +1652,18 @@ if ( !class_exists( 'TC' ) ) {
 			global $first_tc_menu_handler;
 
 			$plugin_admin_menu_items = array(
-				'events'			 => 'Events',
-				'ticket_types'		 => 'Ticket Types',
-				'discount_codes'	 => 'Discount Codes',
-				'orders'			 => 'Orders',
-				'attendees'			 => 'Attendees & Tickets',
-				'ticket_templates'	 => 'Ticket Templates',
-				'settings'			 => 'Settings',
+				'events'			 => __( 'Events', 'tc' ),
+				'ticket_types'		 => __( 'Ticket Types', 'tc' ),
+				'discount_codes'	 => __( 'Discount Codes', 'tc' ),
+				'orders'			 => __( 'Orders', 'tc' ),
+				'attendees'			 => __( 'Attendees & Tickets', 'tc' ),
+				'ticket_templates'	 => __( 'Ticket Templates', 'tc' ),
+				'settings'			 => __( 'Settings', 'tc' ),
 			);
+
+			if ( $this->title == 'Tickera' ) {//Do not show addons for (assumed) white-labeled plugin 
+				$plugin_admin_menu_items[ 'addons' ] = __( 'Add-ons', 'tc' );
+			}
 
 			$plugin_admin_menu_items = apply_filters( 'tc_plugin_admin_menu_items', $plugin_admin_menu_items );
 
@@ -1658,7 +1688,13 @@ if ( !class_exists( 'TC' ) ) {
 				} else {
 					eval( "function " . $this->name . "_" . $handler . "_admin() {require_once( '" . $this->plugin_dir . "includes/admin-pages/" . $handler . ".php');}" );
 
-					add_submenu_page( $first_tc_menu_handler, $value, $value, 'manage_' . $handler . '_cap', $this->name . '_' . $handler, $this->name . '_' . $handler . '_admin' );
+					if ( $handler == 'addons' ) {
+						$capability = 'manage_options';
+					} else {
+						$capability = 'manage_' . $handler . '_cap';
+					}
+
+					add_submenu_page( $first_tc_menu_handler, $value, $value, $capability, $this->name . '_' . $handler, $this->name . '_' . $handler . '_admin' );
 					do_action( $this->name . '_add_menu_items_after_' . $handler );
 				}
 
@@ -1669,6 +1705,10 @@ if ( !class_exists( 'TC' ) ) {
 		}
 
 		function add_network_admin_menu() {
+			if ( !apply_filters( 'tc_add_network_admin_menu', true ) ) {
+				return;
+			}
+
 			global $first_tc_network_menu_handler;
 
 			$plugin_admin_menu_items = array(
@@ -1709,7 +1749,7 @@ if ( !class_exists( 'TC' ) ) {
 //Function for adding plugin Settings link
 		function plugin_action_link( $links, $file ) {
 			global $first_tc_menu_handler;
-			$settings_link = '<a href = "' . admin_url( 'admin.php?page=' . $first_tc_menu_handler ) . '">' . __( 'Settings', 'tc' ) . '</a>';
+			$settings_link = '<a href = "' . admin_url( 'edit.php?post_type=tc_events' ) . '">' . __( 'Settings', 'tc' ) . '</a>';
 
 // add the link to the list
 			array_unshift( $links, $settings_link );
@@ -2856,6 +2896,7 @@ if ( !class_exists( 'TC' ) ) {
 			wp_enqueue_style( $this->name . '-chosen', $this->plugin_url . 'css/chosen.min.css', array(), $this->version );
 			wp_enqueue_script( $this->name . '-simple-dtpicker', $this->plugin_url . 'js/jquery.simple-dtpicker.js', array( 'jquery' ), $this->version );
 			wp_enqueue_style( $this->name . '-simple-dtpicker', $this->plugin_url . 'css/jquery.simple-dtpicker.css', array(), $this->version );
+			wp_enqueue_style( 'font-awesome', $this->plugin_url . '/css/font-awesome.min.css', array(), $this->version );
 		}
 
 	}

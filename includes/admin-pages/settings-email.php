@@ -26,7 +26,7 @@ $tc_email_settings = get_option( 'tc_email_setting', false );
 
     <div id="poststuff" class="metabox-holder tc-settings">
 
-        <form id="tc-email-settings" method="post" action="admin.php?page=<?php echo esc_attr( $_GET[ 'page' ] ); ?>&tab=<?php echo esc_attr( $_GET[ 'tab' ] ); ?>">
+        <form id="tc-email-settings" method="post" action="edit.php?post_type=tc_events&page=<?php echo esc_attr( $_GET[ 'page' ] ); ?>&tab=<?php echo esc_attr( $_GET[ 'tab' ] ); ?>">
 			<?php wp_nonce_field( 'save_settings' ); ?>
 
 			<?php
