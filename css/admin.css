@@ -1,3 +1,9 @@
+#adminmenu #menu-posts-tc_events div.wp-menu-image:before{
+    font-family: 'tck' !important;
+    content: "\e600";
+}
+
+
 .regular-textarea{
     width: 351px;
     height: 100px;

@@ -181,7 +181,10 @@ if ( !class_exists( 'TC_Better_Events' ) ) {
 		 */
 
 		function admin_enqueue_scripts_and_styles() {
-			wp_enqueue_style( 'tc-better-events', plugins_url( 'css/admin.css', __FILE__ ) );
+			global $post, $post_type;
+			if ( $post_type == 'tc_events' ) {
+				wp_enqueue_style( 'tc-better-events', plugins_url( 'css/admin.css', __FILE__ ) );
+			}
 			//wp_enqueue_script( 'script-name', get_template_directory_uri() . '/js/example.js', array(), '1.0.0', true );
 		}
 

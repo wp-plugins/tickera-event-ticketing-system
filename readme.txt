@@ -112,6 +112,9 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.2.0.6 =
+- Fixed issue with post statuses
+
 = 3.2.0.5 =
 - Fixed issue with ticket ID alignment in ticket template 
 - Fixed issue with Buyer Name in the e-mails when payments are processed via on-site payment gateways (like Stripe, PayPal pro, Paymill etc)
