@@ -1,7 +1,3 @@
-a[href="post-new.php?post_type=tc_events"]{
-    display: none !important;
-}
-
 #post-visibility-display .tc-control{
     display: inline-block;
 }
@@ -50,4 +46,34 @@ a[href="post-new.php?post_type=tc_events"]{
 #side-sortables .file_url,
 #side-sortables .regular-text{
     width: 100%;
+}
+
+.misc-pub-section.event_append_tickets {
+    position: relative;
+}
+
+.misc-pub-section.event_append_tickets:before {
+    color: #82878c;
+}
+
+#post-body #append_tickets:before {
+    content: '\f524';
+    font: 400 20px/1 dashicons;
+    speak: none;
+    display: inline-block;
+    padding: 0 2px 0 0;
+    top: 0;
+    left: -1px;
+    position: relative;
+    vertical-align: top;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-decoration: none!important;
+}
+
+#post_event_append_tickets {
+    margin-top: 1px;
+    display: inline-block;
+    margin-right: 0px;
+    float: right;
 }

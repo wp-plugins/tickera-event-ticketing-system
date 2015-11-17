@@ -1323,8 +1323,12 @@ function tc_get_ticket_instance_event( $field_name = false, $field_id = false, $
 	$ticket_type_id	 = get_post_meta( $ticket_instance_id, 'ticket_type_id', true );
 	$ticket_type	 = new TC_Ticket( $ticket_type_id );
 	$event_id		 = $ticket_type->get_ticket_event( apply_filters( 'tc_ticket_type_id', $ticket_type_id ) );
-	$event			 = new TC_Event( $event_id );
-	echo $event->details->post_title;
+	if ( !empty( $event_id ) ) {
+		$event = new TC_Event( $event_id );
+		echo $event->details->post_title;
+	} else {
+		echo __( 'N/A' );
+	}
 }
 
 function tc_get_ticket_instance_type( $field_name, $field_id, $ticket_instance_id ) {
@@ -1346,11 +1350,11 @@ function tc_get_ticket_download_link( $field_name, $field_id, $ticket_id ) {
 	$order	 = new TC_Order( $ticket->details->post_parent );
 
 	if ( $use_order_details_pretty_links == 'yes' ) {
-		$order_key		 = isset( $wp->query_vars[ 'tc_order_key' ] ) ? $wp->query_vars[ 'tc_order_key' ] : '';
+		$order_key		 = isset( $wp->query_vars[ 'tc_order_key' ] ) ? $wp->query_vars[ 'tc_order_key' ] : strtotime( $order->details->post_date );
 		$download_url	 = apply_filters( 'tc_download_ticket_url_front', wp_nonce_url( trailingslashit( $tc->get_order_slug( true ) ) . $order->details->post_title . '/' . $order_key . '/?download_ticket=' . $ticket_id . '&order_key=' . $order_key, 'download_ticket_' . $ticket_id . '_' . $order_key, 'download_ticket_nonce' ), $order_key, $ticket_id );
 		echo '<a href="' . $download_url . '">' . __( 'Download', 'tc' ) . '</a>';
 	} else {
-		$order_key		 = isset( $_GET[ 'tc_order_key' ] ) ? $_GET[ 'tc_order_key' ] : '';
+		$order_key		 = isset( $_GET[ 'tc_order_key' ] ) ? $_GET[ 'tc_order_key' ] : strtotime( $order->details->post_date );
 		$download_url	 = str_replace( ' ', '', apply_filters( 'tc_download_ticket_url_front', wp_nonce_url( trailingslashit( $tc->get_order_slug( true ) ) . '?tc_order=' . $order->details->post_title . '&tc_order_key=' . $order_key . '&download_ticket=' . $ticket_id . '&order_key=' . $order_key, 'download_ticket_' . $ticket_id . '_' . $order_key, 'download_ticket_nonce' ), $order_key, $ticket_id ) );
 		echo '<a href="' . $download_url . '">' . __( 'Download', 'tc' ) . '</a>';
 	}
@@ -1446,7 +1450,11 @@ function tc_get_order_details_email( $order_id = '', $order_key = '', $return = 
 
 	$order = new TC_Order( $order_id );
 
-	if ( $order->details->tc_order_date == $order_key ) {//key must match order creation date for security reasons
+	if ( empty( $order_key ) ) {
+		$order_key = strtotime( $order->details->post_date );
+	}
+
+	if ( $order->details->tc_order_date == $order_key || strtotime($order->details->post_date) == $order_key ) {//key must match order creation date for security reasons
 		if ( $order->details->post_status == 'order_received' ) {
 			$order_status = __( 'Pending Payment', 'tc' );
 		} else if ( $order->details->post_status == 'order_fraud' ) {
@@ -1722,7 +1730,6 @@ function tc_get_order_details_buyer_custom_fields( $order_id ) {
 							?>
 							<?php
 							if ( $field[ 'field_type' ] == 'function' ) {
-								//eval( $field[ 'function' ] . '("' . $field[ 'field_name' ] . '"' . (isset( $post_id ) ? ',' . $post_id : '') . ');' );
 								eval( $field[ 'function' ] . '("' . $field[ 'field_name' ] . '"' . (isset( $post_id ) ? ',' . $post_id : '') . (isset( $field[ 'id' ] ) ? ',"' . $field[ 'id' ] . '"' : '') . ');' );
 								?>
 

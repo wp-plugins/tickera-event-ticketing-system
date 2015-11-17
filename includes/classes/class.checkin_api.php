@@ -205,7 +205,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 				foreach ( $ticket_instances as $ticket_instance ) {
 					$order = new TC_Order( $ticket_instance->post_parent );
 
-					if ( $order->details->post_status == 'order_paid' ) {
+					if ( isset($order->details->post_status) && $order->details->post_status == 'order_paid' ) {
 						$order_is_paid = true;
 					} else {
 						$order_is_paid = false;

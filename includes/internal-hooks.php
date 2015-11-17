@@ -475,10 +475,23 @@ function tc_ticket_instance_field_value( $value = false, $field_value = false, $
 
 		$order = new TC_Order( $parent_post );
 
-		if ( current_user_can( 'manage_orders_cap' ) ) {
-			$value = apply_filters( 'tc_ticket_instance_order_admin_url', '<a target="_blank" href="' . admin_url( 'edit.php?post_type=tc_events&page=tc_orders&action=details&ID=' . $order->details->ID ) . '">' . $order->details->post_title . '</a>', $parent_post, $order->details->post_title );
+		$order_found = false;
+
+		if ( get_post_type( $order->details->ID ) == 'tc_orders' ) {
+			$order_found = true;
+		}
+
+		$order_found = apply_filters( 'tc_order_found', $order_found, $order->details->ID );
+
+		if ( $order_found ) {
+
+			if ( current_user_can( 'manage_orders_cap' ) ) {
+				$value = apply_filters( 'tc_ticket_instance_order_admin_url', '<a target="_blank" href="' . admin_url( 'edit.php?post_type=tc_events&page=tc_orders&action=details&ID=' . $order->details->ID ) . '">' . $order->details->post_title . '</a>', $parent_post, $order->details->post_title );
+			} else {
+				$value = $order->details->post_title;
+			}
 		} else {
-			$value = $order->details->post_title;
+			$value = __( 'N/A', 'tc' );
 		}
 	}
 
@@ -492,7 +505,7 @@ function tc_ticket_instance_field_value( $value = false, $field_value = false, $
 
 	if ( $field_id == 'ticket_type_id' ) {
 		$ticket_type = new TC_Ticket( $field_value );
-		$value		 = apply_filters( 'tc_checkout_owner_info_ticket_title', $ticket_type->details->post_title, $field_value );
+		$value		 = apply_filters( 'tc_checkout_owner_info_ticket_title', isset( $ticket_type->details->post_title ) ? $ticket_type->details->post_title : __( 'N/A', 'tc' ), $field_value );
 	}
 
 	if ( $field_id == 'ticket' ) {

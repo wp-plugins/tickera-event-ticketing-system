@@ -5,7 +5,7 @@
   Description: Simple event ticketing system
   Author: Tickera.com
   Author URI: http://tickera.com/
-  Version: 3.2.0.6
+  Version: 3.2.0.8
   TextDomain: tc
   Domain Path: /languages/
 
@@ -19,7 +19,7 @@ if ( !class_exists( 'TC' ) ) {
 
 	class TC {
 
-		var $version			 = '3.2.0.6';
+		var $version			 = '3.2.0.8';
 		var $title			 = 'Tickera';
 		var $name			 = 'tc';
 		var $dir_name		 = 'tickera-event-ticketing-system';
@@ -357,13 +357,12 @@ if ( !class_exists( 'TC' ) ) {
 			//if ( isset( $_GET[ 'download_ticket_nonce' ] ) && wp_verify_nonce( $_GET[ 'download_ticket_nonce' ], 'download_ticket_' . (int) $_GET[ 'download_ticket' ] . '_' . $order_key ) ) {
 			if ( !empty( $order_key ) && !empty( $ticket ) ) {
 
-
-
 				$order_id		 = wp_get_post_parent_id( $ticket );
 				$order			 = new TC_Order( $order_id );
 				$order_date		 = strtotime( $order->details->post_date );
 				$order_modified	 = strtotime( $order->details->post_modified );
 				$tc_order_date	 = $order->details->tc_order_date;
+				$alt_paid_date	 = $order->details->_tc_paid_date;
 
 				/* echo 'ORDER KEY:'.$order_key.'<br />';
 				  echo 'ORDER MODIFIED:'.$order_modified.'<br />';
@@ -372,7 +371,7 @@ if ( !class_exists( 'TC' ) ) {
 
 				  exit; */
 
-				if ( $order_key == $order_date || $order_key == $order_modified || $order_key == $tc_order_date ) {
+				if ( $order_key == $order_date || $order_key == $order_modified || $order_key == $tc_order_date || $alt_paid_date == $order_key ) {
 					$templates = new TC_Ticket_Templates();
 					$templates->generate_preview( (int) $_GET[ 'download_ticket' ], true );
 				}

@@ -112,6 +112,15 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+
+= 3.2.0.8 =
+- Fixed issue with download links and permissions when using ORDER_DETAILS e-mail placeholde
+
+= 3.2.0.7 =
+- Added new option "Show Tickets Automatically" under Event administration screen
+- Fixed CSS issue for "Create New" menu item in the admin
+- Fixed notices in the check-in API
+
 = 3.2.0.6 =
 - Fixed issue with post statuses
 

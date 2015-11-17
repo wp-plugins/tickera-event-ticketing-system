@@ -98,6 +98,7 @@ if ( !class_exists( 'TC_Better_Events' ) ) {
 		function modify_the_content( $content ) {
 			global $post, $post_type;
 			if ( !is_admin() && $post_type == 'tc_events' ) {
+				//Add date and location to the top of the content if needed
 				$tc_general_settings = get_option( 'tc_general_setting', false );
 
 				$tc_attach_event_date_to_title		 = isset( $tc_general_settings[ 'tc_attach_event_date_to_title' ] ) && !empty( $tc_general_settings[ 'tc_attach_event_date_to_title' ] ) ? $tc_general_settings[ 'tc_attach_event_date_to_title' ] : 'yes';
@@ -116,6 +117,17 @@ if ( !class_exists( 'TC_Better_Events' ) ) {
 				}
 
 				$content = '<div class="tc_the_content_pre">' . $new_content . '</div>' . $content;
+
+				//Add events shortcode to the end of the content if selected
+
+				$show_tickets_automatically = get_post_meta( $post->ID, 'show_tickets_automatically', true );
+				if ( !isset( $show_tickets_automatically ) ) {
+					$show_tickets_automatically = false;
+				}
+
+				if ( $show_tickets_automatically ) {
+					$content .= do_shortcode( apply_filters( 'tc_event_shortcode', '[tc_event]', $post->ID ) );
+				}
 			}
 			return $content;
 		}
@@ -130,6 +142,12 @@ if ( !class_exists( 'TC_Better_Events' ) ) {
 
 				$metas								 = array();
 				$metas[ 'event_presentation_page' ]	 = $post_id; //Event calendar support URL for better events interface
+
+				if ( isset( $_POST[ 'show_tickets_automatically' ] ) ) {
+					update_post_meta( $post_id, 'show_tickets_automatically', true );
+				} else {
+					update_post_meta( $post_id, 'show_tickets_automatically', false );
+				}
 
 				foreach ( $_POST as $field_name => $field_value ) {
 					if ( preg_match( '/_post_meta/', $field_name ) ) {
@@ -346,9 +364,20 @@ if ( !class_exists( 'TC_Better_Events' ) ) {
 
 				$event_status	 = get_post_status( $post->ID );
 				$on				 = $event_status == 'publish' ? 'tc-on' : '';
+
+				$show_tickets_automatically = get_post_meta( $post->ID, 'show_tickets_automatically', true );
+				if ( !isset( $show_tickets_automatically ) ) {
+					$show_tickets_automatically = false;
+				}
 				?>
 				<div class="misc-pub-section misc-pub-visibility-activity" id="visibility">
 					<span id="post-visibility-display"><?php echo '<div class="tc-control ' . $on . '" event_id="' . esc_attr( $post->ID ) . '"><div class="tc-toggle"></div></div>'; ?></span>
+				</div>
+
+				<div class="misc-pub-section event_append_tickets" id="append_tickets">
+					<label><?php _e( 'Show Tickets Automatically', 'tc' ); ?>
+						<span id="post_event_append_tickets"><input type="checkbox" name="show_tickets_automatically" value="1" <?php checked( $show_tickets_automatically, true, true ); ?> /></span>
+					</label>
 				</div>
 				<?php
 			}
