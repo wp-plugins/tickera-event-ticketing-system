@@ -112,6 +112,9 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.2.0.9 =
+- Added support for 2D barcode readers
+- Fixed issues with check-ins when orders are pending
 
 = 3.2.0.8 =
 - Fixed issue with download links and permissions when using ORDER_DETAILS e-mail placeholde

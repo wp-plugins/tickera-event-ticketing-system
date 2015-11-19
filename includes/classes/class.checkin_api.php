@@ -36,7 +36,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 				}
 			}
 
-			$this->ticket_code		 = apply_filters( 'tc_ticket_code_var_name', isset( $ticket_code ) && $ticket_code != '' ? $ticket_code : $checksum  );
+			$this->ticket_code		 = apply_filters( 'tc_ticket_code_var_name', isset( $ticket_code ) && $ticket_code != '' ? $this->extract_checksum_from_code( $ticket_code ) : $checksum  );
 			$this->page_number		 = apply_filters( 'tc_tickets_info_page_number_var_name', $page_number );
 			$this->results_per_page	 = apply_filters( 'tc_tickets_info_results_per_page_var_name', $results_per_page );
 			$this->keyword			 = apply_filters( 'tc_tickets_info_keyword_var_name', $keyword );
@@ -68,6 +68,29 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 					$this->tickets_info();
 				}
 			}
+		}
+
+		function extract_checksum_from_code( $code ) {
+			if ( $code !== '' ) {
+				$findme	 = 'checksum'; //old or QR code characters
+				$pos	 = strpos( $code, $findme );
+
+				if ( $pos === false ) {//new code
+					//$checksum
+				} else {//old code
+					$ticket_strings_array	 = explode( '|', $code ); //received from barcode reader addon
+					$new_code				 = end( $ticket_strings_array );
+
+					if ( $code == $new_code ) {
+						$ticket_strings_array	 = explode( '%7C', $code ); //received from mobile apps
+						$code					 = end( $ticket_strings_array );
+					} else {
+						$code = $new_code;
+					}
+				}
+			}
+
+			return $code;
 		}
 
 		function get_api_event() {
@@ -205,7 +228,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 				foreach ( $ticket_instances as $ticket_instance ) {
 					$order = new TC_Order( $ticket_instance->post_parent );
 
-					if ( isset($order->details->post_status) && $order->details->post_status == 'order_paid' ) {
+					if ( isset( $order->details->post_status ) && $order->details->post_status == 'order_paid' ) {
 						$order_is_paid = true;
 					} else {
 						$order_is_paid = false;
@@ -472,32 +495,29 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 					);
 				}
 
-				$args = array(
-					'post_type'		 => 'tc_tickets_instances',
-					'post_status'	 => 'any',
+				$orders_args = array(
 					'posts_per_page' => -1,
-					'meta_query'	 => $meta_query,
-					'posts_per_page' => $this->results_per_page,
-					'offset'		 => (( $this->page_number - 1 ) * $this->results_per_page ),
+					'post_type'		 => apply_filters( 'tc_order_post_type_name', array( 'tc_orders' ) ),
+					'post_status'	 => apply_filters( 'tc_paid_post_statuses', array( 'order_paid' ) ),
+					'fields'		 => 'ids',
+					'cache_results'	 => false
+				);
+
+				$query			 = new WP_Query( $orders_args );
+				$paid_orders_ids = $query->get_posts();
+
+				$args = array(
+					'post_type'			 => 'tc_tickets_instances',
+					'post_status'		 => 'publish',
+//					'posts_per_page' => -1,
+					'meta_query'		 => $meta_query,
+					'posts_per_page'	 => $this->results_per_page,
+					'offset'			 => (( $this->page_number - 1 ) * $this->results_per_page ),
+					'post_parent__in'	 => $paid_orders_ids
 				);
 
 				$results = get_posts( $args );
-
-
-				/*
-				  foreach ( $ticket_instances as $ticket_instance ) {
-				  $order = new TC_Order( $ticket_instance->post_parent );
-
-				  if ( $order->details->post_status == 'order_paid' ) {
-				  $order_is_paid = true;
-				  } else {
-				  $order_is_paid = false;
-				  }
-
-				  } */
-
 				/* END OF THE NEW API */
-
 
 				$results_count = 0;
 
@@ -511,17 +531,7 @@ if ( !class_exists( 'TC_Checkin_API' ) ) {
 
 					$continue = false;
 
-					/* if ( $event_id == 'all' ) {
-					  $continue = true;
-					  } else {
-					  if ( $ticket_type_event_id == $event_id ) {
-					  $continue = true;
-					  } else {
-					  $continue = false;
-					  }
-					  } */
-
-					if ( $order->details->post_status == 'order_paid' ) {
+					if ( in_array( $order->details->post_status, apply_filters( 'tc_paid_post_statuses', array( 'order_paid' ) ) ) ) {
 						$order_is_paid = true;
 					} else {
 						$order_is_paid = false;

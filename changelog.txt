@@ -1,8 +1,12 @@
 Plugin Name: Tickera
 Author: Tickera.com
 
+3.2.0.9 - 19/NOV/2015
+- Added support for 2D barcode readers
+- Fixed issues with check-ins when orders are pending
+
 3.2.0.8 - 17/NOV/2015
-- Fixed issue with download links and permissions when using ORDER_DETAILS e-mail placeholder
+- Fixed issue with download links and permissions when using ORDER_DETAILS e-mail placeholde
 
 3.2.0.7 - 12/NOV/2015
 - Added new option "Show Tickets Automatically" under Event administration screen
