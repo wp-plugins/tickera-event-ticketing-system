@@ -112,9 +112,15 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+= 3.2.1.0 =
+- Fixed permission error on the orders admin page when clicking on an event link under the "Ticket(s)" column
+- Fixed issue with invalid user id when clicking on a user link on the admin order page
+- Fixed notices on the order details page shown if settings are not yet saved
+- Set first value as default on for the radio button element if default value is not set (works for the buyer and attendee data including custom forms)
+
 = 3.2.0.9 =
 - Added support for 2D barcode readers
-- Fixed issues with check-ins when orders are pending
+- Fixed issue issues with check-ins when orders are pending
 
 = 3.2.0.8 =
 - Fixed issue with download links and permissions when using ORDER_DETAILS e-mail placeholde

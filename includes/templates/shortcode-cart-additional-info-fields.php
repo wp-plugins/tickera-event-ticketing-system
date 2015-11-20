@@ -58,7 +58,7 @@ $cart_contents		 = apply_filters( 'tc_cart_contents', array() );
 							 foreach ( $field_values as $field_value ) {
 								 ?>
 							<label><input type="<?php echo $field[ 'field_type' ]; ?>" class="buyer-field-<?php echo $field[ 'field_type' ] . ' ' . $validation_class; ?> tickera-input-field" value="<?php echo trim( $field_value ); ?>" name="<?php echo 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>" <?php
-								if ( isset( $field[ 'field_default_value' ] ) && $field[ 'field_default_value' ] == trim( $field_value ) ) {
+								if ( isset( $field[ 'field_default_value' ] ) && $field[ 'field_default_value' ] == trim( $field_value ) || (empty( $field[ 'field_default_value' ] ) && isset( $field_values[ 0 ] ) && $field_values[ 0 ] == trim( $field_value ) ) ) {
 									echo 'checked';
 								}
 								?>></label><?php echo trim( $field_value ); ?>
@@ -220,7 +220,7 @@ $cart_contents		 = apply_filters( 'tc_cart_contents', array() );
 											 foreach ( $field_values as $field_value ) {
 												 ?>
 											<label><input type="<?php echo $field[ 'field_type' ]; ?>" class="owner-field-<?php echo $field[ 'field_type' ] . ' ' . $validation_class; ?> tickera-input-field" value="<?php echo esc_attr( trim( $field_value ) ); ?>" name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][<?php echo $owner_index; ?>]" <?php
-												if ( isset( $field[ 'field_default_value' ] ) && $field[ 'field_default_value' ] == trim( $field_value ) ) {
+												if ( isset( $field[ 'field_default_value' ] ) && $field[ 'field_default_value' ] == trim( $field_value ) || (empty( $field[ 'field_default_value' ] ) && isset( $field_values[ 0 ] ) && $field_values[ 0 ] == trim( $field_value ) ) ) {
 													echo 'checked';
 												}
 												?>></label><?php echo trim( $field_value ); ?>

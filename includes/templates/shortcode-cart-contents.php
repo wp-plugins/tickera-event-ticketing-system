@@ -141,7 +141,7 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 										 foreach ( $field_values as $field_value ) {
 											 ?>
 										<label><input type="<?php echo $field[ 'field_type' ]; ?>" class="buyer-field-<?php echo $field[ 'field_type' ] . ' ' . $validation_class; ?> tickera-input-field" value="<?php echo trim( $field_value ); ?>" name="<?php echo 'buyer_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>" <?php
-											if ( isset( $field[ 'field_default_value' ] ) && $field[ 'field_default_value' ] == trim( $field_value ) ) {
+											if ( isset( $field[ 'field_default_value' ] ) && $field[ 'field_default_value' ] == trim( $field_value ) || (empty( $field[ 'field_default_value' ] ) && isset( $field_values[ 0 ] ) && $field_values[ 0 ] == trim( $field_value ) ) ) {
 												echo 'checked';
 											}
 											?>></label><?php echo trim( $field_value ); ?>
@@ -268,7 +268,7 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 															 if ( isset( $field[ 'field_placeholder' ] ) ) {
 																 echo 'placeholder="' . esc_attr( $field[ 'field_placeholder' ] ) . '"';
 															 }
-															 ?> class="owner-field-<?php echo $field[ 'field_type' ] . ' ' . $validation_class; ?> tickera-input-field tc-owner-field <?php if($field[ 'field_name' ] == 'owner_email' ){ ?>tc_owner_email<?php } ?>" value="" name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][<?php echo $owner_index; ?>]"></label><span class="description"><?php echo $field[ 'field_description' ]; ?></span></div><!-- fields-wrap --><?php } ?><?php } ?>
+															 ?> class="owner-field-<?php echo $field[ 'field_type' ] . ' ' . $validation_class; ?> tickera-input-field tc-owner-field <?php if ( $field[ 'field_name' ] == 'owner_email' ) { ?>tc_owner_email<?php } ?>" value="" name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][<?php echo $owner_index; ?>]"></label><span class="description"><?php echo $field[ 'field_description' ]; ?></span></div><!-- fields-wrap --><?php } ?><?php } ?>
 
 										<?php if ( $field[ 'field_type' ] == 'textarea' ) { ?><div class="fields-wrap <?php
 											if ( isset( $field[ 'field_class' ] ) ) {
@@ -301,7 +301,7 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 														 foreach ( $field_values as $field_value ) {
 															 ?>
 														<label><input type="<?php echo $field[ 'field_type' ]; ?>" class="owner-field-<?php echo $field[ 'field_type' ] . ' ' . $validation_class; ?> tickera-input-field" value="<?php echo esc_attr( trim( $field_value ) ); ?>" name="<?php echo 'owner_data_' . $field[ 'field_name' ] . '_' . $field[ 'post_field_type' ]; ?>[<?php echo $ticket_type; ?>][<?php echo $owner_index; ?>]" <?php
-															if ( isset( $field[ 'field_default_value' ] ) && $field[ 'field_default_value' ] == trim( $field_value ) ) {
+															if ( isset( $field[ 'field_default_value' ] ) && $field[ 'field_default_value' ] == trim( $field_value ) || (empty( $field[ 'field_default_value' ] ) && isset( $field_values[ 0 ] ) && $field_values[ 0 ] == trim( $field_value ) ) ) {
 																echo 'checked';
 															}
 															?>></label><?php echo trim( $field_value ); ?>
@@ -391,8 +391,10 @@ if ( isset( $tc_general_settings[ 'force_login' ] ) && $tc_general_settings[ 'fo
 					<?php } //foreach ( $cart_contents as $ticket_type => $ordered_count ) ?>
 
 				</div><!-- tickera_owner_info -->
-				<?php do_action( 'before_cart_submit' );
-				do_action( 'tc_before_cart_submit' );?>
+				<?php
+				do_action( 'before_cart_submit' );
+				do_action( 'tc_before_cart_submit' );
+				?>
 				<p><input type="submit" id="proceed_to_checkout" name="proceed_to_checkout" value="<?php _e( "Proceed to Checkout", "tc" ); ?>" class="tickera_checkout tickera-button"></p>
 			</div><!-- tickera_additional_info -->
 			<?php

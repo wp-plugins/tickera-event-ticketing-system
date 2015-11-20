@@ -1305,7 +1305,7 @@ function tc_get_order_customer( $field_name = '', $post_id = '' ) {
 	$order		 = new TC_Order( $post_id );
 	$author_id	 = $order->details->post_author;
 
-	if ( !user_can( $author_id, 'manage_options' ) ) {
+	if ( !user_can( $author_id, 'manage_options' ) && $author_id != 0 ) {
 		$buyer_info = '<a href="' . admin_url( 'user-edit.php?user_id=' . $author_id ) . '">' . $value[ 'buyer_data' ][ 'first_name_post_meta' ] . ' ' . $value[ 'buyer_data' ][ 'last_name_post_meta' ] . '</a>';
 	} else {
 		$buyer_info = $value[ 'buyer_data' ][ 'first_name_post_meta' ] . ' ' . $value[ 'buyer_data' ][ 'last_name_post_meta' ];
@@ -1454,7 +1454,7 @@ function tc_get_order_details_email( $order_id = '', $order_key = '', $return = 
 		$order_key = strtotime( $order->details->post_date );
 	}
 
-	if ( $order->details->tc_order_date == $order_key || strtotime($order->details->post_date) == $order_key ) {//key must match order creation date for security reasons
+	if ( $order->details->tc_order_date == $order_key || strtotime( $order->details->post_date ) == $order_key ) {//key must match order creation date for security reasons
 		if ( $order->details->post_status == 'order_received' ) {
 			$order_status = __( 'Pending Payment', 'tc' );
 		} else if ( $order->details->post_status == 'order_fraud' ) {
@@ -1680,10 +1680,10 @@ function tc_get_order_details_front( $order_id = '', $order_key = '', $return = 
 		<?php } ?>
 		<label><span class="order_details_title"><?php _e( 'Subtotal: ', 'tc' ); ?></span> <?php echo $subtotal; ?></label>
 		<?php if ( !isset( $tc_general_settings[ 'show_fees' ] ) || isset( $tc_general_settings[ 'show_fees' ] ) && $tc_general_settings[ 'show_fees' ] == 'yes' ) { ?>
-			<label><span class="order_details_title"><?php echo $tc_general_settings[ 'fees_label' ]; ?></span> <?php echo $fees_total; ?></label>
+			<label><span class="order_details_title"><?php echo isset( $tc_general_settings[ 'fees_label' ] ) ? $tc_general_settings[ 'fees_label' ] : __( 'Fees', 'tc' ); ?></span> <?php echo $fees_total; ?></label>
 		<?php } ?>
 		<?php if ( !isset( $tc_general_settings[ 'show_tax_rate' ] ) || isset( $tc_general_settings[ 'show_tax_rate' ] ) && $tc_general_settings[ 'show_tax_rate' ] == 'yes' ) { ?>
-			<label><span class="order_details_title"><?php echo $tc_general_settings[ 'tax_label' ]; ?></span> <?php echo $tax_total; ?></label>
+			<label><span class="order_details_title"><?php echo isset( $tc_general_settings[ 'tax_label' ] ) ? $tc_general_settings[ 'tax_label' ] : __( 'Tax', 'tc' ); ?></span> <?php echo $tax_total; ?></label>
 		<?php } ?>
 		<hr />
 		<label><span class="order_details_title"><?php _e( 'Total: ', 'tc' ); ?></span> <?php echo $total; ?></label>

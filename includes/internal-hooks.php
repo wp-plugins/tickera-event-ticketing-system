@@ -12,7 +12,7 @@ function tc_add_number_of_orders_value( $value, $column_name, $user_id ) {
 	$user = get_userdata( $user_id );
 	if ( 'tc_number_of_orders' == $column_name ) {
 		global $wpdb;
-		if ( user_can( $user_id, 'manage_options' ) ) {
+		if ( user_can( $user_id, 'manage_options' ) && $user_id != 0 ) {
 			$value = '-';
 		} else {
 			$where	 = "WHERE post_author = " . $user_id . " AND post_type = 'tc_orders' AND (post_status = 'order_paid' OR post_status = 'order_received' OR post_status = 'order_fraud')";
@@ -328,7 +328,7 @@ function tc_order_field_value( $order_id, $value, $meta_key, $field_type, $field
 		$order		 = new TC_Order( $order_id );
 		$author_id	 = $order->details->post_author;
 
-		if ( !user_can( $author_id, 'manage_options' ) ) {
+		if ( !user_can( $author_id, 'manage_options' ) && $author_id != 0 ) {
 			$buyer_info = '<a href="' . admin_url( 'user-edit.php?user_id=' . $author_id ) . '">' . $value[ 'buyer_data' ][ 'first_name_post_meta' ] . ' ' . $value[ 'buyer_data' ][ 'last_name_post_meta' ] . '</a>';
 		} else {
 			$buyer_info = $value[ 'buyer_data' ][ 'first_name_post_meta' ] . ' ' . $value[ 'buyer_data' ][ 'last_name_post_meta' ];
@@ -339,7 +339,7 @@ function tc_order_field_value( $order_id, $value, $meta_key, $field_type, $field
 		$events = $tc->get_cart_events( $value );
 		foreach ( $events as $event_id ) {
 			$event = new TC_Event( $event_id );
-			echo '<a href="edit.php?post_type=tc_events&page=tc_events&action=edit&ID=' . $event->details->ID . '">' . $event->details->post_title . '</a> x ' . $tc->get_cart_event_tickets( $value, $event->details->ID ) . '<br />';
+			echo '<a href="post.php?post=3210&action=edit&ID=' . $event->details->ID . '">' . $event->details->post_title . '</a> x ' . $tc->get_cart_event_tickets( $value, $event->details->ID ) . '<br />';
 		}
 	} elseif ( $field_id == 'gateway' ) {
 		return $value[ 'gateway' ];
