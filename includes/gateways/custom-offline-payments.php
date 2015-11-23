@@ -46,9 +46,16 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 		} else {
 			$order = new TC_Order( $order_id );
 		}
-		$placeholders		 = array( 'ORDER_ID' );
-		$placeholder_values	 = array( strtoupper( $order->details->post_title ) );
-		$message			 = str_replace( $placeholders, $placeholder_values, $message );
+
+		$payment_info	 = get_post_meta( $order->id, 'tc_payment_info', true );
+		$cart_info		 = get_post_meta( $order->id, 'tc_cart_info', true );
+		$buyer_name		 = $cart_info[ 'buyer_data' ][ 'first_name_post_meta' ] . ' ' . $cart_info[ 'buyer_data' ][ 'last_name_post_meta' ];
+
+		$placeholders		 = array( 'ORDER_ID', 'ORDER_TOTAL', 'BUYER_NAME' );
+		$placeholder_values	 = array( strtoupper( $order->details->post_title ), apply_filters( 'tc_cart_currency_and_format', $payment_info[ 'total' ] ), $buyer_name );
+
+		$message = str_replace( $placeholders, $placeholder_values, $message );
+
 		return $message;
 	}
 
@@ -69,7 +76,7 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 				$subject		 = $this->get_option( 'instructions_email_subject' );
 
 				if ( $order_instructions_sent !== $this->buyer_info( 'email' ) ) {
-					wp_mail( $to, $subject, apply_filters( 'tc_order_created_client_email_message', $message ), apply_filters( 'tc_order_created_client_email_headers', $client_headers ) );
+					wp_mail( $to, $subject, apply_filters( 'tc_order_created_client_email_message', stripcslashes( wpautop( $message ) ) ), apply_filters( 'tc_order_created_client_email_headers', $client_headers ) );
 					$order_instructions_sent = $this->buyer_info( 'email' );
 				}
 			}
@@ -91,7 +98,7 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 		$order = $tc->create_order( $order_id, $this->cart_contents(), $this->cart_info(), $payment_info, false );
 
 		wp_redirect( $tc->get_confirmation_slug( true, $order_id ) );
-		tc_js_redirect($tc->get_confirmation_slug( true, $order_id ));
+		tc_js_redirect( $tc->get_confirmation_slug( true, $order_id ) );
 		exit;
 	}
 
@@ -144,7 +151,7 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 		$tc->remove_order_session_data();
 		$tc->maybe_skip_confirmation_screen( $this, $order );
 
-		return $content;
+		return stripcslashes( wpautop( $content ) );
 	}
 
 	function gateway_admin_settings( $settings, $visible ) {
@@ -176,7 +183,7 @@ class TC_Gateway_Custom_Offline_Payments extends TC_Gateway_API {
 					'instructions'				 => array(
 						'title'			 => __( 'Payment Instructions', 'tc' ),
 						'type'			 => 'wp_editor',
-						'description'	 => __( 'Your customers who checkout using the custom offline payment method will be given a set of instructions (set by you) to complete the purchase process immediately after checkout completion. Available placeholders: ORDER_ID', 'tc' )
+						'description'	 => __( 'Your customers who checkout using the custom offline payment method will be given a set of instructions (set by you) to complete the purchase process immediately after checkout completion. Available placeholders: ORDER_ID, ORDER_TOTAL, BUYER_NAME', 'tc' )
 					),
 					'instructions_email'		 => array(
 						'title'			 => __( 'E-mail Instructions', 'tc' ),

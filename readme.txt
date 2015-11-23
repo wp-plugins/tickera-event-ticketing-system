@@ -112,6 +112,13 @@ You can find [setup instructions here »](http://tickera.com/documentation-categ
 Plugin Name: Tickera
 Author: Tickera.com
 
+
+= 3.2.1.1 =
+- Added "Admin Order Placed E-Mail" notifications
+- Added ORDER_TOTAL and BUYER_NAME placeholders to the offline payments payment Instructions field
+- Added "Multipage Ticket Template" option
+- If none gateways are active, set FREE Orders by default
+
 = 3.2.1.0 =
 - Fixed permission error on the orders admin page when clicking on an event link under the "Ticket(s)" column
 - Fixed issue with invalid user id when clicking on a user link on the admin order page

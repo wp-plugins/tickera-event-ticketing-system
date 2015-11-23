@@ -296,6 +296,16 @@ function admin_email_from_email( $email ) {
 	return isset( $tc_email_settings[ 'admin_order_from_email' ] ) ? $tc_email_settings[ 'admin_order_from_email' ] : get_option( 'admin_email' );
 }
 
+function admin_email_from_placed_name( $name ) {
+	$tc_email_settings = get_option( 'tc_email_setting', false );
+	return isset( $tc_email_settings[ 'admin_order_from_placed_name' ] ) ? $tc_email_settings[ 'admin_order_from_placed_name' ] : get_option( 'blogname' );
+}
+
+function admin_email_from_placed_email( $email ) {
+	$tc_email_settings = get_option( 'tc_email_setting', false );
+	return isset( $tc_email_settings[ 'admin_order_from_placed_email' ] ) ? $tc_email_settings[ 'admin_order_from_placed_email' ] : get_option( 'admin_email' );
+}
+
 function tc_order_created_email( $order_id, $status, $cart_contents = false, $cart_info = false, $payment_info = false,
 								 $send_email_to_admin = true ) {
 	global $tc;
@@ -408,6 +418,49 @@ function tc_order_created_email( $order_id, $status, $cart_contents = false, $ca
 				mail( $to, $subject, stripcslashes( wpautop( $message ) ), apply_filters( 'tc_order_completed_admin_email_headers', $headers ) );
 			}
 		}
+	}
+
+
+	if ( $status == 'order_received' ) {
+		//Send e-mail to the admin when order is placed / pending
+
+		if ( (!isset( $tc_email_settings[ 'admin_send_placed_message' ] ) || (isset( $tc_email_settings[ 'admin_send_placed_message' ] ) && $tc_email_settings[ 'admin_send_placed_message' ] == 'yes') ) ) {
+			add_filter( 'wp_mail_from', 'admin_email_from_placed_email', 999 );
+			add_filter( 'wp_mail_from_name', 'admin_email_from_placed_name', 999 );
+
+			$subject = isset( $tc_email_settings[ 'admin_order_placed_subject' ] ) ? $tc_email_settings[ 'admin_order_placed_subject' ] : __( 'New Order Placed', 'tc' );
+
+			$default_message = 'Hello, <br /><br />a new order (ORDER_ID) totalling <strong>ORDER_TOTAL</strong> has been placed. <br /><br />You can check the order details here: ORDER_ADMIN_URL';
+			$message		 = isset( $tc_email_settings[ 'admin_order_placed_message' ] ) ? $tc_email_settings[ 'admin_order_placed_message' ] : $default_message;
+
+			$order	 = tc_get_order_id_by_name( $order_id );
+			$order	 = new TC_Order( $order->ID );
+
+			$order_admin_url = admin_url( 'edit.php?post_type=tc_events&page=tc_orders&action=details&ID=' . $order->details->ID );
+
+			$placeholders		 = array( 'ORDER_ID', 'ORDER_TOTAL', 'ORDER_ADMIN_URL', 'BUYER_NAME' );
+			$placeholder_values	 = array( $order_id, apply_filters( 'tc_cart_currency_and_format', $payment_info[ 'total' ] ), $order_admin_url, $buyer_name );
+
+			$to = isset( $tc_email_settings[ 'admin_order_placed_from_email' ] ) ? $tc_email_settings[ 'admin_order_placed_from_email' ] : get_option( 'admin_email' );
+
+			$message = str_replace( apply_filters( 'tc_order_completed_admin_email_placeholders', $placeholders ), apply_filters( 'tc_order_completed_admin_email_placeholder_values', $placeholder_values ), $message );
+
+			$admin_headers = ''; //'From: ' . admin_email_from_name( '' ) . ' <' . admin_email_from_email( '' ) . '>' . "\r\n";
+
+			if ( $email_send_type == 'wp_mail' ) {
+				//echo $to.', '.$subject.', '.html_entity_decode( stripcslashes( apply_filters( 'tc_order_completed_admin_email_message', wpautop( $message ) ) ) );
+				wp_mail( $to, $subject, html_entity_decode( stripcslashes( apply_filters( 'tc_order_completed_admin_email_message', wpautop( $message ) ) ) ), apply_filters( 'tc_order_completed_admin_email_headers', $admin_headers ) );
+			} else {
+				$headers = 'MIME-Version: 1.0' . "\r\n";
+				$headers .= 'Content-type: text/html; charset=UTF-8' . "\r\n";
+				$headers .= 'From: ' . admin_email_from_email( '' ) . "\r\n" .
+				'Reply-To: ' . admin_email_from_email( '' ) . "\r\n" .
+				'X-Mailer: PHP/' . phpversion();
+
+				mail( $to, $subject, stripcslashes( wpautop( $message ) ), apply_filters( 'tc_order_completed_admin_email_headers', $headers ) );
+			}
+		}
+		//exit;
 	}
 
 	do_action( 'tc_after_order_created_email' );
@@ -578,6 +631,27 @@ function tc_show_owner_fields( $field_name, $default_value = '' ) {
 }
 
 function tc_client_send_order_messages( $field_name, $default_value = '' ) {
+	global $tc_email_settings;
+	if ( isset( $tc_email_settings[ $field_name ] ) ) {
+		$checked = $tc_email_settings[ $field_name ];
+	} else {
+		if ( $default_value !== '' ) {
+			$checked = $default_value;
+		} else {
+			$checked = 'yes';
+		}
+	}
+	?>
+	<label>
+		<input type="radio" name="tc_email_setting[<?php echo esc_attr( $field_name ); ?>]" value="yes" <?php checked( $checked, 'yes', true ); ?>  /><?php _e( 'Yes', 'tc' ); ?>
+	</label>
+	<label>
+		<input type="radio" name="tc_email_setting[<?php echo esc_attr( $field_name ); ?>]" value="no" <?php checked( $checked, 'no', true ); ?> /><?php _e( 'No', 'tc' ); ?>
+	</label>
+	<?php
+}
+
+function tc_client_send_order_placed_messages( $field_name, $default_value = '' ) {
 	global $tc_email_settings;
 	if ( isset( $tc_email_settings[ $field_name ] ) ) {
 		$checked = $tc_email_settings[ $field_name ];
@@ -1016,7 +1090,7 @@ function tc_countries( $class = '', $name = '' ) {
 		<option value="CK"><?php _e( 'Cook Islands', 'tc' ); ?></option>
 		<option value="CR"><?php _e( 'Costa Rica', 'tc' ); ?></option>
 		<option value="CI"><?php _e( "Côte d'Ivoire", 'tc' ); ?></option>
-		<option value="HR"><?php _e( 'Croatia', 'tc' ); ?>', 'tc');?></option>
+		<option value="HR"><?php _e( 'Croatia', 'tc' ); ?></option>
 		<option value="CU"><?php _e( 'Cuba', 'tc' ); ?></option>
 		<option value="CW"><?php _e( 'Curaçao', 'tc' ); ?></option>
 		<option value="CY"><?php _e( 'Cyprus', 'tc' ); ?></option>

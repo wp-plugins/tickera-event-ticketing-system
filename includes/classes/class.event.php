@@ -38,8 +38,8 @@ if ( !class_exists( 'TC_Event' ) ) {
 
 		function get_event_ticket_types( $post_status = 'any', $event_id = false ) {
 
-			$event_id = $event_id ? $event_id : $this->id; 
-			
+			$event_id = $event_id ? $event_id : $this->id;
+
 			$ticket_ids = array();
 
 			$args = array(
@@ -47,8 +47,12 @@ if ( !class_exists( 'TC_Event' ) ) {
 				'post_status'	 => $post_status,
 				'posts_per_page' => -1,
 				'meta_key'		 => 'event_name',
-				'meta_value'	 => (string) $this->id
+				'meta_value'	 => (string) $this->id,
+				'orderby'		 => 'date',
+				'order'			 => 'ASC',
 			);
+
+			$args = apply_filters( 'tc_get_event_ticket_types_args', $args );
 
 			$ticket_types = apply_filters( 'tc_get_event_ticket_types', get_posts( $args ), $event_id );
 

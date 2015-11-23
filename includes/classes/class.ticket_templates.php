@@ -17,7 +17,17 @@ if ( !class_exists( 'TC_Ticket_Templates' ) ) {
 		function generate_preview( $ticket_instance_id = false, $force_download = false, $template_id = false,
 							 $ticket_type_id = false ) {
 			global $tc, $pdf;
+
 			error_reporting( 0 );
+
+			$tc_general_settings			 = get_option( 'tc_general_setting', false );
+			$ticket_template_auto_pagebreak	 = isset( $tc_general_settings[ 'ticket_template_auto_pagebreak' ] ) ? $tc_general_settings[ 'ticket_template_auto_pagebreak' ] : 'no';
+			
+			if ( $ticket_template_auto_pagebreak == 'no' ) {
+				$ticket_template_auto_pagebreak = false;
+			} else {
+				$ticket_template_auto_pagebreak = true;
+			}
 
 			require_once($tc->plugin_dir . 'includes/tcpdf/examples/tcpdf_include.php');
 
@@ -41,7 +51,7 @@ if ( !class_exists( 'TC_Ticket_Templates' ) ) {
 			} else {
 
 				$ticket_template = get_post_meta( $ticket_instance->details->ticket_type_id, 'ticket_template', true );
-				
+
 				$ticket_template_alternative = get_post_meta( apply_filters( 'tc_ticket_type_id', $ticket_instance->details->ticket_type_id ), apply_filters( 'tc_ticket_template_field_name', '_ticket_template' ), true );
 
 				$ticket_template = !empty( $ticket_template ) ? $ticket_template : $ticket_template_alternative;
@@ -66,11 +76,7 @@ if ( !class_exists( 'TC_Ticket_Templates' ) ) {
 			// set margins
 			$pdf->SetMargins( $margin_left, $margin_top, $margin_right );
 			// set auto page breaks
-			$pdf->SetAutoPageBreak( false, PDF_MARGIN_BOTTOM );
-
-
-
-
+			$pdf->SetAutoPageBreak( $ticket_template_auto_pagebreak, PDF_MARGIN_BOTTOM );
 
 			// set font
 			//$pdf->SetFont($metas->document_font_post_meta, '', 20);
@@ -109,7 +115,6 @@ if ( !class_exists( 'TC_Ticket_Templates' ) ) {
 					}
 				}
 			}
-
 
 			$col_1		 = 'width: 100%;';
 			$col_1_width = '100%';

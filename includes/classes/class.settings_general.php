@@ -341,6 +341,15 @@ if ( !class_exists( 'TC_Settings_General' ) ) {
 					'default_value'		 => 'yes',
 					'field_description'	 => __( 'Choose whether you want to use pretty permalinks for order details page or not. Set it to "No" in case that you see 404 page for order details (this could be caused by a third-party plugin or a theme). ', 'tc' ),
 					'section'			 => 'miscellaneous_settings'
+				),
+				array(
+					'field_name'		 => 'ticket_template_auto_pagebreak',
+					'field_title'		 => __( 'Multipage Ticket Template', 'tc' ),
+					'field_type'		 => 'function',
+					'function'			 => 'tc_yes_no',
+					'default_value'		 => 'no',
+					'field_description'	 => __( 'Allow ticket template to show on more than one page in the PDF.', 'tc' ),
+					'section'			 => 'miscellaneous_settings'
 				)
 			);
 

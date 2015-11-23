@@ -28,6 +28,11 @@ if ( !class_exists( 'TC_Settings_Email' ) ) {
 					'description'	 => '',
 				),
 				array(
+					'name'			 => 'admin_order_placed_email',
+					'title'			 => __( 'Admin Order Placed E-Mail' ),
+					'description'	 => '',
+				),
+				array(
 					'name'			 => 'misc_email',
 					'title'			 => __( 'Miscellaneous' ),
 					'description'	 => '',
@@ -88,6 +93,51 @@ if ( !class_exists( 'TC_Settings_Email' ) ) {
 				),
 			);
 
+			$admin_order_placed_email_fields = array(
+				array(
+					'field_name'		 => 'admin_order_placed_subject',
+					'field_title'		 => __( 'Subject', 'tc' ),
+					'field_type'		 => 'option',
+					'default_value'		 => __( 'New Order Placed', 'tc' ),
+					'field_description'	 => __( 'Subject of the e-mail', 'tc' ),
+					'section'			 => 'admin_order_placed_email'
+				),
+				array(
+					'field_name'		 => 'admin_order_placed_from_name',
+					'field_title'		 => __( 'From Name', 'tc' ),
+					'field_type'		 => 'option',
+					'default_value'		 => get_option( 'blogname' ),
+					'field_description'	 => __( 'This name will appear as sent from name in the e-mail', 'tc' ),
+					'section'			 => 'admin_order_placed_email'
+				),
+				array(
+					'field_name'		 => 'admin_order_placed_from_email',
+					'field_title'		 => __( 'From E-mail Address', 'tc' ),
+					'field_type'		 => 'option',
+					'default_value'		 => get_option( 'admin_email' ),
+					'field_description'	 => __( 'This e-mail will appear as sender address' ),
+					'section'			 => 'admin_order_placed_email'
+				),
+				array(
+					'field_name'		 => 'admin_order_placed_message',
+					'field_title'		 => __( 'Order Placed Message', 'tc' ),
+					'field_type'		 => 'function',
+					'function'			 => 'tc_get_admin_order_message',
+					'default_value'		 => 'Hello, <br /><br />a new order (ORDER_ID) totalling <strong>ORDER_TOTAL</strong> has been placed. <br /><br />You can check the order details here ORDER_ADMIN_URL',
+					'field_description'	 => __( 'Body of the e-mail. You can use following placeholders (ORDER_ID, ORDER_TOTAL, ORDER_ADMIN_URL, BUYER_NAME)', 'tc' ),
+					'section'			 => 'admin_order_placed_email'
+				),
+				array(
+					'field_name'		 => 'admin_send_placed_message',
+					'field_title'		 => __( 'Send E-Mails', 'tc' ),
+					'field_type'		 => 'function',
+					'function'			 => 'tc_client_send_order_placed_messages',
+					'default_value'		 => 'no',
+					'field_description'	 => __( 'Whether to send or not e-mail upon each placed / pending order)', 'tc' ),
+					'section'			 => 'admin_order_placed_email'
+				),
+			);
+			
 			$admin_order_completed_email_fields = array(
 				array(
 					'field_name'		 => 'admin_order_subject',
@@ -145,7 +195,7 @@ if ( !class_exists( 'TC_Settings_Email' ) ) {
 				)
 			);
 
-			$default_fields = array_merge( $client_order_completed_email_fields, $admin_order_completed_email_fields, $misc_email_fields );
+			$default_fields = array_merge( $client_order_completed_email_fields, $admin_order_completed_email_fields, $admin_order_placed_email_fields, $misc_email_fields );
 
 			return apply_filters( 'tc_settings_email_fields', $default_fields );
 		}
