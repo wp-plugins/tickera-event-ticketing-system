@@ -867,18 +867,9 @@ if ( !class_exists( 'TC' ) ) {
 		}
 
 		function active_payment_gateways() {
-            global $tc, $tc_gateway_active_plugins, $tc_gateway_plugins;
-
-            /**
-             * Check if array first, then count, because 
-             * $tc_gateway_active_plugins can return as not array
-             */
-            if(is_array($tc_gateway_active_plugins)) {
-                return count($tc_gateway_active_plugins);
-            } else {
-                return 0;
-            }
-        }
+			global $tc, $tc_gateway_active_plugins, $tc_gateway_plugins;
+			return count( $tc_gateway_active_plugins );
+		}
 
 		function tc_checkout_payment_form( $content, $cart ) {
 			global $tc, $tc_gateway_active_plugins, $tc_gateway_plugins;
